@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #050505;
+  --bg-card: #0C0C0E;
+  --bg-card-active: rgba(163, 255, 18, 0.04);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-active: #A3FF12;
+  --fg: #ffffff;
+  --fg-mid: #A1A1A6;
+  --fg-low: #5A5A60;
+  --fg-disabled: #2E2E33;
+  --lime: #A3FF12;
+  --lime-glow: rgba(163, 255, 18, 0.18);
+  --lime-soft: rgba(163, 255, 18, 0.08);
+
+  --background: var(--bg);
+  --foreground-color: var(--fg);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-lime: var(--lime);
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Halo lime radial top — donne la profondeur */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(163, 255, 18, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(163, 255, 18, 0.04), transparent 70%);
+  z-index: 0;
+}
+
+/* Grain noise subtil */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+main, .content-layer {
+  position: relative;
+  z-index: 2;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*::selection {
+  background: var(--lime);
+  color: #000;
+}
+
+/* Ring de progression CTA */
+@keyframes energy-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(163, 255, 18, 0.6), 0 0 24px rgba(163, 255, 18, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(163, 255, 18, 0), 0 0 32px rgba(163, 255, 18, 0.6); }
+}
+
+.energy-ring {
+  animation: energy-ring 2.4s ease-in-out infinite;
+}
+
+/* Compose timeline reveal */
+@keyframes reveal-char {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

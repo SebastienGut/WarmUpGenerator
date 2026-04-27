@@ -102,7 +102,7 @@ export default function Home() {
           <div className="mt-6 flex flex-col gap-4">
 
             {/* 1. MUSCLES */}
-            <Section number="01" label="Cibles" hint={`${muscles.length} sélectionné${muscles.length > 1 ? "s" : ""}`}>
+            <Section number="01" label="Zones cibles" hint={`${muscles.length} sélectionné${muscles.length > 1 ? "s" : ""}`}>
               <div className="grid grid-cols-3 gap-1.5">
                 {MUSCLES.map(({ key, label, img }) => {
                   const active = muscles.includes(key);
@@ -111,7 +111,7 @@ export default function Home() {
                       key={key}
                       type="button"
                       onClick={() => toggleMuscle(key)}
-                      className={`relative overflow-hidden rounded-xl border aspect-square max-h-[95px] transition-all duration-150 active:scale-95 focus-visible:outline-none ${
+                      className={`relative overflow-hidden rounded-xl border h-[95px] w-full bg-[#111318] transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
                           ? "border-[#A3FF12] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
                           : "border-white/[0.06] hover:border-white/[0.12]"
@@ -121,7 +121,7 @@ export default function Home() {
                         src={img}
                         alt={label}
                         fill
-                        className={`object-cover transition-all duration-150 ${active ? "opacity-100" : "opacity-55 grayscale"}`}
+                        className={`object-contain transition-all duration-150 ${active ? "opacity-100" : "opacity-55 grayscale"}`}
                       />
                     </button>
                   );
@@ -161,7 +161,7 @@ export default function Home() {
             {/* 3. CONSTRAINT + DURÉE: ligne combinée */}
             <div className="grid grid-cols-[1fr_auto] gap-3">
               {/* Zones sensibles */}
-              <Section number="03" label="Zones sensibles" optional>
+              <Section number="03" label="Zones sensibles">
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
@@ -169,7 +169,9 @@ export default function Home() {
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <Plus className="h-4 w-4 shrink-0 text-[#A3FF12]" strokeWidth={2.4} />
-                    <span className="truncate text-[12px] font-semibold text-white">{zoneSummary}</span>
+                    <span className="truncate text-[12px] font-semibold text-white">
+                      {zones.length ? zoneSummary : "J'ai une douleur / gêne"}
+                    </span>
                   </div>
                   <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#5A5A60]" strokeWidth={2} />
                 </button>

@@ -111,7 +111,7 @@ export default function Home() {
                       key={key}
                       type="button"
                       onClick={() => toggleMuscle(key)}
-                      className={`relative overflow-hidden rounded-xl border h-[95px] w-full bg-[#111318] transition-all duration-150 active:scale-95 focus-visible:outline-none ${
+                      className={`relative overflow-hidden rounded-xl border h-[80px] w-full bg-[#111318] transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
                           ? "border-[#A3FF12] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
                           : "border-white/[0.06] hover:border-white/[0.12]"
@@ -165,7 +165,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="flex w-full items-center justify-between rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 py-3 text-left transition active:scale-[0.99] hover:border-white/[0.12]"
+                  className="flex h-[44px] w-full items-center justify-between rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 text-left transition active:scale-[0.99] hover:border-white/[0.12]"
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <Plus className="h-4 w-4 shrink-0 text-[#A3FF12]" strokeWidth={2.4} />
@@ -224,8 +224,14 @@ export default function Home() {
               </div>
             </button>
             <div className="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-[#5A5A60]">
-              <Shield className="h-3 w-3 shrink-0" strokeWidth={2} />
-              <span>Gratuit · Sans inscription · Par un sportif pour les sportifs</span>
+              {ready ? (
+                <>
+                  <Shield className="h-3 w-3 shrink-0" strokeWidth={2} />
+                  <span>Gratuit · Sans inscription · Par un sportif pour les sportifs</span>
+                </>
+              ) : (
+                <span className="text-[#A3FF12]/70">Sélectionne au moins une zone cible</span>
+              )}
             </div>
           </div>
         </div>
@@ -324,8 +330,8 @@ function Section({
     <section className={`flex flex-col gap-2 ${align === "end" ? "items-end" : "items-stretch"}`}>
       <div className="flex items-baseline justify-between gap-2">
         <div className="flex items-baseline gap-1.5">
-          <span className="font-mono text-[10px] font-bold tracking-widest text-[#5A5A60]">{number}</span>
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white">{label}</span>
+          <span className="font-mono text-[11px] font-bold tracking-widest text-[#5A5A60]">{number}</span>
+          <span className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white">{label}</span>
           {optional && (
             <span className="font-mono text-[9px] uppercase tracking-widest text-[#5A5A60]">opt.</span>
           )}

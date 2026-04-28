@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { generateWarmup, formatDuration } from "@/lib/warmup-engine";
-import ExerciseCard from "@/components/ExerciseCard";
+import SEOPage from "@/components/SEOPage";
+import { generateWarmup } from "@/lib/warmup-engine";
 import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
 
@@ -52,19 +51,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: "fr_FR",
       url: path,
       siteName: "Warmup Generator",
-      // og:image hérité de app/opengraph-image.tsx (root)
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      // twitter:image hérité de app/twitter-image.tsx (root)
     },
     robots: { index: true, follow: true },
   };
 }
 
-function getFaqs(muscleLabel: string, objectiveLabel: string): { q: string; a: string }[] {
+function getFaqs(muscleLabel: string, objectiveLabel: string) {
   return [
     {
       q: `Combien de temps doit durer un échauffement ${muscleLabel.toLowerCase()} ?`,
@@ -108,187 +105,67 @@ export default async function StaticPlanPage({ params }: PageProps) {
   const muscleLabel = MUSCLE_LABELS[muscleTyped];
   const objectiveLabel = OBJECTIVE_LABELS[objectiveTyped];
   const allExercises = [...plan.articulaire, ...plan.activation];
-  const faqs = getFaqs(muscleLabel, objectiveLabel);
   const path = `/echauffement/${muscle}/${objectif}`;
-  const pageUrl = `${SITE_URL}${path}`;
+  const muscleLow = muscleLabel.toLowerCase();
+  const objLow = objectiveLabel.toLowerCase();
 
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `Échauffement ${muscleLabel} — ${objectiveLabel}`,
-    description: `Plan d'échauffement de 5 minutes pour les ${muscleLabel.toLowerCase()}, objectif ${objectiveLabel.toLowerCase()}.`,
-    totalTime: "PT5M",
-    inLanguage: "fr-FR",
-    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
-    supply: [{ "@type": "HowToSupply", name: "Aucun matériel requis" }],
-    tool: [{ "@type": "HowToTool", name: "Tapis de sol (optionnel)" }],
-    step: allExercises.map((ex, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: ex.name,
-      text: ex.description,
-    })),
-  };
+  const intro = [
+    `Un <strong class='text-white'>échauffement ${muscleLow}</strong> efficace prépare en parallèle les articulations sollicitées, active les muscles cibles et programme le système nerveux à pousser des charges lourdes ou volumineuses. Pour une séance orientée <strong class='text-white'>${objLow}</strong>, l'enjeu est précis : arriver sur ta première série de travail avec ${muscleLow} \"chauds\", connectés et prêts à recevoir la stimulation maximale.`,
+    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-white'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-white'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire). Compte 5 minutes. À pratiquer juste avant tes séries de chauffe avec barre ou haltères.`,
+  ];
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: `Échauffement ${muscleLabel}`,
-        item: `${SITE_URL}/echauffement/${muscle}/force`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: objectiveLabel,
-        item: pageUrl,
-      },
+  const advice = {
+    title: `Pourquoi ce plan est adapté à la ${objLow}`,
+    paragraphs: [
+      objectiveTyped === "force"
+        ? `Pour la <strong class='text-white'>force pure</strong>, le système nerveux doit être pré-activé pour recruter un maximum de fibres dès la première répétition lourde. Les exercices d'activation ci-dessus stimulent les motoneurones et améliorent la synchronisation neuro-musculaire — tu peux gagner 5 à 10 % de force disponible juste avec un échauffement bien fait.`
+        : objectiveTyped === "hypertrophie"
+        ? `Pour l'<strong class='text-white'>hypertrophie</strong>, l'objectif est la connexion mind-muscle : tu dois sentir tes ${muscleLow} se contracter sur chaque répétition. L'activation ciblée du protocole ci-dessus établit cette connexion avant que la fatigue ne brouille le signal. Résultat : recrutement musculaire plus complet, gains de masse plus rapides.`
+        : objectiveTyped === "mobilite"
+        ? `Pour un travail orienté <strong class='text-white'>mobilité</strong>, l'échauffement n'est pas qu'une préparation — c'est une partie intégrante de la session. La mobilisation articulaire ci-dessus libère les amplitudes que tu vas exploiter dans le travail principal. Sans elle, tu travailles dans une amplitude réduite et tu ne progresses pas.`
+        : `En <strong class='text-white'>reprise</strong>, l'échauffement est ta meilleure assurance contre la rechute. Les tissus reviennent en charge progressivement, et un protocole complet de mobilisation + activation prépare en douceur sans surcharger. Reste à l'écoute : si une zone proteste, réduis l'amplitude ou la charge sur ta première série.`,
+      `Si tu as une <strong class='text-white'>zone sensible</strong> (épaule, genou, lombaires, poignets), utilise plutôt le générateur en haut de page pour produire un plan adapté à ta situation exacte — il intègre des exercices thérapeutiques spécifiques en bonus.`,
     ],
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
+  // Map plan exercises to SEOPage format
+  const seoExercises = allExercises.map((ex) => ({
+    name: ex.name,
+    description: ex.description,
+    durationSeconds: ex.durationSeconds,
+    reps: ex.reps,
+  }));
 
-  let index = 1;
+  // Related : autres objectifs pour le même muscle + autres muscles populaires
+  const relatedLinks = [
+    ...VALID_OBJECTIVES.filter((o) => o !== objectiveTyped).map((o) => ({
+      href: `/echauffement/${muscle}/${o}`,
+      label: `${muscleLabel} · ${OBJECTIVE_LABELS[o]}`,
+    })),
+  ];
 
   return (
-    <main className="flex flex-col min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
-      <header className="border-b border-[var(--border)] px-4 py-3 flex-shrink-0">
-        <div className="max-w-lg mx-auto flex items-center gap-2">
-          <span className="text-base">⚡</span>
-          <Link
-            href="/"
-            className="text-xs font-bold text-[var(--foreground)] hover:text-green-400 transition-colors"
-          >
-            Warmup Generator
-          </Link>
-        </div>
-      </header>
-
-      <div className="flex flex-col gap-3 px-4 py-4 max-w-lg mx-auto w-full">
-
-        {/* Breadcrumbs visibles */}
-        <nav aria-label="Fil d'Ariane" className="text-[11px] text-[var(--muted)] flex items-center gap-1.5 flex-wrap">
-          <Link href="/" className="hover:text-green-400 transition-colors">Accueil</Link>
-          <span aria-hidden="true">›</span>
-          <span>Échauffement {muscleLabel}</span>
-          <span aria-hidden="true">›</span>
-          <span className="text-[var(--foreground)]">{objectiveLabel}</span>
-        </nav>
-
-        <div className="flex flex-col gap-0.5 pb-1">
-          <h1 className="text-lg font-bold text-[var(--foreground)] leading-tight">
-            Échauffement {muscleLabel}
-          </h1>
-          <p className="text-sm text-[var(--muted)]">
-            {objectiveLabel} · {formatDuration(plan.totalSeconds)} · {allExercises.length} exercices
-          </p>
-        </div>
-
-        {plan.articulaire.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] px-1">
-              Mobilisation articulaire
-            </p>
-            {plan.articulaire.map((ex) => (
-              <ExerciseCard key={ex.id} exercise={ex} index={index++} />
-            ))}
-          </div>
-        )}
-
-        {plan.activation.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] px-1">
-              Activation
-            </p>
-            {plan.activation.map((ex) => (
-              <ExerciseCard key={ex.id} exercise={ex} index={index++} />
-            ))}
-          </div>
-        )}
-
-        {/* CTA vers générateur */}
-        <div className="mt-2 flex flex-col gap-2 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
-          <div>
-            <p className="text-sm font-bold text-[var(--foreground)]">
-              Ce plan est générique.
-            </p>
-            <p className="text-xs text-[var(--muted)] mt-0.5 leading-relaxed">
-              Le générateur adapte l&apos;échauffement à tes zones sensibles, ta durée disponible et ton objectif — en 30 secondes.
-            </p>
-          </div>
-          <Link
-            href="/"
-            className="w-full py-3 rounded-xl bg-green-500 hover:bg-green-400 active:bg-green-600 text-black font-bold text-sm text-center transition-colors duration-150 shadow-[0_0_20px_rgba(34,197,94,0.2)]"
-          >
-            Générer mon échauffement sur mesure →
-          </Link>
-        </div>
-
-        {/* FAQ */}
-        <section className="mt-4 flex flex-col gap-3" aria-labelledby="faq-heading">
-          <h2 id="faq-heading" className="text-sm font-bold text-[var(--foreground)]">
-            Questions fréquentes
-          </h2>
-          <div className="flex flex-col gap-2">
-            {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 py-2.5 [&_summary::-webkit-details-marker]:hidden"
-              >
-                <summary className="cursor-pointer list-none text-xs font-bold text-[var(--foreground)] flex items-center justify-between gap-2">
-                  <span>{f.q}</span>
-                  <span className="text-[var(--muted)] group-open:rotate-180 transition-transform" aria-hidden="true">▾</span>
-                </summary>
-                <p className="mt-2 text-[12px] leading-relaxed text-[var(--muted)]">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        {/* Maillage interne : autres objectifs pour ce muscle */}
-        <section className="mt-4 flex flex-col gap-2" aria-labelledby="related-heading">
-          <h2 id="related-heading" className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] px-1">
-            Autres plans pour {muscleLabel.toLowerCase()}
-          </h2>
-          <div className="grid grid-cols-2 gap-1.5">
-            {VALID_OBJECTIVES.filter((o) => o !== objectiveTyped).map((o) => (
-              <Link
-                key={o}
-                href={`/echauffement/${muscle}/${o}`}
-                className="text-xs font-medium text-[var(--foreground)] rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 hover:border-green-400/40 transition-colors"
-              >
-                {OBJECTIVE_LABELS[o]} →
-              </Link>
-            ))}
-          </div>
-        </section>
-
-      </div>
-    </main>
+    <SEOPage
+      h1={`Échauffement ${muscleLabel}`}
+      subtitle={`${objectiveLabel} · 5 minutes · ${allExercises.length} exercices`}
+      breadcrumbs={[
+        { label: "Accueil", href: "/" },
+        { label: `Échauffement ${muscleLabel}`, href: `/echauffement/${muscle}/force` },
+        { label: objectiveLabel },
+      ]}
+      intro={intro}
+      exerciseSectionTitle={`Plan ${objectiveLabel.toLowerCase()} en ${allExercises.length} mouvements`}
+      exercises={seoExercises}
+      advice={advice}
+      faqs={getFaqs(muscleLabel, objectiveLabel)}
+      related={{
+        title: `Autres plans pour ${muscleLow}`,
+        links: relatedLinks,
+      }}
+      siteUrl={SITE_URL}
+      path={path}
+      howToName={`Échauffement ${muscleLabel} — ${objectiveLabel}`}
+      totalDurationLabel="5 min"
+    />
   );
 }

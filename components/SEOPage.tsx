@@ -19,35 +19,22 @@ export interface SEORelatedLink {
 
 export interface SEOBreadcrumb {
   label: string;
-  href?: string; // optional — last segment is text only
+  href?: string;
 }
 
 export interface SEOPageProps {
-  /** H1 visible on page */
   h1: string;
-  /** Short subtitle / meta info under H1 */
   subtitle?: string;
-  /** Breadcrumb trail (last item is current page) */
   breadcrumbs: SEOBreadcrumb[];
-  /** 2-4 intro paragraphs (string array, supports basic React) */
   intro: string[];
-  /** Section heading for the warmup list */
   exerciseSectionTitle: string;
-  /** Curated warmup exercises */
   exercises: SEOExercise[];
-  /** Optional secondary article block (advice, mistakes, etc.) */
   advice?: { title: string; paragraphs: string[] };
-  /** FAQ items */
   faqs: SEOFaq[];
-  /** Internal cross-links */
   related?: { title: string; links: SEORelatedLink[] };
-  /** Site URL for breadcrumb schema */
   siteUrl: string;
-  /** Path for breadcrumb schema, e.g. "/echauffement/protection/epaule-douleur" */
   path: string;
-  /** Full schema HowTo name */
   howToName: string;
-  /** Total duration label, e.g. "5 min" */
   totalDurationLabel: string;
 }
 
@@ -84,7 +71,7 @@ export default function SEOPage(props: SEOPageProps) {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: howToName,
-    description: intro[0]?.slice(0, 240) ?? howToName,
+    description: intro[0]?.replace(/<[^>]+>/g, "").slice(0, 240) ?? howToName,
     totalTime: `PT${Math.max(1, Math.round(totalSeconds / 60))}M`,
     inLanguage: "fr-FR",
     estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
@@ -120,14 +107,14 @@ export default function SEOPage(props: SEOPageProps) {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bg-[#050505]">
+    <main className="relative min-h-screen bg-[#050505]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HEADER */}
-      <header className="border-b border-white/[0.06] px-4 py-3">
-        <div className="max-w-[640px] mx-auto flex items-center gap-2">
+      <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#A3FF12]/10 ring-1 ring-[#A3FF12]/20">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#A3FF12" aria-hidden="true">
               <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
@@ -135,154 +122,185 @@ export default function SEOPage(props: SEOPageProps) {
           </div>
           <Link
             href="/"
-            className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:text-[#A3FF12] transition-colors"
+            className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:text-[#A3FF12]"
           >
             Warmup / Generator
+          </Link>
+          <Link
+            href="/"
+            className="ml-auto font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12] transition-opacity hover:opacity-80"
+          >
+            ← Générateur
           </Link>
         </div>
       </header>
 
-      <div className="max-w-[640px] mx-auto w-full px-5 py-8 flex flex-col gap-10">
+      <div className="mx-auto w-full max-w-[720px] px-6 py-10 md:py-14">
 
         {/* BREADCRUMB */}
-        <nav aria-label="Fil d'Ariane" className="text-[11px] text-[#5A5A60] flex items-center gap-1.5 flex-wrap">
+        <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-[#5A5A60]">
           {breadcrumbs.map((b, i) => (
             <span key={i} className="flex items-center gap-1.5">
               {b.href ? (
-                <Link href={b.href} className="hover:text-[#A3FF12] transition-colors">
+                <Link href={b.href} className="transition-colors hover:text-[#A3FF12]">
                   {b.label}
                 </Link>
               ) : (
-                <span className="text-white">{b.label}</span>
+                <span className="font-mono uppercase tracking-[0.12em] text-white">{b.label}</span>
               )}
-              {i < breadcrumbs.length - 1 && <span aria-hidden="true">›</span>}
+              {i < breadcrumbs.length - 1 && <span aria-hidden="true" className="text-[#2E2E33]">/</span>}
             </span>
           ))}
         </nav>
 
         {/* HERO */}
-        <article className="flex flex-col gap-3">
-          <h1 className="font-sans text-[28px] font-black uppercase leading-[0.95] tracking-tight text-white">
-            {h1}
-          </h1>
+        <section className="mb-14 flex flex-col gap-4">
           {subtitle && (
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
               {subtitle}
             </p>
           )}
-          <div className="flex flex-col gap-3 text-[14px] leading-relaxed text-[#A1A1A6]">
+          <h1 className="font-sans text-[36px] font-black uppercase leading-[0.95] tracking-tight text-white md:text-[48px]">
+            {h1}
+          </h1>
+          <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
             {intro.map((p, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}
           </div>
-        </article>
+        </section>
 
         {/* EXERCISES */}
-        <article className="flex flex-col gap-4">
-          <div className="flex items-baseline justify-between gap-3 flex-wrap">
-            <h2 className="font-sans text-[20px] font-black tracking-tight text-white">
+        <section className="mb-14">
+          <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-white/[0.06] pb-3">
+            <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
               {exerciseSectionTitle}
             </h2>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
-              {formatDuration(totalSeconds)} · {exercises.length} mouvements
+            <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12]">
+              {formatDuration(totalSeconds)} · {exercises.length} mvts
             </span>
           </div>
-          <ol className="flex flex-col gap-2">
+          <ol className="flex flex-col gap-2.5">
             {exercises.map((ex, i) => (
               <li
                 key={i}
-                className="rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3"
+                className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-[#0C0C0E] transition-colors hover:border-white/[0.12]"
               >
-                <div className="flex items-baseline justify-between gap-3 mb-1">
-                  <h3 className="text-[14px] font-bold text-white">
-                    <span className="font-mono text-[#5A5A60] mr-2">{(i + 1).toString().padStart(2, "0")}</span>
-                    {ex.name}
-                  </h3>
-                  <span className="font-mono text-[11px] font-bold tabular-nums text-[#A3FF12] shrink-0">
-                    {ex.reps ?? `${ex.durationSeconds}s`}
-                  </span>
+                <div className="flex items-stretch">
+                  {/* Numéro à gauche */}
+                  <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-white/[0.06] bg-[#A3FF12]/[0.03]">
+                    <span className="font-mono text-[18px] font-black tabular-nums text-[#A3FF12]">
+                      {(i + 1).toString().padStart(2, "0")}
+                    </span>
+                  </div>
+                  {/* Contenu */}
+                  <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="text-[15px] font-bold leading-tight text-white">
+                        {ex.name}
+                      </h3>
+                      <span className="shrink-0 font-mono text-[11px] font-bold tabular-nums uppercase tracking-wider text-[#A3FF12]">
+                        {ex.reps ?? `${ex.durationSeconds}s`}
+                      </span>
+                    </div>
+                    <p className="text-[13px] leading-relaxed text-[#A1A1A6]">{ex.description}</p>
+                  </div>
                 </div>
-                <p className="text-[13px] leading-relaxed text-[#A1A1A6]">{ex.description}</p>
               </li>
             ))}
           </ol>
-        </article>
+        </section>
 
-        {/* ADVICE (optional) */}
+        {/* CTA générateur */}
+        <section className="mb-14">
+          <Link
+            href="/"
+            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
+          >
+            <div className="flex flex-col gap-1">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
+                → Plan personnalisé
+              </span>
+              <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
+                Générer ton échauffement sur mesure
+              </span>
+              <span className="text-[12px] font-medium opacity-75">
+                Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes
+              </span>
+            </div>
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
+              <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+                <path d="M0 0 L14 8 L0 16 Z" />
+              </svg>
+            </div>
+          </Link>
+        </section>
+
+        {/* ADVICE — accent lime à gauche */}
         {advice && (
-          <article className="flex flex-col gap-3">
-            <h2 className="font-sans text-[20px] font-black tracking-tight text-white">
+          <section className="mb-14 border-l-2 border-[#A3FF12]/40 pl-6">
+            <h2 className="mb-4 font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
               {advice.title}
             </h2>
-            <div className="flex flex-col gap-3 text-[14px] leading-relaxed text-[#A1A1A6]">
+            <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
               {advice.paragraphs.map((p, i) => (
                 <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
               ))}
             </div>
-          </article>
+          </section>
         )}
 
-        {/* CTA générateur */}
-        <div className="rounded-2xl border border-[#A3FF12]/20 bg-[#A3FF12]/[0.04] p-5 flex flex-col gap-3">
-          <div>
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12]">
-              → Générateur
-            </p>
-            <p className="mt-2 text-[15px] font-bold text-white leading-snug">
-              Un plan adapté à ton profil exact en 30 secondes ?
-            </p>
-            <p className="mt-1 text-[13px] text-[#A1A1A6] leading-relaxed">
-              Sélectionne tes muscles, ton objectif, tes zones sensibles. Le générateur fait le reste.
-            </p>
-          </div>
-          <Link
-            href="/"
-            className="rounded-xl bg-[#A3FF12] px-5 py-3 text-center text-[14px] font-black uppercase tracking-wide text-black hover:bg-[#B8FF42] transition-colors"
-          >
-            Générer mon plan
-          </Link>
-        </div>
-
         {/* FAQ */}
-        <article className="flex flex-col gap-4">
-          <h2 className="font-sans text-[20px] font-black tracking-tight text-white">
-            Questions fréquentes
-          </h2>
+        <section className="mb-14">
+          <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-white/[0.06] pb-3">
+            <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+              Questions fréquentes
+            </h2>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+              FAQ · {faqs.length}
+            </span>
+          </div>
           <div className="flex flex-col gap-2">
             {faqs.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
+                className="group rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-5 py-4 transition-colors hover:border-white/[0.12] [&_summary::-webkit-details-marker]:hidden"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-bold text-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-white">
                   <span>{f.q}</span>
-                  <span aria-hidden="true" className="font-mono text-[#5A5A60] transition-transform group-open:rotate-180">▾</span>
+                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-[#5A5A60] transition-transform group-open:rotate-45 group-open:text-[#A3FF12]">
+                    +
+                  </span>
                 </summary>
-                <p className="mt-3 text-[13px] leading-relaxed text-[#A1A1A6]">{f.a}</p>
+                <p className="mt-3 border-t border-white/[0.06] pt-3 text-[13px] leading-relaxed text-[#A1A1A6]">
+                  {f.a}
+                </p>
               </details>
             ))}
           </div>
-        </article>
+        </section>
 
         {/* RELATED */}
         {related && related.links.length > 0 && (
-          <article className="flex flex-col gap-3">
-            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+          <section className="mb-14">
+            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
               {related.title}
-            </h2>
-            <div className="grid grid-cols-2 gap-2">
+            </p>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {related.links.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                  className="group flex items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
                 >
                   <span className="truncate">{l.label}</span>
-                  <span aria-hidden="true" className="font-mono text-[#5A5A60] group-hover:text-[#A3FF12]">→</span>
+                  <span aria-hidden="true" className="shrink-0 font-mono text-[#5A5A60] transition-all group-hover:translate-x-0.5 group-hover:text-[#A3FF12]">
+                    →
+                  </span>
                 </Link>
               ))}
             </div>
-          </article>
+          </section>
         )}
 
         {/* DISCLAIMER */}

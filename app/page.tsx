@@ -77,6 +77,41 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "Warmup Generator",
+              applicationCategory: "HealthApplication",
+              operatingSystem: "Web",
+              description:
+                "Générateur d'échauffement musculation personnalisé. Crée un plan adapté à tes muscles, ton objectif et tes zones sensibles en 30 secondes.",
+              inLanguage: "fr-FR",
+              isAccessibleForFree: true,
+              offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+              featureList: [
+                "Plan d'échauffement personnalisé en 30 secondes",
+                "Adaptation aux zones sensibles (épaule, genou, lombaires…)",
+                "Mode timer plein écran pour la salle",
+                "Fonctionne hors ligne",
+                "Sans inscription, sans publicité",
+              ],
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Warmup Generator",
+              url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com",
+              logo:
+                (process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com") +
+                "/icons/icon.svg",
+            },
+          ]),
+        }}
+      />
       <main className="relative flex min-h-screen flex-col bg-[#050505]">
         <div className="content-layer mx-auto flex w-full max-w-[440px] flex-1 flex-col px-5 pt-7 pb-6">
 
@@ -119,7 +154,7 @@ export default function Home() {
                     >
                       <Image
                         src={img}
-                        alt={label}
+                        alt={`Échauffement ${label.toLowerCase()}`}
                         fill
                         className={`object-contain transition-all duration-150 ${active ? "opacity-100" : "opacity-55 grayscale"}`}
                       />

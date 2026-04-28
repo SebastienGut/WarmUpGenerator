@@ -1,40 +1,69 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
+
 export const metadata: Metadata = {
-  title: "Warmup Generator - Echauffement musculation gratuit et personnalise",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Warmup Generator — Échauffement musculation gratuit & personnalisé",
+    template: "%s · Warmup Generator",
+  },
   description:
-    "Creez en 30 secondes un plan d'echauffement adapte a vos muscles cibles, votre objectif et vos zones sensibles. 100% gratuit, sans inscription, fonctionne hors ligne.",
-  keywords: [
-    "echauffement musculation",
-    "exercices echauffement avant seance",
-    "s echauffer avant musculation",
-    "plan echauffement personnalise",
-  ],
+    "Crée en 30 secondes un plan d'échauffement adapté à tes muscles cibles, ton objectif et tes zones sensibles. 100% gratuit, sans inscription, fonctionne hors ligne.",
+  applicationName: "Warmup Generator",
+  authors: [{ name: "Warmup Generator" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Warmup Generator - Echauffement musculation personnalise",
-    description: "Plan d'echauffement sur mesure en 30 secondes. Gratuit, sans inscription.",
+    title: "Warmup Generator — Échauffement musculation personnalisé",
+    description:
+      "Plan d'échauffement sur mesure en 30 secondes. Gratuit, sans inscription, sans pub.",
     type: "website",
     locale: "fr_FR",
+    url: SITE_URL,
+    siteName: "Warmup Generator",
+    // og:image auto-généré par app/opengraph-image.tsx
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: "Warmup Generator — Échauffement musculation personnalisé",
+    description:
+      "Plan d'échauffement sur mesure en 30 secondes. Gratuit, sans inscription.",
+    // twitter:image auto-généré par app/twitter-image.tsx
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Warmup",
   },
+  formatDetection: { telephone: false, email: false, address: false },
   other: { "mobile-web-app-capable": "yes" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
-        <meta name="theme-color" content="#050505" />
         <link rel="apple-touch-icon" href="/icons/icon.svg" />
       </head>
       <body className="min-h-screen antialiased" style={{ fontFamily: "var(--font-geist-sans)" }}>

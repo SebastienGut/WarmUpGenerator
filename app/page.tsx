@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { MuscleGroup, Objective, SensitiveZone } from "@/lib/warmup-data";
 import { ALL_ZONES, ZONE_LABELS } from "@/lib/warmup-data";
+import HomepageSEO from "@/components/HomepageSEO";
 
 const MUSCLES: { key: MuscleGroup; label: string; img: string }[] = [
   { key: "pecs",    label: "Pecs",    img: "/pecs.png" },
@@ -271,6 +272,9 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* CONTENU SEO — sous le fold sur mobile, no-scroll préservé pour le générateur */}
+      <HomepageSEO />
 
       {/* OVERLAY GÉNÉRATION */}
       <AnimatePresence>

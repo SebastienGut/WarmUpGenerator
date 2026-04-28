@@ -1,14 +1,21 @@
 import Link from "next/link";
 
-const POPULAR_PLANS: { muscle: string; objectif: string; label: string }[] = [
-  { muscle: "pecs", objectif: "force", label: "Pecs · Force" },
-  { muscle: "dos", objectif: "hypertrophie", label: "Dos · Volume" },
-  { muscle: "epaules", objectif: "mobilite", label: "Épaules · Mobilité" },
-  { muscle: "jambes", objectif: "force", label: "Jambes · Force" },
-  { muscle: "fessiers", objectif: "hypertrophie", label: "Fessiers · Volume" },
-  { muscle: "bras", objectif: "hypertrophie", label: "Bras · Volume" },
-  { muscle: "core", objectif: "mobilite", label: "Core · Mobilité" },
-  { muscle: "dos", objectif: "reprise", label: "Dos · Reprise" },
+const POPULAR_PLANS: { href: string; label: string }[] = [
+  { href: "/echauffement/exercice/developpe-couche", label: "Développé couché" },
+  { href: "/echauffement/exercice/squat", label: "Squat" },
+  { href: "/echauffement/exercice/souleve-de-terre", label: "Soulevé de terre" },
+  { href: "/echauffement/exercice/tractions", label: "Tractions" },
+  { href: "/echauffement/combo/haut-du-corps", label: "Haut du corps" },
+  { href: "/echauffement/combo/bas-du-corps", label: "Bas du corps" },
+  { href: "/echauffement/combo/full-body", label: "Full body" },
+  { href: "/echauffement/protection/epaule-douleur", label: "Épaule sensible" },
+];
+
+const PROTECTION_LINKS: { href: string; label: string }[] = [
+  { href: "/echauffement/protection/epaule-douleur", label: "Épaule douloureuse" },
+  { href: "/echauffement/protection/genou", label: "Genou sensible" },
+  { href: "/echauffement/protection/lombaires", label: "Lombaires / bas du dos" },
+  { href: "/echauffement/protection/poignets", label: "Poignets fragiles" },
 ];
 
 const FAQS: { q: string; a: string }[] = [
@@ -104,16 +111,49 @@ export default function HomepageSEO() {
             </h2>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            {POPULAR_PLANS.map(({ muscle, objectif, label }) => (
+            {POPULAR_PLANS.map(({ href, label }) => (
               <Link
-                key={`${muscle}-${objectif}`}
-                href={`/echauffement/${muscle}/${objectif}`}
+                key={href}
+                href={href}
                 className="group flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
               >
                 <span className="truncate">{label}</span>
                 <span
                   aria-hidden="true"
                   className="font-mono text-[#5A5A60] transition-colors group-hover:text-[#A3FF12]"
+                >
+                  →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </article>
+
+        {/* PROTECTION — zones sensibles */}
+        <article className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+              Tu as une douleur ?
+            </p>
+            <h2 className="font-sans text-[20px] font-black leading-tight tracking-tight text-white">
+              Échauffements pour zones sensibles
+            </h2>
+            <p className="text-[13px] text-[#A1A1A6] leading-relaxed mt-1">
+              Protocoles spécifiques pour s&apos;entraîner malgré une gêne ou une douleur articulaire
+              (sous réserve d&apos;avis médical en cas de douleur installée).
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {PROTECTION_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="group flex items-center justify-between gap-2 rounded-xl border border-[#A3FF12]/15 bg-[#A3FF12]/[0.03] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+              >
+                <span className="truncate">{label}</span>
+                <span
+                  aria-hidden="true"
+                  className="font-mono text-[#A3FF12]/60 transition-colors group-hover:text-[#A3FF12]"
                 >
                   →
                 </span>

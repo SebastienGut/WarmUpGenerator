@@ -42,6 +42,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: `${SITE_URL}/a-propos`,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${SITE_URL}/methodologie`,
+      changeFrequency: "yearly",
+      priority: 0.6,
+    },
     ...musclePages,
     ...protectionPages,
     ...comboPages,

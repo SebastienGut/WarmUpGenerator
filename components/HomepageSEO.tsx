@@ -194,7 +194,7 @@ export default function HomepageSEO() {
         </article>
 
         {/* FOOTER */}
-        <footer className="flex flex-col gap-3 border-t border-white/[0.06] pt-8 text-[11px] text-[#5A5A60]">
+        <footer className="flex flex-col gap-4 border-t border-white/[0.06] pt-8 text-[11px] text-[#5A5A60]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="font-mono uppercase tracking-[0.18em]">
               Warmup Generator
@@ -203,6 +203,20 @@ export default function HomepageSEO() {
               Gratuit · Sans inscription · Fonctionne hors ligne
             </p>
           </div>
+          <nav aria-label="Liens secondaires" className="flex flex-wrap gap-x-4 gap-y-2">
+            <Link href="/a-propos" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+              À propos
+            </Link>
+            <Link href="/methodologie" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+              Méthodologie
+            </Link>
+            <Link href="/echauffement/exercice/squat" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+              Exercices
+            </Link>
+            <Link href="/echauffement/protection/epaule-douleur" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+              Zones sensibles
+            </Link>
+          </nav>
           <p className="text-[#5A5A60]/80">
             Cet outil ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du
             sport. En cas de douleur persistante, consulte un professionnel de santé.

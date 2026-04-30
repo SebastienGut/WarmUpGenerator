@@ -37,13 +37,40 @@ type ZoneProfile = {
   roles: PrepRole[];
 };
 
-const COUNTS: Record<3 | 5 | 8, { articulaire: number; activation: number }> = {
-  3: { articulaire: 1, activation: 1 },
-  5: { articulaire: 2, activation: 2 },
-  8: { articulaire: 2, activation: 3 },
+type WarmupCounts = {
+  articulaire: number;
+  activation: number;
 };
 
-const PROTECTION_LIMIT: Record<3 | 5 | 8, number> = { 3: 1, 5: 1, 8: 2 };
+const OBJECTIVE_COUNTS: Record<Objective, Record<3 | 5 | 8, WarmupCounts>> = {
+  force: {
+    3: { articulaire: 1, activation: 1 },
+    5: { articulaire: 2, activation: 2 },
+    8: { articulaire: 2, activation: 3 },
+  },
+  hypertrophie: {
+    3: { articulaire: 1, activation: 1 },
+    5: { articulaire: 2, activation: 2 },
+    8: { articulaire: 2, activation: 3 },
+  },
+  reprise: {
+    3: { articulaire: 1, activation: 1 },
+    5: { articulaire: 2, activation: 2 },
+    8: { articulaire: 2, activation: 2 },
+  },
+  mobilite: {
+    3: { articulaire: 2, activation: 0 },
+    5: { articulaire: 3, activation: 1 },
+    8: { articulaire: 4, activation: 1 },
+  },
+};
+
+const PROTECTION_LIMIT: Record<Objective, Record<3 | 5 | 8, number>> = {
+  force: { 3: 1, 5: 1, 8: 2 },
+  hypertrophie: { 3: 1, 5: 1, 8: 2 },
+  reprise: { 3: 1, 5: 2, 8: 2 },
+  mobilite: { 3: 0, 5: 1, 8: 1 },
+};
 
 const SETTING_SCORE: Record<TrainingSetting, number> = {
   gym: 4,
@@ -204,6 +231,44 @@ function scoreTrainingValue(exercise: Exercise): number {
   return (exercise.trainingValue ?? 2) * 3;
 }
 
+function scoreObjectiveFit(exercise: Exercise, objective: Objective): number {
+  const objectiveScore = exercise.objectives.includes(objective) ? 10 : -6;
+  const roles = exercise.prepRoles ?? [];
+  const intensity = exercise.prepIntensity ?? "moderate";
+  const equipment = exercise.equipment;
+
+  if (objective === "mobilite") {
+    const mobilityFit =
+      roles.includes("mobility") || exercise.category === "articulaire" || intensity === "soft" ? 10 : 0;
+    const activationPenalty =
+      exercise.category === "activation" && !roles.includes("therapeutic") && !roles.includes("stability") ? -8 : 0;
+    const equipmentPenalty = equipment === "poulie" || equipment === "barre" || equipment === "haltere" ? -5 : 0;
+
+    return objectiveScore + mobilityFit + activationPenalty + equipmentPenalty;
+  }
+
+  if (objective === "reprise") {
+    const therapeuticFit = roles.includes("therapeutic") || exercise.therapeutic || exercise.painSupport?.length ? 10 : 0;
+    const stabilityFit = roles.includes("stability") || roles.includes("core-bracing") ? 5 : 0;
+    const neuralPenalty = intensity === "neural" ? -8 : 0;
+    const heavyEquipmentPenalty = equipment === "barre" ? -6 : 0;
+
+    return objectiveScore + therapeuticFit + stabilityFit + neuralPenalty + heavyEquipmentPenalty;
+  }
+
+  if (objective === "force") {
+    const neuralFit = intensity === "neural" ? 6 : 0;
+    const stabilityFit = roles.includes("stability") || roles.includes("core-bracing") ? 5 : 0;
+
+    return objectiveScore + neuralFit + stabilityFit;
+  }
+
+  const activationFit = roles.includes("activation") ? 6 : 0;
+  const mindMuscleFit = intensity === "moderate" ? 4 : 0;
+
+  return objectiveScore + activationFit + mindMuscleFit;
+}
+
 function scoreArticulaire(
   exercise: Exercise,
   neededJoints: Set<JointRegion>,
@@ -213,6 +278,7 @@ function scoreArticulaire(
   const jointScore = (exercise.joints ?? []).filter((joint) => neededJoints.has(joint)).length * 5;
   return (
     jointScore +
+    scoreObjectiveFit(exercise, objective) +
     scoreTrainingValue(exercise) +
     scoreSetting(exercise, objective) +
     scoreIntensity(exercise, objective) +
@@ -231,7 +297,6 @@ function scoreActivation(
   const directMatches = exercise.muscles.filter((muscle) => muscles.includes(muscle)).length;
   const relatedMatches = exercise.muscles.filter((muscle) => relatedMuscles.has(muscle)).length;
   const muscleScore = directMatches * 5 + relatedMatches * 2;
-  const objectiveScore = exercise.objectives.includes(objective) ? 3 : 0;
   const therapeuticFromActivation =
     exercise.category === "activation" && zones.some((zone) => exercise.painSupport?.includes(zone))
       ? 4
@@ -241,7 +306,7 @@ function scoreActivation(
 
   return (
     muscleScore +
-    objectiveScore +
+    scoreObjectiveFit(exercise, objective) +
     therapeuticFromActivation +
     offTargetPenalty +
     scoreTrainingValue(exercise) +
@@ -260,8 +325,8 @@ function scoreProtection(
 ): number {
   const profile = ZONE_PROFILES[zone];
   const muscleScore = exercise.muscles.filter((muscle) => targets.includes(muscle)).length * 3;
-  const objectiveScore = exercise.objectives.includes(objective) ? 2 : 0;
   const explicitSupport = exercise.painSupport?.includes(zone) || exercise.therapeutic === zone ? 14 : 0;
+  const targetedExercise = exercise.category === "ciblé" ? 8 : 0;
   const focusScore = (exercise.prepFocus ?? []).reduce(
     (sum, focus) => sum + (profile.focuses.includes(focus) ? 4 : 0),
     0
@@ -273,8 +338,9 @@ function scoreProtection(
 
   return (
     muscleScore +
-    objectiveScore +
+    scoreObjectiveFit(exercise, objective) +
     explicitSupport +
+    targetedExercise +
     focusScore +
     roleScore +
     scoreTrainingValue(exercise) +
@@ -361,6 +427,18 @@ function pickActivation(
     if (picked.length >= count) break;
     if (score <= 0) continue;
     if (!picked.includes(exercise)) {
+      const directMatches = exercise.muscles.some((muscle) => muscles.includes(muscle));
+
+      if (!directMatches) continue;
+
+      picked.push(exercise);
+    }
+  }
+
+  for (const { exercise, score } of scored) {
+    if (picked.length >= count) break;
+    if (score <= 0) continue;
+    if (!picked.includes(exercise)) {
       picked.push(exercise);
     }
   }
@@ -399,8 +477,8 @@ export function generateWarmup({
   zones,
   duration,
 }: GenerateOptions): WarmupPlan {
-  const counts = COUNTS[duration];
-  const protectionLimit = PROTECTION_LIMIT[duration];
+  const counts = OBJECTIVE_COUNTS[objective][duration];
+  const protectionLimit = PROTECTION_LIMIT[objective][duration];
   const targets: MuscleGroup[] =
     muscles.length > 0
       ? muscles

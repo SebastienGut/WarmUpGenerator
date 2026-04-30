@@ -38,12 +38,12 @@ type ZoneProfile = {
 };
 
 const COUNTS: Record<3 | 5 | 8, { articulaire: number; activation: number }> = {
-  3: { articulaire: 2, activation: 2 },
-  5: { articulaire: 3, activation: 3 },
-  8: { articulaire: 4, activation: 4 },
+  3: { articulaire: 1, activation: 1 },
+  5: { articulaire: 2, activation: 2 },
+  8: { articulaire: 2, activation: 3 },
 };
 
-const CIBLÉ_PER_ZONE: Record<3 | 5 | 8, number> = { 3: 1, 5: 1, 8: 2 };
+const PROTECTION_LIMIT: Record<3 | 5 | 8, number> = { 3: 1, 5: 1, 8: 2 };
 
 const SETTING_SCORE: Record<TrainingSetting, number> = {
   gym: 4,
@@ -400,7 +400,7 @@ export function generateWarmup({
   duration,
 }: GenerateOptions): WarmupPlan {
   const counts = COUNTS[duration];
-  const cibléPerZone = CIBLÉ_PER_ZONE[duration];
+  const protectionLimit = PROTECTION_LIMIT[duration];
   const targets: MuscleGroup[] =
     muscles.length > 0
       ? muscles
@@ -434,9 +434,12 @@ export function generateWarmup({
   const ciblé: CibléExercise[] = [];
 
   for (const zone of active) {
-    const picked = pickCibléForZone(zone, objective, targets, usedIds, active, cibléPerZone);
+    if (ciblé.length >= protectionLimit) break;
+
+    const picked = pickCibléForZone(zone, objective, targets, usedIds, active, 1);
 
     picked.forEach((exercise) => {
+      if (ciblé.length >= protectionLimit) return;
       usedIds.add(exercise.id);
       ciblé.push({ exercise, zone });
     });

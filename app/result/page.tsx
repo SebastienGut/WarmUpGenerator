@@ -70,6 +70,7 @@ export default async function ResultPage({ searchParams }: PageProps) {
         plan={plan}
         muscleLabel={muscleLabel}
         objectiveLabel={OBJECTIVE_LABELS[objective]}
+        requestedDuration={duration}
       />
     </>
   );

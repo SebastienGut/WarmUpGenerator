@@ -2,13 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Pause, Play, SkipForward, RotateCcw } from "lucide-react";
-import type { Exercise } from "@/lib/warmup-data";
+import { X, Pause, Play, SkipForward, RotateCcw, HelpCircle } from "lucide-react";
+import { EQUIPMENT_LABELS, type Exercise } from "@/lib/warmup-data";
 
 export interface TimerStep {
   exercise: Exercise;
   phase: "Mobilisation" | "Activation" | "Protection";
   index: number;
+  round?: number;
+  totalRounds?: number;
 }
 
 interface Props {
@@ -21,6 +23,7 @@ export default function TimerMode({ steps, open, onClose }: Props) {
   const [stepIdx, setStepIdx] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [showCue, setShowCue] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const current = steps[stepIdx];
@@ -35,8 +38,13 @@ export default function TimerMode({ steps, open, onClose }: Props) {
       setStepIdx(0);
       setElapsed(0);
       setPaused(false);
+      setShowCue(false);
     }
   }, [open]);
+
+  useEffect(() => {
+    setShowCue(false);
+  }, [stepIdx]);
 
   useEffect(() => {
     if (!open || paused || finished) {
@@ -100,7 +108,9 @@ export default function TimerMode({ steps, open, onClose }: Props) {
             {/* Body */}
             <div className="flex flex-1 flex-col items-center justify-center px-6">
               <p className="font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-[#A3FF12]">
-                {current.phase}
+                {current.totalRounds && current.totalRounds > 1
+                  ? `Tour ${current.round}/${current.totalRounds} · ${current.phase}`
+                  : current.phase}
               </p>
               <h2 className="mt-4 text-center font-sans text-[36px] font-black uppercase leading-[0.95] tracking-tight text-white">
                 {current.exercise.name}
@@ -110,9 +120,30 @@ export default function TimerMode({ steps, open, onClose }: Props) {
                   {current.exercise.reps}
                 </p>
               )}
+              <button
+                type="button"
+                onClick={() => setShowCue((value) => !value)}
+                className="mt-5 flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#0C0C0E] px-3 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#A1A1A6] active:scale-95"
+              >
+                <HelpCircle className="h-3.5 w-3.5 text-[#A3FF12]" strokeWidth={2.2} />
+                Consigne
+              </button>
+              {showCue && (
+                <div className="mt-3 w-full max-w-[340px] rounded-2xl border border-white/[0.08] bg-[#0C0C0E] px-4 py-3 text-left">
+                  <p className="text-[13px] leading-5 text-[#D7D7DA]">{current.exercise.description}</p>
+                  <p className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-[#5A5A60]">
+                    Matériel : {EQUIPMENT_LABELS[current.exercise.equipment]}
+                  </p>
+                  {current.exercise.fallback && (
+                    <p className="mt-2 text-[12px] leading-5 text-[#A1A1A6]">
+                      Sans matériel : {current.exercise.fallback}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Timer ring */}
-              <div className="relative mt-12 flex h-[220px] w-[220px] items-center justify-center">
+              <div className={`relative flex h-[220px] w-[220px] items-center justify-center ${showCue ? "mt-7" : "mt-12"}`}>
                 <svg className="absolute inset-0 -rotate-90" viewBox="0 0 220 220">
                   <circle cx="110" cy="110" r="100" stroke="#1A1A1E" strokeWidth="6" fill="none" />
                   <motion.circle

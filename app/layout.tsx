@@ -64,7 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="fr" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
-        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/icons/logo-apple-touch.png" />
       </head>
       <body className="min-h-screen antialiased" style={{ fontFamily: "var(--font-geist-sans)" }}>
         {children}

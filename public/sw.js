@@ -1,4 +1,4 @@
-const CACHE = 'warmup-v2';
+const CACHE = 'warmup-v3';
 
 const PRECACHE = [
   '/',

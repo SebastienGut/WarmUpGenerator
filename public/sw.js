@@ -1,8 +1,7 @@
-const CACHE = 'warmup-v1';
+const CACHE = 'warmup-v2';
 
 const PRECACHE = [
   '/',
-  '/result',
 ];
 
 self.addEventListener('install', (event) => {

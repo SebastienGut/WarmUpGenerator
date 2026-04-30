@@ -108,7 +108,7 @@ export default function Home() {
               url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com",
               logo:
                 (process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com") +
-                "/icons/icon.svg",
+                "/logo.png",
             },
           ]),
         }}

@@ -35,9 +35,9 @@ export type JointRegion =
 
 // Articulations à mobiliser selon le groupe musculaire ciblé
 export const MUSCLE_JOINTS: Record<MuscleGroup, JointRegion[]> = {
-  pecs:     ["rachis-thoracique", "epaule", "coude-poignet"],
+  pecs:     ["rachis-thoracique", "epaule"],
   dos:      ["rachis-thoracique", "rachis-lombaire", "epaule"],
-  epaules:  ["rachis-cervical", "epaule"],
+  epaules:  ["rachis-thoracique", "epaule"],
   jambes:   ["hanche", "genou", "cheville"],
   fessiers: ["hanche", "rachis-lombaire"],
   bras:     ["coude-poignet", "epaule"],
@@ -47,6 +47,31 @@ export const MUSCLE_JOINTS: Record<MuscleGroup, JointRegion[]> = {
 export type BodyZone = Exclude<SensitiveZone, "aucune">;
 
 export type Equipment = "aucun" | "elastique" | "haltere" | "poulie" | "barre";
+
+export type TrainingSetting = "gym" | "both" | "home";
+
+export type PrepRole =
+  | "mobility"
+  | "activation"
+  | "stability"
+  | "therapeutic"
+  | "core-bracing"
+  | "posterior-chain";
+
+export type PrepFocus =
+  | "scapula"
+  | "rotator-cuff"
+  | "thoracic"
+  | "lumbar"
+  | "hip"
+  | "knee-control"
+  | "ankle"
+  | "wrist-forearm"
+  | "elbow-tendon"
+  | "glutes"
+  | "core";
+
+export type PrepIntensity = "soft" | "moderate" | "neural";
 
 export interface Exercise {
   id: string;
@@ -64,6 +89,12 @@ export interface Exercise {
   joints?: JointRegion[];
   // Si présent, cet exercice est sélectionné quand cette zone est cochée
   therapeutic?: BodyZone;
+  setting?: TrainingSetting;
+  prepRoles?: PrepRole[];
+  prepFocus?: PrepFocus[];
+  prepIntensity?: PrepIntensity;
+  trainingValue?: number;
+  painSupport?: BodyZone[];
 }
 
 export const MUSCLE_LABELS: Record<MuscleGroup, string> = {
@@ -125,6 +156,386 @@ export const DURATION_OPTIONS: { value: 3 | 5 | 8; label: string }[] = [
   { value: 8, label: "8 min" },
 ];
 
+type ExerciseMetadata = Pick<
+  Exercise,
+  "setting" | "prepRoles" | "prepFocus" | "prepIntensity" | "trainingValue" | "painSupport"
+>;
+
+const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
+  "art-cervicales": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepIntensity: "soft",
+    trainingValue: 1,
+  },
+  "art-epaules-cercles": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["scapula"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+  },
+  "art-poignets": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["wrist-forearm"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["poignets"],
+  },
+  "art-coudes": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["elbow-tendon", "wrist-forearm"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["coudes"],
+  },
+  "art-ouverture-pecs": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["thoracic", "scapula"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+  },
+  "art-mobilisation-thoracique": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["thoracic"],
+    prepIntensity: "soft",
+    trainingValue: 3,
+  },
+  "art-chat-vache": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["thoracic", "lumbar", "core"],
+    prepIntensity: "soft",
+    trainingValue: 3,
+    painSupport: ["bas-du-dos"],
+  },
+  "art-hanches-cercles": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["hip"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["hanches"],
+  },
+  "art-genoux-cercles": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["knee-control"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["genou"],
+  },
+  "art-chevilles": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["ankle"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["chevilles"],
+  },
+  "art-tronc-lateral": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["lumbar", "core"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+  },
+  "act-pecs-push-leger": {
+    setting: "gym",
+    prepRoles: ["activation"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+  },
+  "act-pecs-pompes-reprise": {
+    setting: "home",
+    prepRoles: ["activation"],
+    prepIntensity: "moderate",
+    trainingValue: 1,
+  },
+  "act-pecs-iso": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+  },
+  "act-dos-rowing-haltere": {
+    setting: "gym",
+    prepRoles: ["activation", "posterior-chain"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+  },
+  "act-dos-face-pull-elastique": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["scapula", "rotator-cuff"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["epaule"],
+  },
+  "act-dos-superman": {
+    setting: "home",
+    prepRoles: ["activation", "posterior-chain"],
+    prepFocus: ["lumbar", "glutes"],
+    prepIntensity: "moderate",
+    trainingValue: 1,
+  },
+  "act-epaules-rotation-coiffe": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["rotator-cuff", "scapula"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["epaule"],
+  },
+  "act-epaules-face-pull-poulie": {
+    setting: "gym",
+    prepRoles: ["activation", "stability"],
+    prepFocus: ["scapula", "rotator-cuff"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["epaule"],
+  },
+  "act-epaules-elev-laterales": {
+    setting: "gym",
+    prepRoles: ["activation"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+  },
+  "act-jambes-leg-curl-leger": {
+    setting: "gym",
+    prepRoles: ["activation"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["genou"],
+  },
+  "act-jambes-squat-corps": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+  },
+  "act-jambes-fentes": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepFocus: ["hip", "knee-control"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+  },
+  "act-jambes-mkg-haut": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepFocus: ["hip", "core"],
+    prepIntensity: "neural",
+    trainingValue: 2,
+  },
+  "act-fessiers-abduction-elastique": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["hip", "glutes", "knee-control"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["hanches", "genou", "bas-du-dos"],
+  },
+  "act-fessiers-pont": {
+    setting: "both",
+    prepRoles: ["activation", "posterior-chain", "therapeutic"],
+    prepFocus: ["glutes", "lumbar", "core"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["bas-du-dos"],
+  },
+  "act-fessiers-kickback-elastique": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepFocus: ["glutes", "hip"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+  },
+  "act-bras-curl-leger": {
+    setting: "gym",
+    prepRoles: ["activation"],
+    prepFocus: ["wrist-forearm", "elbow-tendon"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+    painSupport: ["coudes"],
+  },
+  "act-bras-pushdown": {
+    setting: "gym",
+    prepRoles: ["activation"],
+    prepFocus: ["elbow-tendon"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+    painSupport: ["coudes"],
+  },
+  "act-core-dead-bug": {
+    setting: "both",
+    prepRoles: ["activation", "core-bracing", "therapeutic"],
+    prepFocus: ["core", "lumbar"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+    painSupport: ["bas-du-dos"],
+  },
+  "act-core-planche": {
+    setting: "both",
+    prepRoles: ["activation", "core-bracing"],
+    prepFocus: ["core"],
+    prepIntensity: "moderate",
+    trainingValue: 2,
+  },
+  "act-core-bird-dog": {
+    setting: "both",
+    prepRoles: ["activation", "core-bracing", "therapeutic"],
+    prepFocus: ["core", "lumbar", "glutes"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["bas-du-dos"],
+  },
+  "cib-epaule-retraction-scapulaire": {
+    setting: "both",
+    prepRoles: ["stability", "therapeutic"],
+    prepFocus: ["scapula"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["epaule"],
+  },
+  "cib-epaule-capsule-posterieure": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["rotator-cuff"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["epaule"],
+  },
+  "cib-epaule-yt-sol": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["scapula", "rotator-cuff"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["epaule"],
+  },
+  "cib-genou-tke": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["knee-control"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["genou"],
+  },
+  "cib-genou-slr": {
+    setting: "home",
+    prepRoles: ["activation", "therapeutic"],
+    prepFocus: ["knee-control"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["genou"],
+  },
+  "cib-genou-step-up": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["knee-control", "glutes"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["genou"],
+  },
+  "cib-lombaires-genoux-poitrine": {
+    setting: "home",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["lumbar"],
+    prepIntensity: "soft",
+    trainingValue: 1,
+    painSupport: ["bas-du-dos"],
+  },
+  "cib-lombaires-hip-thrust-pdc": {
+    setting: "both",
+    prepRoles: ["activation", "posterior-chain", "therapeutic"],
+    prepFocus: ["glutes", "lumbar"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["bas-du-dos"],
+  },
+  "cib-lombaires-extension-banc": {
+    setting: "gym",
+    prepRoles: ["activation", "posterior-chain", "therapeutic"],
+    prepFocus: ["lumbar", "glutes"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["bas-du-dos"],
+  },
+  "cib-hanches-fire-hydrant": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["hip", "glutes"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["hanches"],
+  },
+  "cib-hanches-essuie-glace": {
+    setting: "home",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["hip"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["hanches"],
+  },
+  "cib-hanches-fente-rotation": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["hip", "thoracic"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+    painSupport: ["hanches"],
+  },
+  "cib-poignets-etire-extenseurs": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["wrist-forearm"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["poignets"],
+  },
+  "cib-poignets-etire-flechisseurs": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["wrist-forearm"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["poignets"],
+  },
+  "cib-poignets-activation-progressive": {
+    setting: "both",
+    prepRoles: ["activation", "therapeutic"],
+    prepFocus: ["wrist-forearm"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+    painSupport: ["poignets"],
+  },
+};
+
+function inferDefaultMetadata(exercise: Exercise): ExerciseMetadata {
+  const setting: TrainingSetting =
+    exercise.equipment === "aucun" ? "both" : exercise.equipment === "barre" ? "gym" : "both";
+
+  const prepRoles: PrepRole[] =
+    exercise.category === "articulaire"
+      ? ["mobility"]
+      : exercise.category === "ciblé"
+      ? ["therapeutic"]
+      : ["activation"];
+
+  return {
+    setting,
+    prepRoles,
+    prepIntensity: exercise.category === "articulaire" ? "soft" : "moderate",
+    trainingValue: exercise.category === "ciblé" ? 3 : 2,
+    painSupport: exercise.therapeutic ? [exercise.therapeutic] : [],
+  };
+}
+
 export const ALL_MUSCLES: MuscleGroup[] = [
   "pecs", "dos", "epaules", "jambes", "fessiers", "bras", "core",
 ];
@@ -137,7 +548,7 @@ export const ALL_ZONES: SensitiveZone[] = [
   "aucune", "epaule", "genou", "bas-du-dos", "hanches", "poignets", "coudes", "chevilles",
 ];
 
-export const exercises: Exercise[] = [
+const rawExercises: Exercise[] = [
 
   // ══════════════════════════════════════════════════════════════
   // ARTICULAIRE — mobilisation des articulations concernées
@@ -787,3 +1198,18 @@ export const exercises: Exercise[] = [
     reps: "8 répétitions",
   },
 ];
+export const exercises: Exercise[] = [];
+
+exercises.push(
+  ...rawExercises.map((exercise) => {
+    const defaults = inferDefaultMetadata(exercise);
+    const enriched = EXERCISE_METADATA[exercise.id];
+
+    return {
+      ...exercise,
+      ...defaults,
+      ...enriched,
+      painSupport: enriched?.painSupport ?? defaults.painSupport,
+    };
+  })
+);

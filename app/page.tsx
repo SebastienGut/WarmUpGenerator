@@ -195,13 +195,13 @@ export default function Home() {
             </Section>
 
             {/* 3. CONSTRAINT + DURÉE: ligne combinée */}
-            <div className="grid grid-cols-[1fr_auto] gap-3">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3">
               {/* Zones sensibles */}
               <Section number="03" label="Zones sensibles">
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="flex h-[44px] w-full items-center justify-between rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 text-left transition active:scale-[0.99] hover:border-white/[0.12]"
+                  className="flex h-[44px] w-full min-w-0 items-center justify-between rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 text-left transition active:scale-[0.99] hover:border-white/[0.12]"
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <Plus className="h-4 w-4 shrink-0 text-[#A3FF12]" strokeWidth={2.4} />
@@ -366,7 +366,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className={`flex flex-col gap-2 ${align === "end" ? "items-end" : "items-stretch"}`}>
+    <section className={`flex min-w-0 flex-col gap-2 ${align === "end" ? "items-end" : "items-stretch"}`}>
       <div className="flex items-baseline justify-between gap-2">
         <div className="flex items-baseline gap-1.5">
           <span className="font-mono text-[11px] font-bold tracking-widest text-[#5A5A60]">{number}</span>

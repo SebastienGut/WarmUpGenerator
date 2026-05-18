@@ -89,6 +89,8 @@ export interface Exercise {
   joints?: JointRegion[];
   // Si présent, cet exercice est sélectionné quand cette zone est cochée
   therapeutic?: BodyZone;
+  // Identifie les variantes d'un même mouvement (ex: "face-pull") pour éviter les doublons
+  movementKey?: string;
   setting?: TrainingSetting;
   prepRoles?: PrepRole[];
   prepFocus?: PrepFocus[];
@@ -868,6 +870,7 @@ const rawExercises: Exercise[] = [
     reps: "15 reps",
     fallback: "Serrage des omoplates debout — coudes en arrière, contraction max 2s sans résistance",
     therapeutic: "epaule",
+    movementKey: "face-pull",
   },
   {
     id: "act-dos-superman",
@@ -909,6 +912,7 @@ const rawExercises: Exercise[] = [
     description: "Poulie haute, corde en prise neutre. Tirez vers le visage en écartant les mains, coudes qui montent et sortent sur les côtés. Serrez les omoplates à chaque répétition. Version gym plus résistée que l'élastique.",
     reps: "15 reps",
     therapeutic: "epaule",
+    movementKey: "face-pull",
   },
   {
     id: "act-epaules-elev-laterales",

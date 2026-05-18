@@ -69,8 +69,8 @@ const CIRCUIT_COUNTS: Record<Objective, Record<3 | 5 | 8, WarmupCounts>> = {
 };
 
 const PROTECTION_LIMIT: Record<Objective, Record<3 | 5 | 8, number>> = {
-  force:        { 3: 1, 5: 1, 8: 2 },
-  hypertrophie: { 3: 1, 5: 1, 8: 2 },
+  force:        { 3: 1, 5: 2, 8: 2 },
+  hypertrophie: { 3: 1, 5: 2, 8: 2 },
   reprise:      { 3: 1, 5: 2, 8: 2 },
   mobilite:     { 3: 0, 5: 1, 8: 1 },
 };
@@ -272,18 +272,12 @@ function scoreArticulaireBase(
   );
 }
 
-// Two exercises are functionally duplicate if they share 2+ prepFocus items
-// covering ≥60% of the smaller set — prevents same movement in two variants
+// Blocks same-movement variants identified by movementKey (e.g. face-pull elastic vs cable).
+// Exercises without movementKey are never blocked — prepFocus overlap alone is too coarse
+// (e.g. rotation coiffe and face pull share focuses but are complementary, not redundant).
 function isFunctionalDuplicate(exercise: Exercise, picked: Exercise[]): boolean {
-  const focus = exercise.prepFocus ?? [];
-  if (focus.length === 0) return false;
-  return picked.some((p) => {
-    const pFocus = p.prepFocus ?? [];
-    if (pFocus.length === 0) return false;
-    const shared = focus.filter((f) => pFocus.includes(f)).length;
-    const minLen = Math.min(focus.length, pFocus.length);
-    return shared >= 2 && shared / minLen >= 0.6;
-  });
+  if (!exercise.movementKey) return false;
+  return picked.some((p) => p.movementKey === exercise.movementKey);
 }
 
 function scoreActivation(
@@ -416,13 +410,19 @@ function pickActivation(
   const picked: Exercise[] = [];
   const covered = new Set<MuscleGroup>();
 
-  // First pass: one exercise per muscle group, no functional duplicates
+  // First pass: one exercise per muscle group, no functional duplicates.
+  // Zone-therapeutic exercises (matching a target muscle) bypass the addsCoverage requirement
+  // so they are never squeezed out by exercises that happen to cover a new muscle group.
   for (const { exercise, score } of scored) {
     if (picked.length >= count) break;
     if (score <= 0) continue;
     const matchingMuscles = exercise.muscles.filter((m) => muscles.includes(m));
     const addsCoverage = matchingMuscles.some((m) => !covered.has(m));
-    if (matchingMuscles.length > 0 && addsCoverage && !isFunctionalDuplicate(exercise, picked)) {
+    const isZoneTherapeutic =
+      matchingMuscles.length > 0 &&
+      zones.some((z) => exercise.painSupport?.includes(z) || exercise.therapeutic === z);
+    const canAdd = (matchingMuscles.length > 0 && addsCoverage) || isZoneTherapeutic;
+    if (canAdd && !isFunctionalDuplicate(exercise, picked)) {
       picked.push(exercise);
       matchingMuscles.forEach((m) => covered.add(m));
     }

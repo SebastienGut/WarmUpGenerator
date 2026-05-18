@@ -71,6 +71,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Script id="sw-register" strategy="afterInteractive">
           {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(() => {}); }`}
         </Script>
+        <Script
+          data-goatcounter="https://warmuptrack.goatcounter.com/count"
+          src="//gc.zgo.at/count.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

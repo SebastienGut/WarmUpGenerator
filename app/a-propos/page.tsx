@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "À propos — Warmup Generator, l'outil d'échauffement gratuit",
   description:
     "Pourquoi Warmup Generator existe : un outil gratuit, sans inscription, sans pub, conçu par un sportif pour les sportifs. Notre philosophie et nos engagements.",
-  alternates: { canonical: "/a-propos" },
+  alternates: { canonical: "/a-propos", languages: { "fr-FR": "/a-propos" } },
   openGraph: {
     title: "À propos — Warmup Generator",
     description:

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Warmup Generator" }],
   alternates: {
     canonical: "/",
+    languages: { "fr-FR": "/" },
   },
   openGraph: {
     title: "Warmup Generator — Échauffement musculation personnalisé",

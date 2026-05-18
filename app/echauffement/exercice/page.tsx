@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Echauffements par exercice - Squat, developpe couche, tractions",
   description:
     "Tous les protocoles d'echauffement par exercice: squat, developpe couche, souleve de terre, rowing, tractions et developpe militaire.",
-  alternates: { canonical: PATH },
+  alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
     title: "Echauffements par exercice - Warmup Generator",
     description:

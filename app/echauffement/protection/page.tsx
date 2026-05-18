@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Echauffements pour zones sensibles - Epaule, genou, lombaires",
   description:
     "Protocoles d'echauffement pour s'entrainer avec une zone sensible: epaule, genou, lombaires ou poignets. Guides gratuits et progressifs.",
-  alternates: { canonical: PATH },
+  alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
     title: "Echauffements pour zones sensibles - Warmup Generator",
     description:

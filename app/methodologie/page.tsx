@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Méthodologie & sources — Comment l'algorithme construit ton plan",
   description:
     "Comment Warmup Generator choisit les exercices, les durées et l'ordre. Sources scientifiques, principes de préparation physique, transparence totale sur l'algorithme.",
-  alternates: { canonical: "/methodologie" },
+  alternates: { canonical: "/methodologie", languages: { "fr-FR": "/methodologie" } },
   openGraph: {
     title: "Méthodologie & sources — Warmup Generator",
     description:

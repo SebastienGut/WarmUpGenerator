@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Echauffements par groupe musculaire - Haut, bas, full body",
   description:
     "Protocoles d'echauffement musculation par groupe: haut du corps, bas du corps, full body, push et pull. Plans gratuits en 5 minutes.",
-  alternates: { canonical: PATH },
+  alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
     title: "Echauffements par groupe musculaire - Warmup Generator",
     description:

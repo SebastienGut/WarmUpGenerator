@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: data.metaTitle,
     description: data.metaDescription,
-    alternates: { canonical: path },
+    alternates: { canonical: path, languages: { "fr-FR": path } },
     openGraph: {
       title: data.metaTitle,
       description: data.metaDescription,

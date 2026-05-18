@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import GoatCounter from "@/components/GoatCounter";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -71,11 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Script id="sw-register" strategy="afterInteractive">
           {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(() => {}); }`}
         </Script>
-        <Script
-          data-goatcounter="https://warmuptrack.goatcounter.com/count"
-          src="//gc.zgo.at/count.js"
-          strategy="afterInteractive"
-        />
+        <GoatCounter />
       </body>
     </html>
   );

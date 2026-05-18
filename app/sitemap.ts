@@ -5,12 +5,13 @@ import { COMBO_SLUGS } from "@/lib/content/combo";
 import { EXERCICE_SLUGS } from "@/lib/content/exercice";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
+const CONTENT_UPDATED_AT = new Date("2026-05-18");
 
 const MUSCLES: MuscleGroup[] = ["pecs", "dos", "epaules", "jambes", "fessiers", "bras", "core"];
 const OBJECTIVES: Objective[] = ["force", "hypertrophie", "reprise", "mobilite"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const lastModified = CONTENT_UPDATED_AT;
 
   const musclePages: MetadataRoute.Sitemap = MUSCLES.flatMap((muscle) =>
     OBJECTIVES.map((objectif) => ({

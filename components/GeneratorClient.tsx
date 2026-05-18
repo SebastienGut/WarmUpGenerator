@@ -85,7 +85,7 @@ export default function GeneratorClient() {
               <Zap className="h-4.5 w-4.5 fill-[#A3FF12] stroke-[#A3FF12]" strokeWidth={2.5} />
             </div>
             <h1 className="font-sans text-[17px] font-black uppercase tracking-tight text-white">
-              Warmup Generator
+              Générateur d&apos;échauffement musculation
             </h1>
           </header>
 
@@ -110,6 +110,8 @@ export default function GeneratorClient() {
                       key={key}
                       type="button"
                       onClick={() => toggleMuscle(key)}
+                      aria-pressed={active}
+                      aria-label={`${active ? "Retirer" : "Ajouter"} ${label} des zones cibles`}
                       className={`relative overflow-hidden rounded-xl border h-[80px] w-full bg-[#111318] transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
                           ? "border-[#A3FF12] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
@@ -139,6 +141,8 @@ export default function GeneratorClient() {
                       key={key}
                       type="button"
                       onClick={() => setObjective(key)}
+                      aria-pressed={active}
+                      aria-label={`Choisir l'objectif ${label}`}
                       className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border py-4 transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
                           ? "border-[#A3FF12] bg-[#A3FF12]/[0.06] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
@@ -165,6 +169,8 @@ export default function GeneratorClient() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
+                  aria-haspopup="dialog"
+                  aria-expanded={modalOpen}
                   className="flex h-[44px] w-full min-w-0 items-center justify-between rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 text-left transition active:scale-[0.99] hover:border-white/[0.12]"
                 >
                   <div className="flex items-center gap-2 min-w-0">
@@ -187,6 +193,8 @@ export default function GeneratorClient() {
                         key={value}
                         type="button"
                         onClick={() => setDuration(value)}
+                        aria-pressed={active}
+                        aria-label={`Choisir une durée de ${label}`}
                         className={`flex h-[44px] w-[52px] items-center justify-center rounded-xl border font-mono text-[12px] font-black transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                           active
                             ? "border-[#A3FF12] bg-[#A3FF12]/[0.06] text-[#A3FF12] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
@@ -274,6 +282,8 @@ export default function GeneratorClient() {
                       key={zone}
                       type="button"
                       onClick={() => toggleZone(zone)}
+                      aria-pressed={active}
+                      aria-label={`${active ? "Retirer" : "Ajouter"} ${ZONE_LABELS[zone]} des zones sensibles`}
                       className={`rounded-xl border px-3 py-2.5 text-left text-[13px] font-bold transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
                           ? "border-[#A3FF12] bg-[#A3FF12]/[0.06] text-[#A3FF12]"

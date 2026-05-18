@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { generateWarmup } from "@/lib/warmup-engine";
 import {
   exercises,
@@ -110,6 +111,8 @@ function groupExercisesByCategory(): Record<Exercise["category"], Exercise[]> {
 }
 
 export default function DebugAlgoPage() {
+  if (process.env.NODE_ENV === "production") notFound();
+
   const grouped = groupExercisesByCategory();
 
   return (

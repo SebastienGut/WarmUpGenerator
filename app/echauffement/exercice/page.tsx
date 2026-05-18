@@ -47,6 +47,20 @@ export default function ExerciseHubPage() {
           kicker: page.subtitle,
         };
       })}
+      faqs={[
+        {
+          q: "Pourquoi choisir un echauffement par exercice ?",
+          a: "Un exercice lourd impose une contrainte precise. Le squat demande surtout hanches, chevilles, genoux et gainage. Le developpe couche demande coiffe des rotateurs, omoplates et thoracique. Un protocole par exercice prepare donc le pattern exact au lieu de rester general.",
+        },
+        {
+          q: "Faut-il faire ce protocole avant les series de chauffe ?",
+          a: "Oui. Utilise ce protocole pour preparer les articulations et activer les muscles, puis enchaine avec tes series de chauffe progressives sur l'exercice principal.",
+        },
+        {
+          q: "Que faire si l'exercice principal n'est pas encore liste ?",
+          a: "Choisis le protocole le plus proche biomecaniquement. Par exemple, utilise developpe couche pour les poussees horizontales, developpe militaire pour les poussees verticales, rowing ou tractions pour les tirages, squat pour les mouvements dominants genou.",
+        },
+      ]}
       relatedTitle="Explorer les autres familles"
       relatedLinks={[
         { href: "/echauffement/combo", label: "Echauffements par groupes musculaires" },

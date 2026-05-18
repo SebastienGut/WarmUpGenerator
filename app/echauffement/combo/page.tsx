@@ -47,6 +47,20 @@ export default function ComboHubPage() {
           kicker: page.subtitle,
         };
       })}
+      faqs={[
+        {
+          q: "Quand choisir un echauffement par combo ?",
+          a: "Choisis un combo quand ta seance sollicite plusieurs exercices ou plusieurs groupes musculaires. C'est le cas d'un push day, pull day, full body, haut du corps ou bas du corps.",
+        },
+        {
+          q: "Un combo est-il moins precis qu'un echauffement par exercice ?",
+          a: "Il est moins specialise, mais plus adapte aux seances larges. Si tu as un exercice prioritaire tres lourd, commence par le guide de cet exercice. Si ta seance est plus globale, le combo est souvent plus ergonomique.",
+        },
+        {
+          q: "Puis-je ajouter une zone sensible a un combo ?",
+          a: "Oui. Si une zone est fragile, utilise le generateur personnalise ou consulte les protocoles de protection pour ajouter un travail cible avant ton combo.",
+        },
+      ]}
       relatedTitle="Construire un echauffement plus precis"
       relatedLinks={[
         { href: "/echauffement/exercice", label: "Guides par exercice principal" },

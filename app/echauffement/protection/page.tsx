@@ -47,6 +47,20 @@ export default function ProtectionHubPage() {
           kicker: page.subtitle,
         };
       })}
+      faqs={[
+        {
+          q: "Un protocole de protection peut-il remplacer un avis medical ?",
+          a: "Non. Ces protocoles servent a preparer une seance quand une gene legere demande plus d'attention. En cas de douleur aigue, persistante ou qui s'aggrave, consulte un professionnel de sante.",
+        },
+        {
+          q: "Dois-je m'echauffer differemment avec une zone sensible ?",
+          a: "Oui. Il faut reduire les compensations, activer les stabilisateurs et rester dans des amplitudes confortables. L'objectif n'est pas de forcer, mais de preparer la zone avant la charge.",
+        },
+        {
+          q: "Puis-je combiner protection et echauffement par exercice ?",
+          a: "Oui. Par exemple, si tu fais du developpe couche avec une epaule sensible, commence par le protocole epaule puis garde les elements specifiques du developpe couche et des series de chauffe progressives.",
+        },
+      ]}
       relatedTitle="Adapter ton plan"
       relatedLinks={[
         { href: "/echauffement/exercice", label: "Guides par exercice principal" },

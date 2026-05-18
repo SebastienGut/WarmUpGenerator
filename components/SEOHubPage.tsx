@@ -17,6 +17,11 @@ interface HubLink {
   label: string;
 }
 
+interface HubFaq {
+  q: string;
+  a: string;
+}
+
 interface SEOHubPageProps {
   title: string;
   subtitle: string;
@@ -24,6 +29,7 @@ interface SEOHubPageProps {
   breadcrumbs: Breadcrumb[];
   itemsTitle: string;
   items: HubItem[];
+  faqs?: HubFaq[];
   relatedTitle: string;
   relatedLinks: HubLink[];
   siteUrl: string;
@@ -37,6 +43,7 @@ export default function SEOHubPage({
   breadcrumbs,
   itemsTitle,
   items,
+  faqs = [],
   relatedTitle,
   relatedLinks,
   siteUrl,
@@ -70,11 +77,23 @@ export default function SEOHubPage({
       })),
     },
   };
+  const faqSchema = faqs.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
+      }
+    : null;
 
   return (
     <main className="relative min-h-screen bg-[#050505]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
 
       <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[900px] items-center gap-2.5 px-6 py-3">
@@ -167,6 +186,37 @@ export default function SEOHubPage({
             ))}
           </div>
         </section>
+
+        {faqs.length > 0 && (
+          <section className="mb-14">
+            <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-white/[0.06] pb-3">
+              <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+                Questions frequentes
+              </h2>
+              <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+                FAQ - {faqs.length}
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {faqs.map((faq) => (
+                <details
+                  key={faq.q}
+                  className="group rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-5 py-4 transition-colors hover:border-white/[0.12] [&_summary::-webkit-details-marker]:hidden"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-white">
+                    <span>{faq.q}</span>
+                    <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-[#5A5A60] transition-transform group-open:rotate-45 group-open:text-[#A3FF12]">
+                      +
+                    </span>
+                  </summary>
+                  <p className="mt-3 border-t border-white/[0.06] pt-3 text-[13px] leading-relaxed text-[#A1A1A6]">
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mb-14 border-l-2 border-[#A3FF12]/40 pl-6">
           <h2 className="mb-4 font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">

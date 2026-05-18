@@ -60,6 +60,20 @@ export default function WarmupHubPage() {
           kicker: "Confort articulaire",
         },
       ]}
+      faqs={[
+        {
+          q: "Quel echauffement choisir avant une seance de musculation ?",
+          a: "Pars de ton intention principale. Si ta seance tourne autour d'un mouvement lourd, choisis un echauffement par exercice. Si tu fais une seance complete haut du corps, jambes, push ou pull, choisis un combo. Si une articulation est sensible, commence par les protocoles de protection.",
+        },
+        {
+          q: "Combien de temps doit durer un echauffement musculation ?",
+          a: "Pour la plupart des seances, 5 a 8 minutes suffisent avant les series de chauffe specifiques. L'objectif est d'elever la temperature, mobiliser les articulations utiles et activer les muscles cibles sans fatiguer avant le travail principal.",
+        },
+        {
+          q: "Ces plans remplacent-ils les series de chauffe avec barre ?",
+          a: "Non. Les plans preparent le corps et les articulations. Sur squat, developpe couche, souleve de terre ou developpe militaire, ajoute ensuite des series progressives avec la barre ou les halteres avant les series de travail.",
+        },
+      ]}
       relatedTitle="Plans populaires"
       relatedLinks={[
         { href: "/echauffement/exercice/developpe-couche", label: "Echauffement developpe couche" },

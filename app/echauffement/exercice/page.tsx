@@ -36,7 +36,7 @@ export default function ExerciseHubPage() {
         "Chaque exercice lourd impose ses propres contraintes: stabiliser les epaules au developpe couche, ouvrir les hanches au squat, verrouiller le gainage avant le souleve de terre, preparer le grip et les omoplates avant les tractions.",
         "Ces guides regroupent les protocoles les plus utiles avant les mouvements de musculation courants. Choisis ton exercice principal, suis la sequence en 5 minutes, puis ajoute tes series de chauffe progressives avec la barre ou les halteres.",
       ]}
-      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Exercices" }]}
+      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Echauffements", href: "/echauffement" }, { label: "Exercices" }]}
       itemsTitle="Guides par exercice"
       items={EXERCICE_SLUGS.map((slug) => {
         const page = EXERCICE_PAGES[slug];

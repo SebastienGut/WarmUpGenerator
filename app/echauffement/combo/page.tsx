@@ -36,7 +36,7 @@ export default function ComboHubPage() {
         "Quand ta seance ne tourne pas autour d'un seul exercice, le plus efficace est de preparer toute la chaine musculaire concernee. Un push day ne demande pas la meme activation qu'un pull day, et une seance jambes n'a pas les memes priorites qu'un full body.",
         "Ces protocoles par combo couvrent les formats de seance les plus courants. Ils combinent mobilisation articulaire, activation musculaire et preparation progressive pour arriver chaud sans gaspiller d'energie.",
       ]}
-      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Combos" }]}
+      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Echauffements", href: "/echauffement" }, { label: "Combos" }]}
       itemsTitle="Guides par combo"
       items={COMBO_SLUGS.map((slug) => {
         const page = COMBO_PAGES[slug];

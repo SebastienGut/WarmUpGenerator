@@ -36,7 +36,7 @@ export default function ProtectionHubPage() {
         "Une zone sensible change la logique de l'echauffement. Il ne suffit plus de bouger un peu avant la charge: il faut reveiller les muscles stabilisateurs, reduire les compensations et choisir des amplitudes qui restent confortables.",
         "Ces protocoles ne remplacent pas un avis medical. Ils servent a preparer une seance de musculation quand une gene legere ou recurrente demande plus d'attention avant les series de travail.",
       ]}
-      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Protection" }]}
+      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Echauffements", href: "/echauffement" }, { label: "Protection" }]}
       itemsTitle="Guides par zone"
       items={PROTECTION_SLUGS.map((slug) => {
         const page = PROTECTION_PAGES[slug];

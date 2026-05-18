@@ -120,6 +120,7 @@ export default function GeneratorClient() {
                         src={img}
                         alt={`Échauffement ${label.toLowerCase()}`}
                         fill
+                        sizes="(max-width: 440px) 30vw, 130px"
                         className={`object-contain transition-all duration-150 ${active ? "opacity-100" : "opacity-55 grayscale"}`}
                       />
                     </button>

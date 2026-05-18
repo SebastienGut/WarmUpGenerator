@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
-import GoatCounter from "@/components/GoatCounter";
+import ClientScripts from "@/components/ClientScripts";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -69,10 +68,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-screen antialiased" style={{ fontFamily: "var(--font-geist-sans)" }}>
         {children}
-        <Script id="sw-register" strategy="afterInteractive">
-          {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(() => {}); }`}
-        </Script>
-        <GoatCounter />
+        <ClientScripts />
       </body>
     </html>
   );

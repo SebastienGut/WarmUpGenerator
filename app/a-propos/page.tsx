@@ -30,9 +30,27 @@ export default function AboutPage() {
     ],
   };
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "A propos de Warmup Generator",
+    description: metadata.description,
+    url: `${SITE_URL}/a-propos`,
+    inLanguage: "fr-FR",
+    dateModified: "2026-05-18",
+    author: { "@type": "Organization", name: "Warmup Generator" },
+    publisher: {
+      "@type": "Organization",
+      name: "Warmup Generator",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+    },
+    mainEntityOfPage: `${SITE_URL}/a-propos`,
+  };
+
   return (
     <main className="relative min-h-screen bg-[#050505]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       {/* HEADER */}
       <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">

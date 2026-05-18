@@ -7,6 +7,23 @@ export default function Home() {
   const jsonLd = [
     {
       "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Warmup Generator",
+      url: SITE_URL,
+      inLanguage: "fr-FR",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Warmup Generator - Echauffement musculation gratuit",
+      url: SITE_URL,
+      inLanguage: "fr-FR",
+      isPartOf: { "@type": "WebSite", name: "Warmup Generator", url: SITE_URL },
+      description:
+        "Generateur gratuit d'echauffement musculation personnalise selon les muscles, l'objectif et les zones sensibles.",
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       name: "Warmup Generator",
       applicationCategory: "HealthApplication",

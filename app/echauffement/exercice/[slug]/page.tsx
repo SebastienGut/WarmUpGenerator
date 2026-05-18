@@ -9,6 +9,8 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return EXERCICE_SLUGS.map((slug) => ({ slug }));
 }

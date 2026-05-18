@@ -10,9 +10,12 @@ const MUSCLES: MuscleGroup[] = ["pecs", "dos", "epaules", "jambes", "fessiers", 
 const OBJECTIVES: Objective[] = ["force", "hypertrophie", "reprise", "mobilite"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
+
   const musclePages: MetadataRoute.Sitemap = MUSCLES.flatMap((muscle) =>
     OBJECTIVES.map((objectif) => ({
       url: `${SITE_URL}/echauffement/${muscle}/${objectif}`,
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }))
@@ -20,18 +23,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const protectionPages: MetadataRoute.Sitemap = PROTECTION_SLUGS.map((zone) => ({
     url: `${SITE_URL}/echauffement/protection/${zone}`,
+    lastModified,
     changeFrequency: "monthly" as const,
     priority: 0.9, // forte intention transactionnelle
   }));
 
   const comboPages: MetadataRoute.Sitemap = COMBO_SLUGS.map((combo) => ({
     url: `${SITE_URL}/echauffement/combo/${combo}`,
+    lastModified,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
 
   const exercicePages: MetadataRoute.Sitemap = EXERCICE_SLUGS.map((slug) => ({
     url: `${SITE_URL}/echauffement/exercice/${slug}`,
+    lastModified,
     changeFrequency: "monthly" as const,
     priority: 0.85, // long-tail très transactionnel
   }));
@@ -39,16 +45,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: SITE_URL,
+      lastModified,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${SITE_URL}/a-propos`,
+      lastModified,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${SITE_URL}/methodologie`,
+      lastModified,
       changeFrequency: "yearly",
       priority: 0.6,
     },

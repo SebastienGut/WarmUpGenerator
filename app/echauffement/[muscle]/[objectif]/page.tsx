@@ -18,6 +18,8 @@ interface PageProps {
   params: Promise<{ muscle: string; objectif: string }>;
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return VALID_MUSCLES.flatMap((muscle) =>
     VALID_OBJECTIVES.map((objectif) => ({ muscle, objectif }))

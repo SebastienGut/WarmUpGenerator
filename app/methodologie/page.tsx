@@ -264,8 +264,8 @@ export default function MethodologyPage() {
               scientifique évolue de manière significative. La dernière révision date de 2026.
             </p>
             <p>
-              <strong className="text-white">Si une zone fait mal, consulte.</strong> Les protocoles \"zones
-              sensibles\" sont des aides à la pratique pour des gênes mineures, pas des traitements.
+              <strong className="text-white">Si une zone fait mal, consulte.</strong> Les protocoles &quot;zones
+              sensibles&quot; sont des aides à la pratique pour des gênes mineures, pas des traitements.
               Une douleur installée mérite un avis médical.
             </p>
           </div>

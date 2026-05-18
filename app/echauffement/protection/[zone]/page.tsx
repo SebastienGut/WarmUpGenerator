@@ -9,6 +9,8 @@ interface PageProps {
   params: Promise<{ zone: string }>;
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return PROTECTION_SLUGS.map((zone) => ({ zone }));
 }

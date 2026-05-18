@@ -125,7 +125,7 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
               className="energy-ring group relative flex w-full items-center justify-between overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-left text-black transition-transform active:scale-[0.98] focus-visible:outline-none"
             >
               <div className="font-sans text-[19px] font-black uppercase leading-none tracking-tight">
-                Démarrer l'échauffement
+                Démarrer l&apos;échauffement
               </div>
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-black/15">
                 <Play className="h-5 w-5 fill-black ml-0.5" strokeWidth={2.4} />
@@ -135,7 +135,7 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
         </div>
       </main>
 
-      <TimerMode steps={timerSteps} open={timerOpen} onClose={() => setTimerOpen(false)} />
+      {timerOpen && <TimerMode steps={timerSteps} open={timerOpen} onClose={() => setTimerOpen(false)} />}
     </>
   );
 }

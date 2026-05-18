@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
-  HelpCircle,
   Plus,
   ChevronRight,
   Shield,

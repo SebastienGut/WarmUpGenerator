@@ -9,6 +9,8 @@ interface PageProps {
   params: Promise<{ combo: string }>;
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return COMBO_SLUGS.map((combo) => ({ combo }));
 }

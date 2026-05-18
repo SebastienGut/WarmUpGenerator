@@ -160,7 +160,7 @@ export default function AboutPage() {
             <p>
               <strong className="text-white">Il n&apos;est pas un substitut médical.</strong> En cas de douleur
               persistante, de blessure récente ou de pathologie connue, consulte un professionnel
-              de santé. Les protocoles \"zones sensibles\" sont des aides à la pratique, pas des
+              de santé. Les protocoles &quot;zones sensibles&quot; sont des aides à la pratique, pas des
               traitements.
             </p>
             <p>

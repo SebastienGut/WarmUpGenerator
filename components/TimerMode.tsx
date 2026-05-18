@@ -34,19 +34,6 @@ export default function TimerMode({ steps, open, onClose }: Props) {
   const finished = stepIdx >= steps.length;
 
   useEffect(() => {
-    if (!open) {
-      setStepIdx(0);
-      setElapsed(0);
-      setPaused(false);
-      setShowCue(false);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    setShowCue(false);
-  }, [stepIdx]);
-
-  useEffect(() => {
     if (!open || paused || finished) {
       if (intervalRef.current) clearInterval(intervalRef.current);
       return;
@@ -54,6 +41,7 @@ export default function TimerMode({ steps, open, onClose }: Props) {
     intervalRef.current = setInterval(() => {
       setElapsed((e) => {
         if (current && e + 1 >= current.exercise.durationSeconds) {
+          setShowCue(false);
           setStepIdx((i) => i + 1);
           return 0;
         }
@@ -67,12 +55,14 @@ export default function TimerMode({ steps, open, onClose }: Props) {
 
   function skip() {
     setElapsed(0);
+    setShowCue(false);
     setStepIdx((i) => i + 1);
   }
   function restart() {
     setStepIdx(0);
     setElapsed(0);
     setPaused(false);
+    setShowCue(false);
   }
 
   if (!open) return null;

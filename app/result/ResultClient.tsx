@@ -8,8 +8,6 @@ import type { WarmupPlan } from "@/lib/warmup-engine";
 import { EQUIPMENT_LABELS } from "@/lib/warmup-data";
 import TimerMode, { type TimerStep } from "@/components/TimerMode";
 
-const CIRCUIT_ROUNDS = 2;
-
 interface Props {
   plan: WarmupPlan;
   muscleLabel: string;
@@ -19,6 +17,7 @@ interface Props {
 
 export default function ResultClient({ plan, muscleLabel, objectiveLabel, requestedDuration }: Props) {
   const [timerOpen, setTimerOpen] = useState(false);
+  const rounds = plan.rounds;
 
   const steps = useMemo<TimerStep[]>(() => {
     let i = 1;
@@ -31,14 +30,14 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
 
   const timerSteps = useMemo<TimerStep[]>(
     () =>
-      Array.from({ length: CIRCUIT_ROUNDS }, (_, roundIndex) =>
+      Array.from({ length: rounds }, (_, roundIndex) =>
         steps.map((step) => ({
           ...step,
           round: roundIndex + 1,
-          totalRounds: CIRCUIT_ROUNDS,
+          totalRounds: rounds,
         }))
       ).flat(),
-    [steps]
+    [steps, rounds]
   );
 
   let cumulative = 0;
@@ -89,7 +88,7 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
 
           <div className="mt-5 grid grid-cols-3 gap-2">
             <Stat label="Format" value={`${requestedDuration} min`} />
-            <Stat label="Circuit" value={`x${CIRCUIT_ROUNDS}`} />
+            <Stat label="Circuit" value={`x${rounds}`} />
             <Stat label="Mouvements" value={String(steps.length)} accent />
           </div>
           {plan.ciblé.length > 0 && (
@@ -104,7 +103,7 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
                 Timeline
               </h2>
               <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5A5A60]">
-                A REPETER 2X
+                {rounds > 1 ? `A RÉPÉTER ${rounds}X` : "1 PASSAGE"}
               </span>
             </div>
 

@@ -210,10 +210,10 @@ export default function HomepageSEO() {
             <Link href="/methodologie" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
               Méthodologie
             </Link>
-            <Link href="/echauffement/exercice/squat" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/echauffement/exercice" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
               Exercices
             </Link>
-            <Link href="/echauffement/protection/epaule-douleur" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/echauffement/protection" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
               Zones sensibles
             </Link>
           </nav>

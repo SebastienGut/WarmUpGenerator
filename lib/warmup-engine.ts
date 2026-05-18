@@ -48,12 +48,12 @@ type WarmupCounts = {
 const CIRCUIT_COUNTS: Record<Objective, Record<3 | 5 | 8, WarmupCounts>> = {
   force: {
     3: { articulaire: 1, activation: 2 },
-    5: { articulaire: 2, activation: 2 },
+    5: { articulaire: 2, activation: 3 },
     8: { articulaire: 2, activation: 3 },
   },
   hypertrophie: {
     3: { articulaire: 1, activation: 2 },
-    5: { articulaire: 2, activation: 2 },
+    5: { articulaire: 2, activation: 3 },
     8: { articulaire: 2, activation: 3 },
   },
   reprise: {
@@ -424,7 +424,13 @@ function pickActivation(
     const isZoneTherapeutic =
       matchingMuscles.length > 0 &&
       zones.some((z) => exercise.painSupport?.includes(z) || exercise.therapeutic === z);
-    const canAdd = (matchingMuscles.length > 0 && addsCoverage) || isZoneTherapeutic;
+    // Essential prep exercises (e.g. rotation coiffe) bypass coverage requirement
+    // when the muscles they prepare are being trained — preventive, not zone-dependent
+    const isMuscleEssential =
+      matchingMuscles.length > 0 &&
+      exercise.prepMuscles?.some((m) => muscles.includes(m));
+    const canAdd =
+      (matchingMuscles.length > 0 && addsCoverage) || isZoneTherapeutic || isMuscleEssential;
     if (canAdd && !isFunctionalDuplicate(exercise, picked)) {
       picked.push(exercise);
       matchingMuscles.forEach((m) => covered.add(m));

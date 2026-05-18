@@ -91,6 +91,8 @@ export interface Exercise {
   therapeutic?: BodyZone;
   // Identifie les variantes d'un même mouvement (ex: "face-pull") pour éviter les doublons
   movementKey?: string;
+  // Muscles pour lesquels cet exercice est une préparation essentielle (bypass addsCoverage)
+  prepMuscles?: MuscleGroup[];
   setting?: TrainingSetting;
   prepRoles?: PrepRole[];
   prepFocus?: PrepFocus[];
@@ -269,12 +271,6 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepIntensity: "soft",
     trainingValue: 5,
     painSupport: ["bas-du-dos", "hanches"],
-  },
-  "act-pecs-push-leger": {
-    setting: "gym",
-    prepRoles: ["activation"],
-    prepIntensity: "moderate",
-    trainingValue: 3,
   },
   "act-pecs-pompes-reprise": {
     setting: "home",
@@ -807,18 +803,6 @@ const rawExercises: Exercise[] = [
 
   // PECS
   {
-    id: "act-pecs-push-leger",
-    name: "Développé couché barre légère",
-    category: "activation",
-    muscles: ["pecs", "epaules", "bras"],
-    objectives: ["force", "hypertrophie"],
-    contraindications: ["epaule", "poignets"],
-    durationSeconds: 40,
-    equipment: "barre",
-    description: "Barre vide ou très légère. Descente lente sur 3 secondes en contrôlant la trajectoire. Serrez les omoplates avant de pousser. L'objectif est l'activation neuromusculaire, pas la charge.",
-    reps: "10-12 reps",
-  },
-  {
     id: "act-pecs-pompes-reprise",
     name: "Pompes lentes",
     category: "activation",
@@ -899,6 +883,7 @@ const rawExercises: Exercise[] = [
     reps: "15 de chaque côté",
     fallback: "Même rotation sans résistance, coude collé au flanc",
     therapeutic: "epaule",
+    prepMuscles: ["epaules", "pecs"],
   },
   {
     id: "act-epaules-face-pull-poulie",

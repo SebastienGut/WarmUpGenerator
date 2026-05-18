@@ -89,6 +89,10 @@ export interface Exercise {
   joints?: JointRegion[];
   // Si présent, cet exercice est sélectionné quand cette zone est cochée
   therapeutic?: BodyZone;
+  // Identifie les variantes d'un même mouvement (ex: "face-pull") pour éviter les doublons
+  movementKey?: string;
+  // Muscles pour lesquels cet exercice est une préparation essentielle (bypass addsCoverage)
+  prepMuscles?: MuscleGroup[];
   setting?: TrainingSetting;
   prepRoles?: PrepRole[];
   prepFocus?: PrepFocus[];
@@ -267,12 +271,6 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepIntensity: "soft",
     trainingValue: 5,
     painSupport: ["bas-du-dos", "hanches"],
-  },
-  "act-pecs-push-leger": {
-    setting: "gym",
-    prepRoles: ["activation"],
-    prepIntensity: "moderate",
-    trainingValue: 3,
   },
   "act-pecs-pompes-reprise": {
     setting: "home",
@@ -540,6 +538,38 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     trainingValue: 3,
     painSupport: ["poignets"],
   },
+  "cib-coudes-etire-triceps": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["elbow-tendon"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["coudes"],
+  },
+  "cib-coudes-pronation-supination": {
+    setting: "both",
+    prepRoles: ["mobility", "activation", "therapeutic"],
+    prepFocus: ["elbow-tendon", "wrist-forearm"],
+    prepIntensity: "soft",
+    trainingValue: 3,
+    painSupport: ["coudes"],
+  },
+  "cib-chevilles-montees-pointe": {
+    setting: "both",
+    prepRoles: ["activation", "stability", "therapeutic"],
+    prepFocus: ["ankle"],
+    prepIntensity: "moderate",
+    trainingValue: 3,
+    painSupport: ["chevilles"],
+  },
+  "cib-chevilles-etire-mollet": {
+    setting: "both",
+    prepRoles: ["mobility", "therapeutic"],
+    prepFocus: ["ankle"],
+    prepIntensity: "soft",
+    trainingValue: 2,
+    painSupport: ["chevilles"],
+  },
 };
 
 function inferDefaultMetadata(exercise: Exercise): ExerciseMetadata {
@@ -674,6 +704,20 @@ const rawExercises: Exercise[] = [
     therapeutic: "bas-du-dos",
   },
   {
+    id: "art-hanches-cercles",
+    name: "Cercles de hanches",
+    category: "articulaire",
+    muscles: ["fessiers", "jambes"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    joints: ["hanche"],
+    description: "Debout, mains sur les hanches, pieds à largeur d'épaules. Décrivez de grands cercles avec le bassin dans un sens puis dans l'autre. Genoux légèrement fléchis.",
+    reps: "8 dans chaque sens",
+    therapeutic: "hanches",
+  },
+  {
     id: "art-cheville-genou-mur",
     name: "Mobilité cheville genou au mur",
     category: "articulaire",
@@ -724,6 +768,19 @@ const rawExercises: Exercise[] = [
     joints: ["cheville"],
     description: "Appuyé si besoin, soulevez un pied et décrivez de grands cercles avec la cheville. Alternez.",
     reps: "10 de chaque côté",
+  },
+  {
+    id: "art-tronc-lateral",
+    name: "Inclinaisons latérales du tronc",
+    category: "articulaire",
+    muscles: ["dos", "core"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    joints: ["rachis-thoracique", "rachis-lombaire"],
+    description: "Debout, pieds à largeur d'épaules. Glissez une main le long de la cuisse vers le genou en inclinant le buste latéralement. Revenez au centre et alternez. Gardez le bassin fixe.",
+    reps: "8 de chaque côté",
   },
   {
     id: "art-lombaires-essuie-glace",
@@ -797,7 +854,21 @@ const rawExercises: Exercise[] = [
     reps: "15 reps",
     fallback: "Serrage des omoplates debout — coudes en arrière, contraction max 2s sans résistance",
     therapeutic: "epaule",
+    movementKey: "face-pull",
   },
+  {
+    id: "act-dos-superman",
+    name: "Superman au sol",
+    category: "activation",
+    muscles: ["dos", "fessiers"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    description: "Allongé face au sol, bras tendus devant vous. Soulevez simultanément bras et jambes en contractant les érecteurs et les fessiers. Tenez 2 secondes en haut.",
+    reps: "10 reps",
+  },
+
   // ÉPAULES
   {
     id: "act-epaules-rotation-coiffe",
@@ -812,6 +883,21 @@ const rawExercises: Exercise[] = [
     reps: "15 de chaque côté",
     fallback: "Même rotation sans résistance, coude collé au flanc",
     therapeutic: "epaule",
+    prepMuscles: ["epaules", "pecs"],
+  },
+  {
+    id: "act-epaules-face-pull-poulie",
+    name: "Face pull à la poulie",
+    category: "activation",
+    muscles: ["epaules", "dos"],
+    objectives: ["force", "hypertrophie", "reprise"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "poulie",
+    description: "Poulie haute, corde en prise neutre. Tirez vers le visage en écartant les mains, coudes qui montent et sortent sur les côtés. Serrez les omoplates à chaque répétition. Version gym plus résistée que l'élastique.",
+    reps: "15 reps",
+    therapeutic: "epaule",
+    movementKey: "face-pull",
   },
   {
     id: "act-epaules-elev-laterales",
@@ -852,7 +938,44 @@ const rawExercises: Exercise[] = [
     description: "Grand pas en avant, fléchissez les deux genoux à 90°. Genou avant dans l'axe du pied, alternez.",
     reps: "8 de chaque côté",
   },
+  {
+    id: "act-jambes-leg-curl-leger",
+    name: "Leg curl léger",
+    category: "activation",
+    muscles: ["jambes"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "aucun",
+    description: "Machine leg curl, charge légère (30-40 % du 1RM). Fléchissez lentement, revenez sur 3 secondes. Active les ischios-jambiers sans les fatiguer avant squats et presses.",
+    reps: "15 reps",
+  },
+  {
+    id: "act-jambes-mkg-haut",
+    name: "Montées de genoux hautes",
+    category: "activation",
+    muscles: ["jambes", "core"],
+    objectives: ["force", "hypertrophie", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    description: "Sur place, montez les genoux alternativement au-dessus de la hanche, bras qui balancent. Cadence rapide mais propre. Active les fléchisseurs de hanche et réveille le système nerveux.",
+    reps: "20 secondes",
+  },
+
   // FESSIERS
+  {
+    id: "act-fessiers-abduction-elastique",
+    name: "Abduction latérale avec élastique",
+    category: "activation",
+    muscles: ["fessiers", "jambes"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "elastique",
+    description: "Élastique autour des genoux ou des chevilles, debout ou couché sur le côté. Écartez la jambe sur le côté contre la résistance. Excellent réveil du fessier moyen avant tout exercice de jambes.",
+    reps: "15 de chaque côté",
+  },
   {
     id: "act-fessiers-pont",
     name: "Pont fessier",
@@ -866,6 +989,45 @@ const rawExercises: Exercise[] = [
     reps: "12 reps",
     therapeutic: "bas-du-dos",
   },
+  {
+    id: "act-fessiers-kickback-elastique",
+    name: "Kickback fessier avec élastique",
+    category: "activation",
+    muscles: ["fessiers"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "elastique",
+    description: "Élastique à la cheville, debout face à un mur ou à quatre pattes. Tendez la jambe vers l'arrière en contractant le fessier. Revenez lentement. Isole efficacement le grand fessier.",
+    reps: "12-15 de chaque côté",
+  },
+
+  // BRAS
+  {
+    id: "act-bras-curl-leger",
+    name: "Curl biceps léger",
+    category: "activation",
+    muscles: ["bras"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "haltere",
+    description: "Haltères légers, supination complète au sommet. Fléchissez lentement, descente contrôlée sur 3 secondes. Réveille le biceps et les fléchisseurs du coude avant de charger.",
+    reps: "12-15 reps",
+  },
+  {
+    id: "act-bras-pushdown",
+    name: "Pushdown triceps",
+    category: "activation",
+    muscles: ["bras"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "poulie",
+    description: "Poulie haute, corde ou barre droite. Coudes collés aux flancs, poussez vers le bas jusqu'à extension complète. Charge légère, focus sur le verrouillage des triceps.",
+    reps: "15 reps",
+  },
+
   // CORE
   {
     id: "act-core-dead-bug",
@@ -1079,7 +1241,103 @@ const rawExercises: Exercise[] = [
   },
 
   // POIGNETS
+  {
+    id: "cib-poignets-etire-extenseurs",
+    name: "Étirement des extenseurs du poignet",
+    category: "ciblé",
+    muscles: ["bras"],
+    objectives: ["reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    therapeutic: "poignets",
+    description: "Bras tendu devant vous, paume vers le sol. De l'autre main, abaissez doucement les doigts vers le sol pour étirer les extenseurs de l'avant-bras. Essentiel si douleur en appui (pompes, développé).",
+    reps: "20 secondes par côté",
+  },
+  {
+    id: "cib-poignets-etire-flechisseurs",
+    name: "Étirement des fléchisseurs du poignet",
+    category: "ciblé",
+    muscles: ["bras"],
+    objectives: ["reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    therapeutic: "poignets",
+    description: "Bras tendu, paume vers le plafond. Tirez doucement les doigts vers vous avec l'autre main pour étirer les fléchisseurs. Complémentaire de l'étirement extenseurs — faites les deux.",
+    reps: "20 secondes par côté",
+  },
+  {
+    id: "cib-poignets-activation-progressive",
+    name: "Mise en charge progressive des poignets",
+    category: "ciblé",
+    muscles: ["bras"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    therapeutic: "poignets",
+    description: "En appui sur les mains à quatre pattes, transférez doucement le poids vers l'avant et sur les côtés. Augmentez l'angle à votre tolérance. Prépare les poignets au travail en appui.",
+    reps: "30 secondes",
+  },
+
+  // COUDES
+  {
+    id: "cib-coudes-etire-triceps",
+    name: "Étirement du triceps brachial",
+    category: "ciblé",
+    muscles: ["bras"],
+    objectives: ["reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    therapeutic: "coudes",
+    description: "Levez un bras et fléchissez le coude pour amener la main dans le dos. De l'autre main, poussez doucement le coude vers l'arrière de la tête. Étire le triceps et décompresse la capsule postérieure du coude.",
+    reps: "20 secondes par côté",
+  },
+  {
+    id: "cib-coudes-pronation-supination",
+    name: "Pronation-supination de l'avant-bras",
+    category: "ciblé",
+    muscles: ["bras"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    therapeutic: "coudes",
+    description: "Coude fléchi à 90°, collé au flanc. Tournez lentement la paume vers le haut (supination) puis vers le bas (pronation). Mobilise l'articulation radio-ulnaire et prépare les tendons du coude.",
+    reps: "10 dans chaque sens",
+  },
+
+  // CHEVILLES
+  {
+    id: "cib-chevilles-montees-pointe",
+    name: "Montées sur la pointe des pieds",
+    category: "ciblé",
+    muscles: ["jambes"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "aucun",
+    therapeutic: "chevilles",
+    description: "Debout, pieds parallèles. Montez lentement sur la pointe des pieds, tenez 2 secondes, redescendez sous contrôle. Renforce les muscles de la cheville et améliore la proprioception avant tout travail de jambes.",
+    reps: "15 reps",
+  },
+  {
+    id: "cib-chevilles-etire-mollet",
+    name: "Étirement du mollet au mur",
+    category: "ciblé",
+    muscles: ["jambes"],
+    objectives: ["reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    therapeutic: "chevilles",
+    description: "Mains au mur, pied arrière tendu, talon au sol. Avancez le bassin vers le mur pour étirer le mollet. Fléchissez légèrement le genou arrière pour cibler le soléaire. Changez de jambe.",
+    reps: "20 secondes par côté",
+  },
 ];
+
 export const exercises: Exercise[] = [];
 
 exercises.push(

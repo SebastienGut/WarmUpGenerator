@@ -57,12 +57,12 @@ const CIRCUIT_COUNTS: Record<Objective, Record<3 | 5 | 8, WarmupCounts>> = {
     8: { articulaire: 2, activation: 3 },
   },
   reprise: {
-    3: { articulaire: 1, activation: 1 },
+    3: { articulaire: 1, activation: 2 },
     5: { articulaire: 2, activation: 2 },
     8: { articulaire: 2, activation: 2 },
   },
   mobilite: {
-    3: { articulaire: 2, activation: 0 },
+    3: { articulaire: 3, activation: 0 },
     5: { articulaire: 3, activation: 0 },
     8: { articulaire: 4, activation: 1 },
   },
@@ -72,8 +72,11 @@ const PROTECTION_LIMIT: Record<Objective, Record<3 | 5 | 8, number>> = {
   force:        { 3: 1, 5: 2, 8: 2 },
   hypertrophie: { 3: 1, 5: 2, 8: 2 },
   reprise:      { 3: 1, 5: 2, 8: 2 },
-  mobilite:     { 3: 0, 5: 1, 8: 1 },
+  mobilite:     { 3: 1, 5: 1, 8: 1 },
 };
+
+// Max circuit repetitions per duration — longer formats allow more rounds to fill the time
+const MAX_ROUNDS: Record<3 | 5 | 8, number> = { 3: 1, 5: 2, 8: 3 };
 
 const SETTING_SCORE: Record<TrainingSetting, number> = {
   gym: 4,
@@ -539,7 +542,7 @@ export function generateWarmup({
   const rounds =
     onePassSeconds === 0
       ? 1
-      : Math.min(2, Math.max(1, Math.round(budgetCircuit / onePassSeconds)));
+      : Math.min(MAX_ROUNDS[duration], Math.max(1, Math.round(budgetCircuit / onePassSeconds)));
 
   const totalSeconds = onePassSeconds * rounds + cibléSeconds;
 

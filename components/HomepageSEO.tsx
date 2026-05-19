@@ -39,6 +39,30 @@ const FAQS: { q: string; a: string }[] = [
     q: "L'application est-elle vraiment gratuite ?",
     a: "Oui — 100 % gratuite, sans inscription, sans publicité, sans email demandé. Le générateur tourne entièrement dans ton navigateur, fonctionne hors ligne après la première visite, et ne collecte aucune donnée personnelle.",
   },
+  {
+    q: "Quelle différence entre un échauffement pour la force et pour l'hypertrophie ?",
+    a: "Pour la force (charges maximales), l'activation neuro-musculaire est prioritaire : il faut que le système nerveux soit prêt à recruter un maximum d'unités motrices dès la première série. Pour l'hypertrophie, la connexion mind-muscle prime — tu dois sentir le muscle travailler. Le générateur adapte automatiquement la sélection d'exercices selon ton objectif.",
+  },
+  {
+    q: "Peut-on s'échauffer avec une douleur à l'épaule ou au genou ?",
+    a: "Oui, à condition d'adapter le protocole. Un échauffement spécifique « zone sensible » utilise des mouvements thérapeutiques à faible charge qui préparent l'articulation fragilisée sans l'aggraver. Le générateur intègre cette logique : sélectionne ta zone sensible et il exclut les exercices contre-indiqués.",
+  },
+  {
+    q: "Peut-on s'échauffer efficacement en 3 minutes ?",
+    a: "En 3 minutes, on peut faire un échauffement minimal suffisant pour une séance légère ou de reprise. Pour des charges lourdes (squat lourd, développé couché à 80 %+), 5 à 8 minutes sont nécessaires. Le générateur propose des plans sur 3, 5 ou 8 minutes — choisis selon l'intensité de ta séance.",
+  },
+  {
+    q: "Quel échauffement avant les squats ?",
+    a: "Le squat sollicite chevilles, genoux, hanches, lombaires et thoracique simultanément. L'échauffement idéal comprend : rotations de cheville, mobilité thoracique en rotation, hip circles, fentes marchées et activation des fessiers. Le générateur a un plan dédié « Jambes » et une page spécifique squat avec le protocole complet.",
+  },
+  {
+    q: "Faut-il faire du cardio avant de faire de la musculation ?",
+    a: "Non, ce n'est pas nécessaire ni optimal. Un cardio prolongé (10-15 min de tapis) avant la musculation fatigue le système énergétique et peut réduire ta force disponible. Un échauffement spécifique articulaire + activation musculaire est bien plus efficace pour préparer une séance de force ou d'hypertrophie.",
+  },
+  {
+    q: "Le générateur fonctionne-t-il hors connexion en salle ?",
+    a: "Oui. Après la première visite, l'application est mise en cache et fonctionne sans réseau. Tu peux générer un plan et utiliser le mode timer plein écran même en sous-sol sans Wi-Fi. Aucune donnée n'est envoyée à un serveur — tout tourne localement dans ton navigateur.",
+  },
 ];
 
 export default function HomepageSEO() {
@@ -193,6 +217,15 @@ export default function HomepageSEO() {
           </div>
         </article>
 
+        {/* GUIDES — liens discrets */}
+        <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-white/[0.06] pt-6">
+          <span className="w-full font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-[#3A3A40]">Guides</span>
+          <Link href="/blog/guide-complet-echauffement-musculation" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Guide complet</Link>
+          <Link href="/blog/pourquoi-s-echauffer-musculation" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Pourquoi s&apos;échauffer</Link>
+          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Combien de temps</Link>
+          <Link href="/blog/echauffement-dynamique-ou-statique" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Dynamique ou statique</Link>
+        </nav>
+
         {/* FOOTER */}
         <footer className="flex flex-col gap-4 border-t border-white/[0.06] pt-8 text-[11px] text-[#5A5A60]">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -204,6 +237,9 @@ export default function HomepageSEO() {
             </p>
           </div>
           <nav aria-label="Liens secondaires" className="flex flex-wrap gap-x-4 gap-y-2">
+            <Link href="/blog" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+              Blog
+            </Link>
             <Link href="/a-propos" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
               À propos
             </Link>

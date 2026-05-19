@@ -3,15 +3,14 @@ import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { PROTECTION_SLUGS } from "@/lib/content/protection";
 import { COMBO_SLUGS } from "@/lib/content/combo";
 import { EXERCICE_SLUGS } from "@/lib/content/exercice";
+import { BLOG_SLUGS } from "@/lib/blog-content";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
-const CONTENT_UPDATED_AT = new Date("2026-05-18");
-
 const MUSCLES: MuscleGroup[] = ["pecs", "dos", "epaules", "jambes", "fessiers", "bras", "core"];
 const OBJECTIVES: Objective[] = ["force", "hypertrophie", "reprise", "mobilite"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = CONTENT_UPDATED_AT;
+  const lastModified = new Date();
 
   const musclePages: MetadataRoute.Sitemap = MUSCLES.flatMap((muscle) =>
     OBJECTIVES.map((objectif) => ({
@@ -42,6 +41,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.85, // long-tail très transactionnel
   }));
+
+  const blogPages: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    ...BLOG_SLUGS.map((slug) => ({
+      url: `${SITE_URL}/blog/${slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
 
   return [
     {
@@ -86,6 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.75,
     },
+    ...blogPages,
     ...musclePages,
     ...protectionPages,
     ...comboPages,

@@ -9,7 +9,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Warmup Generator — Échauffement musculation gratuit & personnalisé",
+    default: "Échauffement musculation gratuit & personnalisé",
     template: "%s · Warmup Generator",
   },
   description:

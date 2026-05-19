@@ -1,5 +1,6 @@
 import GeneratorClient from "@/components/GeneratorClient";
 import HomepageSEO from "@/components/HomepageSEO";
+import IOSInstallPrompt from "@/components/IOSInstallPrompt";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
@@ -55,6 +56,7 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <GeneratorClient />
       <HomepageSEO />
+      <IOSInstallPrompt />
     </>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "ios-install-dismissed";
-const DISMISS_TTL_DAYS = 30;
+const DISMISS_TTL_DAYS = 7;
 
 export default function IOSInstallPrompt() {
   const [visible, setVisible] = useState(false);

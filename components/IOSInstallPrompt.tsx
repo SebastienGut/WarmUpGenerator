@@ -40,17 +40,28 @@ export default function IOSInstallPrompt() {
       className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
       style={{ animation: "slideUp 0.3s ease-out" }}
     >
-      {/* Bouton compact — toujours visible */}
+      {/* Bouton compact — le ✕ ici = cooldown 7j, clic principal = ouvre les étapes */}
       {!expanded && (
-        <button
-          onClick={() => setExpanded(true)}
-          className="flex items-center gap-2 rounded-full border border-white/[0.12] bg-[#141417]/95 px-4 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.5)] backdrop-blur-md transition-colors hover:border-[#A3FF12]/40 active:scale-95"
-        >
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-            <path d="M6 0v8M3 3L6 0l3 3M1 6v7h10V6" stroke="#A3FF12" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span className="text-[13px] font-bold text-white">Installer l&apos;application</span>
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => setExpanded(true)}
+            className="flex items-center gap-2 rounded-full border border-white/[0.12] bg-[#141417]/95 px-4 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.5)] backdrop-blur-md transition-colors hover:border-[#A3FF12]/40 active:scale-95"
+          >
+            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+              <path d="M6 0v8M3 3L6 0l3 3M1 6v7h10V6" stroke="#A3FF12" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="text-[13px] font-bold text-white">Installer l&apos;application</span>
+          </button>
+          <button
+            onClick={dismiss}
+            aria-label="Ne plus afficher"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.08] bg-[#141417]/95 text-[#5A5A60] shadow-[0_4px_20px_rgba(0,0,0,0.5)] backdrop-blur-md transition-colors hover:text-white active:scale-95"
+          >
+            <svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true">
+              <path d="M1 1l7 7M8 1l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
       )}
 
       {/* Instructions dépliées */}
@@ -63,7 +74,7 @@ export default function IOSInstallPrompt() {
         >
           <div className="flex items-center justify-between border-b border-white/[0.06] px-4 pb-3 pt-4">
             <span className="text-[13px] font-bold text-white">Installer sur ton iPhone</span>
-            <button onClick={dismiss} aria-label="Fermer" className="flex h-7 w-7 items-center justify-center rounded-lg text-[#5A5A60] transition-colors hover:text-white">
+            <button onClick={() => setExpanded(false)} aria-label="Fermer" className="flex h-7 w-7 items-center justify-center rounded-lg text-[#5A5A60] transition-colors hover:text-white">
               <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
                 <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>

@@ -16,10 +16,6 @@ export const metadata: Metadata = {
     "Crée en 30 secondes un plan d'échauffement adapté à tes muscles cibles, ton objectif et tes zones sensibles. 100% gratuit, sans inscription, fonctionne hors ligne.",
   applicationName: "Warmup Generator",
   authors: [{ name: "Warmup Generator" }],
-  alternates: {
-    canonical: "/",
-    languages: { "fr-FR": "/" },
-  },
   openGraph: {
     title: "Warmup Generator — Échauffement musculation personnalisé",
     description:

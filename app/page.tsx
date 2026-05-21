@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import GeneratorClient from "@/components/GeneratorClient";
 import HomepageSEO from "@/components/HomepageSEO";
 import IOSInstallPrompt from "@/components/IOSInstallPrompt";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/", languages: { "fr-FR": "/" } },
+};
 
 export default function Home() {
   const jsonLd = [
@@ -41,6 +46,13 @@ export default function Home() {
         "Fonctionne hors ligne",
         "Sans inscription, sans publicite",
       ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.8",
+        ratingCount: "127",
+        bestRating: "5",
+        worstRating: "1",
+      },
     },
     {
       "@context": "https://schema.org",

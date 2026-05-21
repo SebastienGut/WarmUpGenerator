@@ -384,7 +384,7 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepRoles: ["activation"],
     prepFocus: ["wrist-forearm", "elbow-tendon"],
     prepIntensity: "moderate",
-    trainingValue: 2,
+    trainingValue: 4,
     painSupport: ["coudes"],
   },
   "act-bras-pushdown": {
@@ -392,7 +392,7 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepRoles: ["activation"],
     prepFocus: ["elbow-tendon"],
     prepIntensity: "moderate",
-    trainingValue: 2,
+    trainingValue: 4,
     painSupport: ["coudes"],
   },
   "act-core-dead-bug": {
@@ -665,7 +665,7 @@ const rawExercises: Exercise[] = [
   },
   {
     id: "art-ouverture-pecs",
-    name: "Ouvertures pectorales",
+    name: "Ouvertures d'épaules",
     category: "articulaire",
     muscles: ["pecs", "epaules"],
     objectives: ["force", "hypertrophie", "reprise", "mobilite"],
@@ -1014,6 +1014,7 @@ const rawExercises: Exercise[] = [
     equipment: "haltere",
     description: "Haltères légers, supination complète au sommet. Fléchissez lentement, descente contrôlée sur 3 secondes. Réveille le biceps et les fléchisseurs du coude avant de charger.",
     reps: "12-15 reps",
+    prepMuscles: ["bras"],
   },
   {
     id: "act-bras-pushdown",
@@ -1026,6 +1027,7 @@ const rawExercises: Exercise[] = [
     equipment: "poulie",
     description: "Poulie haute, corde ou barre droite. Coudes collés aux flancs, poussez vers le bas jusqu'à extension complète. Charge légère, focus sur le verrouillage des triceps.",
     reps: "15 reps",
+    prepMuscles: ["bras"],
   },
 
   // CORE

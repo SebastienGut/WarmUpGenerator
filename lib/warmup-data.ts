@@ -314,6 +314,13 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     trainingValue: 5,
     painSupport: ["epaule"],
   },
+  "act-epaules-y-raise": {
+    setting: "both",
+    prepRoles: ["activation", "stability"],
+    prepFocus: ["scapula", "rotator-cuff"],
+    prepIntensity: "soft",
+    trainingValue: 3,
+  },
   "act-jambes-leg-curl-leger": {
     setting: "gym",
     prepRoles: ["activation"],
@@ -879,6 +886,18 @@ const rawExercises: Exercise[] = [
     fallback: "Même rotation sans résistance, coude collé au flanc",
     therapeutic: "epaule",
     prepMuscles: ["epaules", "pecs"],
+  },
+  {
+    id: "act-epaules-y-raise",
+    name: "Y-raise",
+    category: "activation",
+    muscles: ["epaules"],
+    objectives: ["force", "hypertrophie", "reprise"],
+    contraindications: ["epaule"],
+    durationSeconds: 30,
+    equipment: "aucun",
+    description: "Bras le long du corps, montez les deux bras en diagonale pour former un Y, pouces vers le haut. Pause 2 secondes en haut, redescendez lentement. Avec ou sans petit poids — le mouvement seul suffit en échauffement.",
+    reps: "10 reps",
   },
 
   // JAMBES

@@ -162,7 +162,7 @@ export const DURATION_OPTIONS: { value: 3 | 5 | 8; label: string }[] = [
 
 type ExerciseMetadata = Pick<
   Exercise,
-  "setting" | "prepRoles" | "prepFocus" | "prepIntensity" | "trainingValue" | "painSupport"
+  "setting" | "prepRoles" | "prepFocus" | "prepIntensity" | "trainingValue" | "painSupport" | "prepMuscles"
 >;
 
 const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
@@ -384,7 +384,7 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepRoles: ["activation"],
     prepFocus: ["wrist-forearm", "elbow-tendon"],
     prepIntensity: "moderate",
-    trainingValue: 4,
+    trainingValue: 2,
     painSupport: ["coudes"],
   },
   "act-bras-pushdown": {
@@ -392,8 +392,26 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepRoles: ["activation"],
     prepFocus: ["elbow-tendon"],
     prepIntensity: "moderate",
+    trainingValue: 2,
+    painSupport: ["coudes"],
+  },
+  "act-bras-iso-biceps": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepFocus: ["elbow-tendon", "wrist-forearm"],
+    prepIntensity: "moderate",
     trainingValue: 4,
     painSupport: ["coudes"],
+    prepMuscles: ["bras"],
+  },
+  "act-bras-iso-triceps": {
+    setting: "both",
+    prepRoles: ["activation"],
+    prepFocus: ["elbow-tendon"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+    painSupport: ["coudes"],
+    prepMuscles: ["bras"],
   },
   "act-core-dead-bug": {
     setting: "both",
@@ -1014,7 +1032,6 @@ const rawExercises: Exercise[] = [
     equipment: "haltere",
     description: "Haltères légers, supination complète au sommet. Fléchissez lentement, descente contrôlée sur 3 secondes. Réveille le biceps et les fléchisseurs du coude avant de charger.",
     reps: "12-15 reps",
-    prepMuscles: ["bras"],
   },
   {
     id: "act-bras-pushdown",
@@ -1027,6 +1044,31 @@ const rawExercises: Exercise[] = [
     equipment: "poulie",
     description: "Poulie haute, corde ou barre droite. Coudes collés aux flancs, poussez vers le bas jusqu'à extension complète. Charge légère, focus sur le verrouillage des triceps.",
     reps: "15 reps",
+  },
+  {
+    id: "act-bras-iso-biceps",
+    name: "Activation biceps isométrique",
+    category: "activation",
+    muscles: ["bras"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    description: "Debout, placez la paume d'une main sous le poignet opposé. Tentez de fléchir le coude pendant 3 secondes contre la résistance de l'autre main, puis relâchez. Réveille le biceps sans matériel.",
+    reps: "5 contractions de chaque côté",
+    prepMuscles: ["bras"],
+  },
+  {
+    id: "act-bras-iso-triceps",
+    name: "Activation triceps isométrique",
+    category: "activation",
+    muscles: ["bras"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 30,
+    equipment: "aucun",
+    description: "Bras tendu devant vous, placez l'autre main sur le dos du poignet. Poussez vers le bas (extension) pendant 3 secondes contre la résistance de l'autre main, puis relâchez. Active le triceps sans matériel.",
+    reps: "5 contractions de chaque côté",
     prepMuscles: ["bras"],
   },
 

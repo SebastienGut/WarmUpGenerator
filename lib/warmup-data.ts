@@ -184,8 +184,8 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepRoles: ["mobility", "therapeutic"],
     prepFocus: ["wrist-forearm"],
     prepIntensity: "soft",
-    trainingValue: 2,
-    painSupport: ["poignets"],
+    trainingValue: 1, // zone sensible only — coude-poignet covered by art-coudes in general case
+    painSupport: ["poignets", "coudes"],
   },
   "art-coudes": {
     setting: "both",

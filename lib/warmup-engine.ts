@@ -502,8 +502,12 @@ export function generateWarmup({
   const neededJoints = getNeededJoints(targets);
   const allowed = exercises.filter((e) => isAllowed(e, active));
 
+  // Therapeutic exercises for active zones are reserved exclusively for the ciblé slot
+  const reservedForCible = (e: Exercise) =>
+    active.some((z) => e.painSupport?.includes(z) || e.therapeutic === z);
+
   const articulaire = pickArticulaire(
-    allowed.filter((e) => e.category === "articulaire"),
+    allowed.filter((e) => e.category === "articulaire" && !reservedForCible(e)),
     neededJoints,
     objective,
     active,
@@ -513,7 +517,7 @@ export function generateWarmup({
   const artDomGroup = dominantEquipmentGroup(articulaire);
 
   const activation = pickActivation(
-    allowed.filter((e) => e.category === "activation"),
+    allowed.filter((e) => e.category === "activation" && !reservedForCible(e)),
     targets,
     objective,
     active,

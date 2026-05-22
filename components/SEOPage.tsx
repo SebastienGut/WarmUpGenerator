@@ -106,6 +106,30 @@ export default function SEOPage(props: SEOPageProps) {
     })),
   };
 
+  const ctaBlock = (
+    <Link
+      href="/"
+      className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
+    >
+      <div className="flex flex-col gap-1">
+        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
+          → Plan personnalisé
+        </span>
+        <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
+          Générer ton échauffement sur mesure
+        </span>
+        <span className="text-[12px] font-medium opacity-75">
+          Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes
+        </span>
+      </div>
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
+        <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+          <path d="M0 0 L14 8 L0 16 Z" />
+        </svg>
+      </div>
+    </Link>
+  );
+
   return (
     <main className="relative min-h-screen bg-[#050505]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
@@ -211,29 +235,9 @@ export default function SEOPage(props: SEOPageProps) {
           </ol>
         </section>
 
-        {/* CTA générateur */}
+        {/* CTA générateur — après les exercices */}
         <section className="mb-14">
-          <Link
-            href="/"
-            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
-          >
-            <div className="flex flex-col gap-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
-                → Plan personnalisé
-              </span>
-              <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
-                Générer ton échauffement sur mesure
-              </span>
-              <span className="text-[12px] font-medium opacity-75">
-                Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes
-              </span>
-            </div>
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
-              <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
-                <path d="M0 0 L14 8 L0 16 Z" />
-              </svg>
-            </div>
-          </Link>
+          {ctaBlock}
         </section>
 
         {/* ADVICE — accent lime à gauche */}
@@ -303,12 +307,32 @@ export default function SEOPage(props: SEOPageProps) {
           </section>
         )}
 
+        {/* CTA générateur — bas de page */}
+        <section className="mb-14">
+          {ctaBlock}
+        </section>
+
         {/* DISCLAIMER */}
-        <footer className="border-t border-white/[0.06] pt-6 text-[11px] leading-relaxed text-[#5A5A60]">
+        <footer className="border-t border-white/[0.06] pt-6 pb-24 text-[11px] leading-relaxed text-[#5A5A60] md:pb-6">
           Cet article est informatif et ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou
           d&apos;un médecin du sport. En cas de douleur persistante, consulte un professionnel de santé.
         </footer>
 
+      </div>
+
+      {/* Barre sticky mobile */}
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-white/[0.06] bg-[#050505]/95 px-4 py-3 backdrop-blur-md md:hidden">
+        <Link
+          href="/"
+          className="flex items-center justify-between gap-3 rounded-xl bg-[#A3FF12] px-5 py-3 text-black active:scale-[0.98] transition-transform"
+        >
+          <span className="font-sans text-[15px] font-black uppercase tracking-tight">
+            Générer mon plan
+          </span>
+          <svg width="12" height="14" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+            <path d="M0 0 L14 8 L0 16 Z" />
+          </svg>
+        </Link>
       </div>
     </main>
   );

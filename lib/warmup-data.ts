@@ -952,18 +952,6 @@ const rawExercises: Exercise[] = [
 
   // FESSIERS
   {
-    id: "act-fessiers-abduction-elastique",
-    name: "Abduction latérale avec élastique",
-    category: "activation",
-    muscles: ["fessiers", "jambes"],
-    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
-    contraindications: [],
-    durationSeconds: 35,
-    equipment: "elastique",
-    description: "Élastique autour des genoux ou des chevilles, debout ou couché sur le côté. Écartez la jambe sur le côté contre la résistance. Excellent réveil du fessier moyen avant tout exercice de jambes.",
-    reps: "15 de chaque côté",
-  },
-  {
     id: "act-fessiers-pont",
     name: "Pont fessier",
     category: "activation",

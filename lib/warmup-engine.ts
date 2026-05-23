@@ -134,13 +134,13 @@ const ZONE_PROFILES: Record<BodyZone, ZoneProfile> = {
 };
 
 const RELATED_MUSCLES: Record<MuscleGroup, MuscleGroup[]> = {
-  pecs:     ["epaules", "bras", "dos"],
-  dos:      ["epaules", "core", "bras"],
-  epaules:  ["pecs", "dos", "bras"],
-  jambes:   ["fessiers", "core"],
+  pecs:     ["epaules"],
+  dos:      ["epaules", "core"],
+  epaules:  ["dos"],
+  jambes:   ["fessiers"],
   fessiers: ["jambes", "core"],
-  bras:     ["pecs", "dos", "epaules"],
-  core:     ["dos", "fessiers", "jambes"],
+  bras:     [],
+  core:     [],
 };
 
 function activeZones(zones: SensitiveZone[]): BodyZone[] {
@@ -292,12 +292,16 @@ function scoreActivation(
 ): number {
   const relatedMuscles = getRelatedMuscles(muscles);
   const directMatches = exercise.muscles.filter((m) => muscles.includes(m)).length;
+  const prepMatches = exercise.prepMuscles?.filter((m) => muscles.includes(m)).length ?? 0;
   const relatedMatches = exercise.muscles.filter((m) => relatedMuscles.has(m)).length;
-  const muscleScore = directMatches * 5 + relatedMatches * 2;
+  const muscleScore = directMatches * 8 + prepMatches * 6 + Math.min(relatedMatches, 1);
   const therapeuticFromActivation =
     exercise.category === "activation" && zones.some((z) => exercise.painSupport?.includes(z)) ? 4 : 0;
+  const comboAccessory = muscles.length > 1 && relatedMatches > 0;
   const offTargetPenalty =
-    directMatches === 0 && relatedMatches === 0 && therapeuticFromActivation === 0 ? -12 : 0;
+    directMatches === 0 && prepMatches === 0 && therapeuticFromActivation === 0 && !comboAccessory
+      ? -40
+      : 0;
 
   return (
     muscleScore +
@@ -419,7 +423,16 @@ function pickActivation(
   for (const { exercise, score } of scored) {
     if (picked.length >= count) break;
     if (score <= 0) continue;
-    const matchingMuscles = exercise.muscles.filter((m) => muscles.includes(m));
+    const matchingMuscles = [
+      ...exercise.muscles.filter((m) => muscles.includes(m)),
+      ...(exercise.prepMuscles?.filter((m) => muscles.includes(m)) ?? []),
+    ];
+    const relatedMuscles = getRelatedMuscles(muscles);
+    const isComboAccessory =
+      matchingMuscles.length === 0 &&
+      muscles.length > 1 &&
+      exercise.movementKey === "face-pull" &&
+      exercise.muscles.some((m) => relatedMuscles.has(m));
     const addsCoverage = matchingMuscles.some((m) => !covered.has(m));
     const isZoneTherapeutic =
       matchingMuscles.length > 0 &&
@@ -430,7 +443,10 @@ function pickActivation(
       matchingMuscles.length > 0 &&
       exercise.prepMuscles?.some((m) => muscles.includes(m));
     const canAdd =
-      (matchingMuscles.length > 0 && addsCoverage) || isZoneTherapeutic || isMuscleEssential;
+      (matchingMuscles.length > 0 && addsCoverage) ||
+      isZoneTherapeutic ||
+      isMuscleEssential ||
+      isComboAccessory;
     if (canAdd && !isFunctionalDuplicate(exercise, picked)) {
       picked.push(exercise);
       matchingMuscles.forEach((m) => covered.add(m));
@@ -443,7 +459,8 @@ function pickActivation(
     if (score <= 0) continue;
     if (
       !picked.includes(exercise) &&
-      exercise.muscles.some((m) => muscles.includes(m)) &&
+      (exercise.muscles.some((m) => muscles.includes(m)) ||
+        exercise.prepMuscles?.some((m) => muscles.includes(m))) &&
       !isFunctionalDuplicate(exercise, picked)
     ) {
       picked.push(exercise);

@@ -343,10 +343,10 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
   },
   "act-jambes-mkg-haut": {
     setting: "both",
-    prepRoles: ["activation"],
-    prepFocus: ["hip", "core"],
-    prepIntensity: "neural",
-    trainingValue: 2,
+    prepRoles: ["mobility", "activation"],
+    prepFocus: ["hip", "knee-control"],
+    prepIntensity: "soft",
+    trainingValue: 3,
   },
   "act-fessiers-abduction-elastique": {
     setting: "both",
@@ -939,15 +939,15 @@ const rawExercises: Exercise[] = [
   },
   {
     id: "act-jambes-mkg-haut",
-    name: "Montées de genoux hautes",
+    name: "Balanciers de jambe contrôlés",
     category: "activation",
     muscles: ["jambes"],
     objectives: ["force", "hypertrophie", "mobilite"],
-    contraindications: ["genou", "hanches", "chevilles"],
-    durationSeconds: 30,
+    contraindications: ["hanches"],
+    durationSeconds: 35,
     equipment: "aucun",
-    description: "Sur place, montez les genoux alternativement au-dessus de la hanche, bras qui balancent. Cadence rapide mais propre. Active les fléchisseurs de hanche et réveille le système nerveux.",
-    reps: "20 secondes",
+    description: "Debout en appui léger sur un mur ou un rack. Balancez une jambe d'avant en arrière sans forcer, puis de gauche à droite. Gardez le bassin stable et cherchez une amplitude fluide.",
+    reps: "8 avant/arrière + 8 latéraux par côté",
   },
 
   // FESSIERS

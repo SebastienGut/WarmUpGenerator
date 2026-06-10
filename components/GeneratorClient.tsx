@@ -28,7 +28,7 @@ const MUSCLES: { key: MuscleGroup; label: string; img: string }[] = [
 
 const OBJECTIVES: { key: Objective; label: string; Icon: typeof Target }[] = [
   { key: "force", label: "Force", Icon: Target },
-  { key: "hypertrophie", label: "Volume", Icon: Dumbbell },
+  { key: "hypertrophie", label: "Hypertrophie", Icon: Dumbbell },
   { key: "mobilite", label: "Mobilité", Icon: Sparkles },
   { key: "reprise", label: "Reprise", Icon: Heart },
 ];

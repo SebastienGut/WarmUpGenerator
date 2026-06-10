@@ -37,8 +37,14 @@ export default function AboutPage() {
     description: metadata.description,
     url: `${SITE_URL}/a-propos`,
     inLanguage: "fr-FR",
-    dateModified: "2026-05-18",
-    author: { "@type": "Organization", name: "Warmup Generator" },
+    dateModified: "2026-06-10",
+    author: {
+      "@type": "Person",
+      name: "Sébastien Gutierrez",
+      url: `${SITE_URL}/a-propos`,
+      description:
+        "Pratiquant de musculation de longue date, créateur de Warmup Generator.",
+    },
     publisher: {
       "@type": "Organization",
       name: "Warmup Generator",
@@ -47,10 +53,22 @@ export default function AboutPage() {
     mainEntityOfPage: `${SITE_URL}/a-propos`,
   };
 
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Sébastien Gutierrez",
+    url: `${SITE_URL}/a-propos`,
+    description:
+      "Pratiquant de musculation de longue date, créateur de Warmup Generator — outil gratuit de génération d'échauffements personnalisés.",
+    knowsAbout: ["musculation", "échauffement", "préparation physique", "prévention des blessures"],
+    mainEntityOfPage: `${SITE_URL}/a-propos`,
+  };
+
   return (
     <main className="relative min-h-screen bg-[#050505]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
 
       {/* HEADER */}
       <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">
@@ -111,6 +129,28 @@ export default function AboutPage() {
             ou contradictoires. Cet outil règle ce problème en 30 secondes, sans inscription,
             sans pub, et avec un plan adapté à ton profil exact.
           </p>
+        </section>
+
+        {/* AUTEUR */}
+        <section className="mb-14 flex items-stretch overflow-hidden rounded-xl border border-white/[0.06] bg-[#0C0C0E]">
+          <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-white/[0.06] bg-[#A3FF12]/[0.03]">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A3FF12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <div className="flex flex-1 flex-col gap-1 px-4 py-4">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+              Qui est derrière l&apos;outil
+            </p>
+            <h2 className="text-[16px] font-bold leading-tight text-white">Sébastien Gutierrez</h2>
+            <p className="text-[13px] leading-relaxed text-[#A1A1A6]">
+              Pratiquant de musculation passionné de longue date. Warmup Generator est un projet
+              personnel, sans société derrière, né de mes propres séances : l&apos;algorithme de
+              sélection, la base d&apos;exercices et chaque protocole publié sur ce site sont
+              construits et maintenus à la main. Les articles du blog sont signés sous ce nom.
+            </p>
+          </div>
         </section>
 
         {/* VALEURS */}

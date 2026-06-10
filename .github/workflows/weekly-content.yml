@@ -1,0 +1,91 @@
+name: Génération automatique d'article SEO
+
+on:
+  # Publication automatique hebdo désactivée (10/06/2026).
+  # Pour générer un article à la demande : GitHub → Actions → ce workflow → "Run workflow".
+  # Pour réactiver le rythme hebdo, décommenter :
+  # schedule:
+  #   - cron: "0 7 * * 1"
+
+  # Déclenchement manuel depuis GitHub Actions
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (affiche le contenu généré sans committer)"
+        required: false
+        default: "false"
+        type: boolean
+
+jobs:
+  generate-and-publish:
+    name: Générer et publier un article
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout du repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Générer l'article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-article.mjs
+
+      - name: Vérifier les changements
+        id: check_changes
+        run: |
+          if git diff --quiet lib/blog-content.ts; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Aucun changement détecté (tous les sujets déjà écrits)"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            # Extraire le slug du dernier article ajouté
+            SLUG=$(git diff lib/blog-content.ts | grep '"slug":' | tail -1 | sed 's/.*"slug": "\([^"]*\)".*/\1/')
+            echo "slug=$SLUG" >> $GITHUB_OUTPUT
+            echo "Nouvel article détecté: $SLUG"
+          fi
+
+      - name: Vérifier le build Next.js
+        if: steps.check_changes.outputs.changed == 'true'
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Committer et pousser
+        if: steps.check_changes.outputs.changed == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          git config user.name "warmup-bot[bot]"
+          git config user.email "warmup-bot@warmup-generator.com"
+          git add lib/blog-content.ts
+          git commit -m "content: article SEO automatique — ${{ steps.check_changes.outputs.slug }}
+
+          Généré automatiquement par le workflow weekly-content.
+          Slug: ${{ steps.check_changes.outputs.slug }}
+          [skip ci]"
+          git push origin main
+
+      - name: Résumé
+        if: always()
+        run: |
+          echo "## Résultat de la génération" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_changes.outputs.changed }}" == "true" ]; then
+            echo "✅ Article **${{ steps.check_changes.outputs.slug }}** généré et publié" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Vercel déclenchera un build automatiquement dans quelques minutes." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ Aucun sujet disponible — tous les articles candidats ont déjà été écrits." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Pour ajouter de nouveaux sujets, éditer le tableau CANDIDATE_TOPICS dans scripts/generate-article.mjs" >> $GITHUB_STEP_SUMMARY
+          fi

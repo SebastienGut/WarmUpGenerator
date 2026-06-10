@@ -12,6 +12,14 @@ export default function ClientScripts() {
         src="//gc.zgo.at/count.js"
         strategy="afterInteractive"
       />
+      {/* Mesure la boucle de rétention PWA : événement custom GoatCounter à l'installation */}
+      <Script id="pwa-install-tracking" strategy="afterInteractive">
+        {`window.addEventListener('appinstalled', function () {
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: 'pwa-installed', title: 'PWA installee', event: true });
+          }
+        });`}
+      </Script>
     </>
   );
 }

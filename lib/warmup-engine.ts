@@ -353,6 +353,7 @@ function sortScored<T extends { exercise: Exercise; score: number }>(items: T[])
 function pickArticulaire(
   candidates: Exercise[],
   neededJoints: Set<JointRegion>,
+  muscles: MuscleGroup[],
   objective: Objective,
   zones: BodyZone[],
   count: number,
@@ -377,10 +378,17 @@ function pickArticulaire(
         const knownJoints = exJoints.filter((j) => neededJoints.has(j) &&  covered.has(j)).length;
         // Strong bonus for covering new joints, tiny bonus for redundant coverage (keeps variety)
         const jointScore = newJoints * 8 + knownJoints * 1;
+        const posteriorChainComboBonus =
+          muscles.includes("jambes") &&
+          muscles.includes("dos") &&
+          exercise.id === "art-lombaires-essuie-glace"
+            ? 10
+            : 0;
         return {
           exercise,
           score:
             jointScore +
+            posteriorChainComboBonus +
             scoreArticulaireBase(exercise, objective, zones, domGroup),
         };
       })
@@ -526,6 +534,7 @@ export function generateWarmup({
   const articulaire = pickArticulaire(
     allowed.filter((e) => e.category === "articulaire" && !reservedForCible(e)),
     neededJoints,
+    targets,
     objective,
     active,
     counts.articulaire,

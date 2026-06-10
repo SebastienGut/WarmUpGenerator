@@ -5,6 +5,14 @@ import { PROTECTION_PAGES, PROTECTION_SLUGS } from "@/lib/content/protection";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
+// Deep-link générateur : zone sensible + muscles associés, en mode reprise (doux)
+const PLAN_PARAMS: Record<string, string> = {
+  "epaule-douleur": "muscles=epaules&objectif=reprise&zones=epaule",
+  genou: "muscles=jambes&objectif=reprise&zones=genou",
+  lombaires: "muscles=core,dos&objectif=reprise&zones=bas-du-dos",
+  poignets: "muscles=bras&objectif=reprise&zones=poignets",
+};
+
 interface PageProps {
   params: Promise<{ zone: string }>;
 }
@@ -73,6 +81,7 @@ export default async function ProtectionPage({ params }: PageProps) {
       path={path}
       howToName={data.h1}
       totalDurationLabel="5 min"
+      planHref={PLAN_PARAMS[zone] ? `/result?${PLAN_PARAMS[zone]}&duree=5` : undefined}
     />
   );
 }

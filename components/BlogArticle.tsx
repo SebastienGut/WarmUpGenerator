@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { BlogPost } from "@/lib/blog-content";
+import { frDateToISO } from "@/lib/dates";
 
 interface BlogArticleProps {
   post: BlogPost;
@@ -16,8 +17,14 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
     description: post.metaDescription,
     inLanguage: "fr-FR",
     url: `${siteUrl}${path}`,
-    datePublished: post.publishDate,
-    author: { "@type": "Organization", name: "Warmup Generator" },
+    datePublished: frDateToISO(post.publishDate),
+    dateModified: frDateToISO(post.publishDate),
+    author: {
+      "@type": "Person",
+      name: "Sébastien Gutierrez",
+      url: `${siteUrl}/a-propos`,
+      description: "Pratiquant de musculation de longue date, créateur de Warmup Generator.",
+    },
     publisher: { "@type": "Organization", name: "Warmup Generator", url: siteUrl },
   };
 
@@ -83,7 +90,14 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
 
         {/* HERO */}
         <section className="mb-12 flex flex-col gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/a-propos"
+              className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12] transition-opacity hover:opacity-80"
+            >
+              Par Sébastien Gutierrez
+            </Link>
+            <span className="text-[#2E2E33]">·</span>
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
               {post.publishDate}
             </span>

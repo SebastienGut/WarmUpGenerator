@@ -17,7 +17,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   "developpe-couche": {
     slug: "developpe-couche",
     exerciseLabel: "développé couché",
-    metaTitle: "Échauffement développé couché — Plan complet avant DC",
+    metaTitle: "Échauffement développé couché — DC sans douleur",
     metaDescription:
       "Échauffement développé couché complet : coiffe, grand dentelé, pec mineur, thoracique. 6 mouvements en 5 minutes pour DC sain et performant. Gratuit.",
     h1: "Échauffement avant le développé couché",
@@ -101,7 +101,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   squat: {
     slug: "squat",
     exerciseLabel: "squat",
-    metaTitle: "Échauffement squat — Mobilité hanche cheville et activation fessière",
+    metaTitle: "Échauffement squat — 6 mouvements en 5 min",
     metaDescription:
       "Échauffement squat complet : mobilité hanche, dorsiflexion cheville, activation fessière. 6 mouvements en 5 min pour squat lourd et profond. Gratuit.",
     h1: "Échauffement avant le squat",
@@ -185,7 +185,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   "souleve-de-terre": {
     slug: "souleve-de-terre",
     exerciseLabel: "soulevé de terre",
-    metaTitle: "Échauffement soulevé de terre — Hanches, dos, gainage avant SDT",
+    metaTitle: "Échauffement soulevé de terre — SDT lourd sans blessure",
     metaDescription:
       "Échauffement soulevé de terre complet : charnière de hanche, mobilité thoracique, gainage anti-extension. 6 mouvements en 5 min pour SDT lourd. Gratuit.",
     h1: "Échauffement avant le soulevé de terre",
@@ -269,7 +269,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   "rowing-barre": {
     slug: "rowing-barre",
     exerciseLabel: "rowing barre",
-    metaTitle: "Échauffement rowing barre — Dos thoracique scapulaires avant tirage",
+    metaTitle: "Échauffement rowing barre — dos et scapulaires en 5 min",
     metaDescription:
       "Échauffement rowing barre complet : mobilisation thoracique, scapulaires, hip hinge. 6 mouvements en 5 min pour rowing puissant et sûr. Gratuit.",
     h1: "Échauffement avant le rowing barre",
@@ -353,7 +353,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   tractions: {
     slug: "tractions",
     exerciseLabel: "tractions",
-    metaTitle: "Échauffement tractions — Préparer dos épaules grip avant pull-ups",
+    metaTitle: "Échauffement tractions — dos, épaules et grip en 5 min",
     metaDescription:
       "Échauffement tractions complet : scapulaires, mobilité thoracique, grip. 6 mouvements en 5 min pour tractions strictes ou lestées. Gratuit.",
     h1: "Échauffement avant les tractions",
@@ -437,7 +437,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   "developpe-militaire": {
     slug: "developpe-militaire",
     exerciseLabel: "développé militaire",
-    metaTitle: "Échauffement développé militaire — OHP épaules thoracique avant push press",
+    metaTitle: "Échauffement développé militaire (OHP) — épaules prêtes",
     metaDescription:
       "Échauffement développé militaire complet : coiffe, thoracique, grand dentelé. 6 mouvements en 5 min pour OHP, push press, push jerk. Gratuit.",
     h1: "Échauffement avant le développé militaire",

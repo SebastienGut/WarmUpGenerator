@@ -5,6 +5,15 @@ import { COMBO_PAGES, COMBO_SLUGS } from "@/lib/content/combo";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
+// Deep-link générateur : groupes musculaires du combo
+const PLAN_PARAMS: Record<string, string> = {
+  "haut-du-corps": "muscles=pecs,dos,epaules&objectif=hypertrophie",
+  "bas-du-corps": "muscles=jambes,fessiers&objectif=hypertrophie",
+  "full-body": "muscles=pecs,dos,jambes&objectif=hypertrophie",
+  push: "muscles=pecs,epaules,bras&objectif=hypertrophie",
+  pull: "muscles=dos,bras&objectif=hypertrophie",
+};
+
 interface PageProps {
   params: Promise<{ combo: string }>;
 }
@@ -73,6 +82,7 @@ export default async function ComboPage({ params }: PageProps) {
       path={path}
       howToName={data.h1}
       totalDurationLabel="5 min"
+      planHref={PLAN_PARAMS[combo] ? `/result?${PLAN_PARAMS[combo]}&duree=5` : undefined}
     />
   );
 }

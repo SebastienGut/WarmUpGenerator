@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, ChevronDown, Play, Zap } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, Play, Share2, Zap } from "lucide-react";
 import type { WarmupPlan } from "@/lib/warmup-engine";
 import { EQUIPMENT_LABELS } from "@/lib/warmup-data";
 import TimerMode, { type TimerStep } from "@/components/TimerMode";
@@ -19,6 +19,32 @@ interface Props {
 
 export default function ResultClient({ plan, muscleLabel, objectiveLabel, requestedDuration }: Props) {
   const [timerOpen, setTimerOpen] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  async function sharePlan() {
+    const url = window.location.href;
+    // Web Share API sur mobile (WhatsApp, Messages...), clipboard en fallback
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: `Échauffement ${muscleLabel} · ${objectiveLabel}`,
+          text: "Mon plan d'échauffement musculation — gratuit, sans inscription :",
+          url,
+        });
+        return;
+      } catch {
+        // partage annulé par l'utilisateur → rien à faire
+        return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      // clipboard indisponible : pas de feedback, le lien reste dans la barre d'adresse
+    }
+  }
 
   const steps = useMemo<TimerStep[]>(() => {
     let i = 1;
@@ -118,7 +144,7 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
             </div>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-5 flex flex-col gap-2">
             <button
               type="button"
               onClick={() => setTimerOpen(true)}
@@ -130,6 +156,23 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-black/15">
                 <Play className="h-5 w-5 fill-black ml-0.5" strokeWidth={2.4} />
               </div>
+            </button>
+            <button
+              type="button"
+              onClick={sharePlan}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A1A1A6] transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12] active:scale-[0.98]"
+            >
+              {linkCopied ? (
+                <>
+                  <Check className="h-3.5 w-3.5" strokeWidth={2.4} />
+                  Lien copié
+                </>
+              ) : (
+                <>
+                  <Share2 className="h-3.5 w-3.5" strokeWidth={2.4} />
+                  Partager ce plan
+                </>
+              )}
             </button>
           </div>
         </div>

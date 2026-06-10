@@ -4,6 +4,7 @@ import SEOPage from "@/components/SEOPage";
 import { generateWarmup } from "@/lib/warmup-engine";
 import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
+import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS } from "@/lib/content/muscle";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
@@ -38,8 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const muscleLabel = MUSCLE_LABELS[muscle as MuscleGroup];
   const objectiveLabel = OBJECTIVE_LABELS[objectif as Objective];
-  const title = `Échauffement ${muscleLabel} ${objectiveLabel} — Plan complet en 5 min`;
-  const description = `Plan d'échauffement complet pour les ${muscleLabel.toLowerCase()} en ${objectiveLabel.toLowerCase()}. Mobilisation articulaire et activation musculaire en 5 minutes. 100% gratuit, sans inscription.`;
+  const title = `Échauffement ${muscleLabel} ${objectiveLabel} : plan complet gratuit`;
+  const description = `Plan d'échauffement complet pour les ${muscleLabel.toLowerCase()} en ${objectiveLabel.toLowerCase()}. Mobilisation articulaire et activation musculaire, exercice par exercice. 100% gratuit, sans inscription.`;
   const path = `/echauffement/${muscle}/${objectif}`;
 
   return {
@@ -110,10 +111,13 @@ export default async function StaticPlanPage({ params }: PageProps) {
   const path = `/echauffement/${muscle}/${objectif}`;
   const muscleLow = muscleLabel.toLowerCase();
   const objLow = objectiveLabel.toLowerCase();
+  const totalSeconds = allExercises.reduce((s, e) => s + e.durationSeconds, 0);
+  const totalMinutes = Math.max(1, Math.round(totalSeconds / 60));
 
   const intro = [
     `Un <strong class='text-white'>échauffement ${muscleLow}</strong> efficace prépare en parallèle les articulations sollicitées, active les muscles cibles et programme le système nerveux à pousser des charges lourdes ou volumineuses. Pour une séance orientée <strong class='text-white'>${objLow}</strong>, l'enjeu est précis : arriver sur ta première série de travail avec ${muscleLow} \"chauds\", connectés et prêts à recevoir la stimulation maximale.`,
-    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-white'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-white'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire). Compte 5 minutes. À pratiquer juste avant tes séries de chauffe avec barre ou haltères.`,
+    MUSCLE_INSIGHTS[muscleTyped],
+    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-white'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-white'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire). Compte environ ${totalMinutes} minute${totalMinutes > 1 ? "s" : ""}. À pratiquer juste avant tes séries de chauffe avec barre ou haltères.`,
   ];
 
   const advice = {
@@ -138,21 +142,26 @@ export default async function StaticPlanPage({ params }: PageProps) {
     reps: ex.reps,
   }));
 
-  // Related : autres objectifs pour le même muscle + autres muscles populaires
+  // Related : hub muscle + autres objectifs + pages connexes (maillage interne)
   const relatedLinks = [
+    {
+      href: `/echauffement/${muscle}`,
+      label: `Échauffement ${muscleLabel} : le guide complet`,
+    },
     ...VALID_OBJECTIVES.filter((o) => o !== objectiveTyped).map((o) => ({
       href: `/echauffement/${muscle}/${o}`,
       label: `${muscleLabel} · ${OBJECTIVE_LABELS[o]}`,
     })),
+    ...MUSCLE_CROSS_LINKS[muscleTyped],
   ];
 
   return (
     <SEOPage
-      h1={`Échauffement ${muscleLabel}`}
-      subtitle={`${objectiveLabel} · 5 minutes · ${allExercises.length} exercices`}
+      h1={`Échauffement ${muscleLabel} ${objectiveLabel}`}
+      subtitle={`Plan gratuit · ${allExercises.length} exercices · ~${totalMinutes} min`}
       breadcrumbs={[
         { label: "Accueil", href: "/" },
-        { label: `Échauffement ${muscleLabel}`, href: `/echauffement/${muscle}/force` },
+        { label: `Échauffement ${muscleLabel}`, href: `/echauffement/${muscle}` },
         { label: objectiveLabel },
       ]}
       intro={intro}
@@ -168,6 +177,7 @@ export default async function StaticPlanPage({ params }: PageProps) {
       path={path}
       howToName={`Échauffement ${muscleLabel} — ${objectiveLabel}`}
       totalDurationLabel="5 min"
+      planHref={`/result?muscles=${muscle}&objectif=${objectif}&duree=5`}
     />
   );
 }

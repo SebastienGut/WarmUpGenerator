@@ -319,6 +319,226 @@ export const BLOG_POSTS: BlogPost[] = [
       { href: "/echauffement/combo/full-body", label: "Plan full body" },
     ],
   },
+
+  {
+    slug: "echauffement-debutant-musculation",
+    metaTitle: "Échauffement musculation débutant — par où commencer",
+    metaDescription:
+      "Tu débutes en musculation et tu ne sais pas comment t'échauffer ? Voici un protocole simple en 5 minutes, sans matériel, adapté aux débutants.",
+    h1: "Échauffement musculation débutant — le protocole simple",
+    publishDate: "26 mai 2026",
+    readingTime: "4 min",
+    intro:
+      "Quand on commence la musculation, l'échauffement est la première chose qu'on sacrifie — soit parce qu'on ne sait pas quoi faire, soit parce qu'on pense que ça ne sert à rien quand les charges sont légères. C'est une erreur. Voici un protocole simple, sans matériel, que tu peux reproduire dès ta prochaine séance.",
+    sections: [
+      {
+        heading: "Pourquoi l'échauffement est encore plus important pour un débutant",
+        content: [
+          "Contre-intuitivement, les débutants ont encore plus besoin de s'échauffer que les pratiquants confirmés. Deux raisons principales : d'abord, la <strong class='text-white'>technique n'est pas encore automatisée</strong>. Sur un squat ou un développé couché, le système nerveux doit « câbler » le bon pattern de mouvement à chaque répétition. Un corps froid et un système nerveux non activé rendent ce câblage plus difficile — tu apprends moins bien et tu compenses davantage.",
+          "Ensuite, les tendons et les articulations d'un débutant ne sont <strong class='text-white'>pas encore adaptés au stress mécanique</strong> de la musculation. La progression est rapide au début, les charges augmentent vite — et les tendons mettent plus de temps que les muscles à s'adapter. L'échauffement est ta première protection contre les tendinites qui surviennent précisément à cette période de progression rapide.",
+        ],
+      },
+      {
+        heading: "Le protocole 5 minutes — sans matériel",
+        content: [
+          "<strong class='text-white'>1 min — Rotation des épaules :</strong> grands cercles vers l'arrière (30s), puis vers l'avant (30s). Lubrifie les articulations gléno-humérales. Fais-les lentement et en amplitude maximale.",
+          "<strong class='text-white'>1 min — Hip circles :</strong> mains sur les hanches, pieds écartés à largeur d'épaules. Trace de grands cercles avec le bassin, 8 dans un sens, 8 dans l'autre. Mobilise les hanches pour tous les exercices de jambes.",
+          "<strong class='text-white'>1 min — Cercles de poignets et flexions de genou :</strong> 30s de rotations de poignets dans les deux sens (important avant tous les exercices avec barre), puis 10 flexions légères de genoux — juste pour lubrifier.",
+          "<strong class='text-white'>1 min — Cat-cow :</strong> à quatre pattes, alterne dos rond et dos creux, 10 cycles lentement. Mobilise toute la colonne avant les exercices en charge axiale.",
+          "<strong class='text-white'>1 min — Pompes à amplitude réduite :</strong> 10 pompes contre le mur ou sur les genoux. Active les pectoraux, épaules et triceps en douceur. Si tu fais une séance jambes, remplace par 10 squats lents au poids du corps.",
+        ],
+      },
+      {
+        heading: "Adapter selon la séance du jour",
+        content: [
+          "Le protocole ci-dessus est généraliste — il prépare l'ensemble des articulations. Selon ce que tu vas travailler, tu peux l'adapter en 30 secondes :",
+          "<strong class='text-white'>Séance haut du corps :</strong> insiste sur les rotations d'épaules et les poignets. Ajoute 5 cercles de bras lents avant de prendre la barre.",
+          "<strong class='text-white'>Séance bas du corps :</strong> insiste sur les hip circles et les flexions de genoux. Ajoute des rotations de cheville (10 dans chaque sens) — les chevilles sont souvent les premières à limiter la profondeur de squat.",
+          "<strong class='text-white'>Full body :</strong> le protocole 5 minutes complet suffit — il couvre tout.",
+          "La règle la plus importante : <strong class='text-white'>fais-le systématiquement</strong>. Un échauffement moyen fait à chaque séance vaut mieux que l'échauffement parfait fait une fois sur deux.",
+        ],
+      },
+      {
+        heading: "Les erreurs typiques du débutant",
+        content: [
+          "<strong class='text-white'>Erreur 1 : s'étirer statiquement avant de soulever.</strong> Les étirements statiques (tenir une position en forçant l'amplitude) avant l'effort réduisent la force de 5 à 10 %. Tu ne les sens pas, mais la différence est mesurable dès la première série. Garde les étirements statiques pour après la séance.",
+          "<strong class='text-white'>Erreur 2 : considérer les premières séries légères comme échauffement.</strong> Faire ses premières séries à charge légère n'est pas la même chose qu'un échauffement articulaire et musculaire. Les deux sont nécessaires — l'un prépare le corps, l'autre programme le geste.",
+          "<strong class='text-white'>Erreur 3 : s'échauffer une fois et ne plus y penser.</strong> L'échauffement se fait à chaque séance, pas seulement quand on se « sent raide ». Le corps ne donne pas toujours de signaux avant une blessure — il donne des signaux après.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Faut-il s'échauffer même avec des charges légères ?",
+        a: "Oui. La charge légère ne protège pas les tendons et les articulations du stress mécanique si le corps est froid. L'échauffement prépare aussi le système nerveux à coordonner le mouvement — plus important encore pour un débutant qui apprend encore les patterns.",
+      },
+      {
+        q: "Combien de temps s'échauffer quand on débute ?",
+        a: "5 minutes suffisent pour la plupart des séances de débutant. L'essentiel est que ce soit systématique et ciblé sur les articulations que tu vas solliciter. Au fur et à mesure que les charges augmentent, l'échauffement devra durer 7-8 minutes.",
+      },
+      {
+        q: "Le générateur s'adapte-t-il aux débutants ?",
+        a: "Oui — sélectionne tes groupes musculaires, l'objectif \"Reprise\" ou \"Hypertrophie\" et la durée 5 minutes. Le générateur construit un plan adapté à ton niveau sans exercices trop techniques. Tous les exercices du plan sont réalisables sans expérience préalable.",
+      },
+      {
+        q: "Faut-il s'échauffer différemment si on est très débutant ?",
+        a: "Le protocole ci-dessus est conçu pour ça — zéro matériel, zéro technique complexe. La seule adaptation : ralentis encore plus chaque mouvement et reste bien en dessous de ta limite d'amplitude. L'échauffement du débutant est aussi un moment d'exploration des amplitudes de mouvement disponibles.",
+      },
+    ],
+    relatedLinks: [
+      { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
+      { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps ?" },
+      { href: "/echauffement/combo/full-body", label: "Plan full body 5 min" },
+      { href: "/echauffement/combo/haut-du-corps", label: "Plan haut du corps" },
+    ],
+  },
+
+  {
+    slug: "echauffement-pecs-musculation",
+    metaTitle: "Échauffement pecs musculation — avant développé couché",
+    metaDescription:
+      "Comment s'échauffer les pectoraux avant une séance de développé couché ? Activation coiffe, mobilité thoracique, grand dentelé — protocole en 5 min.",
+    h1: "Échauffement pecs — préparer la séance pectoraux",
+    publishDate: "28 mai 2026",
+    readingTime: "4 min",
+    intro:
+      "La douleur d'épaule au développé couché est l'une des blessures les plus communes en salle. Dans 80 % des cas, elle vient d'un manque de préparation : coiffe des rotateurs froide, cage thoracique rigide, grand dentelé inactif. Voici comment préparer correctement les pectoraux — et l'épaule qui va avec — avant chaque séance.",
+    sections: [
+      {
+        heading: "Ce qui limite vraiment le développé couché",
+        content: [
+          "Le développé couché n'est pas un exercice de pectoraux isolé. Il implique simultanément les <strong class='text-white'>pectoraux</strong> (moteur principal), la <strong class='text-white'>coiffe des rotateurs</strong> (stabilisateurs de l'articulation gléno-humérale), le <strong class='text-white'>grand dentelé</strong> (qui contrôle le mouvement des omoplates) et la <strong class='text-white'>mobilité thoracique</strong> (qui détermine l'amplitude et la sécurité du mouvement).",
+          "Un développé couché fait sans préparation sollicite toutes ces structures à froid. Le premier à céder est presque toujours la coiffe — et une fois la tendinite installée, elle met des semaines à partir. Cinq minutes d'échauffement spécifique changent tout.",
+        ],
+      },
+      {
+        heading: "Le protocole pectoraux en 5 étapes",
+        content: [
+          "<strong class='text-white'>Étape 1 — Mobilisation thoracique en rotation (1 min) :</strong> à quatre pattes, main droite derrière la tête. Coude vers l'intérieur puis ouvre vers le plafond. La cage thoracique tourne. 8 répétitions par côté. Sans cette mobilité, tu ne peux pas arriver en bas du développé couché avec une arche propre.",
+          "<strong class='text-white'>Étape 2 — Ouverture pectorale contre le mur (45s) :</strong> bras à 90°, paume contre un mur. Pivote doucement le corps en éloignant le buste du bras. Étire le pec mineur souvent raccourci. 15s par côté, 2 fois.",
+          "<strong class='text-white'>Étape 3 — Pompes scapulaires (1 min) :</strong> position planche, coudes verrouillés. Les omoplates glissent : rétraction puis protraction. 12 répétitions. Active le grand dentelé.",
+          "<strong class='text-white'>Étape 4 — Rotations externes élastique (1 min) :</strong> coude collé au flanc, avant-bras à 90°. Rotation externe contre une résistance légère. 12 répétitions par bras. Active la coiffe des rotateurs.",
+          "<strong class='text-white'>Étape 5 — Chauffe à la barre vide (1 min) :</strong> allonge-toi sur le banc, omoplates rétractées, dos légèrement cambré. 10 répétitions à la barre vide en explorant la trajectoire. Verrouille le pattern moteur.",
+        ],
+      },
+      {
+        heading: "Le setup du DC : les détails qui changent tout",
+        content: [
+          "<strong class='text-white'>Les omoplates en premier :</strong> avant de toucher la barre, rétracte et déprime les omoplates (tire-les vers l'arrière et vers le bas). Ce verrouillage scapulaire crée une plateforme stable pour l'épaule.",
+          "<strong class='text-white'>La trajectoire :</strong> la barre descend vers le bas du sternum, pas vers le cou. Elle remonte en décrivant une légère courbe vers les yeux, pas verticalement. Cette trajectoire naturelle réduit le stress sur les tendons de la coiffe.",
+          "<strong class='text-white'>La respiration :</strong> inspire avant de descendre la barre (pression intra-abdominale), expire en poussant. Ce bracing protège les épaules à chaque répétition.",
+        ],
+      },
+      {
+        heading: "Signes que ton échauffement était insuffisant",
+        content: [
+          "Si tu ressens une gêne dans la zone antérieure de l'épaule après une séance pecs, c'est presque toujours le signe d'une coiffe non préparée soumise à un stress inhabituel. Ce n'est pas une blessure en soi — c'est un signal d'alarme.",
+          "Si tu ressens un pincement sous la clavicule (signe d'impingement), c'est souvent lié à un grand dentelé trop peu actif qui laisse les omoplates monter au lieu de se stabiliser. Les pompes scapulaires de ce protocole adressent exactement ça.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Faut-il s'échauffer les pecs si on fait du DC haltères plutôt que barre ?",
+        a: "Oui — le protocole est le même. Le DC haltères offre même plus de liberté de mouvement à l'épaule, ce qui peut augmenter le stress sur la coiffe si elle n'est pas activée. L'échauffement coiffe + grand dentelé est aussi important sur haltères que sur barre.",
+      },
+      {
+        q: "Peut-on remplacer l'élastique par autre chose pour les rotations externes ?",
+        a: "Oui — un câble à la poulie basse fonctionne parfaitement. En l'absence de matériel, des rotations externes isométriques (pousser l'avant-bras contre la paume de l'autre main) offrent une activation suffisante pour une séance légère.",
+      },
+      {
+        q: "J'ai souvent mal à l'épaule au DC — l'échauffement suffit-il ?",
+        a: "L'échauffement réduit fortement le risque mais ne règle pas une blessure existante. Si la douleur est présente même avec un bon échauffement, consulte un kiné avant de continuer. Une douleur chronique vient souvent d'un déséquilibre pousseurs/tireurs.",
+      },
+      {
+        q: "Combien de séries de chauffe avec barre avant les séries de travail ?",
+        a: "Pour un travail à 80 % du 1RM : barre vide × 10, 50 % × 5, 70 % × 3. Pour 90 %+ : ajoute 85 % × 1-2 reps. Ne skip pas la barre vide — c'est là que tu programmes le pattern et que tu vérifies le setup.",
+      },
+    ],
+    relatedLinks: [
+      { href: "/echauffement/exercice/developpe-couche", label: "Protocole développé couché" },
+      { href: "/echauffement/exercice/developpe-militaire", label: "Protocole développé militaire" },
+      { href: "/blog/echauffement-dynamique-ou-statique", label: "Dynamique ou statique ?" },
+      { href: "/echauffement/protection/epaule-douleur", label: "Épaule douloureuse — protocole" },
+    ],
+  },
+
+  {
+    slug: "erreurs-echauffement-musculation",
+    metaTitle: "5 erreurs d'échauffement en musculation à corriger",
+    metaDescription:
+      "Les 5 erreurs d'échauffement les plus communes en salle de musculation et les corrections concrètes. Ne perds plus de force sur ta première série.",
+    h1: "Les 5 erreurs d'échauffement les plus communes en musculation",
+    publishDate: "31 mai 2026",
+    readingTime: "5 min",
+    intro:
+      "Certaines erreurs d'échauffement sont si répandues qu'elles sont devenues la norme dans la plupart des salles. Résultat : des milliers de pratiquants arrivent à leurs séries de travail moins forts, moins bien préparés, et plus exposés aux blessures — sans s'en rendre compte. Voici les 5 erreurs les plus communes et la correction de chacune.",
+    sections: [
+      {
+        heading: "Erreur 1 — Les étirements statiques avant l'effort",
+        content: [
+          "C'est l'erreur numéro un. Des millions de pratiquants s'étirent encore statiquement avant de soulever, alors que la science est sans appel depuis plus de 20 ans : les étirements statiques maintenus avant un effort de force <strong class='text-white'>réduisent la force maximale de 5 à 10 %</strong> pour les 30 à 60 minutes suivantes.",
+          "Le mécanisme : l'étirement statique inhibe les fuseaux neuromusculaires et réduit l'activité des motoneurones alpha. Résultat concret — si tu t'étires les quadriceps 45 secondes avant ton squat, ta première série est objectivement moins forte.",
+          "<strong class='text-white'>La correction :</strong> remplace les étirements statiques par de la mobilité dynamique et de l'activation musculaire spécifique. Les étirements statiques ont leur rôle — après la séance ou les jours off.",
+        ],
+      },
+      {
+        heading: "Erreur 2 — 15 minutes de cardio en guise d'échauffement",
+        content: [
+          "Le tapis roulant élève la température corporelle globale. C'est utile — mais insuffisant et contre-productif quand c'est trop long. Au-delà de 8-10 minutes d'effort cardiovasculaire modéré, <strong class='text-white'>tu entames tes réserves glycolytiques</strong> et tu crées une pré-fatigue du système nerveux central.",
+          "Le cardio ne prépare pas les structures spécifiques — la coiffe des rotateurs n'est pas activée, le pattern moteur du squat n'est pas câblé, les articulations ne sont pas mobilisées dans les amplitudes de travail.",
+          "<strong class='text-white'>La correction :</strong> 5 minutes de cardio très léger suffisent si la salle est froide. Remplace le reste par de la mobilité articulaire ciblée et de l'activation musculaire spécifique.",
+        ],
+      },
+      {
+        heading: "Erreur 3 — L'échauffement générique",
+        content: [
+          "L'échauffement de l'épaule avant les tractions est différent de l'échauffement de la hanche avant le squat. Un protocole identique pour tout le monde et tout le temps est un protocole qui prépare mal.",
+          "<strong class='text-white'>La correction :</strong> adapte systématiquement l'échauffement à ta séance du jour. Mobilise les articulations que tu vas solliciter et active les muscles moteurs principaux. Si tu squattes, tes chevilles et tes hanches ont besoin d'attention. Si tu fais du DC, c'est ta cage thoracique et ta coiffe.",
+        ],
+      },
+      {
+        heading: "Erreur 4 — Sauter l'échauffement parce qu'on se sent chaud",
+        content: [
+          "La sensation de chaleur n'est pas un indicateur de préparation musculo-articulaire. Tu peux transpirer et avoir les articulations non lubrifiées, les tendons froids et le système nerveux non activé sur le pattern de travail.",
+          "La température de surface monte vite. La température musculaire profonde et la température tendineuse — les deux qui comptent — mettent 4 à 7 minutes à atteindre leur optimal. <strong class='text-white'>La sensation ne remplace pas le temps</strong>.",
+          "<strong class='text-white'>La correction :</strong> fais systématiquement l'échauffement, quelles que soient les conditions. Si tu as vraiment chaud, réduis à 3-4 minutes mais ne supprime pas la phase d'activation musculaire spécifique.",
+        ],
+      },
+      {
+        heading: "Erreur 5 — Confondre échauffement général et séries de chauffe",
+        content: [
+          "L'échauffement général prépare les articulations et établit la connexion neuro-musculaire. Les séries de chauffe à la barre programment le geste spécifique sous charge. Les deux sont nécessaires — l'un ne remplace pas l'autre.",
+          "<strong class='text-white'>La correction :</strong> sur les exercices polyarticulaires lourds (squat, développé couché, soulevé de terre), toujours faire 2 à 3 séries de chauffe progressives après l'échauffement général. Exemple pour 80 % : barre vide × 10, 50 % × 5, 70 % × 3.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Si on corrige ces 5 erreurs, combien de temps dure l'échauffement ?",
+        a: "5 à 8 minutes d'échauffement général (mobilité articulaire + activation musculaire), plus 2 à 3 séries de chauffe à la barre sur les exercices lourds. Total : environ 10 à 12 minutes pour une séance avec exercice polyarticulaire. C'est le bon compromis entre préparation et conservation de l'énergie.",
+      },
+      {
+        q: "Peut-on s'étirer statiquement juste 10-15 secondes avant l'effort ?",
+        a: "Des étirements très courts (10-15 secondes) ont un impact minimal sur la force. L'inhibition neuromusculaire devient significative à partir de 30-45 secondes de maintien. En dessous, c'est peu risqué mais aussi peu utile — autant faire de la mobilité dynamique.",
+      },
+      {
+        q: "Ces erreurs s'appliquent-elles aussi à la musculation à la maison ?",
+        a: "Oui — toutes. Et même davantage pour l'erreur 4 (je me sens chaud) : à la maison, l'environnement détendu peut créer une fausse impression de préparation. Le corps ne distingue pas la salle du salon — les tendons ont les mêmes besoins.",
+      },
+      {
+        q: "Les débutants font-ils plus ces erreurs que les pratiquants avancés ?",
+        a: "Les erreurs 1 (étirements statiques) et 2 (trop de cardio) sont plus fréquentes chez les débutants — ce sont des réflexes hérités du sport scolaire. Les erreurs 3 (échauffement générique) et 5 (pas de séries de chauffe) sont au contraire fréquentes chez les pratiquants intermédiaires qui pensent ne plus en avoir besoin.",
+      },
+    ],
+    relatedLinks: [
+      { href: "/blog/echauffement-dynamique-ou-statique", label: "Dynamique ou statique ?" },
+      { href: "/blog/guide-complet-echauffement-musculation", label: "Guide complet" },
+      { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps ?" },
+      { href: "/echauffement/exercice/squat", label: "Protocole squat" },
+    ],
+  }
+
 ];
 
 export const BLOG_SLUGS = BLOG_POSTS.map((p) => p.slug);

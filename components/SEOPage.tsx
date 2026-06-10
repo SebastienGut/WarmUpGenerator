@@ -36,6 +36,8 @@ export interface SEOPageProps {
   path: string;
   howToName: string;
   totalDurationLabel: string;
+  /** Deep-link vers /result préconfiguré : le CTA devient "Lancer ce plan en mode timer". */
+  planHref?: string;
 }
 
 function totalSecondsOf(ex: SEOExercise[]) {
@@ -63,6 +65,7 @@ export default function SEOPage(props: SEOPageProps) {
     siteUrl,
     path,
     howToName,
+    planHref,
   } = props;
 
   const totalSeconds = totalSecondsOf(exercises);
@@ -107,27 +110,39 @@ export default function SEOPage(props: SEOPageProps) {
   };
 
   const ctaBlock = (
-    <Link
-      href="/"
-      className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
-    >
-      <div className="flex flex-col gap-1">
-        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
-          → Plan personnalisé
-        </span>
-        <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
-          Générer ton échauffement sur mesure
-        </span>
-        <span className="text-[12px] font-medium opacity-75">
-          Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes
-        </span>
-      </div>
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
-        <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
-          <path d="M0 0 L14 8 L0 16 Z" />
-        </svg>
-      </div>
-    </Link>
+    <div className="flex flex-col gap-3">
+      <Link
+        href={planHref ?? "/"}
+        className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
+      >
+        <div className="flex flex-col gap-1">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
+            {planHref ? "→ Mode timer" : "→ Plan personnalisé"}
+          </span>
+          <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
+            {planHref ? "Lancer ce plan en mode timer" : "Générer ton échauffement sur mesure"}
+          </span>
+          <span className="text-[12px] font-medium opacity-75">
+            {planHref
+              ? "Plein écran, exercice par exercice, posé à côté du tapis · Hors ligne"
+              : "Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes"}
+          </span>
+        </div>
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+            <path d="M0 0 L14 8 L0 16 Z" />
+          </svg>
+        </div>
+      </Link>
+      {planHref && (
+        <Link
+          href="/"
+          className="self-start text-[12px] font-medium text-[#5A5A60] underline decoration-[#2E2E33] underline-offset-4 transition-colors hover:text-[#A3FF12]"
+        >
+          Besoin d&apos;adapter ? Personnalise ton plan : muscles, zones sensibles, durée →
+        </Link>
+      )}
+    </div>
   );
 
   return (
@@ -323,11 +338,11 @@ export default function SEOPage(props: SEOPageProps) {
       {/* Barre sticky mobile */}
       <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-white/[0.06] bg-[#050505]/95 px-4 py-3 backdrop-blur-md md:hidden">
         <Link
-          href="/"
+          href={planHref ?? "/"}
           className="flex items-center justify-between gap-3 rounded-xl bg-[#A3FF12] px-5 py-3 text-black active:scale-[0.98] transition-transform"
         >
           <span className="font-sans text-[15px] font-black uppercase tracking-tight">
-            Générer mon plan
+            {planHref ? "Lancer ce plan" : "Générer mon plan"}
           </span>
           <svg width="12" height="14" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
             <path d="M0 0 L14 8 L0 16 Z" />

@@ -3,14 +3,28 @@ import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { PROTECTION_SLUGS } from "@/lib/content/protection";
 import { COMBO_SLUGS } from "@/lib/content/combo";
 import { EXERCICE_SLUGS } from "@/lib/content/exercice";
-import { BLOG_SLUGS } from "@/lib/blog-content";
+import { BLOG_POSTS } from "@/lib/blog-content";
+import { frDateToISO } from "@/lib/dates";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 const MUSCLES: MuscleGroup[] = ["pecs", "dos", "epaules", "jambes", "fessiers", "bras", "core"];
 const OBJECTIVES: Objective[] = ["force", "hypertrophie", "reprise", "mobilite"];
 
+// Date de dernière mise à jour réelle du contenu statique (à actualiser lors
+// des refontes de contenu). Un lastModified recalculé à chaque build envoie
+// un faux signal de fraîcheur à Google et finit par être ignoré.
+const CONTENT_UPDATED = new Date("2026-06-10");
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const lastModified = CONTENT_UPDATED;
+
+  // Pages hub muscle : cibles principales ("échauffement pecs", "échauffement dos"...)
+  const muscleHubPages: MetadataRoute.Sitemap = MUSCLES.map((muscle) => ({
+    url: `${SITE_URL}/echauffement/${muscle}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
 
   const musclePages: MetadataRoute.Sitemap = MUSCLES.flatMap((muscle) =>
     OBJECTIVES.map((objectif) => ({
@@ -49,9 +63,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.85,
     },
-    ...BLOG_SLUGS.map((slug) => ({
-      url: `${SITE_URL}/blog/${slug}`,
-      lastModified,
+    ...BLOG_POSTS.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: new Date(frDateToISO(post.publishDate)),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
@@ -101,6 +115,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     ...blogPages,
+    ...muscleHubPages,
     ...musclePages,
     ...protectionPages,
     ...comboPages,

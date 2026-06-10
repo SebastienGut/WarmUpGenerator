@@ -11,6 +11,17 @@ const POPULAR_PLANS: { href: string; label: string }[] = [
   { href: "/echauffement/protection/epaule-douleur", label: "Épaule sensible" },
 ];
 
+// Pages hub par groupe musculaire (cibles SEO principales)
+const MUSCLE_GUIDES: { href: string; label: string }[] = [
+  { href: "/echauffement/pecs", label: "Pectoraux" },
+  { href: "/echauffement/dos", label: "Dos" },
+  { href: "/echauffement/epaules", label: "Épaules" },
+  { href: "/echauffement/jambes", label: "Jambes" },
+  { href: "/echauffement/fessiers", label: "Fessiers" },
+  { href: "/echauffement/bras", label: "Bras" },
+  { href: "/echauffement/core", label: "Core" },
+];
+
 const PROTECTION_LINKS: { href: string; label: string }[] = [
   { href: "/echauffement/protection/epaule-douleur", label: "Épaule douloureuse" },
   { href: "/echauffement/protection/genou", label: "Genou sensible" },
@@ -150,6 +161,22 @@ export default function HomepageSEO() {
                 </span>
               </Link>
             ))}
+          </div>
+          <div className="flex flex-col gap-2 pt-1">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+              Guides par muscle
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {MUSCLE_GUIDES.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="rounded-full border border-white/[0.06] bg-[#0C0C0E] px-3.5 py-1.5 text-[12px] font-bold text-[#A1A1A6] transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
           </div>
         </article>
 

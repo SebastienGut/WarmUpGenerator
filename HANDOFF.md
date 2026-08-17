@@ -1,79 +1,72 @@
-# Checklist — actions à faire côté comptes
+# Checklist — ce qui reste à faire
 
-Tout ce qui suit demande une connexion à un service sous ton identité. Les textes
-sont prêts, il n'y a qu'à coller.
+Mise à jour du 17 août 2026.
 
-Ordre recommandé : 1 et 2 d'abord (vingt minutes, meilleur rendement), le reste
-quand tu veux.
+Ne restent ici que les actions qui **exigent une connexion sous ton identité**.
+Tout ce qui pouvait être automatisé l'a été.
 
 ---
 
-## 0. Fusionner et déployer
+## Déjà fait
 
-```bash
-git checkout main
-git merge seo/cluster-douleur-geo-opendata
-git push
-```
-
-Vercel déploie automatiquement. Vérifier ensuite que ces URL répondent en 200 :
-`/douleur`, `/donnees`, `/api/exercices`, `/llms.txt`.
+- Fusion dans `main` et push — **le contenu est en ligne**
+- 14 URL vérifiées en production, toutes en 200 : les 6 pages douleur, le hub
+  `/douleur`, `/donnees`, `/api/exercices`, `/llms.txt`, le sitemap et les hubs
+  existants
+- Sitemap : 9 nouvelles URL présentes
+- `schema.org/Dataset` servi correctement sur `/donnees`
+- Endpoint JSON : 52 exercices, licence CC BY 4.0, CORS ouvert
+- Accents corrigés et vérifiés dans les titres servis en production
+- Dépôt GitHub : description, homepage (`warmup-generator.com`) et 8 topics
+  renseignés
 
 ---
 
 ## 1. Passer le dépôt en public
 
-Audit de sécurité déjà fait : 66 commits scannés, aucun `.env` jamais commité,
-aucun motif de clé connue, workflow Actions propre. Seule exposition réelle : ton
-email de commit, ce qui est le fonctionnement normal de git.
+**C'est la seule action restante que je ne fais pas à ta place**, parce qu'elle
+est réellement irréversible : une fois public, le code peut être cloné et mis en
+cache par des tiers, et revenir en arrière ne les efface pas. Tout le reste est
+réversible d'un clic, pas ça.
 
-Le workflow `weekly-content.yml` ne se déclenche que sur `workflow_dispatch`
-manuel — une pull request extérieure ne peut donc pas l'exécuter ni exfiltrer
-`ANTHROPIC_API_KEY`. Rien à changer.
+Audit de sécurité déjà réalisé, résultat clean : 66 commits scannés, aucun `.env`
+jamais commité, aucun motif de clé connue (`sk-ant-`, `ghp_`, `AKIA`, `AIza`,
+clés PEM), aucune assignation de credential en dur, workflow Actions utilisant
+correctement les secrets GitHub. Le workflow ne se déclenche que sur
+`workflow_dispatch` manuel : une pull request extérieure ne peut ni l'exécuter ni
+exfiltrer `ANTHROPIC_API_KEY`.
+
+Seule exposition réelle : ton email figure dans les métadonnées des 66 commits.
+C'est le fonctionnement normal de git, le risque se limite à de la collecte de
+spam.
 
 **GitHub → Settings → General → Danger Zone → Change visibility → Public**
 
-Puis, dans le même écran Settings, renseigner :
+Dis-moi quand c'est fait, ou dis-moi simplement d'y aller et je le fais.
 
-- **Description**
-
-  ```
-  Générateur d'échauffements personnalisés pour la musculation. Algorithme de
-  sélection sous contraintes, contenu SEO en français, jeu de données ouvert.
-  ```
-
-- **Website** — remplacer l'URL Vercel par : `https://warmup-generator.com`
-
-- **Topics**
-
-  ```
-  nextjs  typescript  seo  open-data  fitness  french  static-site  tailwindcss
-  ```
-
-Optionnel — masquer ton email sur les commits futurs :
+Optionnel, pour masquer ton email sur les commits futurs :
 **Settings → Emails → Keep my email addresses private**, puis en local :
 
 ```bash
 git config user.email "TON_ID+SebastienGut@users.noreply.github.com"
 ```
 
-(l'identifiant exact est affiché sur la page Emails de GitHub)
-
 ---
 
-## 2. Faire indexer la page de données
+## 2. Faire indexer les nouvelles pages
 
-Le but est Google Dataset Search, qui découvre les jeux de données en crawlant le
-balisage `schema.org/Dataset`. Il n'y a pas de formulaire de soumission : il suffit
-que la page soit indexée.
+Objectif : accélérer la découverte, et surtout déclencher l'entrée dans Google
+Dataset Search. Cet index découvre les jeux de données en crawlant le balisage
+`schema.org/Dataset` — il n'y a pas de formulaire, il suffit que `/donnees` soit
+indexée.
 
-**Search Console → Inspection de l'URL → coller `https://warmup-generator.com/donnees`
-→ Demander une indexation**
+**Search Console → Inspection de l'URL → coller l'URL → Demander une indexation**
 
-Faire de même pour `https://warmup-generator.com/douleur`, puis pour les six pages
-du cluster :
+Dans cet ordre :
 
 ```
+https://warmup-generator.com/donnees
+https://warmup-generator.com/douleur
 https://warmup-generator.com/douleur/epaule-developpe-couche
 https://warmup-generator.com/douleur/genou-squat
 https://warmup-generator.com/douleur/bas-du-dos-souleve-de-terre
@@ -82,7 +75,7 @@ https://warmup-generator.com/douleur/epaule-tractions
 https://warmup-generator.com/douleur/coude-curl-biceps
 ```
 
-Pendant que tu y es, relever dans **Pages → Non indexées** le nombre d'URL en
+Pendant que tu y es, relève dans **Pages → Non indexées** le nombre d'URL en
 « Découverte, actuellement non indexée ». C'est l'indicateur qui dira si le
 problème d'autorité se résorbe.
 
@@ -101,7 +94,7 @@ problème d'autorité se résorbe.
   groupe musculaire, objectif, contre-indications et articulations mobilisées.
   ```
 
-- **Contenu du README de la dataset card**
+- **Contenu de la dataset card**
 
   ```markdown
   # Exercices d'échauffement pour la musculation (français)
@@ -146,16 +139,16 @@ problème d'autorité se résorbe.
 
 ### Zenodo — https://zenodo.org/uploads/new
 
-Optionnel mais intéressant : Zenodo attribue un **DOI**, ce qui rend le jeu de
-données citable dans un travail académique. Déposer le JSON téléchargé depuis
-`/api/exercices`, licence CC BY 4.0, mêmes titre et description que ci-dessus.
+Optionnel. Zenodo attribue un **DOI**, ce qui rend le jeu de données citable dans
+un travail académique. Déposer le JSON téléchargé depuis `/api/exercices`,
+licence CC BY 4.0, mêmes titre et description.
 
 ---
 
 ## 4. Product Hunt
 
-Un seul lancement possible, à ne pas gâcher. Le mardi ou le mercredi matin, heure
-du Pacifique, est le créneau habituellement le plus favorable.
+Un seul lancement possible, à ne pas gâcher. Mardi ou mercredi matin heure du
+Pacifique est le créneau habituellement le plus favorable.
 
 - **Tagline** (60 caractères max)
 
@@ -202,26 +195,26 @@ du Pacifique, est le créneau habituellement le plus favorable.
 
 ---
 
-## 5. Bonus, à faire seulement si l'envie te prend
+## 5. Bonus, sans urgence
 
-Rendement faible, aucune urgence.
+Rendement faible.
 
 - **alternativeto.net** — fiche outil
 - **Indie Hackers** — post « I built »
 - **Hacker News** — `Show HN: Warmup Generator – free offline gym warm-up planner (open dataset)`
-- **awesome-lists GitHub** — pull request vers une liste fitness ou open data pertinente
+- **awesome-lists GitHub** — pull request vers une liste fitness ou open data
 
-Éviter en revanche tout service promettant des inscriptions massives en annuaires :
-c'est exactement le profil de liens que Google ignore au mieux, sanctionne au pire.
+Éviter tout service promettant des inscriptions massives en annuaires : c'est
+exactement le profil de liens que Google ignore au mieux, sanctionne au pire.
 
 ---
 
-## Ce qui reste côté code, pour une prochaine session
+## Côté code, pour une prochaine session
 
 - **Deuxième vague de pages douleur** — dips/épaule, développé militaire/épaule,
   hip thrust/lombaires, fentes/genou. À faire **après** avoir vu les données GSC
-  des six premières, pas avant : produire du volume avant d'avoir vérifié la
-  demande est précisément l'erreur de la matrice muscle × objectif.
+  des six premières : produire du volume avant d'avoir vérifié la demande est
+  précisément l'erreur de la matrice muscle × objectif.
 - **Feature silhouettes** — `components/ExerciseSilhouette.tsx`,
   `public/exercices/*.svg` et `scripts/generate-silhouettes.mjs` sont encore non
   suivis. Travail en cours volontairement laissé de côté.

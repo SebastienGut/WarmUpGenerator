@@ -107,5 +107,15 @@ données.
 
 ## Licence
 
-Code sous licence MIT. Jeu de données d'exercices sous
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fr).
+**Code : [AGPL-3.0](LICENSE).** Tu peux l'utiliser, le modifier et le
+redistribuer, y compris commercialement. En contrepartie, toute version
+modifiée doit être publiée sous la même licence — y compris si tu la déploies
+comme service en ligne sans en distribuer le code. C'est la clause spécifique
+à l'AGPL, et c'est volontaire : ce projet est gratuit et le restera, et le
+copyleft garantit que ses dérivés le soient aussi.
+
+**Données : [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fr).**
+Le référentiel d'exercices est sous une licence délibérément plus permissive
+que le code : réutilisation libre, y compris commerciale et dans un produit
+fermé, avec pour seule obligation l'attribution. L'objectif est que ces données
+servent au plus grand nombre.

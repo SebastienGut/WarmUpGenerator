@@ -171,7 +171,7 @@ Pacifique est le créneau habituellement le plus favorable.
   contraindications and pain-support data. Declaring a sensitive shoulder
   doesn't just remove exercises — it brings different ones in.
 
-  The exercise dataset is open under CC BY 4.0, and the whole thing is MIT on
+  The exercise dataset is open under CC BY 4.0, and the code is AGPL-3.0 on
   GitHub.
   ```
 

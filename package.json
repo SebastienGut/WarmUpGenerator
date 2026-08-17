@@ -2,6 +2,12 @@
   "name": "warmup-generator",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0-or-later",
+  "homepage": "https://warmup-generator.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastienGut/WarmUpGenerator.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

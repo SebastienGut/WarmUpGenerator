@@ -29,6 +29,19 @@ const PROTECTION_LINKS: { href: string; label: string }[] = [
   { href: "/echauffement/protection/poignets", label: "Poignets fragiles" },
 ];
 
+// Cluster douleur : liés depuis la page la plus forte du site, volontairement.
+// Google « détecte sans explorer » une partie du site faute d'autorité ; la
+// profondeur de maillage est le levier direct sur la priorité de crawl, donc
+// ces pages doivent être à un clic de l'accueil, pas trois.
+const DOULEUR_LINKS: { href: string; label: string }[] = [
+  { href: "/douleur/epaule-developpe-couche", label: "Épaule au développé couché" },
+  { href: "/douleur/genou-squat", label: "Genou au squat" },
+  { href: "/douleur/bas-du-dos-souleve-de-terre", label: "Bas du dos au soulevé de terre" },
+  { href: "/douleur/poignet-pompes", label: "Poignets aux pompes" },
+  { href: "/douleur/epaule-tractions", label: "Épaule aux tractions" },
+  { href: "/douleur/coude-curl-biceps", label: "Coude au curl" },
+];
+
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Pourquoi s'échauffer avant une séance de musculation ?",
@@ -192,6 +205,40 @@ export default function HomepageSEO() {
                 <span
                   aria-hidden="true"
                   className="font-mono text-[#A3FF12]/60 transition-colors group-hover:text-[#A3FF12]"
+                >
+                  →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </article>
+
+        {/* DOULEUR — diagnostic par exercice */}
+        <article className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+              La douleur vient d&apos;un exercice précis ?
+            </p>
+            <h2 className="font-sans text-[20px] font-black leading-tight tracking-tight text-white">
+              Comprendre d&apos;où vient la douleur
+            </h2>
+            <p className="text-[13px] text-[#A1A1A6] leading-relaxed mt-1">
+              Le genou qui souffre au squat vient presque toujours de la cheville ou de la
+              hanche. Chaque guide part du mouvement qui déclenche la douleur, explique le
+              mécanisme, puis donne les corrections et le protocole.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {DOULEUR_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="group flex items-center justify-between gap-2 rounded-xl border border-white/[0.08] bg-[#0C0C0E] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+              >
+                <span className="truncate">{label}</span>
+                <span
+                  aria-hidden="true"
+                  className="font-mono text-[#5A5A60] transition-colors group-hover:text-[#A3FF12]"
                 >
                   →
                 </span>

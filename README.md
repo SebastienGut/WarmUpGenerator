@@ -15,8 +15,10 @@ Elles sont volontaires et structurent toutes les décisions techniques :
 
 - **Zéro coût serveur.** Pas d'API externe, pas de base de données, pas d'appel à un
   service d'IA. La génération est algorithmique et s'exécute dans le navigateur.
-- **Zéro tracking.** Aucun cookie, aucun analytics tiers, aucune donnée personnelle
-  collectée. Rien à accepter en arrivant sur le site.
+- **Pas de tracking publicitaire, pas de cookie.** La seule mesure d'audience est
+  [GoatCounter](https://www.goatcounter.com/), sans cookie, sans identifiant
+  persistant et sans donnée personnelle — d'où l'absence de bandeau de consentement.
+  Aucune régie publicitaire, aucun revendeur de données.
 - **Fonctionne hors ligne.** L'usage réel se fait dans une salle de sport, souvent
   avec une connexion mauvaise ou inexistante.
 - **Mobile-first.** L'utilisateur est debout, téléphone en main, entre deux séries.

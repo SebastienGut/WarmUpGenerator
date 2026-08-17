@@ -27,14 +27,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const musclePages: MetadataRoute.Sitemap = MUSCLES.flatMap((muscle) =>
-    OBJECTIVES.map((objectif) => ({
-      url: `${SITE_URL}/echauffement/${muscle}/${objectif}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }))
-  );
+  // Les 28 pages /echauffement/{muscle}/{objectif} sont VOLONTAIREMENT absentes
+  // du sitemap depuis le 17/08/2026.
+  //
+  // Constat GSC : sur 34 URL « Détectée, actuellement non indexée », 20 sont des
+  // pages de cette matrice — et les 7 pages hub muscle, qui ciblent de vraies
+  // requêtes à volume, n'ont jamais été explorées non plus alors qu'elles sont
+  // liées depuis la homepage. La profondeur de maillage n'est donc pas la
+  // contrainte : c'est le budget de crawl alloué à un domaine sans autorité.
+  //
+  // Chaque URL déclarée entre en concurrence pour ce budget. La matrice, qui
+  // vise des requêtes sans volume ("échauffement fessiers mobilité"), consommait
+  // l'attention due aux pages qui en ont. Elle reste en ligne, indexable et
+  // atteignable depuis les hubs muscle : on cesse simplement de la mettre en
+  // avant. Réversible en réintroduisant `musclePages` ci-dessous.
+  //
+  // À réévaluer quand le taux d'indexation dépassera ~80 %.
+  void OBJECTIVES;
 
   const protectionPages: MetadataRoute.Sitemap = PROTECTION_SLUGS.map((zone) => ({
     url: `${SITE_URL}/echauffement/protection/${zone}`,
@@ -140,7 +149,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...douleurPages,
     ...blogPages,
     ...muscleHubPages,
-    ...musclePages,
     ...protectionPages,
     ...comboPages,
     ...exercicePages,

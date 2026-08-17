@@ -1,151 +1,82 @@
 # Checklist — ce qui reste à faire
 
-Mise à jour du 17 août 2026.
-
-Ne restent ici que les actions qui **exigent une connexion sous ton identité**.
-Tout ce qui pouvait être automatisé l'a été.
+Mise à jour du 17 août 2026, en fin de session.
 
 ---
 
 ## Déjà fait
 
-- Fusion dans `main` et push — **le contenu est en ligne**
-- 14 URL vérifiées en production, toutes en 200 : les 6 pages douleur, le hub
-  `/douleur`, `/donnees`, `/api/exercices`, `/llms.txt`, le sitemap et les hubs
-  existants
-- Sitemap : 9 nouvelles URL présentes
-- `schema.org/Dataset` servi correctement sur `/donnees`
-- Endpoint JSON : 52 exercices, licence CC BY 4.0, CORS ouvert
-- Accents corrigés et vérifiés dans les titres servis en production
-- Dépôt GitHub : description, homepage (`warmup-generator.com`) et 8 topics
-  renseignés
+**Mise en production**
+- Contenu déployé et vérifié : 14 URL en 200, dont les 6 pages douleur,
+  `/douleur`, `/donnees`, `/api/exercices`, `/llms.txt`
+- `schema.org/Dataset` servi sur `/donnees`
+- Endpoint JSON conforme : 52 exercices, CC BY 4.0, CORS ouvert
+- Accents corrigés dans les titres servis
+- Cluster douleur lié depuis la homepage
+
+**Dépôt GitHub**
+- Passé en **public**, licence **AGPL-3.0** détectée
+- Description, homepage et 8 topics renseignés
+- Audit préalable clean : 66 commits scannés, aucun secret
+
+**Search Console**
+- Sitemap soumis, **45 URL** (élagage de la matrice, 73 → 45)
+- Indexation demandée pour les 8 nouvelles pages
+- Mesure de référence relevée au 14/08 : **30 indexées / 69 connues**, dont
+  **34 en « Détectée, actuellement non indexée »**
 
 ---
 
-## 1. Passer le dépôt en public
+## Le point de mesure, dans 2 à 3 semaines
 
-**C'est la seule action restante que je ne fais pas à ta place**, parce qu'elle
-est réellement irréversible : une fois public, le code peut être cloné et mis en
-cache par des tiers, et revenir en arrière ne les efface pas. Tout le reste est
-réversible d'un clic, pas ça.
+C'est maintenant la chose la plus utile à faire : **attendre sans rien toucher**.
+Google doit recrawler pour que l'élagage produise de l'information.
 
-Audit de sécurité déjà réalisé, résultat clean : 66 commits scannés, aucun `.env`
-jamais commité, aucun motif de clé connue (`sk-ant-`, `ghp_`, `AKIA`, `AIza`,
-clés PEM), aucune assignation de credential en dur, workflow Actions utilisant
-correctement les secrets GitHub. Le workflow ne se déclenche que sur
-`workflow_dispatch` manuel : une pull request extérieure ne peut ni l'exécuter ni
-exfiltrer `ANTHROPIC_API_KEY`.
+Vers le **7 septembre 2026**, relever dans **Pages → Non indexées** :
 
-Seule exposition réelle : ton email figure dans les métadonnées des 66 commits.
-C'est le fonctionnement normal de git, le risque se limite à de la collecte de
-spam.
+- le nombre en « Détectée, actuellement non indexée » — il était à **34**
+- le nombre total d'indexées — il était à **30**
 
-**GitHub → Settings → General → Danger Zone → Change visibility → Public**
+S'il descend côté « Détectée », l'élagage a fonctionné. Si les 6 pages douleur
+sont indexées et commencent à afficher des impressions, le pivot fonctionne.
 
-Dis-moi quand c'est fait, ou dis-moi simplement d'y aller et je le fais.
-
-Optionnel, pour masquer ton email sur les commits futurs :
-**Settings → Emails → Keep my email addresses private**, puis en local :
-
-```bash
-git config user.email "TON_ID+SebastienGut@users.noreply.github.com"
-```
+Ne pas ajouter de pages d'ici là : la deuxième vague de pages douleur attend
+précisément cette mesure.
 
 ---
 
-## 2. Faire indexer les nouvelles pages
+## 1. Publier le jeu de données sur Hugging Face
 
-Objectif : accélérer la découverte, et surtout déclencher l'entrée dans Google
-Dataset Search. Cet index découvre les jeux de données en crawlant le balisage
-`schema.org/Dataset` — il n'y a pas de formulaire, il suffit que `/donnees` soit
-indexée.
+Les fichiers sont **déjà générés et validés**, tu n'as rien à rédiger ni à
+convertir. Je te les ai envoyés dans la conversation :
 
-**Search Console → Inspection de l'URL → coller l'URL → Demander une indexation**
+- `exercises.jsonl` — 52 lignes, une par exercice, format idiomatique HF
+- `README.md` — la fiche du jeu de données, avec l'en-tête YAML que Hugging Face
+  attend (licence, langue, tags, configuration)
+- `exercises.json` — la version complète avec les référentiels de libellés, si tu
+  préfères ce format
 
-Dans cet ordre :
+**Marche à suivre** — https://huggingface.co/new-dataset
 
-```
-https://warmup-generator.com/donnees
-https://warmup-generator.com/douleur
-https://warmup-generator.com/douleur/epaule-developpe-couche
-https://warmup-generator.com/douleur/genou-squat
-https://warmup-generator.com/douleur/bas-du-dos-souleve-de-terre
-https://warmup-generator.com/douleur/poignet-pompes
-https://warmup-generator.com/douleur/epaule-tractions
-https://warmup-generator.com/douleur/coude-curl-biceps
-```
+1. Nom du dataset : `warmup-exercises-fr`
+2. Licence : `cc-by-4.0`
+3. Visibilité : Public
+4. Créer, puis dans l'onglet **Files** → **Add file** → **Upload files**
+5. Déposer `exercises.jsonl` et `README.md` à la racine
+6. Commit
 
-Pendant que tu y es, relève dans **Pages → Non indexées** le nombre d'URL en
-« Découverte, actuellement non indexée ». C'est l'indicateur qui dira si le
-problème d'autorité se résorbe.
+La fiche s'affiche automatiquement à partir du `README.md`, et Hugging Face
+détecte la licence et les tags depuis son en-tête YAML.
 
----
+### Zenodo, optionnel — https://zenodo.org/uploads/new
 
-## 3. Publier le jeu de données
-
-### Hugging Face Datasets — https://huggingface.co/new-dataset
-
-- **Nom** : `warmup-exercises-fr`
-- **Licence** : `cc-by-4.0`
-- **Description courte**
-
-  ```
-  52 exercices d'échauffement pour la musculation, en français, annotés par
-  groupe musculaire, objectif, contre-indications et articulations mobilisées.
-  ```
-
-- **Contenu de la dataset card**
-
-  ```markdown
-  # Exercices d'échauffement pour la musculation (français)
-
-  52 exercices annotés, conçus pour la génération automatisée de protocoles
-  d'échauffement.
-
-  ## Champs
-
-  | Champ | Contenu |
-  |---|---|
-  | `muscles` | Groupes musculaires préparés |
-  | `objectives` | Force, hypertrophie, reprise ou mobilité |
-  | `contraindications` | Zones sensibles excluant l'exercice |
-  | `painSupport` | Zones sensibles que l'exercice soulage |
-  | `joints` | Articulations mobilisées |
-  | `category` | Mobilisation, activation ou préparation spécifique |
-  | `equipment` | Matériel requis |
-  | `durationSeconds` | Durée recommandée |
-  | `description` | Consigne d'exécution en français |
-
-  La particularité de ce jeu de données est le couple
-  `contraindications` / `painSupport` : il permet non seulement d'écarter un
-  exercice quand une zone est sensible, mais aussi d'identifier ceux qui la
-  soulagent activement. À notre connaissance, aucun équivalent ouvert en
-  français ne porte cette information.
-
-  ## Source
-
-  https://warmup-generator.com/api/exercices — documentation sur
-  https://warmup-generator.com/donnees
-
-  ## Licence
-
-  CC BY 4.0. Attribution : Warmup Generator — https://warmup-generator.com
-
-  ## Avertissement
-
-  Données à visée informative sur la préparation physique. Le champ
-  `contraindications` ne remplace pas l'évaluation d'un professionnel de santé.
-  ```
-
-### Zenodo — https://zenodo.org/uploads/new
-
-Optionnel. Zenodo attribue un **DOI**, ce qui rend le jeu de données citable dans
-un travail académique. Déposer le JSON téléchargé depuis `/api/exercices`,
-licence CC BY 4.0, mêmes titre et description.
+Zenodo attribue un **DOI**, ce qui rend le jeu de données citable dans un travail
+académique. Déposer `exercises.json`, licence CC BY 4.0, même titre et même
+description que la fiche Hugging Face.
 
 ---
 
-## 4. Product Hunt
+## 2. Product Hunt
 
 Un seul lancement possible, à ne pas gâcher. Mardi ou mercredi matin heure du
 Pacifique est le créneau habituellement le plus favorable.
@@ -163,9 +94,9 @@ Pacifique est le créneau habituellement le plus favorable.
   training, your session goal, and any joints that bother you — in about 30
   seconds.
 
-  No account, no ads, no tracking, no data collection. The algorithm runs
-  entirely in your browser, so it works offline in the gym where reception is
-  usually bad.
+  No account, no ads, no cookies, no personal data. The algorithm runs entirely
+  in your browser, so it works offline in the gym where reception is usually
+  bad. The only analytics is GoatCounter, which is cookieless.
 
   What makes the selection non-trivial: every exercise is annotated with both
   contraindications and pain-support data. Declaring a sensitive shoulder
@@ -195,7 +126,7 @@ Pacifique est le créneau habituellement le plus favorable.
 
 ---
 
-## 5. Bonus, sans urgence
+## 3. Bonus, sans urgence
 
 Rendement faible.
 

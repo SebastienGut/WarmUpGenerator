@@ -126,17 +126,16 @@ Pacifique est le créneau habituellement le plus favorable.
 
 ---
 
-## 3. Bonus, sans urgence
+## 3. Les autres soumissions
 
-Rendement faible.
+Textes intégralement rédigés dans **[SUBMISSIONS.md](SUBMISSIONS.md)** :
+AlternativeTo, Show HN, Indie Hackers, Reddit (r/musculation et r/datasets) et
+pull requests vers des awesome-lists. Chaque entrée est prête à coller, avec
+l'ordre de passage conseillé et une évaluation honnête de ce que ça rapporte.
 
-- **alternativeto.net** — fiche outil
-- **Indie Hackers** — post « I built »
-- **Hacker News** — `Show HN: Warmup Generator – free offline gym warm-up planner (open dataset)`
-- **awesome-lists GitHub** — pull request vers une liste fitness ou open data
-
-Éviter tout service promettant des inscriptions massives en annuaires : c'est
-exactement le profil de liens que Google ignore au mieux, sanctionne au pire.
+Deux points de vigilance qui y sont détaillés : ne pas tout publier le même jour
+(une salve de liens simultanée sur un domaine jeune est un motif détecté), et ne
+jamais ajouter soi-même son lien sur Wikipédia.
 
 ---
 

@@ -94,7 +94,7 @@ export default function MethodologyPage() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Methodologie et sources de Warmup Generator",
+    headline: "Méthodologie et sources de Warmup Generator",
     description: metadata.description,
     url: `${SITE_URL}/methodologie`,
     inLanguage: "fr-FR",

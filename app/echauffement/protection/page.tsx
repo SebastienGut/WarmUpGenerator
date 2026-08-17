@@ -6,14 +6,14 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 const PATH = "/echauffement/protection";
 
 export const metadata: Metadata = {
-  title: "Echauffements pour zones sensibles - Epaule, genou, lombaires",
+  title: "Échauffements zones sensibles — Épaule, genou, lombaires",
   description:
-    "Protocoles d'echauffement pour s'entrainer avec une zone sensible: epaule, genou, lombaires ou poignets. Guides gratuits et progressifs.",
+    "Protocoles d'échauffement pour s'entraîner avec une zone sensible : épaule, genou, lombaires ou poignets. Guides gratuits et progressifs.",
   alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
-    title: "Echauffements pour zones sensibles - Warmup Generator",
+    title: "Échauffements pour zones sensibles — Warmup Generator",
     description:
-      "Choisis la zone a proteger avant ta seance: epaule, genou, lombaires ou poignets.",
+      "Choisis la zone à protéger avant ta séance : épaule, genou, lombaires ou poignets.",
     type: "website",
     locale: "fr_FR",
     url: PATH,
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Echauffements pour zones sensibles - Warmup Generator",
-    description: "Protocoles epaule, genou, lombaires et poignets pour une seance plus confortable.",
+    title: "Échauffements pour zones sensibles — Warmup Generator",
+    description: "Protocoles épaule, genou, lombaires et poignets pour une séance plus confortable.",
   },
   robots: { index: true, follow: true },
 };
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
 export default function ProtectionHubPage() {
   return (
     <SEOHubPage
-      title="Echauffements zones sensibles"
-      subtitle="Epaule - Genou - Lombaires - Poignets"
+      title="Échauffements zones sensibles"
+      subtitle="Épaule · Genou · Lombaires · Poignets"
       intro={[
-        "Une zone sensible change la logique de l'echauffement. Il ne suffit plus de bouger un peu avant la charge: il faut reveiller les muscles stabilisateurs, reduire les compensations et choisir des amplitudes qui restent confortables.",
-        "Ces protocoles ne remplacent pas un avis medical. Ils servent a preparer une seance de musculation quand une gene legere ou recurrente demande plus d'attention avant les series de travail.",
+        "Une zone sensible change la logique de l'échauffement. Il ne suffit plus de bouger un peu avant la charge : il faut réveiller les muscles stabilisateurs, réduire les compensations et choisir des amplitudes qui restent confortables.",
+        "Ces protocoles ne remplacent pas un avis médical. Ils servent à préparer une séance de musculation quand une gêne légère ou récurrente demande plus d'attention avant les séries de travail.",
       ]}
-      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Echauffements", href: "/echauffement" }, { label: "Protection" }]}
+      breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Échauffements", href: "/echauffement" }, { label: "Protection" }]}
       itemsTitle="Guides par zone"
       items={PROTECTION_SLUGS.map((slug) => {
         const page = PROTECTION_PAGES[slug];
@@ -49,24 +49,24 @@ export default function ProtectionHubPage() {
       })}
       faqs={[
         {
-          q: "Un protocole de protection peut-il remplacer un avis medical ?",
-          a: "Non. Ces protocoles servent a preparer une seance quand une gene legere demande plus d'attention. En cas de douleur aigue, persistante ou qui s'aggrave, consulte un professionnel de sante.",
+          q: "Un protocole de protection peut-il remplacer un avis médical ?",
+          a: "Non. Ces protocoles servent à préparer une séance quand une gêne légère demande plus d'attention. En cas de douleur aiguë, persistante ou qui s'aggrave, consulte un professionnel de santé.",
         },
         {
-          q: "Dois-je m'echauffer differemment avec une zone sensible ?",
-          a: "Oui. Il faut reduire les compensations, activer les stabilisateurs et rester dans des amplitudes confortables. L'objectif n'est pas de forcer, mais de preparer la zone avant la charge.",
+          q: "Dois-je m'échauffer différemment avec une zone sensible ?",
+          a: "Oui. Il faut réduire les compensations, activer les stabilisateurs et rester dans des amplitudes confortables. L'objectif n'est pas de forcer, mais de préparer la zone avant la charge.",
         },
         {
-          q: "Puis-je combiner protection et echauffement par exercice ?",
-          a: "Oui. Par exemple, si tu fais du developpe couche avec une epaule sensible, commence par le protocole epaule puis garde les elements specifiques du developpe couche et des series de chauffe progressives.",
+          q: "Puis-je combiner protection et échauffement par exercice ?",
+          a: "Oui. Par exemple, si tu fais du développé couché avec une épaule sensible, commence par le protocole épaule puis garde les éléments spécifiques du développé couché et des séries de chauffe progressives.",
         },
       ]}
       relatedTitle="Adapter ton plan"
       relatedLinks={[
+        { href: "/douleur", label: "Douleurs par exercice" },
         { href: "/echauffement/exercice", label: "Guides par exercice principal" },
         { href: "/echauffement/combo", label: "Guides par groupe musculaire" },
-        { href: "/methodologie", label: "Methodologie et limites" },
-        { href: "/", label: "Generateur avec zones sensibles" },
+        { href: "/", label: "Générateur avec zones sensibles" },
       ]}
       siteUrl={SITE_URL}
       path={PATH}

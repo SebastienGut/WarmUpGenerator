@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SEOPage from "@/components/SEOPage";
 import { PROTECTION_PAGES, PROTECTION_SLUGS } from "@/lib/content/protection";
+import { DOULEUR_PAGES, DOULEUR_SLUGS } from "@/lib/content/douleur";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
@@ -65,17 +66,26 @@ export default async function ProtectionPage({ params }: PageProps) {
         { label: "Protection", href: "/echauffement/protection" },
         { label: data.zoneLabel.charAt(0).toUpperCase() + data.zoneLabel.slice(1) },
       ]}
+      keyAnswer={data.keyAnswer}
       intro={data.intro}
       exerciseSectionTitle={`Protocole en ${data.exercises.length} mouvements`}
       exercises={data.exercises}
       advice={data.advice}
       faqs={data.faqs}
       related={{
-        title: "Autres protections",
-        links: PROTECTION_SLUGS.filter((s) => s !== zone).map((s) => ({
-          href: `/echauffement/protection/${s}`,
-          label: PROTECTION_PAGES[s].h1,
-        })),
+        title: "Aller plus loin",
+        links: [
+          // Pages douleur de la même zone en tête : elles répondent à la requête
+          // symptôme, c'est la suite de lecture la plus probable depuis ici.
+          ...DOULEUR_SLUGS.filter((s) => DOULEUR_PAGES[s].relatedProtection === zone).map((s) => ({
+            href: `/douleur/${s}`,
+            label: DOULEUR_PAGES[s].h1,
+          })),
+          ...PROTECTION_SLUGS.filter((s) => s !== zone).map((s) => ({
+            href: `/echauffement/protection/${s}`,
+            label: PROTECTION_PAGES[s].h1,
+          })),
+        ],
       }}
       siteUrl={SITE_URL}
       path={path}

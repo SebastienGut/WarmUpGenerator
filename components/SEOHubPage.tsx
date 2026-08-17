@@ -112,7 +112,7 @@ export default function SEOHubPage({
             href="/"
             className="ml-auto font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12] transition-opacity hover:opacity-80"
           >
-            Generateur
+            ← Générateur
           </Link>
         </div>
       </header>

@@ -3,6 +3,7 @@ import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { PROTECTION_SLUGS } from "@/lib/content/protection";
 import { COMBO_SLUGS } from "@/lib/content/combo";
 import { EXERCICE_SLUGS } from "@/lib/content/exercice";
+import { DOULEUR_SLUGS } from "@/lib/content/douleur";
 import { BLOG_POSTS } from "@/lib/blog-content";
 import { frDateToISO } from "@/lib/dates";
 
@@ -54,6 +55,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
     changeFrequency: "monthly" as const,
     priority: 0.85, // long-tail très transactionnel
+  }));
+
+  // Cluster douleur : requêtes symptôme (« mal à X au Y »), la demande réelle.
+  // Priorité maximale du site — intention forte et concurrence faible, c'est
+  // là que le domaine peut se classer avant d'avoir de l'autorité.
+  const douleurPages: MetadataRoute.Sitemap = DOULEUR_SLUGS.map((slug) => ({
+    url: `${SITE_URL}/douleur/${slug}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.95,
   }));
 
   const blogPages: MetadataRoute.Sitemap = [
@@ -114,6 +125,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.75,
     },
+    {
+      url: `${SITE_URL}/douleur`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/donnees`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.7,
+    },
+    ...douleurPages,
     ...blogPages,
     ...muscleHubPages,
     ...musclePages,

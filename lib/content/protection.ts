@@ -7,6 +7,8 @@ export interface ProtectionContent {
   metaDescription: string;
   h1: string;
   subtitle: string;
+  /** Réponse autoportante de 40-60 mots, citable hors contexte (voir SEOPage) */
+  keyAnswer: string;
   intro: string[];
   exercises: SEOExercise[];
   advice: { title: string; paragraphs: string[] };
@@ -22,8 +24,10 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       "Plan d'échauffement épaule complet pour les pratiquants avec douleur ou gêne articulaire. 6 mouvements doux ciblés coiffe des rotateurs, omoplate et thoracique. Gratuit.",
     h1: "Échauffement épaule pour douleur ou gêne",
     subtitle: "Protocole musculation · Coiffe des rotateurs · Mobilité scapulaire",
+    keyAnswer:
+      "Échauffer une épaule sensible avant la musculation demande 5 à 6 minutes et trois cibles : la <strong class='text-white'>mobilité thoracique</strong>, car une cage rigide reporte le stress sur l'épaule ; le <strong class='text-white'>contrôle de l'omoplate</strong>, qui stabilise la base du mouvement ; et l'activation de la <strong class='text-white'>coiffe des rotateurs</strong>, qui centre la tête humérale sous charge. Aucun matériel nécessaire, un élastique léger est un plus.",
     intro: [
-      "L'épaule est l'articulation la plus mobile et la plus instable du corps. Quand elle devient douloureuse en musculation — que ce soit sur le développé couché, les tractions ou un simple mouvement quotidien — l'échauffement classique ne suffit plus. Il faut un protocole spécifique qui réveille la <strong class='text-white'>coiffe des rotateurs</strong>, libère la <strong class='text-white'>mobilité thoracique</strong> et restabilise l'<strong class='text-white'>omoplate</strong> avant toute charge.",
+      "L'épaule est l'articulation la plus mobile du corps, et cette mobilité se paie en stabilité : elle tient par ses muscles bien plus que par sa forme osseuse. Quand elle devient capricieuse, deux minutes de moulinets de bras ne changent rien — ce n'est pas de chaleur qu'elle manque, c'est de stabilisateurs réveillés.",
       "Cet échauffement ne traite pas la cause d'une douleur installée. Si tu ressens une douleur aiguë, persistante ou qui s'aggrave, consulte un kinésithérapeute. En revanche, pour les gênes diffuses, les épaules \"capricieuses\" ou les sensations d'accrochage, ce protocole en 6 mouvements réduit le risque de blessure et améliore le confort articulaire dès la première série.",
       "À pratiquer avant chaque séance impliquant le haut du corps — pecs, dos, épaules, bras. Compte 5 à 6 minutes. Aucun matériel requis, un élastique léger est un plus pour les exercices d'activation.",
     ],
@@ -107,8 +111,10 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       "Plan d'échauffement genou complet pour les pratiquants avec gêne articulaire. 6 mouvements pour mobiliser hanche, genou et cheville avant squat ou jambes. Gratuit.",
     h1: "Échauffement genou pour la musculation",
     subtitle: "Protocole bas du corps · Hanche · Cheville · VMO",
+    keyAnswer:
+      "Un échauffement du genou efficace ne cible pas le genou : il cible la <strong class='text-white'>cheville</strong> et la <strong class='text-white'>hanche</strong>, dont les limitations reportent la contrainte sur l'articulation intermédiaire. Le protocole demande 5 minutes avant toute séance de jambes et travaille la dorsiflexion de cheville, la rotation de hanche, l'activation fessière et le vaste médial, stabilisateur du suivi rotulien.",
     intro: [
-      "Le genou est rarement la vraie source du problème. Dans 80 % des cas, une douleur ou gêne au genou en musculation vient d'<strong class='text-white'>une hanche peu mobile</strong> (rotation interne limitée), d'une <strong class='text-white'>cheville rigide</strong> (dorsiflexion insuffisante) ou d'un <strong class='text-white'>déséquilibre quadriceps / VMO</strong>. Ce protocole d'échauffement adresse les trois.",
+      "Le réflexe habituel face à un genou qui gêne, c'est de le ménager : moins d'amplitude, une genouillère, on évite les fentes. Ça soulage sur le moment et ça ne règle rien, parce que le genou n'est presque jamais l'endroit où le problème est né — c'est seulement l'endroit où il se fait sentir.",
       "À pratiquer avant chaque séance jambes — squat, presse, fentes, soulevé de terre roumain. Compte 5 minutes. L'objectif : que tu arrives sur ta première série de chauffe avec la mobilité, l'activation et la stabilité nécessaires pour exécuter le mouvement proprement, sans compensation pathogène.",
       "Si la douleur est aiguë, vive, ou qu'elle apparaît au repos, ce n'est pas un sujet d'échauffement — consulte un kinésithérapeute ou un médecin du sport. Pour les gênes mécaniques, les sensations d'accrochage, les genoux \"qui chauffent\" en début de séance, ce protocole change la donne.",
     ],
@@ -192,8 +198,10 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       "Échauffement complet pour le bas du dos avant musculation. Mobilisation lombaire, gainage, activation fessière. 6 exercices sécurisés. Gratuit, sans inscription.",
     h1: "Échauffement bas du dos / lombaires",
     subtitle: "Protocole musculation · Mobilisation rachis · Activation fessière",
+    keyAnswer:
+      "Le bas du dos est la zone la plus blessée en musculation, et la cause est rarement un dos faible. C'est un <strong class='text-white'>manque de mobilité de hanche</strong> qui force les lombaires à compenser, ou un <strong class='text-white'>gainage inactif</strong> qui laisse la colonne fléchir sous charge. Le protocole traite les deux en 5 à 6 minutes : mobilisation du rachis, gainage anti-extension, activation fessière.",
     intro: [
-      "Le bas du dos est la zone la plus fréquemment blessée en musculation. La cause n'est presque jamais \"un dos faible\" — c'est plutôt <strong class='text-white'>un manque de mobilité de hanche</strong> qui force les lombaires à compenser, ou <strong class='text-white'>un gainage inactif</strong> qui laisse la colonne fléchir sous charge. Ce protocole adresse les deux.",
+      "« J'ai le dos fragile » est probablement la phrase la plus répandue et la plus fausse de la salle de musculation. Un dos qui se plaint n'est pas un dos faible : c'est un dos à qui on demande de faire le travail d'une hanche qui ne bouge pas, ou d'un tronc qui ne se verrouille pas. Renforcer les lombaires sans traiter ça revient à muscler le compensateur.",
       "À pratiquer avant chaque séance impliquant un soulevé de terre, un squat lourd, des rowings ou tout exercice debout chargé. Compte 5 à 6 minutes. Tu peux aussi l'utiliser comme routine de matin si ton dos est raide au réveil — c'est souvent plus efficace que des étirements statiques.",
       "Si tu as une <strong class='text-white'>douleur sciatique</strong> (irradiation jusqu'à la jambe), une <strong class='text-white'>douleur aiguë qui te bloque</strong>, ou un trauma récent, ce n'est pas un sujet d'échauffement — consulte un médecin du sport ou un kinésithérapeute. Pour les raideurs, les gênes diffuses ou les lombaires \"qui chauffent\" sur le SDT, le protocole change la donne.",
     ],
@@ -277,8 +285,10 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       "Échauffement poignets complet pour la musculation. Mobilisation, renforcement et activation avant développé couché, dips, pompes ou exercices au sol. Gratuit.",
     h1: "Échauffement poignets pour la musculation",
     subtitle: "Protocole · Mobilité · Renforcement extrinsèque · Préhension",
+    keyAnswer:
+      "Le poignet est sollicité dès qu'il y a charge sur les bras : développé couché, dips, tractions, pompes, calisthénie. La douleur vient le plus souvent d'un <strong class='text-white'>manque de mobilité</strong> qui impose des angles défavorables sous charge, d'avant-bras insuffisamment renforcés, ou d'une mauvaise prise de barre. Le protocole prend 4 minutes : mobilisation, étirements actifs, activation des stabilisateurs.",
     intro: [
-      "Le poignet est sollicité dès qu'il y a charge sur les bras — développé couché, dips, tractions, pompes, kettlebells, calisthénie. Une <strong class='text-white'>douleur de poignet</strong> en musculation vient le plus souvent d'un manque de mobilité (ce qui force des angles défavorables sous charge), d'un renforcement insuffisant des muscles fléchisseurs/extenseurs, ou d'une mauvaise prise sur la barre.",
+      "Le poignet est l'articulation qu'on n'échauffe jamais. On mobilise les épaules, on fait quelques squats à vide, et on va poser 80 kg sur deux articulations grandes comme une montre — qui viennent en plus de passer huit heures immobiles sur un clavier. Vu comme ça, l'étonnant n'est pas que ça finisse par faire mal, c'est que ça tienne aussi longtemps.",
       "Ce protocole prépare le poignet en 4 minutes via mobilisation, étirements actifs et activation des muscles stabilisateurs de l'avant-bras. À pratiquer avant chaque séance haut du corps. Particulièrement utile pour les pratiquants de calisthénie, ceux qui font beaucoup de pompes, ou qui développent des charges lourdes au DC.",
       "Si tu as une <strong class='text-white'>douleur aiguë</strong>, un gonflement, ou un déficit de force soudain, consulte. Une fracture du scaphoïde mal diagnostiquée laisse des séquelles. Pour les gênes diffuses, les sensations de pincement ou les poignets qui chauffent en bas de pompe, le protocole résout l'essentiel.",
     ],

@@ -4,7 +4,8 @@ import SEOPage from "@/components/SEOPage";
 import { generateWarmup } from "@/lib/warmup-engine";
 import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
-import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS } from "@/lib/content/muscle";
+import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS, MUSCLE_HUB } from "@/lib/content/muscle";
+import { OBJECTIVE_PROFILES, MUSCLE_OBJECTIVE_NOTES } from "@/lib/content/muscle-objectif";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
@@ -39,8 +40,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const muscleLabel = MUSCLE_LABELS[muscle as MuscleGroup];
   const objectiveLabel = OBJECTIVE_LABELS[objectif as Objective];
-  const title = `Échauffement ${muscleLabel} ${objectiveLabel} : plan complet gratuit`;
-  const description = `Plan d'échauffement complet pour les ${muscleLabel.toLowerCase()} en ${objectiveLabel.toLowerCase()}. Mobilisation articulaire et activation musculaire, exercice par exercice. 100% gratuit, sans inscription.`;
+  // Titre court : le template "%s · Warmup Generator" ajoute déjà la marque.
+  // On reste sous ~60 caractères pour éviter la troncature en SERP.
+  const title = `Échauffement ${muscleLabel} ${objectiveLabel}`;
+  const description = `Plan d'échauffement pour les ${muscleLabel.toLowerCase()} en ${objectiveLabel.toLowerCase()} : mobilisation articulaire et activation musculaire, exercice par exercice. Gratuit, sans inscription.`;
   const path = `/echauffement/${muscle}/${objectif}`;
 
   return {
@@ -62,27 +65,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     robots: { index: true, follow: true },
   };
-}
-
-function getFaqs(muscleLabel: string, objectiveLabel: string) {
-  return [
-    {
-      q: `Combien de temps doit durer un échauffement ${muscleLabel.toLowerCase()} ?`,
-      a: `Pour une séance ${objectiveLabel.toLowerCase()}, 5 à 8 minutes d'échauffement ciblé suffisent : 2-3 minutes de mobilisation articulaire puis 2-5 minutes d'activation musculaire spécifique. Au-delà, tu fatigues sans bénéfice supplémentaire.`,
-    },
-    {
-      q: `Faut-il s'étirer avant la musculation ${muscleLabel.toLowerCase()} ?`,
-      a: `Non — les étirements statiques avant l'effort réduisent la force et la puissance de 5 à 10 %. Privilégie la mobilité dynamique et l'activation musculaire. Les étirements statiques ont leur place après la séance ou les jours off.`,
-    },
-    {
-      q: `Quels exercices d'échauffement pour ${muscleLabel.toLowerCase()} en ${objectiveLabel.toLowerCase()} ?`,
-      a: `Le plan ci-dessus combine mobilisation articulaire (préparer les articulations) et activation musculaire (réveiller les fibres ciblées). Pour la ${objectiveLabel.toLowerCase()}, on insiste sur la connexion neuro-musculaire et la préparation à des charges lourdes ou un volume élevé.`,
-    },
-    {
-      q: `Cet échauffement remplace-t-il les séries de chauffe avec barre ?`,
-      a: `Non. Cet échauffement prépare le corps. Sur les exercices polyarticulaires (squat, développé couché, soulevé de terre), ajoute toujours 2 à 3 séries de chauffe progressive avec la barre avant tes séries de travail.`,
-    },
-  ];
 }
 
 export default async function StaticPlanPage({ params }: PageProps) {
@@ -114,25 +96,41 @@ export default async function StaticPlanPage({ params }: PageProps) {
   const totalSeconds = allExercises.reduce((s, e) => s + e.durationSeconds, 0);
   const totalMinutes = Math.max(1, Math.round(totalSeconds / 60));
 
+  const profile = OBJECTIVE_PROFILES[objectiveTyped];
+  const hub = MUSCLE_HUB[muscleTyped];
+
   const intro = [
-    `Un <strong class='text-white'>échauffement ${muscleLow}</strong> efficace prépare en parallèle les articulations sollicitées, active les muscles cibles et programme le système nerveux à pousser des charges lourdes ou volumineuses. Pour une séance orientée <strong class='text-white'>${objLow}</strong>, l'enjeu est précis : arriver sur ta première série de travail avec ${muscleLow} \"chauds\", connectés et prêts à recevoir la stimulation maximale.`,
+    // Accroche unique à la combinaison muscle × objectif (anti near-duplicate)
+    MUSCLE_OBJECTIVE_NOTES[muscleTyped][objectiveTyped],
+    // Anatomie / particularité du muscle (partagée entre les 4 objectifs)
     MUSCLE_INSIGHTS[muscleTyped],
-    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-white'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-white'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire). Compte environ ${totalMinutes} minute${totalMinutes > 1 ? "s" : ""}. À pratiquer juste avant tes séries de chauffe avec barre ou haltères.`,
+    // Description du plan, calibrée pour l'objectif
+    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-white'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-white'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire), dans l'ordre adapté à une séance ${objLow}. Compte environ ${totalMinutes} minute${totalMinutes > 1 ? "s" : ""}, juste avant tes séries de chauffe avec barre ou haltères.`,
   ];
 
   const advice = {
-    title: `Pourquoi ce plan est adapté à la ${objLow}`,
+    title: profile.adviceTitle,
     paragraphs: [
-      objectiveTyped === "force"
-        ? `Pour la <strong class='text-white'>force pure</strong>, le système nerveux doit être pré-activé pour recruter un maximum de fibres dès la première répétition lourde. Les exercices d'activation ci-dessus stimulent les motoneurones et améliorent la synchronisation neuro-musculaire — tu peux gagner 5 à 10 % de force disponible juste avec un échauffement bien fait.`
-        : objectiveTyped === "hypertrophie"
-        ? `Pour l'<strong class='text-white'>hypertrophie</strong>, l'objectif est la connexion mind-muscle : tu dois sentir tes ${muscleLow} se contracter sur chaque répétition. L'activation ciblée du protocole ci-dessus établit cette connexion avant que la fatigue ne brouille le signal. Résultat : recrutement musculaire plus complet, gains de masse plus rapides.`
-        : objectiveTyped === "mobilite"
-        ? `Pour un travail orienté <strong class='text-white'>mobilité</strong>, l'échauffement n'est pas qu'une préparation — c'est une partie intégrante de la session. La mobilisation articulaire ci-dessus libère les amplitudes que tu vas exploiter dans le travail principal. Sans elle, tu travailles dans une amplitude réduite et tu ne progresses pas.`
-        : `En <strong class='text-white'>reprise</strong>, l'échauffement est ta meilleure assurance contre la rechute. Les tissus reviennent en charge progressivement, et un protocole complet de mobilisation + activation prépare en douceur sans surcharger. Reste à l'écoute : si une zone proteste, réduis l'amplitude ou la charge sur ta première série.`,
+      profile.science(muscleLow),
+      profile.chargeReps(muscleLow),
       `Si tu as une <strong class='text-white'>zone sensible</strong> (épaule, genou, lombaires, poignets), utilise plutôt le générateur en haut de page pour produire un plan adapté à ta situation exacte — il intègre des exercices thérapeutiques spécifiques en bonus.`,
     ],
   };
+
+  // FAQ différenciée : 2 questions propres à l'objectif + 1 générale + 1 propre
+  // au muscle (via sa zone sensible). L'ensemble varie sur chacune des 28 pages.
+  const faqs = [
+    profile.faq(muscleLow),
+    profile.rampFaq(muscleLow),
+    {
+      q: `Faut-il s'étirer avant une séance ${muscleLow} ?`,
+      a: `Pas en statique. Les étirements statiques avant l'effort réduisent temporairement la force et la puissance de 5 à 10 %. Avant les ${muscleLow}, privilégie la mobilité dynamique et l'activation musculaire — garde les étirements longs pour l'après-séance ou les jours de repos.`,
+    },
+    {
+      q: `Et si j'ai une gêne à ${hub.zone.label} ?`,
+      a: hub.zone.answer,
+    },
+  ];
 
   // Map plan exercises to SEOPage format
   const seoExercises = allExercises.map((ex) => ({
@@ -168,15 +166,13 @@ export default async function StaticPlanPage({ params }: PageProps) {
       exerciseSectionTitle={`Plan ${objectiveLabel.toLowerCase()} en ${allExercises.length} mouvements`}
       exercises={seoExercises}
       advice={advice}
-      faqs={getFaqs(muscleLabel, objectiveLabel)}
+      faqs={faqs}
       related={{
         title: `Autres plans pour ${muscleLow}`,
         links: relatedLinks,
       }}
       siteUrl={SITE_URL}
       path={path}
-      howToName={`Échauffement ${muscleLabel} — ${objectiveLabel}`}
-      totalDurationLabel="5 min"
       planHref={`/result?muscles=${muscle}&objectif=${objectif}&duree=5`}
     />
   );

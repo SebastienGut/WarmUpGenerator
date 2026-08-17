@@ -22,11 +22,36 @@ export interface SEOBreadcrumb {
   href?: string;
 }
 
+export interface SEOSection {
+  title: string;
+  paragraphs: string[];
+}
+
 export interface SEOPageProps {
   h1: string;
   subtitle?: string;
   breadcrumbs: SEOBreadcrumb[];
+  /**
+   * Réponse directe et autoportante à la question que pose la page, en 40-60
+   * mots. Rendue juste sous le H1.
+   *
+   * Deux usages, l'un humain l'autre machine : le lecteur qui arrive avec une
+   * douleur obtient sa réponse immédiatement, et les moteurs génératifs
+   * (AI Overviews, ChatGPT, Perplexity) disposent d'un passage citable sans
+   * contexte environnant — c'est la condition pour être repris comme source,
+   * ces systèmes n'extrayant que des passages compréhensibles isolément.
+   *
+   * Contrainte de rédaction : aucune référence anaphorique (« comme vu plus
+   * haut », « ce protocole »), un fait vérifiable, et le sujet nommé en toutes
+   * lettres plutôt que repris par un pronom.
+   */
+  keyAnswer?: string;
   intro: string[];
+  /** Sections rédactionnelles insérées entre l'intro et le protocole.
+   * Utilisé par les pages douleur pour la partie diagnostic (« d'où vient
+   * la douleur »), qui doit précéder le protocole pour répondre à l'intention
+   * de recherche avant de proposer la solution. */
+  sections?: SEOSection[];
   exerciseSectionTitle: string;
   exercises: SEOExercise[];
   advice?: { title: string; paragraphs: string[] };
@@ -34,8 +59,11 @@ export interface SEOPageProps {
   related?: { title: string; links: SEORelatedLink[] };
   siteUrl: string;
   path: string;
-  howToName: string;
-  totalDurationLabel: string;
+  /** @deprecated Conservé pour compat ascendante ; le schema HowTo a été retiré
+   * (Google a supprimé les rich results HowTo en 2023). */
+  howToName?: string;
+  /** @deprecated Conservé pour compat ascendante. */
+  totalDurationLabel?: string;
   /** Deep-link vers /result préconfiguré : le CTA devient "Lancer ce plan en mode timer". */
   planHref?: string;
 }
@@ -56,7 +84,9 @@ export default function SEOPage(props: SEOPageProps) {
     h1,
     subtitle,
     breadcrumbs,
+    keyAnswer,
     intro,
+    sections,
     exerciseSectionTitle,
     exercises,
     advice,
@@ -64,30 +94,15 @@ export default function SEOPage(props: SEOPageProps) {
     related,
     siteUrl,
     path,
-    howToName,
     planHref,
   } = props;
 
   const totalSeconds = totalSecondsOf(exercises);
 
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: howToName,
-    description: intro[0]?.replace(/<[^>]+>/g, "").slice(0, 240) ?? howToName,
-    totalTime: `PT${Math.max(1, Math.round(totalSeconds / 60))}M`,
-    inLanguage: "fr-FR",
-    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
-    supply: [{ "@type": "HowToSupply", name: "Aucun matériel requis" }],
-    tool: [{ "@type": "HowToTool", name: "Tapis de sol (optionnel)" }],
-    step: exercises.map((ex, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: ex.name,
-      text: ex.description,
-    })),
-  };
-
+  // NB : schemas HowTo et FAQPage retirés volontairement — Google a supprimé les
+  // rich results HowTo (sept. 2023) et réservé les rich results FAQ aux sites
+  // gouvernementaux/santé (août 2023). On conserve uniquement le BreadcrumbList,
+  // qui produit toujours un affichage en SERP.
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -96,16 +111,6 @@ export default function SEOPage(props: SEOPageProps) {
       position: i + 1,
       name: b.label,
       item: b.href ? `${siteUrl}${b.href}` : `${siteUrl}${path}`,
-    })),
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
   };
 
@@ -147,9 +152,7 @@ export default function SEOPage(props: SEOPageProps) {
 
   return (
     <main className="relative min-h-screen bg-[#050505]">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HEADER */}
       <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">
@@ -202,12 +205,37 @@ export default function SEOPage(props: SEOPageProps) {
           <h1 className="font-sans text-[36px] font-black uppercase leading-[0.95] tracking-tight text-white md:text-[48px]">
             {h1}
           </h1>
+          {keyAnswer && (
+            <div className="mt-4 rounded-2xl border border-[#A3FF12]/25 bg-[#A3FF12]/[0.04] px-5 py-4">
+              <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12]">
+                En bref
+              </p>
+              <p
+                className="text-[15px] font-medium leading-[1.65] text-white md:text-[16px]"
+                dangerouslySetInnerHTML={{ __html: keyAnswer }}
+              />
+            </div>
+          )}
           <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
             {intro.map((p, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}
           </div>
         </section>
+
+        {/* SECTIONS RÉDACTIONNELLES (diagnostic) — avant le protocole */}
+        {sections?.map((s) => (
+          <section key={s.title} className="mb-14">
+            <h2 className="mb-4 border-b border-white/[0.06] pb-3 font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+              {s.title}
+            </h2>
+            <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
+              {s.paragraphs.map((p, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
+              ))}
+            </div>
+          </section>
+        ))}
 
         {/* EXERCISES */}
         <section className="mb-14">

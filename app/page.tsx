@@ -39,12 +39,12 @@ export default function Home() {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "Warmup Generator - Echauffement musculation gratuit",
+      name: "Warmup Generator — Échauffement musculation gratuit",
       url: SITE_URL,
       inLanguage: "fr-FR",
       isPartOf: { "@type": "WebSite", name: "Warmup Generator", url: SITE_URL },
       description:
-        "Generateur gratuit d'echauffement musculation personnalise selon les muscles, l'objectif et les zones sensibles.",
+        "Générateur gratuit d'échauffement musculation personnalisé selon les muscles, l'objectif et les zones sensibles.",
     },
     {
       "@context": "https://schema.org",
@@ -53,16 +53,16 @@ export default function Home() {
       applicationCategory: "HealthApplication",
       operatingSystem: "Web",
       description:
-        "Generateur d'echauffement musculation personnalise. Cree un plan adapte a tes muscles, ton objectif et tes zones sensibles en 30 secondes.",
+        "Générateur d'échauffement musculation personnalisé. Crée un plan adapté à tes muscles, ton objectif et tes zones sensibles en 30 secondes.",
       inLanguage: "fr-FR",
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
       featureList: [
-        "Plan d'echauffement personnalise en 30 secondes",
-        "Adaptation aux zones sensibles (epaule, genou, lombaires)",
-        "Mode timer plein ecran pour la salle",
+        "Plan d'échauffement personnalisé en 30 secondes",
+        "Adaptation aux zones sensibles (épaule, genou, lombaires)",
+        "Mode timer plein écran pour la salle",
         "Fonctionne hors ligne",
-        "Sans inscription, sans publicite",
+        "Sans inscription, sans publicité",
       ],
     },
     {

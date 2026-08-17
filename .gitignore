@@ -41,3 +41,19 @@ next-dev.log
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# rendus QA temporaires des silhouettes
+.qa/
+silhouettes-apercu.png
+.qa2/
+squat-test.png
+bar-test.png
+bar.png
+silhouettes-preview.html
+prototypes-svg/
+
+# packages de skills d'agents : dépendances d'outillage local, pas du code
+# projet. Versionnés par erreur à l'origine ; retirés du suivi avant passage
+# du dépôt en public (bruit dans la vitrine + redistribution d'un package tiers).
+.claude/skills/
+.agents/

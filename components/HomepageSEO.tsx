@@ -77,26 +77,13 @@ const FAQS: { q: string; a: string }[] = [
 ];
 
 export default function HomepageSEO() {
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
+  // Schema FAQPage retiré : Google a réservé les rich results FAQ aux sites
+  // gouvernementaux/santé (août 2023). Le contenu FAQ reste affiché ci-dessous.
   return (
     <section
       aria-labelledby="seo-heading"
       className="content-layer relative w-full bg-[#050505] border-t border-white/[0.06]"
     >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
       <div className="mx-auto w-full max-w-[640px] px-5 py-12 flex flex-col gap-10">
 
         {/* INTRO SEO */}

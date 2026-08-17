@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Warmup Generator
 
-## Getting Started
+Générateur d'échauffements personnalisés pour la musculation. L'utilisateur choisit
+ses groupes musculaires, son objectif de séance, ses zones sensibles et une durée ;
+un algorithme déterministe compose un protocole séquencé en trois phases.
 
-First, run the development server:
+**[warmup-generator.com](https://warmup-generator.com)** · Gratuit, sans publicité,
+sans inscription, sans collecte de données.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Les contraintes du projet
+
+Elles sont volontaires et structurent toutes les décisions techniques :
+
+- **Zéro coût serveur.** Pas d'API externe, pas de base de données, pas d'appel à un
+  service d'IA. La génération est algorithmique et s'exécute dans le navigateur.
+- **Zéro tracking.** Aucun cookie, aucun analytics tiers, aucune donnée personnelle
+  collectée. Rien à accepter en arrivant sur le site.
+- **Fonctionne hors ligne.** L'usage réel se fait dans une salle de sport, souvent
+  avec une connexion mauvaise ou inexistante.
+- **Mobile-first.** L'utilisateur est debout, téléphone en main, entre deux séries.
+
+## Le cœur du projet : l'algorithme de sélection
+
+Le fichier [`lib/warmup-engine.ts`](lib/warmup-engine.ts) contient la logique
+intéressante. Le problème n'est pas de piocher des exercices au hasard dans une
+liste filtrée — c'est de composer un protocole cohérent sous contraintes multiples
+et parfois contradictoires.
+
+Chaque exercice de [`lib/warmup-data.ts`](lib/warmup-data.ts) est annoté avec :
+
+| Dimension | Rôle dans la sélection |
+|---|---|
+| `muscles` | Groupes préparés par l'exercice |
+| `objectives` | Objectifs de séance où il est pertinent |
+| `contraindications` | Zones sensibles qui **excluent** l'exercice |
+| `painSupport` | Zones sensibles que l'exercice **soulage** activement |
+| `joints` | Articulations mobilisées, pour le scoring de couverture |
+| `prepFocus` / `prepIntensity` | Nature et intensité de la préparation |
+| `movementKey` | Identifie les variantes d'un même mouvement, pour éviter les doublons |
+
+L'algorithme doit alors : couvrir tous les groupes musculaires demandés, respecter la
+séquence articulaire → activation → spécifique, écarter les exercices contre-indiqués,
+réserver un créneau aux exercices qui soulagent une zone sensible déclarée, éviter deux
+variantes du même mouvement, et faire tenir le tout dans la durée choisie.
+
+La distinction `contraindications` / `painSupport` est ce qui rend le résultat utile
+plutôt que générique : déclarer une épaule sensible ne se contente pas de retirer des
+exercices, ça en fait entrer d'autres.
+
+## Structure
+
+```
+app/
+  page.tsx                              Configuration du plan
+  result/                               Plan généré, mode timer plein écran
+  douleur/[slug]/                       Cluster « douleur × exercice » (requête symptôme)
+  echauffement/
+    [muscle]/[objectif]/                Matrice muscle × objectif
+    protection/[zone]/                  Protocoles par zone sensible
+    exercice/[slug]/                    Guides par exercice principal
+    combo/[combo]/                      Guides par groupe musculaire
+  blog/[slug]/                          Guides rédactionnels
+  donnees/                              Documentation du jeu de données ouvert
+  api/exercices/                        Export JSON (CC BY 4.0)
+  llms.txt/                             Description du site pour les moteurs génératifs
+lib/
+  warmup-data.ts                        Référentiel d'exercices annotés
+  warmup-engine.ts                      Algorithme de composition du plan
+  content/                              Contenu éditorial par cluster
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Données ouvertes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le référentiel d'exercices est publié sous **CC BY 4.0** :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+curl https://warmup-generator.com/api/exercices
+```
 
-## Learn More
+Documentation, structure et exemples : **[warmup-generator.com/donnees](https://warmup-generator.com/donnees)**.
 
-To learn more about Next.js, take a look at the following resources:
+À notre connaissance il n'existe pas d'équivalent ouvert en français intégrant la
+dimension contre-indication. Réutilisation libre, y compris commerciale, avec
+attribution. Aucune clé d'API, aucune limite de débit.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Développement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build de production
+npm run lint
+```
 
-## Deploy on Vercel
+Next.js 15 (App Router) · TypeScript · Tailwind CSS · déployé sur Vercel.
+Toutes les pages de contenu sont générées statiquement (SSG).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Avertissement
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ce projet porte sur la préparation physique, pas sur le traitement des blessures.
+Les pages consacrées aux douleurs signalent explicitement les symptômes qui imposent
+une consultation. Rien ici ne remplace l'avis d'un kinésithérapeute ou d'un médecin
+du sport — merci de conserver cette nuance en cas de réutilisation du contenu ou des
+données.
+
+## Licence
+
+Code sous licence MIT. Jeu de données d'exercices sous
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fr).

@@ -174,6 +174,20 @@ export default function ResultClient({ plan, muscleLabel, objectiveLabel, reques
                 </>
               )}
             </button>
+            {objectiveLabel !== "Mobilité" && (
+              <Link
+                href="/series-approche"
+                className="flex w-full items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 text-left transition-colors hover:border-[#A3FF12]/40"
+              >
+                <span className="flex flex-col">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+                    Ensuite, sur ton premier exercice
+                  </span>
+                  <span className="text-[14px] font-bold text-white">Calculer mes séries d&apos;approche</span>
+                </span>
+                <span aria-hidden="true" className="font-mono text-[#A3FF12]">→</span>
+              </Link>
+            )}
           </div>
         </div>
       </main>

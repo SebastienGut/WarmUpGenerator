@@ -135,6 +135,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      // Outil spécifique : seule page qui répond à « séries d'approche »,
+      // requête que les concurrents FR traitent en texte sans calculateur.
+      url: `${SITE_URL}/series-approche`,
+      lastModified: new Date("2026-10-11"),
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
       url: `${SITE_URL}/douleur`,
       lastModified,
       changeFrequency: "monthly",

@@ -53,6 +53,12 @@ export function GET() {
         `- [${PROTECTION_PAGES[s].h1}](${SITE_URL}/echauffement/protection/${s}) : ${PROTECTION_PAGES[s].metaDescription}`
     ),
     "",
+    "## Outils",
+    "",
+    `- [Calculateur de séries d'approche](${SITE_URL}/series-approche) : montée en charge avant la`,
+    "  première série de travail (squat, développé couché, soulevé de terre...), disques par côté.",
+    "  Repère : pour 5 répétitions de travail, barre × 10 puis 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1.",
+    "",
     "## Guides",
     "",
     ...BLOG_POSTS.map((p) => `- [${p.h1}](${SITE_URL}/blog/${p.slug}) : ${p.metaDescription}`),

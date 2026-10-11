@@ -57,7 +57,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Cet échauffement remplace-t-il les séries de chauffe avec barre ?",
-    a: "Non. L'échauffement général prépare le corps. Sur les exercices polyarticulaires lourds (squat, développé couché, soulevé de terre), ajoute toujours 2 à 3 séries de chauffe progressive avec la barre avant tes séries de travail effectives.",
+    a: "Non. L'échauffement général prépare le corps. Sur les exercices polyarticulaires lourds (squat, développé couché, soulevé de terre), ajoute toujours 2 à 5 séries d'approche à charge croissante avant tes séries de travail : le calculateur de séries d'approche du site te donne les charges exactes.",
   },
   {
     q: "L'application est-elle vraiment gratuite ?",
@@ -179,6 +179,25 @@ export default function HomepageSEO() {
             </div>
           </div>
         </article>
+
+        {/* SÉRIES D'APPROCHE — l'étape spécifique, après l'échauffement général */}
+        <Link
+          href="/series-approche"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-[#A3FF12]/25 bg-[#A3FF12]/[0.04] px-5 py-4 transition-colors hover:border-[#A3FF12]/50"
+        >
+          <span className="flex flex-col gap-1">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12]">
+              Nouveau · Calculateur
+            </span>
+            <span className="font-sans text-[18px] font-black leading-tight tracking-tight text-white">
+              Séries d&apos;approche : quelle charge, combien de reps
+            </span>
+            <span className="text-[13px] text-[#A1A1A6]">
+              Entre ta charge de travail, obtiens ta montée en charge et les disques par côté.
+            </span>
+          </span>
+          <span aria-hidden="true" className="font-mono text-[18px] text-[#A3FF12] transition-transform group-hover:translate-x-0.5">→</span>
+        </Link>
 
         {/* PROTECTION — zones sensibles */}
         <article className="flex flex-col gap-4">

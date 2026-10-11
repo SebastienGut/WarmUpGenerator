@@ -6,13 +6,15 @@ import { EXERCICE_PAGES, EXERCICE_SLUGS } from "@/lib/content/exercice";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
 // Deep-link générateur : muscles + objectif les plus proches du mouvement
+// Deep-link vers le moteur par séance : le slug de page est un identifiant
+// d'exercice du catalogue (lib/lifts.ts).
 const PLAN_PARAMS: Record<string, string> = {
-  "developpe-couche": "muscles=pecs,epaules&objectif=force",
-  squat: "muscles=jambes,fessiers&objectif=force",
-  "souleve-de-terre": "muscles=dos,jambes&objectif=force",
-  tractions: "muscles=dos,bras&objectif=force",
-  "rowing-barre": "muscles=dos&objectif=force",
-  "developpe-militaire": "muscles=epaules&objectif=force",
+  "developpe-couche": "s=developpe-couche&r=5",
+  squat: "s=squat&r=5",
+  "souleve-de-terre": "s=souleve-de-terre&r=5",
+  tractions: "s=tractions&r=5",
+  "rowing-barre": "s=rowing-barre&r=8",
+  "developpe-militaire": "s=developpe-militaire&r=5",
 };
 
 interface PageProps {
@@ -83,7 +85,7 @@ export default async function ExercicePage({ params }: PageProps) {
       path={path}
       howToName={data.h1}
       totalDurationLabel="5 min"
-      planHref={PLAN_PARAMS[slug] ? `/result?${PLAN_PARAMS[slug]}&duree=5` : undefined}
+      planHref={PLAN_PARAMS[slug] ? `/plan?${PLAN_PARAMS[slug]}` : undefined}
     />
   );
 }

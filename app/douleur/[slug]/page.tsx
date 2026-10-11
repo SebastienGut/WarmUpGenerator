@@ -86,7 +86,7 @@ export default async function DouleurPage({ params }: PageProps) {
       related={{ title: "Autres douleurs fréquentes", links: relatedLinks }}
       siteUrl={SITE_URL}
       path={path}
-      planHref={`/result?${data.planParams}&duree=5`}
+      planHref={`/plan?${data.planParams}`}
     />
   );
 }

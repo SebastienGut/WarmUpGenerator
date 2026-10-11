@@ -4,8 +4,12 @@ import Script from "next/script";
 export default function ClientScripts() {
   return (
     <>
+      {/* En dev, les chunks gardent le même nom d'un build à l'autre : le cache
+          « cache d'abord » du service worker figerait l'application. */}
       <Script id="sw-register" strategy="afterInteractive">
-        {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(() => {}); }`}
+        {process.env.NODE_ENV === "production"
+          ? `if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(() => {}); }`
+          : `if ('serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }); }`}
       </Script>
       <Script
         data-goatcounter="https://warmuptrack.goatcounter.com/count"

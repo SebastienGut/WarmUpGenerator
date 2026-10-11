@@ -7,11 +7,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 
 // Deep-link générateur : groupes musculaires du combo
 const PLAN_PARAMS: Record<string, string> = {
-  "haut-du-corps": "muscles=pecs,dos,epaules&objectif=hypertrophie",
-  "bas-du-corps": "muscles=jambes,fessiers&objectif=hypertrophie",
-  "full-body": "muscles=pecs,dos,jambes&objectif=hypertrophie",
-  push: "muscles=pecs,epaules,bras&objectif=hypertrophie",
-  pull: "muscles=dos,bras&objectif=hypertrophie",
+  "haut-du-corps": "s=developpe-couche,rowing-barre,developpe-militaire,tractions&r=8",
+  "bas-du-corps": "s=squat,souleve-roumain,fentes,hip-thrust&r=8",
+  "full-body": "s=squat,developpe-couche,rowing-barre&r=8",
+  push: "s=developpe-couche,developpe-epaules-halteres,elevations-laterales,triceps&r=8",
+  pull: "s=tractions,rowing-barre,tirage-horizontal,curl-biceps&r=8",
 };
 
 interface PageProps {
@@ -82,7 +82,7 @@ export default async function ComboPage({ params }: PageProps) {
       path={path}
       howToName={data.h1}
       totalDurationLabel="5 min"
-      planHref={PLAN_PARAMS[combo] ? `/result?${PLAN_PARAMS[combo]}&duree=5` : undefined}
+      planHref={PLAN_PARAMS[combo] ? `/plan?${PLAN_PARAMS[combo]}` : undefined}
     />
   );
 }

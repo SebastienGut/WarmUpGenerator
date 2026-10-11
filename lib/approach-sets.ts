@@ -9,7 +9,8 @@ export type ApproachExercise =
   | "souleve-de-terre"
   | "developpe-militaire"
   | "rowing-barre"
-  | "halteres";
+  | "halteres"
+  | "machine";
 
 export interface ApproachInput {
   exercise: ApproachExercise;
@@ -40,6 +41,7 @@ export const EXERCISE_LABELS: Record<ApproachExercise, string> = {
   "developpe-militaire": "Développé militaire",
   "rowing-barre": "Rowing barre",
   halteres: "Haltères (tout exercice)",
+  machine: "Machine / poulie",
 };
 
 const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
@@ -72,10 +74,12 @@ export function platesPerSide(weight: number, barWeight: number): number[] {
 }
 
 export function computeApproachSets(input: ApproachInput): ApproachSet[] {
-  const dumbbells = input.exercise === "halteres";
+  const machine = input.exercise === "machine";
+  // Haltères et machines : pas de barre ni de disques à afficher.
+  const dumbbells = input.exercise === "halteres" || machine;
   const bar = dumbbells ? 0 : input.barWeight;
   // Une paire de 1,25 kg à la barre ; les haltères vont en général de 2 en 2.
-  const step = dumbbells ? 2 : 2.5;
+  const step = machine ? 5 : dumbbells ? 2 : 2.5;
   const work = input.workWeight;
   if (!Number.isFinite(work) || work <= 0) return [];
 

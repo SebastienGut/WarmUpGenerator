@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import GeneratorClient from "@/components/GeneratorClient";
+import SessionBuilder from "@/components/SessionBuilder";
 import HomepageSEO from "@/components/HomepageSEO";
 import IOSInstallPrompt from "@/components/IOSInstallPrompt";
 
@@ -8,12 +8,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   title: "Warmup Generator — Échauffement musculation gratuit & personnalisé",
   description:
-    "Crée en 30 secondes un plan d'échauffement adapté à tes muscles cibles, ton objectif et tes zones sensibles. 100% gratuit, sans inscription, fonctionne hors ligne.",
+    "Choisis les exercices de ta séance : mobilité, activation et séries d'approche calculées pour eux. Mode guidé pour la salle. Gratuit, sans compte.",
   alternates: { canonical: "/", languages: { "fr-FR": "/" } },
   openGraph: {
     title: "Warmup Generator — Échauffement musculation gratuit & personnalisé",
     description:
-      "Plan d'échauffement sur mesure en 30 secondes. Gratuit, sans inscription, sans pub.",
+      "Un échauffement construit sur les exercices de ta séance, séries d'approche comprises. Gratuit, sans compte.",
     type: "website",
     locale: "fr_FR",
     url: "/",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Warmup Generator — Échauffement musculation gratuit & personnalisé",
     description:
-      "Plan d'échauffement sur mesure en 30 secondes. Gratuit, sans inscription, sans pub.",
+      "Un échauffement construit sur les exercices de ta séance, séries d'approche comprises. Gratuit, sans compte.",
   },
 };
 
@@ -44,7 +44,7 @@ export default function Home() {
       inLanguage: "fr-FR",
       isPartOf: { "@type": "WebSite", name: "Warmup Generator", url: SITE_URL },
       description:
-        "Générateur gratuit d'échauffement musculation personnalisé selon les muscles, l'objectif et les zones sensibles.",
+        "Générateur gratuit d'échauffement musculation construit sur les exercices de la séance, avec séries d'approche calculées.",
     },
     {
       "@context": "https://schema.org",
@@ -53,14 +53,15 @@ export default function Home() {
       applicationCategory: "HealthApplication",
       operatingSystem: "Web",
       description:
-        "Générateur d'échauffement musculation personnalisé. Crée un plan adapté à tes muscles, ton objectif et tes zones sensibles en 30 secondes.",
+        "Générateur d'échauffement musculation : mobilité, activation et séries d'approche calculées à partir des exercices de la séance.",
       inLanguage: "fr-FR",
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
       featureList: [
-        "Plan d'échauffement personnalisé en 30 secondes",
+        "Échauffement construit sur les exercices de la séance",
+        "Séries d'approche calculées avec les disques par côté",
         "Adaptation aux zones sensibles (épaule, genou, lombaires)",
-        "Mode timer plein écran pour la salle",
+        "Mode guidé plein écran avec minuteur de repos",
         "Fonctionne hors ligne",
         "Sans inscription, sans publicité",
       ],
@@ -77,7 +78,7 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <GeneratorClient />
+      <SessionBuilder />
       <HomepageSEO />
       <IOSInstallPrompt />
     </>

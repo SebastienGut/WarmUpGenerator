@@ -69,7 +69,9 @@ export type PrepFocus =
   | "wrist-forearm"
   | "elbow-tendon"
   | "glutes"
-  | "core";
+  | "core"
+  | "hamstrings"
+  | "overhead";
 
 export type PrepIntensity = "soft" | "moderate" | "neural";
 
@@ -571,6 +573,51 @@ const EXERCISE_METADATA: Record<string, ExerciseMetadata> = {
     prepIntensity: "soft",
     trainingValue: 2,
     painSupport: ["chevilles"],
+  },
+  "prep-charniere-hanche": {
+    setting: "both",
+    prepRoles: ["mobility", "posterior-chain"],
+    prepFocus: ["hamstrings", "hip", "lumbar"],
+    prepIntensity: "soft",
+    trainingValue: 5,
+    painSupport: ["bas-du-dos"],
+  },
+  "prep-inchworm": {
+    setting: "both",
+    prepRoles: ["mobility"],
+    prepFocus: ["hamstrings", "core", "scapula"],
+    prepIntensity: "moderate",
+    trainingValue: 4,
+  },
+  "prep-glisses-mur": {
+    setting: "both",
+    prepRoles: ["mobility", "activation", "stability"],
+    prepFocus: ["overhead", "scapula", "thoracic"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["epaule"],
+  },
+  "prep-extension-thoracique-banc": {
+    setting: "gym",
+    prepRoles: ["mobility"],
+    prepFocus: ["thoracic", "overhead"],
+    prepIntensity: "soft",
+    trainingValue: 4,
+  },
+  "prep-tractions-scapulaires": {
+    setting: "gym",
+    prepRoles: ["activation", "stability"],
+    prepFocus: ["scapula", "overhead"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+  },
+  "prep-pull-apart": {
+    setting: "both",
+    prepRoles: ["activation", "stability"],
+    prepFocus: ["scapula", "rotator-cuff"],
+    prepIntensity: "moderate",
+    trainingValue: 5,
+    painSupport: ["epaule"],
   },
 };
 
@@ -1325,6 +1372,90 @@ const rawExercises: Exercise[] = [
     therapeutic: "chevilles",
     description: "Mains au mur, pied arrière tendu, talon au sol. Avancez le bassin vers le mur pour étirer le mollet. Fléchissez légèrement le genou arrière pour cibler le soléaire. Changez de jambe.",
     reps: "20 secondes par côté",
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  // PRÉPARATION DE MOUVEMENT — ajoutés pour le moteur par séance :
+  // charnière de hanche, bras au-dessus de la tête, tractions.
+  // ══════════════════════════════════════════════════════════════
+
+  {
+    id: "prep-charniere-hanche",
+    name: "Charnière de hanche (good morning à vide)",
+    category: "articulaire",
+    muscles: ["jambes", "fessiers", "dos"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 40,
+    equipment: "aucun",
+    joints: ["hanche", "rachis-lombaire"],
+    description: "Debout, genoux légèrement fléchis, mains sur les hanches. Reculez les fesses comme pour fermer une porte derrière vous, dos plat, jusqu'à sentir l'arrière des cuisses se tendre, puis revenez en serrant les fessiers. C'est le geste exact du soulevé de terre, sans charge.",
+    reps: "10 reps lentes",
+  },
+  {
+    id: "prep-inchworm",
+    name: "Marche en chenille (inchworm)",
+    category: "articulaire",
+    muscles: ["jambes", "core", "epaules"],
+    objectives: ["force", "hypertrophie", "mobilite"],
+    contraindications: ["poignets", "bas-du-dos"],
+    durationSeconds: 45,
+    equipment: "aucun",
+    joints: ["hanche", "epaule"],
+    description: "Debout, penchez-vous et posez les mains au sol, genoux aussi tendus que possible. Avancez les mains jusqu'à la position de planche, puis ramenez les pieds vers les mains à petits pas. Mobilise l'arrière des cuisses et réveille le gainage en un seul mouvement.",
+    reps: "5 allers",
+  },
+  {
+    id: "prep-glisses-mur",
+    name: "Glissés au mur (wall slides)",
+    category: "activation",
+    muscles: ["epaules", "dos"],
+    objectives: ["force", "hypertrophie", "reprise", "mobilite"],
+    contraindications: [],
+    durationSeconds: 40,
+    equipment: "aucun",
+    joints: ["epaule", "rachis-thoracique"],
+    description: "Dos, fesses et arrière de la tête contre un mur, avant-bras plaqués au mur en forme de W. Faites glisser les bras vers le haut jusqu'à former un Y sans décoller les avant-bras ni cambrer, puis redescendez en tirant les coudes vers les poches. Prépare l'épaule à travailler au-dessus de la tête.",
+    reps: "10 reps",
+  },
+  {
+    id: "prep-extension-thoracique-banc",
+    name: "Extension thoracique sur banc",
+    category: "articulaire",
+    muscles: ["epaules", "dos", "pecs"],
+    objectives: ["force", "hypertrophie", "mobilite"],
+    contraindications: ["epaule"],
+    durationSeconds: 40,
+    equipment: "aucun",
+    joints: ["rachis-thoracique", "epaule"],
+    description: "À genoux devant un banc, coudes posés dessus, mains jointes derrière la tête. Reculez les fesses vers les talons et laissez la poitrine descendre vers le sol pour ouvrir le haut du dos. Tenez 2 secondes en bas, sans cambrer le bas du dos.",
+    reps: "8 reps",
+  },
+  {
+    id: "prep-tractions-scapulaires",
+    name: "Tractions scapulaires",
+    category: "activation",
+    muscles: ["dos", "epaules"],
+    objectives: ["force", "hypertrophie", "reprise"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "barre",
+    description: "Suspendu à la barre de traction, bras tendus. Sans plier les coudes, tirez les omoplates vers le bas pour monter le corps de quelques centimètres, tenez une seconde, puis relâchez sous contrôle. Apprend au dos à démarrer la traction par les omoplates.",
+    reps: "8 reps",
+    fallback: "Sans barre : debout, bras tendus au-dessus de la tête, abaissez fortement les épaules loin des oreilles et tenez 2 secondes.",
+  },
+  {
+    id: "prep-pull-apart",
+    name: "Écartés à l'élastique (band pull-apart)",
+    category: "activation",
+    muscles: ["dos", "epaules"],
+    objectives: ["force", "hypertrophie", "reprise"],
+    contraindications: [],
+    durationSeconds: 35,
+    equipment: "elastique",
+    description: "Élastique tenu bras tendus devant la poitrine, mains à largeur d'épaules. Écartez les mains jusqu'à ce que l'élastique touche la poitrine en serrant les omoplates, puis revenez lentement. Active l'arrière des épaules avant le développé et les tirages.",
+    reps: "15 reps",
+    fallback: "Sans élastique : même mouvement à vide, en tenant 2 secondes omoplates serrées à chaque répétition.",
   },
 ];
 

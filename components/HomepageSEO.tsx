@@ -65,19 +65,19 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Quelle différence entre un échauffement pour la force et pour l'hypertrophie ?",
-    a: "Pour la force (charges maximales), l'activation neuro-musculaire est prioritaire : il faut que le système nerveux soit prêt à recruter un maximum d'unités motrices dès la première série. Pour l'hypertrophie, la connexion mind-muscle prime — tu dois sentir le muscle travailler. Le générateur adapte automatiquement la sélection d'exercices selon ton objectif.",
+    a: "Pour la force (charges maximales), l'activation neuro-musculaire est prioritaire : il faut que le système nerveux soit prêt à recruter un maximum d'unités motrices dès la première série. Pour l'hypertrophie, la connexion mind-muscle prime — tu dois sentir le muscle travailler. Le générateur en tient compte à travers tes répétitions de travail : plus elles sont basses, plus la montée en charge est longue et ses répétitions courtes.",
   },
   {
     q: "Peut-on s'échauffer avec une douleur à l'épaule ou au genou ?",
-    a: "Oui, à condition d'adapter le protocole. Un échauffement spécifique « zone sensible » utilise des mouvements thérapeutiques à faible charge qui préparent l'articulation fragilisée sans l'aggraver. Le générateur intègre cette logique : sélectionne ta zone sensible et il exclut les exercices contre-indiqués.",
+    a: "Oui, à condition d'adapter le protocole. Un échauffement spécifique « zone sensible » utilise des mouvements thérapeutiques à faible charge qui préparent l'articulation fragilisée sans l'aggraver. Le générateur intègre cette logique : indique la zone qui coince, il exclut les exercices contre-indiqués, ajoute une préparation dédiée et te rappelle le seuil de douleur à ne pas dépasser pendant les séries d'approche.",
   },
   {
     q: "Peut-on s'échauffer efficacement en 3 minutes ?",
-    a: "En 3 minutes, on peut faire un échauffement minimal suffisant pour une séance légère ou de reprise. Pour des charges lourdes (squat lourd, développé couché à 80 %+), 5 à 8 minutes sont nécessaires. Le générateur propose des plans sur 3, 5 ou 8 minutes — choisis selon l'intensité de ta séance.",
+    a: "En 3 minutes, on peut faire un échauffement minimal suffisant pour une séance légère ou de reprise. Pour des charges lourdes (squat lourd, développé couché à 80 %+), 5 à 8 minutes sont nécessaires. La version courte du générateur supprime le cardio et ne garde que l'essentiel : deux mobilités, une activation et tes séries d'approche.",
   },
   {
     q: "Quel échauffement avant les squats ?",
-    a: "Le squat sollicite chevilles, genoux, hanches, lombaires et thoracique simultanément. L'échauffement idéal comprend : rotations de cheville, mobilité thoracique en rotation, hip circles, fentes marchées et activation des fessiers. Le générateur a un plan dédié « Jambes » et une page spécifique squat avec le protocole complet.",
+    a: "Le squat sollicite chevilles, genoux, hanches, lombaires et thoracique simultanément. L'échauffement idéal comprend : rotations de cheville, mobilité thoracique en rotation, hip circles, fentes marchées et activation des fessiers. Choisis « Squat » dans le générateur : il sélectionne la mobilité de cheville et de hanche, active les fessiers et calcule ta montée en charge jusqu'à ta charge de travail.",
   },
   {
     q: "Faut-il faire du cardio avant de faire de la musculation ?",
@@ -85,7 +85,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Le générateur fonctionne-t-il hors connexion en salle ?",
-    a: "Oui. Après la première visite, l'application est mise en cache et fonctionne sans réseau. Tu peux générer un plan et utiliser le mode timer plein écran même en sous-sol sans Wi-Fi. Aucune donnée n'est envoyée à un serveur — tout tourne localement dans ton navigateur.",
+    a: "Oui. Après la première visite, l'application est mise en cache et fonctionne sans réseau. Tu peux construire ton échauffement et le suivre étape par étape même en sous-sol sans Wi-Fi. Aucune donnée n'est envoyée à un serveur — tout tourne localement dans ton navigateur.",
   },
 ];
 
@@ -113,24 +113,24 @@ export default function HomepageSEO() {
           <div className="flex flex-col gap-3 text-[14px] leading-relaxed text-[#A1A1A6]">
             <p>
               Sauter l&apos;échauffement, c&apos;est entrer en séance avec un corps froid : articulations
-              raides, muscles peu vascularisés, système nerveux endormi. À court terme, tu perds
-              <strong className="text-white"> 10 à 15 % de force</strong> sur ta première série.
-              À long terme, tu accumules les micro-traumatismes — tendinites d&apos;épaule, douleurs
+              raides, muscles peu vascularisés, système nerveux endormi. À court terme, ta première
+              série lourde part sur un geste qui n&apos;a pas été répété. À long terme, tu accumules les micro-traumatismes — tendinites d&apos;épaule, douleurs
               lombaires, gênes au genou.
             </p>
             <p>
               Un bon échauffement musculation suit une logique simple :{" "}
               <strong className="text-white">élever la température, mobiliser les articulations
               ciblées, activer les muscles que tu vas solliciter</strong>. Cinq minutes bien dosées
-              valent mieux que quinze minutes mal pensées. C&apos;est exactement ce que ce générateur
-              construit pour toi en 30 secondes : un plan adapté à tes muscles cibles, ton objectif
-              (force, hypertrophie, mobilité, reprise) et tes éventuelles zones sensibles.
+              valent mieux que quinze minutes mal pensées. Ce générateur part des exercices de ta séance : un squat
+              demande des chevilles et des hanches mobiles, un développé couché des épaules stables. Il
+              prépare ce dont tes exercices ont besoin, puis calcule tes séries d&apos;approche sur le
+              premier.
             </p>
             <p>
               L&apos;outil est <strong className="text-white">gratuit, sans inscription, et fonctionne
               hors ligne</strong> une fois la page chargée. Aucune donnée n&apos;est collectée, aucun
-              compte n&apos;est requis — pose ton téléphone à côté du tapis et suis le mode timer
-              plein écran pendant ton échauffement.
+              compte n&apos;est requis — pose ton téléphone à côté du tapis et suis l&apos;échauffement
+              étape par étape, avec les temps de repos décomptés.
             </p>
           </div>
         </article>

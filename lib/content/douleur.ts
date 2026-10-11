@@ -140,7 +140,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
         a: "Pour une gêne mécanique liée à la technique et au manque d'activation, la plupart des pratiquants constatent une nette amélioration en 2 à 4 semaines avec ce protocole avant chaque séance et les corrections d'exécution. Au-delà de 6 semaines sans progrès, ou si la douleur s'aggrave, c'est le moment de consulter : une tendinopathie installée demande un protocole de renforcement progressif encadré.",
       },
     ],
-    planParams: "muscles=pecs,epaules&objectif=reprise&zones=epaule",
+    planParams: "s=developpe-couche&r=8&p=epaule",
     relatedProtection: "epaule-douleur",
   },
 
@@ -240,7 +240,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
         a: "La presse à cuisses à amplitude réduite, le hip thrust et le soulevé de terre roumain sollicitent fortement les jambes en chargeant beaucoup moins l'articulation fémoro-patellaire. Le split squat bulgare est souvent bien toléré aussi, car la charge est plus légère et le travail unilatéral corrige les déséquilibres qui causaient la douleur.",
       },
     ],
-    planParams: "muscles=jambes,fessiers&objectif=reprise&zones=genou",
+    planParams: "s=squat&r=8&p=genou",
     relatedProtection: "genou",
   },
 
@@ -340,7 +340,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
         a: "Le repos strict au lit est aujourd'hui déconseillé : il retarde la récupération. On privilégie 48 à 72 heures de repos relatif — marche, mobilisations douces, cat-cow — puis une reprise progressive sans charge avec ce protocole. Retour aux barres à 50 % environ une semaine après la disparition de la douleur. Si ça dure plus de 5 jours ou récidive, consulte un kinésithérapeute.",
       },
     ],
-    planParams: "muscles=dos,core&objectif=reprise&zones=bas-du-dos",
+    planParams: "s=souleve-de-terre&r=8&p=bas-du-dos",
     relatedProtection: "lombaires",
   },
 
@@ -440,7 +440,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
         a: "Oui, c'est exactement le même mécanisme : extension du poignet sous charge, en statique cette fois. Si la planche fait mal, passe sur les avant-bras — c'est la version la plus courante de l'exercice et elle sollicite très bien le gainage sans impliquer le poignet du tout. Le protocole de mobilité règle les deux situations en parallèle.",
       },
     ],
-    planParams: "muscles=pecs,bras&objectif=reprise&zones=poignets",
+    planParams: "s=pompes&r=8&p=poignets",
     relatedProtection: "poignets",
   },
 
@@ -540,7 +540,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
         a: "Non. L'amplitude complète est un objectif, pas une obligation à chaque séance. Si les derniers centimètres en bas déclenchent la douleur, arrête-toi juste avant, coudes légèrement fléchis, et travaille en parallèle la suspension active pour reconquérir cette amplitude progressivement. Forcer une amplitude douloureuse entretient l'irritation au lieu de la résoudre.",
       },
     ],
-    planParams: "muscles=dos,epaules&objectif=reprise&zones=epaule",
+    planParams: "s=tractions&r=8&p=epaule",
     relatedProtection: "epaule-douleur",
   },
 
@@ -640,7 +640,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
         a: "Le bracelet épicondylien, placé quelques centimètres sous le coude, décharge partiellement l'insertion tendineuse et soulage réellement pendant l'effort en cas d'épicondylite. C'est un outil de confort utile pendant la phase de reprise, mais il ne soigne rien par lui-même : le renforcement excentrique reste le traitement de fond.",
       },
     ],
-    planParams: "muscles=bras&objectif=reprise&zones=poignets",
+    planParams: "s=curl-biceps&r=10&p=coudes",
     relatedProtection: "poignets",
   },
 };

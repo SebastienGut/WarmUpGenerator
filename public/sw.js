@@ -1,7 +1,11 @@
-const CACHE = 'warmup-v4';
+const CACHE = 'warmup-v5';
 
+// Pages-outils : statiques, elles calculent tout dans le navigateur à partir
+// de l'URL. En cache, elles fonctionnent sans réseau.
 const PRECACHE = [
   '/',
+  '/plan',
+  '/series-approche',
 ];
 
 self.addEventListener('install', (event) => {
@@ -40,10 +44,21 @@ self.addEventListener('fetch', (event) => {
     event.request.headers.get('accept')?.includes('text/html');
 
   if (isDocument) {
+    // Réseau d'abord ; la copie en cache est rangée sans query string, pour
+    // qu'un /plan?s=… jamais visité s'ouvre quand même hors ligne.
+    const key = url.origin + url.pathname;
     event.respondWith(
-      fetch(event.request).catch(() =>
-        caches.match(event.request).then((cached) => cached ?? caches.match('/'))
-      )
+      fetch(event.request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE).then((cache) => cache.put(key, clone));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches.match(key).then((cached) => cached ?? caches.match('/'))
+        )
     );
     return;
   }

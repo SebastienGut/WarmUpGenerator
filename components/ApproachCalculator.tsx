@@ -53,7 +53,7 @@ export default function ApproachCalculator() {
     window.history.replaceState(null, "", `?${p.toString()}`);
   }, [exercise, workWeight, reps, bar]);
 
-  const dumbbells = exercise === "halteres";
+  const dumbbells = exercise === "halteres" || exercise === "machine";
   const label = "font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]";
   const chip = (active: boolean) =>
     `rounded-xl border px-3 py-2.5 text-[13px] font-bold transition-colors ${
@@ -77,7 +77,7 @@ export default function ApproachCalculator() {
 
       <div className="grid grid-cols-2 gap-4">
         <label className="flex flex-col gap-2.5">
-          <span className={label}>02 Charge de travail{dumbbells ? " (par haltère)" : ""}</span>
+          <span className={label}>02 Charge de travail{exercise === "halteres" ? " (par haltère)" : ""}</span>
           <div className="flex items-center rounded-xl border border-white/[0.08] bg-[#0C0C0E] focus-within:border-[#A3FF12]">
             <input
               inputMode="decimal"

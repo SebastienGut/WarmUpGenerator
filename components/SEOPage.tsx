@@ -118,13 +118,13 @@ export default function SEOPage(props: SEOPageProps) {
     <div className="flex flex-col gap-3">
       <Link
         href={planHref ?? "/"}
-        className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
+        className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
       >
         <div className="flex flex-col gap-1">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
+          <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
             {planHref ? "→ Mode timer" : "→ Plan personnalisé"}
           </span>
-          <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
+          <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
             {planHref ? "Lancer ce plan en mode timer" : "Générer ton échauffement sur mesure"}
           </span>
           <span className="text-[12px] font-medium opacity-75">
@@ -134,7 +134,7 @@ export default function SEOPage(props: SEOPageProps) {
           </span>
         </div>
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
-          <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
             <path d="M0 0 L14 8 L0 16 Z" />
           </svg>
         </div>
@@ -142,7 +142,7 @@ export default function SEOPage(props: SEOPageProps) {
       {planHref && (
         <Link
           href="/"
-          className="self-start text-[12px] font-medium text-[#5A5A60] underline decoration-[#2E2E33] underline-offset-4 transition-colors hover:text-[#A3FF12]"
+          className="self-start text-[12px] font-medium text-subtle underline decoration-faint underline-offset-4 transition-colors hover:text-accent-ink"
         >
           Besoin d&apos;adapter ? Personnalise ton plan : muscles, zones sensibles, durée →
         </Link>
@@ -151,26 +151,21 @@ export default function SEOPage(props: SEOPageProps) {
   );
 
   return (
-    <main className="relative min-h-screen bg-[#050505]">
+    <main className="relative min-h-screen bg-paper">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HEADER */}
-      <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">
+      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#A3FF12]/10 ring-1 ring-[#A3FF12]/20">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="#A3FF12" aria-hidden="true">
-              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-            </svg>
-          </div>
           <Link
             href="/"
-            className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:text-[#A3FF12]"
+            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
           >
-            Warmup / Generator
+            Warmup<span className="text-accent">.</span>
           </Link>
           <Link
             href="/"
-            className="ml-auto font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12] transition-opacity hover:opacity-80"
+            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -180,17 +175,17 @@ export default function SEOPage(props: SEOPageProps) {
       <div className="mx-auto w-full max-w-[720px] px-6 py-10 md:py-14">
 
         {/* BREADCRUMB */}
-        <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-[#5A5A60]">
+        <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
           {breadcrumbs.map((b, i) => (
             <span key={i} className="flex items-center gap-1.5">
               {b.href ? (
-                <Link href={b.href} className="transition-colors hover:text-[#A3FF12]">
+                <Link href={b.href} className="transition-colors hover:text-accent-ink">
                   {b.label}
                 </Link>
               ) : (
-                <span className="font-mono uppercase tracking-[0.12em] text-white">{b.label}</span>
+                <span className="font-display font-semibold uppercase tracking-wide text-ink">{b.label}</span>
               )}
-              {i < breadcrumbs.length - 1 && <span aria-hidden="true" className="text-[#2E2E33]">/</span>}
+              {i < breadcrumbs.length - 1 && <span aria-hidden="true" className="text-faint">/</span>}
             </span>
           ))}
         </nav>
@@ -198,25 +193,25 @@ export default function SEOPage(props: SEOPageProps) {
         {/* HERO */}
         <section className="mb-14 flex flex-col gap-4">
           {subtitle && (
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               {subtitle}
             </p>
           )}
-          <h1 className="font-sans text-[36px] font-black uppercase leading-[0.95] tracking-tight text-white md:text-[48px]">
+          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
             {h1}
           </h1>
           {keyAnswer && (
-            <div className="mt-4 rounded-2xl border border-[#A3FF12]/25 bg-[#A3FF12]/[0.04] px-5 py-4">
-              <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12]">
+            <div className="mt-4 rounded-2xl border border-accent/25 bg-accent/[0.04] px-5 py-4">
+              <p className="mb-2 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
                 En bref
               </p>
               <p
-                className="text-[15px] font-medium leading-[1.65] text-white md:text-[16px]"
+                className="text-[15px] font-medium leading-[1.65] text-ink md:text-[16px]"
                 dangerouslySetInnerHTML={{ __html: keyAnswer }}
               />
             </div>
           )}
-          <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
+          <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             {intro.map((p, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}
@@ -226,10 +221,10 @@ export default function SEOPage(props: SEOPageProps) {
         {/* SECTIONS RÉDACTIONNELLES (diagnostic) — avant le protocole */}
         {sections?.map((s) => (
           <section key={s.title} className="mb-14">
-            <h2 className="mb-4 border-b border-white/[0.06] pb-3 font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+            <h2 className="mb-4 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold uppercase tracking-tight text-ink">
               {s.title}
             </h2>
-            <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
+            <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
               {s.paragraphs.map((p, i) => (
                 <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
               ))}
@@ -239,39 +234,28 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* EXERCISES */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-white/[0.06] pb-3">
-            <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
               {exerciseSectionTitle}
             </h2>
-            <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12]">
+            <span className="shrink-0 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
               {formatDuration(totalSeconds)} · {exercises.length} mvts
             </span>
           </div>
-          <ol className="flex flex-col gap-2.5">
+          <ol className="divide-y divide-line">
             {exercises.map((ex, i) => (
-              <li
-                key={i}
-                className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-[#0C0C0E] transition-colors hover:border-white/[0.12]"
-              >
-                <div className="flex items-stretch">
-                  {/* Numéro à gauche */}
-                  <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-white/[0.06] bg-[#A3FF12]/[0.03]">
-                    <span className="font-mono text-[18px] font-black tabular-nums text-[#A3FF12]">
-                      {(i + 1).toString().padStart(2, "0")}
+              <li key={i} className="flex gap-4 py-4">
+                <span className="w-8 shrink-0 font-display text-[24px] font-extrabold leading-none text-accent tabular">
+                  {(i + 1).toString().padStart(2, "0")}
+                </span>
+                <div className="flex flex-1 flex-col gap-1.5">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="text-[16px] font-semibold leading-snug text-ink">{ex.name}</h3>
+                    <span className="shrink-0 font-display text-[16px] font-bold text-accent-ink tabular">
+                      {ex.reps ?? `${ex.durationSeconds} s`}
                     </span>
                   </div>
-                  {/* Contenu */}
-                  <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <h3 className="text-[15px] font-bold leading-tight text-white">
-                        {ex.name}
-                      </h3>
-                      <span className="shrink-0 font-mono text-[11px] font-bold tabular-nums uppercase tracking-wider text-[#A3FF12]">
-                        {ex.reps ?? `${ex.durationSeconds}s`}
-                      </span>
-                    </div>
-                    <p className="text-[13px] leading-relaxed text-[#A1A1A6]">{ex.description}</p>
-                  </div>
+                  <p className="text-[14px] leading-relaxed text-muted">{ex.description}</p>
                 </div>
               </li>
             ))}
@@ -285,11 +269,11 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* ADVICE — accent lime à gauche */}
         {advice && (
-          <section className="mb-14 border-l-2 border-[#A3FF12]/40 pl-6">
-            <h2 className="mb-4 font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+          <section className="mb-14 border-l-2 border-accent/40 pl-6">
+            <h2 className="mb-4 font-display text-[26px] font-extrabold uppercase tracking-tight text-ink">
               {advice.title}
             </h2>
-            <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
+            <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
               {advice.paragraphs.map((p, i) => (
                 <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
               ))}
@@ -299,11 +283,11 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* FAQ */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-white/[0.06] pb-3">
-            <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
               Questions fréquentes
             </h2>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               FAQ · {faqs.length}
             </span>
           </div>
@@ -311,15 +295,15 @@ export default function SEOPage(props: SEOPageProps) {
             {faqs.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-5 py-4 transition-colors hover:border-white/[0.12] [&_summary::-webkit-details-marker]:hidden"
+                className="group rounded-xl border border-line bg-card px-5 py-4 transition-colors hover:border-line-strong [&_summary::-webkit-details-marker]:hidden"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-ink">
                   <span>{f.q}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-[#5A5A60] transition-transform group-open:rotate-45 group-open:text-[#A3FF12]">
+                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-accent-ink">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 border-t border-white/[0.06] pt-3 text-[13px] leading-relaxed text-[#A1A1A6]">
+                <p className="mt-3 border-t border-line pt-3 text-[13px] leading-relaxed text-muted">
                   {f.a}
                 </p>
               </details>
@@ -330,7 +314,7 @@ export default function SEOPage(props: SEOPageProps) {
         {/* RELATED */}
         {related && related.links.length > 0 && (
           <section className="mb-14">
-            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               {related.title}
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -338,10 +322,10 @@ export default function SEOPage(props: SEOPageProps) {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group flex items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                  className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
                 >
                   <span className="truncate">{l.label}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[#5A5A60] transition-all group-hover:translate-x-0.5 group-hover:text-[#A3FF12]">
+                  <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">
                     →
                   </span>
                 </Link>
@@ -356,7 +340,7 @@ export default function SEOPage(props: SEOPageProps) {
         </section>
 
         {/* DISCLAIMER */}
-        <footer className="border-t border-white/[0.06] pt-6 pb-24 text-[11px] leading-relaxed text-[#5A5A60] md:pb-6">
+        <footer className="border-t border-line pt-6 pb-24 text-[11px] leading-relaxed text-subtle md:pb-6">
           Cet article est informatif et ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou
           d&apos;un médecin du sport. En cas de douleur persistante, consulte un professionnel de santé.
         </footer>
@@ -364,15 +348,15 @@ export default function SEOPage(props: SEOPageProps) {
       </div>
 
       {/* Barre sticky mobile */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-white/[0.06] bg-[#050505]/95 px-4 py-3 backdrop-blur-md md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-paper/95 px-4 py-3 backdrop-blur-md md:hidden">
         <Link
           href={planHref ?? "/"}
-          className="flex items-center justify-between gap-3 rounded-xl bg-[#A3FF12] px-5 py-3 text-black active:scale-[0.98] transition-transform"
+          className="flex items-center justify-between gap-3 rounded-xl bg-accent px-5 py-3 text-on-accent active:scale-[0.98] transition-transform"
         >
-          <span className="font-sans text-[15px] font-black uppercase tracking-tight">
+          <span className="font-display text-[17px] font-extrabold uppercase tracking-tight">
             {planHref ? "Lancer ce plan" : "Générer mon plan"}
           </span>
-          <svg width="12" height="14" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+          <svg width="12" height="14" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
             <path d="M0 0 L14 8 L0 16 Z" />
           </svg>
         </Link>

@@ -17,7 +17,15 @@ import type { BodyZone } from "@/lib/warmup-data";
 const ZONES = Object.keys(PAIN_LABELS) as BodyZone[];
 const REPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 15];
 
-const label = "font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#5A5A60]";
+function SectionTitle({ n, children, hint }: { n: number; children: React.ReactNode; hint?: string }) {
+  return (
+    <div className="mb-4 flex items-baseline gap-3 border-b-2 border-ink pb-2">
+      <span className="font-display text-[22px] font-extrabold leading-none text-accent tabular">{String(n).padStart(2, "0")}</span>
+      <h2 className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink">{children}</h2>
+      {hint && <span className="ml-auto text-[12px] text-subtle">{hint}</span>}
+    </div>
+  );
+}
 
 function Toggle({ on, onChange, title, hint }: { on: boolean; onChange: (v: boolean) => void; title: string; hint: string }) {
   return (
@@ -26,14 +34,14 @@ function Toggle({ on, onChange, title, hint }: { on: boolean; onChange: (v: bool
       role="switch"
       aria-checked={on}
       onClick={() => onChange(!on)}
-      className="flex w-full items-center justify-between gap-4 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 text-left"
+      className="flex w-full items-center justify-between gap-4 py-3.5 text-left"
     >
       <span className="flex flex-col">
-        <span className="text-[14px] font-bold text-white">{title}</span>
-        <span className="text-[12px] text-[#5A5A60]">{hint}</span>
+        <span className="text-[16px] font-semibold text-ink">{title}</span>
+        <span className="text-[13px] text-subtle">{hint}</span>
       </span>
-      <span className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${on ? "bg-[#A3FF12]" : "bg-white/10"}`}>
-        <span className={`absolute top-1 h-4 w-4 rounded-full transition-all ${on ? "left-5 bg-black" : "left-1 bg-white/60"}`} />
+      <span className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${on ? "bg-accent" : "bg-faint"}`}>
+        <span className={`absolute top-1 h-5 w-5 rounded-full bg-card shadow-sm transition-all ${on ? "left-6" : "left-1"}`} />
       </span>
     </button>
   );
@@ -70,12 +78,12 @@ export default function SessionBuilder() {
   }, []);
 
   const first = lifts[0] ? LIFTS_BY_ID[lifts[0]] : undefined;
+  const loaded = first !== undefined && first.loading !== "poids-du-corps";
   const results = useMemo(() => searchLifts(query).filter((l) => !lifts.includes(l.id)), [query, lifts]);
 
   const add = (id: string) => {
     setLifts((ls) => (ls.includes(id) ? ls : [...ls, id]));
     setQuery("");
-    setPicking(false);
   };
   const remove = (id: string) => setLifts((ls) => ls.filter((l) => l !== id));
   const promote = (id: string) => setLifts((ls) => [id, ...ls.filter((l) => l !== id)]);
@@ -86,7 +94,7 @@ export default function SessionBuilder() {
     const kg = Number(weight.replace(",", "."));
     const q = serializeSession({
       lifts,
-      workWeight: first?.loading !== "poids-du-corps" && kg > 0 ? kg : undefined,
+      workWeight: loaded && kg > 0 ? kg : undefined,
       workReps: reps,
       pain,
       band,
@@ -97,36 +105,35 @@ export default function SessionBuilder() {
   };
 
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-[560px] flex-col bg-[#050505] px-4 pb-32 pt-6 sm:px-6">
-      <header className="mb-8 flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#A3FF12]/10 ring-1 ring-[#A3FF12]/25">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#A3FF12" aria-hidden="true">
-            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-          </svg>
-        </div>
-        <span className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white">Warmup</span>
-        <Link href="/series-approche" className="ml-auto text-[12px] font-medium text-[#A1A1A6] hover:text-[#A3FF12]">
+    <main className="mx-auto flex min-h-screen w-full max-w-[560px] flex-col px-5 pb-32 pt-5">
+      <header className="mb-10 flex items-baseline justify-between">
+        <span className="font-display text-[24px] font-extrabold uppercase leading-none tracking-tight text-ink">
+          Warmup<span className="text-accent">.</span>
+        </span>
+        <Link href="/series-approche" className="text-[14px] font-medium text-muted underline-offset-4 hover:text-ink hover:underline">
           Séries d&apos;approche
         </Link>
       </header>
 
-      <h1 className="font-sans text-[34px] font-black leading-[1] tracking-tight text-white sm:text-[40px]">
-        Ton échauffement, <span className="text-[#A3FF12]">calé sur ta séance.</span>
+      <h1 className="font-display text-[44px] font-extrabold uppercase leading-[0.9] tracking-tight text-ink sm:text-[60px]">
+        Ton échauffement,
+        <br />
+        <span className="text-accent">calé sur ta séance.</span>
       </h1>
-      <p className="mt-3 text-[15px] leading-relaxed text-[#A1A1A6]">
+      <p className="mt-4 max-w-[46ch] text-[16px] leading-relaxed text-muted">
         Dis ce que tu fais aujourd&apos;hui. On prépare les articulations et les muscles que tes exercices
         sollicitent, puis on calcule tes séries d&apos;approche.
       </p>
 
       {saved.length > 0 && (
-        <section className="mt-8">
-          <p className={`${label} mb-3`}>Tes séances</p>
-          <div className="flex flex-col gap-2">
+        <section className="mt-10">
+          <p className="mb-2 text-[13px] font-semibold text-subtle">Tes dernières séances</p>
+          <ul className="divide-y divide-line border-y border-line">
             {saved.map((s) => (
-              <div key={s.query} className="flex items-stretch overflow-hidden rounded-xl border border-white/[0.08] bg-[#0C0C0E]">
-                <Link href={`/plan?${s.query}`} className="flex flex-1 items-center justify-between gap-3 px-4 py-3 hover:bg-white/[0.02]">
-                  <span className="truncate text-[14px] font-bold text-white">{s.label}</span>
-                  <span className="shrink-0 font-mono text-[11px] font-bold text-[#A3FF12]">Relancer →</span>
+              <li key={s.query} className="flex items-center">
+                <Link href={`/plan?${s.query}`} className="group flex flex-1 items-center justify-between gap-3 py-3.5">
+                  <span className="truncate font-display text-[20px] font-bold uppercase tracking-wide text-ink">{s.label}</span>
+                  <span className="shrink-0 text-[14px] font-semibold text-accent-ink group-hover:underline">Relancer →</span>
                 </Link>
                 <button
                   type="button"
@@ -135,29 +142,30 @@ export default function SessionBuilder() {
                     removeSession(s.query);
                     setSaved(loadSessions());
                   }}
-                  className="border-l border-white/[0.06] px-3 text-[#5A5A60] hover:text-white"
+                  className="ml-2 px-2 py-2 text-[18px] leading-none text-subtle hover:text-ink"
                 >
                   ×
                 </button>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       )}
 
       {/* 1. SÉANCE */}
-      <section className="mt-8">
-        <p className={`${label} mb-3`}>1 · Ta séance du jour</p>
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+      <section className="mt-12">
+        <SectionTitle n={1}>Ta séance du jour</SectionTitle>
+        <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
           {SESSION_TEMPLATES.map((t) => {
             const active = t.lifts.join(",") === lifts.join(",");
             return (
               <button
                 key={t.id}
                 type="button"
+                aria-pressed={active}
                 onClick={() => setLifts(t.lifts)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-[13px] font-bold transition-colors ${
-                  active ? "border-[#A3FF12] bg-[#A3FF12] text-black" : "border-white/[0.1] text-white hover:border-white/30"
+                className={`shrink-0 rounded-lg border-2 px-4 py-2 font-display text-[17px] font-bold uppercase tracking-wide transition-colors ${
+                  active ? "border-ink bg-ink text-paper" : "border-line-strong text-ink hover:border-ink"
                 }`}
               >
                 {t.label}
@@ -167,30 +175,31 @@ export default function SessionBuilder() {
         </div>
 
         {lifts.length > 0 && (
-          <ol className="mt-4 flex flex-col gap-2">
+          <ol className="mt-5 divide-y divide-line border-y border-line">
             {lifts.map((id, i) => (
-              <li key={id} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 py-2.5">
-                <span className={`w-6 text-center font-mono text-[13px] font-black ${i === 0 ? "text-[#A3FF12]" : "text-[#5A5A60]"}`}>
+              <li key={id} className="flex items-center gap-3 py-3">
+                <span className={`w-7 font-display text-[22px] font-extrabold leading-none tabular ${i === 0 ? "text-accent" : "text-faint"}`}>
                   {i + 1}
                 </span>
-                <span className="flex flex-1 flex-col">
-                  <span className="text-[15px] font-bold text-white">{LIFTS_BY_ID[id].name}</span>
-                  {i === 0 && <span className="text-[11px] text-[#5A5A60]">Premier exercice · montée en charge complète</span>}
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate text-[17px] font-semibold text-ink">{LIFTS_BY_ID[id].name}</span>
+                  {i === 0 && <span className="text-[12px] text-subtle">Premier exercice · montée en charge complète</span>}
                 </span>
                 {i > 0 && (
                   <button
                     type="button"
                     onClick={() => promote(id)}
-                    className="rounded-lg px-2 py-1 text-[11px] font-bold text-[#5A5A60] hover:text-white"
+                    className="rounded-md px-2.5 py-1 text-[18px] leading-none text-subtle hover:bg-ink/[0.05] hover:text-ink"
+                    title="Mettre en premier"
                     aria-label={`Faire de ${LIFTS_BY_ID[id].name} le premier exercice`}
                   >
-                    ↑ 1er
+                    ↑
                   </button>
                 )}
                 <button
                   type="button"
                   onClick={() => remove(id)}
-                  className="rounded-lg px-2 py-1 text-[16px] text-[#5A5A60] hover:text-white"
+                  className="rounded-md px-2 py-1 text-[20px] leading-none text-subtle hover:bg-ink/[0.05] hover:text-ink"
                   aria-label={`Retirer ${LIFTS_BY_ID[id].name}`}
                 >
                   ×
@@ -201,47 +210,50 @@ export default function SessionBuilder() {
         )}
 
         {picking ? (
-          <div className="mt-3 rounded-xl border border-white/[0.1] bg-[#08080A] p-3">
-            <input
-              autoFocus
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Rechercher : squat, tractions, bench…"
-              className="w-full rounded-lg border border-white/[0.08] bg-[#0C0C0E] px-3 py-2.5 text-[15px] text-white outline-none placeholder:text-[#5A5A60] focus:border-[#A3FF12]"
-            />
-            <div className="mt-3 flex max-h-[320px] flex-col gap-3 overflow-y-auto">
+          <div className="mt-4 rounded-xl border border-line-strong bg-card p-4">
+            <div className="flex items-center gap-2">
+              <input
+                autoFocus
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Squat, tractions, bench…"
+                aria-label="Rechercher un exercice"
+                className="w-full rounded-lg border border-line-strong bg-paper px-3 py-2.5 text-[16px] text-ink outline-none placeholder:text-subtle focus:border-ink"
+              />
+              <button type="button" onClick={() => setPicking(false)} className="shrink-0 px-2 text-[14px] font-semibold text-muted hover:text-ink">
+                OK
+              </button>
+            </div>
+            <div className="mt-4 flex max-h-[340px] flex-col gap-4 overflow-y-auto">
               {LIFT_GROUPS.map((g) => {
                 const items = results.filter((l) => l.group === g);
                 if (!items.length) return null;
                 return (
                   <div key={g}>
-                    <p className={`${label} mb-2`}>{g}</p>
+                    <p className="mb-2 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">{g}</p>
                     <div className="flex flex-wrap gap-2">
                       {items.map((l) => (
                         <button
                           key={l.id}
                           type="button"
                           onClick={() => add(l.id)}
-                          className="rounded-full border border-white/[0.1] px-3 py-1.5 text-[13px] font-medium text-white hover:border-[#A3FF12] hover:text-[#A3FF12]"
+                          className="rounded-full border border-line-strong bg-paper px-3.5 py-1.5 text-[14px] font-medium text-ink hover:border-ink"
                         >
-                          {l.name}
+                          + {l.name}
                         </button>
                       ))}
                     </div>
                   </div>
                 );
               })}
-              {results.length === 0 && <p className="text-[13px] text-[#5A5A60]">Aucun exercice trouvé.</p>}
+              {results.length === 0 && <p className="text-[14px] text-subtle">Aucun exercice trouvé.</p>}
             </div>
-            <button type="button" onClick={() => setPicking(false)} className="mt-3 text-[12px] text-[#5A5A60] hover:text-white">
-              Fermer
-            </button>
           </div>
         ) : (
           <button
             type="button"
             onClick={() => setPicking(true)}
-            className="mt-3 w-full rounded-xl border border-dashed border-white/[0.14] px-4 py-3 text-[14px] font-bold text-[#A1A1A6] hover:border-[#A3FF12]/60 hover:text-[#A3FF12]"
+            className="mt-4 w-full rounded-xl border-2 border-dashed border-line-strong px-4 py-3.5 text-[15px] font-semibold text-muted hover:border-ink hover:text-ink"
           >
             + {lifts.length ? "Ajouter un exercice" : "Choisir mes exercices"}
           </button>
@@ -249,44 +261,51 @@ export default function SessionBuilder() {
       </section>
 
       {/* 2. PREMIÈRE SÉRIE */}
-      {first && first.loading !== "poids-du-corps" && (
-        <section className="mt-8">
-          <p className={`${label} mb-3`}>2 · Ta 1ère série de {first.name.toLowerCase()}</p>
-          <div className="grid grid-cols-[1fr_auto] gap-3">
-            <label className="flex items-center rounded-xl border border-white/[0.08] bg-[#0C0C0E] focus-within:border-[#A3FF12]">
+      {loaded && (
+        <section className="mt-12">
+          <SectionTitle n={2} hint="Facultatif">
+            Première série
+          </SectionTitle>
+          <p className="mb-3 text-[14px] text-muted">
+            Ta première série de travail au {first.name.toLowerCase()}
+            {first.loading === "halteres" ? " (charge par haltère)" : ""}.
+          </p>
+          <div className="flex items-end gap-3">
+            <label className="flex flex-1 items-baseline border-b-2 border-line-strong pb-1 focus-within:border-accent">
               <input
                 inputMode="decimal"
                 value={weight}
                 onChange={(e) => setWeight(e.target.value.replace(/[^\d.,]/g, ""))}
-                placeholder="Charge"
+                placeholder="—"
                 aria-label="Charge de ta première série de travail, en kilos"
-                className="w-full bg-transparent px-4 py-3 font-mono text-[18px] font-bold text-white outline-none placeholder:font-sans placeholder:text-[15px] placeholder:font-medium placeholder:text-[#5A5A60]"
+                className="w-full min-w-0 bg-transparent font-display text-[48px] font-extrabold leading-none text-ink outline-none tabular placeholder:text-faint"
               />
-              <span className="pr-4 font-mono text-[13px] text-[#5A5A60]">{first.loading === "halteres" ? "kg / haltère" : "kg"}</span>
+              <span className="font-display text-[22px] font-bold text-subtle">kg</span>
             </label>
-            <label className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-[#0C0C0E] pr-3">
+            <span className="pb-3 font-display text-[30px] font-bold text-subtle">×</span>
+            <label className="flex items-baseline border-b-2 border-line-strong pb-1 focus-within:border-accent">
               <select
                 value={reps}
                 onChange={(e) => setReps(Number(e.target.value))}
                 aria-label="Répétitions de ta première série"
-                className="bg-transparent py-3 pl-4 font-mono text-[18px] font-bold text-white outline-none"
+                className="appearance-none bg-transparent font-display text-[48px] font-extrabold leading-none text-ink outline-none tabular"
               >
                 {REPS.map((r) => (
-                  <option key={r} value={r} className="bg-[#0C0C0E]">
+                  <option key={r} value={r} className="bg-card text-[16px]">
                     {r}
                   </option>
                 ))}
               </select>
-              <span className="font-mono text-[13px] text-[#5A5A60]">reps</span>
+              <span className="ml-1 font-display text-[22px] font-bold text-subtle">reps</span>
             </label>
           </div>
-          <p className="mt-2 text-[12px] text-[#5A5A60]">Facultatif. Sans charge, tes séries d&apos;approche sont données en pourcentages.</p>
+          <p className="mt-3 text-[13px] text-subtle">Sans charge, tes séries d&apos;approche sont données en pourcentages.</p>
         </section>
       )}
 
       {/* 3. OPTIONS */}
-      <section className="mt-8">
-        <p className={`${label} mb-3`}>{first && first.loading !== "poids-du-corps" ? "3" : "2"} · Ça coince quelque part ?</p>
+      <section className="mt-12">
+        <SectionTitle n={loaded ? 3 : 2}>Ça coince ?</SectionTitle>
         <div className="flex flex-wrap gap-2">
           {ZONES.map((z) => {
             const on = pain.includes(z);
@@ -296,35 +315,36 @@ export default function SessionBuilder() {
                 type="button"
                 aria-pressed={on}
                 onClick={() => togglePain(z)}
-                className={`rounded-full border px-3.5 py-1.5 text-[13px] font-bold transition-colors ${
-                  on ? "border-[#FF8A3D] bg-[#FF8A3D]/15 text-[#FFB27A]" : "border-white/[0.1] text-[#A1A1A6] hover:border-white/30"
+                className={`rounded-full border-2 px-3.5 py-1.5 text-[14px] font-semibold transition-colors ${
+                  on ? "border-warn bg-warn-bg text-warn-ink" : "border-line text-muted hover:border-line-strong hover:text-ink"
                 }`}
               >
+                {on ? "✕ " : ""}
                 {PAIN_LABELS[z]}
               </button>
             );
           })}
         </div>
-        <div className="mt-4 flex flex-col gap-2">
-          <Toggle on={band} onChange={setBand} title="J'ai un élastique" hint="Sinon, on te donne les versions sans matériel" />
-          <Toggle on={short} onChange={setShort} title="Version courte" hint="Sans cardio, 2 mobilités et 1 activation" />
+        <div className="mt-5 divide-y divide-line border-y border-line">
+          <Toggle on={band} onChange={setBand} title="J'ai un élastique" hint="Sinon, versions sans matériel" />
+          <Toggle on={short} onChange={setShort} title="Version courte" hint="Sans cardio, l'essentiel en 5 min" />
         </div>
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/[0.06] bg-[#050505]/95 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-5 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md">
         <div className="mx-auto max-w-[560px]">
           <button
             type="button"
             onClick={submit}
-            disabled={!lifts.length}
-            className={`flex w-full items-center justify-between rounded-2xl px-6 py-4 transition-transform active:scale-[0.98] ${
-              lifts.length ? "bg-[#A3FF12] text-black" : "bg-white/[0.08] text-[#5A5A60]"
+            aria-disabled={!lifts.length}
+            className={`flex w-full items-center justify-between rounded-xl px-6 py-4 transition-transform active:scale-[0.98] ${
+              lifts.length ? "bg-accent text-on-accent" : "bg-ink/[0.07] text-subtle"
             }`}
           >
-            <span className="font-sans text-[17px] font-black tracking-tight">
-              {lifts.length ? "Construire mon échauffement" : "Choisis tes exercices"}
+            <span className="font-display text-[22px] font-extrabold uppercase tracking-wide">
+              {lifts.length ? "Construire l'échauffement" : "Choisis tes exercices"}
             </span>
-            <span aria-hidden="true" className="font-mono text-[18px] font-black">→</span>
+            <span aria-hidden="true" className="font-display text-[24px] font-extrabold">→</span>
           </button>
         </div>
       </div>

@@ -105,7 +105,7 @@ export default async function StaticPlanPage({ params }: PageProps) {
     // Anatomie / particularité du muscle (partagée entre les 4 objectifs)
     MUSCLE_INSIGHTS[muscleTyped],
     // Description du plan, calibrée pour l'objectif
-    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-white'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-white'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire), dans l'ordre adapté à une séance ${objLow}. Compte environ ${totalMinutes} minute${totalMinutes > 1 ? "s" : ""}, juste avant tes séries de chauffe avec barre ou haltères.`,
+    `Ce plan en ${allExercises.length} mouvements combine <strong class='text-ink'>mobilisation articulaire</strong> (lubrification, amplitude) et <strong class='text-ink'>activation musculaire</strong> (réveil des fibres, connexion neuro-musculaire), dans l'ordre adapté à une séance ${objLow}. Compte environ ${totalMinutes} minute${totalMinutes > 1 ? "s" : ""}, juste avant tes séries de chauffe avec barre ou haltères.`,
   ];
 
   const advice = {
@@ -113,7 +113,7 @@ export default async function StaticPlanPage({ params }: PageProps) {
     paragraphs: [
       profile.science(muscleLow),
       profile.chargeReps(muscleLow),
-      `Si tu as une <strong class='text-white'>zone sensible</strong> (épaule, genou, lombaires, poignets), utilise plutôt le générateur en haut de page pour produire un plan adapté à ta situation exacte — il intègre des exercices thérapeutiques spécifiques en bonus.`,
+      `Si tu as une <strong class='text-ink'>zone sensible</strong> (épaule, genou, lombaires, poignets), utilise plutôt le générateur en haut de page pour produire un plan adapté à ta situation exacte — il intègre des exercices thérapeutiques spécifiques en bonus.`,
     ],
   };
 

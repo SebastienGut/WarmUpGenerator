@@ -6,7 +6,7 @@ Application web publique de génération d'échauffements personnalisés pour la
 
 ## Stack
 - **Framework** : Next.js 15 (App Router)
-- **Style** : Tailwind CSS, thème dark
+- **Style** : Tailwind CSS v4, tokens sémantiques (clair/sombre selon le système)
 - **Langage** : TypeScript
 - **Déploiement** : Vercel
 
@@ -59,6 +59,8 @@ components/
 ## Conventions
 - Composants en PascalCase
 - Pas de `any` TypeScript
-- Thème dark : background #0f1117, accent vert #22c55e
+- Design « fiche de séance du coach » : papier/encre + accent vermillon, tokens dans `app/globals.css` (`bg-paper`, `text-ink`, `text-muted`, `text-subtle`, `border-line`, `bg-accent`, `text-accent-ink`…). Jamais de couleur hex en dur dans les composants.
+- Typo : `font-display` (Barlow Condensed) pour titres et chiffres, Geist pour le texte. Petit texte d'accent en `text-accent-ink` (contraste AA).
+- Disques de charge : composant `Plates` aux couleurs de compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
 - Aucun tracking, aucun cookie, aucune dépendance externe payante

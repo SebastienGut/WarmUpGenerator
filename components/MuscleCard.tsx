@@ -75,7 +75,7 @@ export default function MuscleCard({ muscle, selected, onToggle }: Props) {
       className={`flex flex-col items-center justify-center gap-3 aspect-square rounded-2xl border transition-all duration-150 select-none ${
         selected
           ? "bg-green-500/10 border-green-500/60 text-green-400"
-          : "bg-[var(--surface)] border-[var(--border)] text-[var(--muted)] hover:border-[var(--border-hover)] hover:text-[var(--fg)]"
+          : "bg-card border-line text-muted hover:border-line-strong hover:text-ink"
       }`}
     >
       <div className="w-10 h-10">{ICONS[muscle]}</div>

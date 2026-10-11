@@ -21,7 +21,7 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     h1: "Échauffement haut du corps",
     subtitle: "Pecs · Dos · Épaules · Bras · 5 minutes",
     intro: [
-      "Un <strong class='text-white'>échauffement haut du corps</strong> efficace prépare en parallèle les épaules, le rachis thoracique, les coudes et les poignets — toutes les articulations qui vont travailler en synergie pendant ta séance. Plutôt que d'enchaîner mécaniquement des cercles d'épaules, ce protocole en 6 mouvements active les chaînes musculaires dans un ordre logique : mobilité, puis stabilité, puis activation.",
+      "Un <strong class='text-ink'>échauffement haut du corps</strong> efficace prépare en parallèle les épaules, le rachis thoracique, les coudes et les poignets — toutes les articulations qui vont travailler en synergie pendant ta séance. Plutôt que d'enchaîner mécaniquement des cercles d'épaules, ce protocole en 6 mouvements active les chaînes musculaires dans un ordre logique : mobilité, puis stabilité, puis activation.",
       "À pratiquer avant n'importe quelle séance pecs, dos, épaules, bras ou full-body orientée haut du corps. Compte 5 minutes. Le résultat : tu arrives sur ta première série de chauffe avec des épaules mobiles, des omoplates qui glissent librement, un grand dentelé activé et des coudes \"chauds\". Tu gagnes 5 à 10 % de force disponible dès la première série de travail.",
     ],
     exercises: [
@@ -71,9 +71,9 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     advice: {
       title: "Pourquoi la mobilité thoracique change tout",
       paragraphs: [
-        "La <strong class='text-white'>cage thoracique</strong> est le levier oublié des sessions haut du corps. Une cage thoracique rigide reporte tout le stress sur les épaules — qui finissent par compenser et s'irriter. Au tirage, ça se traduit par une difficulté à \"sortir la poitrine\" et amener les omoplates en retraction. Au DC, par une perte de stabilité de l'arche.",
+        "La <strong class='text-ink'>cage thoracique</strong> est le levier oublié des sessions haut du corps. Une cage thoracique rigide reporte tout le stress sur les épaules — qui finissent par compenser et s'irriter. Au tirage, ça se traduit par une difficulté à \"sortir la poitrine\" et amener les omoplates en retraction. Au DC, par une perte de stabilité de l'arche.",
         "Les deux mouvements thoraciques de ce protocole (rotation en quadrupédie, wall slides) attaquent directement ce problème. Si tu fais beaucoup de bureau, ajoute un cat-cow et un \"thread the needle\" en plus.",
-        "Sur les charges lourdes au DC ou OHP, n'omet pas l'<strong class='text-white'>activation de la coiffe</strong>. Sans elle, tes 100 kg au DC sont sur structure passive (capsule, ligaments) plutôt que sur la coiffe active. C'est exactement comme ça qu'on développe une tendinopathie en 6 mois.",
+        "Sur les charges lourdes au DC ou OHP, n'omet pas l'<strong class='text-ink'>activation de la coiffe</strong>. Sans elle, tes 100 kg au DC sont sur structure passive (capsule, ligaments) plutôt que sur la coiffe active. C'est exactement comme ça qu'on développe une tendinopathie en 6 mois.",
       ],
     },
     faqs: [
@@ -104,7 +104,7 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     h1: "Échauffement bas du corps",
     subtitle: "Hanches · Fessiers · Quadriceps · Ischios · 5 minutes",
     intro: [
-      "Un <strong class='text-white'>échauffement bas du corps</strong> sérieux ne se résume pas à \"faire le tour du sac de riz\". Pour squatter lourd, fendre profond ou tirer un soulevé propre, tu as besoin d'une <strong class='text-white'>hanche mobile</strong> (rotation interne et externe), de <strong class='text-white'>chevilles libres</strong> en dorsiflexion, de <strong class='text-white'>fessiers actifs</strong> (et pas seulement \"des quadriceps qui tirent\").",
+      "Un <strong class='text-ink'>échauffement bas du corps</strong> sérieux ne se résume pas à \"faire le tour du sac de riz\". Pour squatter lourd, fendre profond ou tirer un soulevé propre, tu as besoin d'une <strong class='text-ink'>hanche mobile</strong> (rotation interne et externe), de <strong class='text-ink'>chevilles libres</strong> en dorsiflexion, de <strong class='text-ink'>fessiers actifs</strong> (et pas seulement \"des quadriceps qui tirent\").",
       "Ce protocole en 6 mouvements en 5 minutes adresse les trois étages — hanche, genou, cheville — dans un ordre fonctionnel. À pratiquer avant chaque séance jambes, full-body ou explosive (sprint, sauts). Le résultat : amplitude complète accessible, pattern moteur du squat amorcé, chaîne postérieure prête à recevoir la charge.",
     ],
     exercises: [
@@ -154,9 +154,9 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     advice: {
       title: "Activer les fessiers : le levier sous-utilisé",
       paragraphs: [
-        "Si tu passes 8 heures par jour assis, tes fessiers sont en <strong class='text-white'>amnésie motrice</strong>. Ils existent, mais le système nerveux les sollicite mal. Conséquence : sur le squat, ce sont tes quadriceps et ton bas du dos qui font tout le boulot. Ton genou et tes lombaires chauffent, pendant que tes fessiers restent endormis.",
-        "Le <strong class='text-white'>pont fessier</strong> dans ce protocole ne sert pas à \"renforcer\" — il sert à <em>réveiller</em>. 12 répétitions suffisent à signaler aux fessiers \"tu vas bosser dans 5 minutes, prépare-toi\". Tu sentiras la différence dès la première série de squat.",
-        "Le second levier : la <strong class='text-white'>cheville</strong>. Une dorsiflexion limitée empêche d'aller profond sur le squat sans compenser (talons qui se lèvent, dos qui s'enroule). Si tu sens que tu \"ne descends pas\", c'est rarement la souplesse de hanche — c'est la cheville. Ce mouvement seul te débloque souvent en 2-3 semaines de pratique régulière.",
+        "Si tu passes 8 heures par jour assis, tes fessiers sont en <strong class='text-ink'>amnésie motrice</strong>. Ils existent, mais le système nerveux les sollicite mal. Conséquence : sur le squat, ce sont tes quadriceps et ton bas du dos qui font tout le boulot. Ton genou et tes lombaires chauffent, pendant que tes fessiers restent endormis.",
+        "Le <strong class='text-ink'>pont fessier</strong> dans ce protocole ne sert pas à \"renforcer\" — il sert à <em>réveiller</em>. 12 répétitions suffisent à signaler aux fessiers \"tu vas bosser dans 5 minutes, prépare-toi\". Tu sentiras la différence dès la première série de squat.",
+        "Le second levier : la <strong class='text-ink'>cheville</strong>. Une dorsiflexion limitée empêche d'aller profond sur le squat sans compenser (talons qui se lèvent, dos qui s'enroule). Si tu sens que tu \"ne descends pas\", c'est rarement la souplesse de hanche — c'est la cheville. Ce mouvement seul te débloque souvent en 2-3 semaines de pratique régulière.",
       ],
     },
     faqs: [
@@ -187,7 +187,7 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     h1: "Échauffement full body",
     subtitle: "Corps entier · Toutes articulations · 5-6 minutes",
     intro: [
-      "Un <strong class='text-white'>échauffement full body</strong> est l'option intelligente quand tu fais du circuit, du crossfit, de l'haltéro ou une séance qui combine plusieurs zones musculaires. Plutôt que de prendre 8 minutes à enchaîner haut du corps + bas du corps séparés, ce protocole condense les mouvements de mobilisation et d'activation les plus rentables en 6 exercices, 5 à 6 minutes.",
+      "Un <strong class='text-ink'>échauffement full body</strong> est l'option intelligente quand tu fais du circuit, du crossfit, de l'haltéro ou une séance qui combine plusieurs zones musculaires. Plutôt que de prendre 8 minutes à enchaîner haut du corps + bas du corps séparés, ce protocole condense les mouvements de mobilisation et d'activation les plus rentables en 6 exercices, 5 à 6 minutes.",
       "L'objectif : élever la température, libérer les segments les plus souvent figés (hanche, thoracique, épaule), activer la chaîne postérieure et amorcer le gainage. À pratiquer avant n'importe quelle séance polyvalente, EMOM, AMRAP, training fonctionnel ou complexe haltéro.",
     ],
     exercises: [
@@ -237,9 +237,9 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     advice: {
       title: "Le full-body, c'est l'art de prioriser",
       paragraphs: [
-        "Avec un échauffement full body, tu ne peux pas tout faire à fond. La logique : <strong class='text-white'>cibler les segments qui limitent</strong> ta séance du jour. Si elle est dominée par le tirage et le squat, insiste sur thoracique et hanche. Si elle est dominée par le DC et la fente, insiste sur épaule et cheville.",
-        "Les <strong class='text-white'>mouvements composés</strong> (world's greatest stretch, inchworm, squat ouvert thoracique) sont les plus rentables : un seul mouvement libère plusieurs articulations à la fois. C'est pour ça qu'ils dominent ce protocole — temps limité, rendement maximal.",
-        "Si ta séance commence par un mouvement <strong class='text-white'>très technique ou maximal</strong> (clean & jerk, snatch, squat à 90 % du 1RM), ajoute 2-3 répétitions à vide ou très légères du mouvement principal en fin d'échauffement. C'est la passerelle entre la mobilité générale et la spécificité maximale.",
+        "Avec un échauffement full body, tu ne peux pas tout faire à fond. La logique : <strong class='text-ink'>cibler les segments qui limitent</strong> ta séance du jour. Si elle est dominée par le tirage et le squat, insiste sur thoracique et hanche. Si elle est dominée par le DC et la fente, insiste sur épaule et cheville.",
+        "Les <strong class='text-ink'>mouvements composés</strong> (world's greatest stretch, inchworm, squat ouvert thoracique) sont les plus rentables : un seul mouvement libère plusieurs articulations à la fois. C'est pour ça qu'ils dominent ce protocole — temps limité, rendement maximal.",
+        "Si ta séance commence par un mouvement <strong class='text-ink'>très technique ou maximal</strong> (clean & jerk, snatch, squat à 90 % du 1RM), ajoute 2-3 répétitions à vide ou très légères du mouvement principal en fin d'échauffement. C'est la passerelle entre la mobilité générale et la spécificité maximale.",
       ],
     },
     faqs: [
@@ -270,7 +270,7 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     h1: "Échauffement push (pecs · épaules · triceps)",
     subtitle: "Pattern poussée · Coiffe · Coude · 5 minutes",
     intro: [
-      "Un <strong class='text-white'>échauffement push</strong> efficace prépare les trois acteurs principaux de la poussée : pectoraux, épaules (deltoïdes antérieur et coiffe), triceps. Ce qui distingue un échauffement push réussi d'un échauffement bâclé : l'activation de la <strong class='text-white'>coiffe des rotateurs</strong> et du <strong class='text-white'>grand dentelé</strong>, deux structures qui stabilisent l'épaule sous charge et qui sont absentes des échauffements génériques.",
+      "Un <strong class='text-ink'>échauffement push</strong> efficace prépare les trois acteurs principaux de la poussée : pectoraux, épaules (deltoïdes antérieur et coiffe), triceps. Ce qui distingue un échauffement push réussi d'un échauffement bâclé : l'activation de la <strong class='text-ink'>coiffe des rotateurs</strong> et du <strong class='text-ink'>grand dentelé</strong>, deux structures qui stabilisent l'épaule sous charge et qui sont absentes des échauffements génériques.",
       "À pratiquer avant toute séance dominée par la poussée — DC, développé incliné/décliné, OHP, dips, pompes lestées, push press. Compte 5 minutes. Le résultat : épaule stable, coude lubrifié, omoplate qui glisse correctement, et un système nerveux prêt pour des charges lourdes au-dessus de 80 % du 1RM.",
     ],
     exercises: [
@@ -320,9 +320,9 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     advice: {
       title: "Le rituel pré-DC qui change tout",
       paragraphs: [
-        "Avant ta première série de chauffe au DC, prends 30 secondes pour <strong class='text-white'>te \"installer\"</strong> sur le banc : pieds bien plantés, omoplates rétractées et collées au banc, dos cambré (cambrure naturelle, pas exagérée), poitrine sortie. Ce setup devient automatique avec la pratique mais doit être répété chaque fois.",
-        "L'erreur classique : <strong class='text-white'>poser la barre direct au milieu de la poitrine</strong> sans avoir engagé les omoplates. Sous charge, les épaules roulent vers l'avant, et toute la stabilité passe sur la capsule articulaire. C'est l'autoroute vers la tendinopathie en 6-12 mois.",
-        "Si tu sens que tes <strong class='text-white'>pecs ne s'activent pas</strong> bien malgré l'échauffement, ajoute 1-2 sets de pec deck très légers ou de pompes serrées avant ta première barre. Ça réveille spécifiquement le grand pectoral via une contraction concentrique sans charge axiale.",
+        "Avant ta première série de chauffe au DC, prends 30 secondes pour <strong class='text-ink'>te \"installer\"</strong> sur le banc : pieds bien plantés, omoplates rétractées et collées au banc, dos cambré (cambrure naturelle, pas exagérée), poitrine sortie. Ce setup devient automatique avec la pratique mais doit être répété chaque fois.",
+        "L'erreur classique : <strong class='text-ink'>poser la barre direct au milieu de la poitrine</strong> sans avoir engagé les omoplates. Sous charge, les épaules roulent vers l'avant, et toute la stabilité passe sur la capsule articulaire. C'est l'autoroute vers la tendinopathie en 6-12 mois.",
+        "Si tu sens que tes <strong class='text-ink'>pecs ne s'activent pas</strong> bien malgré l'échauffement, ajoute 1-2 sets de pec deck très légers ou de pompes serrées avant ta première barre. Ça réveille spécifiquement le grand pectoral via une contraction concentrique sans charge axiale.",
       ],
     },
     faqs: [
@@ -353,7 +353,7 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     h1: "Échauffement pull (dos · biceps · arrière épaules)",
     subtitle: "Pattern tirage · Scapulae · Coude · 5 minutes",
     intro: [
-      "Un <strong class='text-white'>échauffement pull</strong> bien conduit prépare la chaîne du tirage : grand dorsal, trapèzes, rhomboïdes, deltoïdes postérieurs, biceps, avant-bras. Ce qui sépare un échauffement pull efficace d'un \"je secoue mes bras\" : l'activation des <strong class='text-white'>fixateurs scapulaires</strong> (trapèze inférieur, rhomboïdes), souvent endormis chez les pratiquants modernes assis 8h/jour.",
+      "Un <strong class='text-ink'>échauffement pull</strong> bien conduit prépare la chaîne du tirage : grand dorsal, trapèzes, rhomboïdes, deltoïdes postérieurs, biceps, avant-bras. Ce qui sépare un échauffement pull efficace d'un \"je secoue mes bras\" : l'activation des <strong class='text-ink'>fixateurs scapulaires</strong> (trapèze inférieur, rhomboïdes), souvent endormis chez les pratiquants modernes assis 8h/jour.",
       "À pratiquer avant toute séance dominée par le tirage — tractions, rowing barre/haltère, tirage poulie haute/basse, soulevé de terre, face pulls, curls. Compte 5 minutes. Le résultat : omoplates qui glissent et se rétractent librement, dos activé (et pas \"que des biceps\"), épaule postérieure éveillée.",
     ],
     exercises: [
@@ -403,9 +403,9 @@ export const COMBO_PAGES: Record<string, ComboContent> = {
     advice: {
       title: "Tirer avec le dos, pas avec les bras",
       paragraphs: [
-        "L'erreur n°1 sur le tirage : <strong class='text-white'>commencer le mouvement par les coudes</strong>. Conséquence : les biceps font tout le travail, les omoplates restent en élévation, le dos n'est pas vraiment sollicité. Tu ne progresses plus en largeur de dos, et tes coudes finissent par crier.",
-        "La séquence saine sur n'importe quel tirage : <strong class='text-white'>dépression scapulaire (épaules basses) → rétraction scapulaire (omoplates qui se rapprochent) → flexion du coude</strong>. Les deux premières étapes prennent 0,3 seconde mais font toute la différence. Les <em>scapular pulls</em> de ce protocole programment exactement cette séquence.",
-        "Si tu n'as <strong class='text-white'>aucune sensation dans le dos</strong> sur le rowing ou le tirage, le problème vient quasi-toujours de ce point. Travaille à charge réduite (50 % de l'habituel) pendant 2-3 séances en te concentrant sur la séquence \"épaules basses → omoplates → coudes\". La connexion neuro-musculaire revient en quelques séances.",
+        "L'erreur n°1 sur le tirage : <strong class='text-ink'>commencer le mouvement par les coudes</strong>. Conséquence : les biceps font tout le travail, les omoplates restent en élévation, le dos n'est pas vraiment sollicité. Tu ne progresses plus en largeur de dos, et tes coudes finissent par crier.",
+        "La séquence saine sur n'importe quel tirage : <strong class='text-ink'>dépression scapulaire (épaules basses) → rétraction scapulaire (omoplates qui se rapprochent) → flexion du coude</strong>. Les deux premières étapes prennent 0,3 seconde mais font toute la différence. Les <em>scapular pulls</em> de ce protocole programment exactement cette séquence.",
+        "Si tu n'as <strong class='text-ink'>aucune sensation dans le dos</strong> sur le rowing ou le tirage, le problème vient quasi-toujours de ce point. Travaille à charge réduite (50 % de l'habituel) pendant 2-3 séances en te concentrant sur la séquence \"épaules basses → omoplates → coudes\". La connexion neuro-musculaire revient en quelques séances.",
       ],
     },
     faqs: [

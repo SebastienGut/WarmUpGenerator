@@ -39,27 +39,22 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#050505]">
+    <main className="relative min-h-screen bg-paper">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HEADER */}
-      <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#050505]/90 backdrop-blur-md">
+      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#A3FF12]/10 ring-1 ring-[#A3FF12]/20">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="#A3FF12" aria-hidden="true">
-              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-            </svg>
-          </div>
           <Link
             href="/"
-            className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:text-[#A3FF12]"
+            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
           >
-            Warmup / Generator
+            Warmup<span className="text-accent">.</span>
           </Link>
           <Link
             href="/"
-            className="ml-auto font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12] transition-opacity hover:opacity-80"
+            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -69,12 +64,12 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
       <div className="mx-auto w-full max-w-[720px] px-6 py-10 md:py-14">
 
         {/* BREADCRUMB */}
-        <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-[#5A5A60]">
-          <Link href="/" className="transition-colors hover:text-[#A3FF12]">Accueil</Link>
-          <span aria-hidden="true" className="text-[#2E2E33]">/</span>
-          <Link href="/blog" className="transition-colors hover:text-[#A3FF12]">Blog</Link>
-          <span aria-hidden="true" className="text-[#2E2E33]">/</span>
-          <span className="font-mono uppercase tracking-[0.12em] text-white">{post.h1}</span>
+        <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
+          <Link href="/" className="transition-colors hover:text-accent-ink">Accueil</Link>
+          <span aria-hidden="true" className="text-faint">/</span>
+          <Link href="/blog" className="transition-colors hover:text-accent-ink">Blog</Link>
+          <span aria-hidden="true" className="text-faint">/</span>
+          <span className="font-display font-semibold uppercase tracking-wide text-ink">{post.h1}</span>
         </nav>
 
         {/* HERO */}
@@ -82,33 +77,33 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/a-propos"
-              className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12] transition-opacity hover:opacity-80"
+              className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
             >
               Par Sébastien Gutierrez
             </Link>
-            <span className="text-[#2E2E33]">·</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <span className="text-faint">·</span>
+            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               {post.publishDate}
             </span>
-            <span className="text-[#2E2E33]">·</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <span className="text-faint">·</span>
+            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               {post.readingTime} de lecture
             </span>
           </div>
-          <h1 className="font-sans text-[36px] font-black uppercase leading-[0.95] tracking-tight text-white md:text-[48px]">
+          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
             {post.h1}
           </h1>
-          <p className="text-[16px] leading-[1.7] text-[#A1A1A6]">{post.intro}</p>
+          <p className="text-[16px] leading-[1.7] text-muted">{post.intro}</p>
         </section>
 
         {/* ARTICLE CONTENT */}
         <article className="mb-14 flex flex-col gap-12">
           {post.sections.map((section, i) => (
             <section key={i} className="flex flex-col gap-4">
-              <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+              <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
                 {section.heading}
               </h2>
-              <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-[#A1A1A6] md:text-[16px]">
+              <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
                 {section.content.map((p, j) => (
                   <p key={j} dangerouslySetInnerHTML={{ __html: p }} />
                 ))}
@@ -121,13 +116,13 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
         <section className="mb-14">
           <Link
             href="/"
-            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-[#A3FF12] px-6 py-5 text-black transition-transform active:scale-[0.98]"
+            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
+              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
                 → Plan personnalisé
               </span>
-              <span className="font-sans text-[18px] font-black uppercase leading-tight tracking-tight md:text-[20px]">
+              <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
                 Générer ton échauffement sur mesure
               </span>
               <span className="text-[12px] font-medium opacity-75">
@@ -135,7 +130,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
-              <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+              <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
                 <path d="M0 0 L14 8 L0 16 Z" />
               </svg>
             </div>
@@ -144,11 +139,11 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
 
         {/* FAQ */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-white/[0.06] pb-3">
-            <h2 className="font-sans text-[22px] font-black uppercase tracking-tight text-white md:text-[24px]">
+          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
               Questions fréquentes
             </h2>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               FAQ · {post.faqs.length}
             </span>
           </div>
@@ -156,15 +151,15 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
             {post.faqs.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-5 py-4 transition-colors hover:border-white/[0.12] [&_summary::-webkit-details-marker]:hidden"
+                className="group rounded-xl border border-line bg-card px-5 py-4 transition-colors hover:border-line-strong [&_summary::-webkit-details-marker]:hidden"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-ink">
                   <span>{f.q}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-[#5A5A60] transition-transform group-open:rotate-45 group-open:text-[#A3FF12]">
+                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-accent-ink">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 border-t border-white/[0.06] pt-3 text-[13px] leading-relaxed text-[#A1A1A6]">
+                <p className="mt-3 border-t border-line pt-3 text-[13px] leading-relaxed text-muted">
                   {f.a}
                 </p>
               </details>
@@ -175,7 +170,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
         {/* RELATED */}
         {post.relatedLinks.length > 0 && (
           <section className="mb-14">
-            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               À lire aussi
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -183,10 +178,10 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group flex items-center justify-between gap-3 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                  className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
                 >
                   <span className="truncate">{l.label}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[#5A5A60] transition-all group-hover:translate-x-0.5 group-hover:text-[#A3FF12]">
+                  <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">
                     →
                   </span>
                 </Link>
@@ -196,7 +191,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
         )}
 
         {/* DISCLAIMER */}
-        <footer className="border-t border-white/[0.06] pt-6 text-[11px] leading-relaxed text-[#5A5A60]">
+        <footer className="border-t border-line pt-6 text-[11px] leading-relaxed text-subtle">
           Cet article est informatif et ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou
           d&apos;un médecin du sport. En cas de douleur persistante, consulte un professionnel de santé.
         </footer>

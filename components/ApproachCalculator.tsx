@@ -5,9 +5,9 @@ import {
   EXERCISE_LABELS,
   computeApproachSets,
   formatKg,
-  formatPlates,
   type ApproachExercise,
 } from "@/lib/approach-sets";
+import Plates from "@/components/Plates";
 
 const EXERCISES = Object.keys(EXERCISE_LABELS) as ApproachExercise[];
 const BARS = [20, 15, 10];
@@ -54,16 +54,16 @@ export default function ApproachCalculator() {
   }, [exercise, workWeight, reps, bar]);
 
   const dumbbells = exercise === "halteres" || exercise === "machine";
-  const label = "font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]";
+  const label = "font-display text-[14px] font-bold uppercase tracking-wide text-subtle";
   const chip = (active: boolean) =>
-    `rounded-xl border px-3 py-2.5 text-[13px] font-bold transition-colors ${
+    `rounded-lg border-2 px-3 py-2.5 text-[14px] font-semibold transition-colors ${
       active
-        ? "border-[#A3FF12] bg-[#A3FF12]/10 text-[#A3FF12]"
-        : "border-white/[0.06] bg-[#0C0C0E] text-[#A1A1A6] hover:border-white/[0.14]"
+        ? "border-ink bg-ink text-paper"
+        : "border-line bg-card text-muted hover:border-line-strong"
     }`;
 
   return (
-    <div className="flex flex-col gap-6 rounded-2xl border border-white/[0.08] bg-[#08080A] p-5 md:p-6">
+    <div className="flex flex-col gap-6 rounded-2xl border border-line bg-card p-5 md:p-6">
       <fieldset className="flex flex-col gap-2.5">
         <legend className={`${label} mb-2.5`}>01 Exercice</legend>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -78,15 +78,15 @@ export default function ApproachCalculator() {
       <div className="grid grid-cols-2 gap-4">
         <label className="flex flex-col gap-2.5">
           <span className={label}>02 Charge de travail{exercise === "halteres" ? " (par haltère)" : ""}</span>
-          <div className="flex items-center rounded-xl border border-white/[0.08] bg-[#0C0C0E] focus-within:border-[#A3FF12]">
+          <div className="flex items-center rounded-xl border border-line bg-card focus-within:border-accent">
             <input
               inputMode="decimal"
               value={weight}
               onChange={(e) => setWeight(e.target.value.replace(/[^\d.,]/g, ""))}
-              className="w-full bg-transparent px-4 py-3 font-mono text-[20px] font-bold text-white outline-none"
+              className="w-full bg-transparent px-4 py-3 font-display text-[26px] font-bold text-ink outline-none tabular"
               aria-label="Charge de la première série de travail en kilos"
             />
-            <span className="pr-4 font-mono text-[13px] text-[#5A5A60]">kg</span>
+            <span className="pr-4 font-display text-[17px] font-bold text-subtle">kg</span>
           </div>
         </label>
         <label className="flex flex-col gap-2.5">
@@ -94,7 +94,7 @@ export default function ApproachCalculator() {
           <select
             value={reps}
             onChange={(e) => setReps(Number(e.target.value))}
-            className="rounded-xl border border-white/[0.08] bg-[#0C0C0E] px-4 py-3 font-mono text-[20px] font-bold text-white outline-none focus:border-[#A3FF12]"
+            className="rounded-xl border border-line bg-card px-4 py-3 font-display text-[26px] font-bold text-ink outline-none focus:border-accent"
           >
             {Array.from({ length: 15 }, (_, i) => i + 1).map((n) => (
               <option key={n} value={n}>
@@ -121,39 +121,39 @@ export default function ApproachCalculator() {
       <div aria-live="polite">
         <p className={`${label} mb-3`}>Tes séries d&apos;approche</p>
         {sets.length === 0 ? (
-          <p className="rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-4 text-[14px] text-[#A1A1A6]">
+          <p className="rounded-xl border border-line bg-card px-4 py-4 text-[14px] text-muted">
             {workWeight > 0
               ? "Charge trop légère pour une montée en charge : quelques répétitions à vide suffisent avant ta série de travail."
               : "Indique la charge de ta première série de travail."}
           </p>
         ) : (
-          <ol className="flex flex-col gap-2">
-            {sets.map((s, i) => (
-              <li key={i} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3">
-                <span className="w-6 font-mono text-[13px] font-black text-[#A3FF12]">{i + 1}</span>
-                <div className="flex flex-1 flex-col">
-                  <span className="text-[16px] font-bold text-white">
-                    {formatKg(s.weight)} × {s.reps}
-                    {s.emptyBar && <span className="ml-2 text-[12px] font-medium text-[#5A5A60]">barre seule</span>}
-                  </span>
-                  {!dumbbells && !s.emptyBar && (
-                    <span className="text-[12px] text-[#5A5A60]">Par côté : {formatPlates(s.platesPerSide)}</span>
-                  )}
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="font-mono text-[12px] font-bold text-[#A1A1A6]">{s.percent} %</span>
-                  <span className="font-mono text-[11px] text-[#5A5A60]">repos {s.restSeconds}s</span>
-                </div>
-              </li>
-            ))}
-            <li className="flex items-center gap-3 rounded-xl border border-[#A3FF12]/40 bg-[#A3FF12]/[0.06] px-4 py-3">
-              <span className="w-6 font-mono text-[13px] font-black text-[#A3FF12]">→</span>
-              <span className="flex-1 text-[16px] font-black text-white">
-                {formatKg(workWeight)} × {reps}
-                <span className="ml-2 text-[12px] font-medium text-[#A3FF12]">série de travail</span>
-              </span>
-            </li>
-          </ol>
+          <table className="w-full border-y-2 border-ink text-left">
+            <tbody>
+              {sets.map((s, i) => (
+                <tr key={i} className="border-b border-line last:border-b-0">
+                  <td className="w-7 py-3 font-display text-[16px] font-bold text-subtle tabular">{i + 1}</td>
+                  <td className="py-3">
+                    <span className="font-display text-[24px] font-bold leading-none text-ink tabular">
+                      {s.emptyBar ? "Barre seule" : formatKg(s.weight)}
+                    </span>
+                    <span className="ml-1.5 font-display text-[19px] font-semibold text-muted">× {s.reps}</span>
+                    <span className="mt-1 block text-[11px] text-subtle tabular">
+                      {s.percent} % · repos {s.restSeconds} s
+                    </span>
+                  </td>
+                  <td className="py-3 text-right">{!dumbbells && !s.emptyBar && <Plates plates={s.platesPerSide} size={24} />}</td>
+                </tr>
+              ))}
+              <tr className="bg-accent/[0.07]">
+                <td className="w-7 py-3 pl-1 font-display text-[18px] font-extrabold text-accent">→</td>
+                <td className="py-3" colSpan={2}>
+                  <span className="font-display text-[26px] font-extrabold leading-none text-ink tabular">{formatKg(workWeight)}</span>
+                  <span className="ml-1.5 font-display text-[20px] font-bold text-muted">× {reps}</span>
+                  <span className="ml-2 text-[13px] font-semibold text-accent-ink">série de travail</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         )}
       </div>
     </div>

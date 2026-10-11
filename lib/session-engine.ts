@@ -15,7 +15,7 @@
 
 import { exercises, type BodyZone, type Exercise, type PrepFocus } from "@/lib/warmup-data";
 import { LIFTS_BY_ID, type Lift, type LiftLoading } from "@/lib/lifts";
-import { computeApproachSets, formatKg, formatPlates, type ApproachExercise } from "@/lib/approach-sets";
+import { computeApproachSets, formatKg, type ApproachExercise } from "@/lib/approach-sets";
 
 export interface SessionInput {
   /** Identifiants d'exercices de séance, dans l'ordre de la séance. */
@@ -54,7 +54,8 @@ export interface RaiseStep {
 export interface RampLine {
   load: string;
   reps: number;
-  plates?: string;
+  /** Disques par côté, du plus lourd au plus léger. */
+  plates?: number[];
   restSeconds: number;
 }
 
@@ -234,7 +235,7 @@ function fullRamp(lift: Lift, input: SessionInput): RampLine[] {
   return sets.map((s) => ({
     load: s.emptyBar ? "Barre seule" : known ? formatKg(s.weight) : `${s.percent} %`,
     reps: s.reps,
-    plates: known && lift.loading === "barre" && !s.emptyBar ? formatPlates(s.platesPerSide) : undefined,
+    plates: known && lift.loading === "barre" && !s.emptyBar ? s.platesPerSide : undefined,
     restSeconds: s.restSeconds,
   }));
 }

@@ -23,7 +23,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     h1: "Échauffement avant le développé couché",
     subtitle: "Coiffe · Grand dentelé · Cage thoracique · 5 minutes",
     intro: [
-      "Le <strong class='text-white'>développé couché</strong> est l'exercice le plus pratiqué en salle, et celui qui blesse le plus d'épaules. La cause n'est pas le DC en soi — c'est le DC fait à froid, sans activation préalable de la coiffe des rotateurs et du grand dentelé. Avec ce protocole spécifique, tu prépares les structures qui stabilisent l'épaule sous une charge axiale lourde.",
+      "Le <strong class='text-ink'>développé couché</strong> est l'exercice le plus pratiqué en salle, et celui qui blesse le plus d'épaules. La cause n'est pas le DC en soi — c'est le DC fait à froid, sans activation préalable de la coiffe des rotateurs et du grand dentelé. Avec ce protocole spécifique, tu prépares les structures qui stabilisent l'épaule sous une charge axiale lourde.",
       "À pratiquer juste avant tes premières séries de chauffe avec barre. Compte 4 à 5 minutes. Le résultat : omoplates qui se rétractent et glissent librement, cage thoracique mobile (clé d'une bonne arche), coiffe activée, grand dentelé prêt à protéger l'articulation. Tu gagnes en stabilité, donc en puissance disponible — souvent 5 à 10 % sur la première série de travail.",
     ],
     exercises: [
@@ -73,9 +73,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Le setup du DC : 30 secondes qui changent tout",
       paragraphs: [
-        "Beaucoup de pratiquants <strong class='text-white'>s'allongent et soulèvent</strong>. C'est l'autoroute vers la blessure. Le bon setup, à reproduire chaque fois : (1) allonge-toi, yeux sous la barre, (2) plante les pieds au sol, (3) pousse les omoplates dans le banc et serre-les ensemble, (4) cambre légèrement (cambrure naturelle, pas exagérée), (5) sors la poitrine, (6) saisis la barre. Ce rituel verrouille la coiffe et le grand dentelé en position de protection.",
-        "La <strong class='text-white'>trajectoire de la barre</strong> n'est pas verticale — elle décrit une courbe légère : descente vers le bas du sternum / ligne des mamelons, remontée vers les yeux. Une trajectoire purement verticale fait travailler les épaules au lieu des pecs et augmente le stress articulaire.",
-        "Sur les <strong class='text-white'>charges proches du max</strong> (>85 % du 1RM), des <em>wrist wraps</em> légères et un setup parfait deviennent critiques. À l'inverse, l'usage systématique de wraps sur des charges modérées affaiblit tes stabilisateurs. Garde-les pour les séries lourdes.",
+        "Beaucoup de pratiquants <strong class='text-ink'>s'allongent et soulèvent</strong>. C'est l'autoroute vers la blessure. Le bon setup, à reproduire chaque fois : (1) allonge-toi, yeux sous la barre, (2) plante les pieds au sol, (3) pousse les omoplates dans le banc et serre-les ensemble, (4) cambre légèrement (cambrure naturelle, pas exagérée), (5) sors la poitrine, (6) saisis la barre. Ce rituel verrouille la coiffe et le grand dentelé en position de protection.",
+        "La <strong class='text-ink'>trajectoire de la barre</strong> n'est pas verticale — elle décrit une courbe légère : descente vers le bas du sternum / ligne des mamelons, remontée vers les yeux. Une trajectoire purement verticale fait travailler les épaules au lieu des pecs et augmente le stress articulaire.",
+        "Sur les <strong class='text-ink'>charges proches du max</strong> (>85 % du 1RM), des <em>wrist wraps</em> légères et un setup parfait deviennent critiques. À l'inverse, l'usage systématique de wraps sur des charges modérées affaiblit tes stabilisateurs. Garde-les pour les séries lourdes.",
       ],
     },
     faqs: [
@@ -107,7 +107,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     h1: "Échauffement avant le squat",
     subtitle: "Hanche · Cheville · Fessiers · Pattern · 5 minutes",
     intro: [
-      "Le <strong class='text-white'>squat</strong> est le roi des exercices de jambes mais aussi le plus exigeant en mobilité et en coordination. Trois facteurs déterminent un squat propre et lourd : <strong class='text-white'>la dorsiflexion de cheville</strong>, <strong class='text-white'>la rotation et flexion de hanche</strong>, et <strong class='text-white'>l'activation fessière</strong>. Ce protocole spécifique adresse les trois.",
+      "Le <strong class='text-ink'>squat</strong> est le roi des exercices de jambes mais aussi le plus exigeant en mobilité et en coordination. Trois facteurs déterminent un squat propre et lourd : <strong class='text-ink'>la dorsiflexion de cheville</strong>, <strong class='text-ink'>la rotation et flexion de hanche</strong>, et <strong class='text-ink'>l'activation fessière</strong>. Ce protocole spécifique adresse les trois.",
       "À pratiquer juste avant tes séries de chauffe à la barre. Compte 5 minutes. Le résultat : amplitude complète accessible (descente sous la parallèle sans compenser), pattern moteur amorcé, fessiers actifs (et pas un \"squat quadriceps\" qui charge le genou), gainage prêt. Tu peux ajouter 5-10 kg sur ta première série de travail rien qu'avec un échauffement bien fait.",
     ],
     exercises: [
@@ -157,9 +157,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Profondeur, dos et bracing : les trois clés",
       paragraphs: [
-        "Le <strong class='text-white'>squat profond</strong> (cuisses sous la parallèle, hanches passant sous les genoux) n'est pas dangereux — au contraire, il offre un meilleur recrutement musculaire et est plus sûr pour les ligaments du genou que le quart de squat (Hartmann et al., 2013). Ce qui blesse, c'est la mauvaise technique ou un saut brutal d'intensité, pas l'amplitude en soi.",
-        "Le <strong class='text-white'>dos plat</strong> est non négociable. Si tu as un \"butt wink\" (bassin qui bascule en arrière en bas du squat), ça vient soit d'un manque de mobilité de hanche (le 90/90 et le cossack t'aident), soit d'une descente trop rapide. Ralentis. Si le butt wink persiste, réduis la profondeur jusqu'à ce que tu maîtrises la mobilité.",
-        "Le <strong class='text-white'>bracing</strong> (gainage abdominal) est le levier de stabilité oublié. Avant chaque répétition lourde : inspire profondément dans le ventre (pas dans la poitrine), serre tout l'abdomen comme si tu allais recevoir un coup. Pression intra-abdominale = colonne stable = squat plus lourd et plus sûr.",
+        "Le <strong class='text-ink'>squat profond</strong> (cuisses sous la parallèle, hanches passant sous les genoux) n'est pas dangereux — au contraire, il offre un meilleur recrutement musculaire et est plus sûr pour les ligaments du genou que le quart de squat (Hartmann et al., 2013). Ce qui blesse, c'est la mauvaise technique ou un saut brutal d'intensité, pas l'amplitude en soi.",
+        "Le <strong class='text-ink'>dos plat</strong> est non négociable. Si tu as un \"butt wink\" (bassin qui bascule en arrière en bas du squat), ça vient soit d'un manque de mobilité de hanche (le 90/90 et le cossack t'aident), soit d'une descente trop rapide. Ralentis. Si le butt wink persiste, réduis la profondeur jusqu'à ce que tu maîtrises la mobilité.",
+        "Le <strong class='text-ink'>bracing</strong> (gainage abdominal) est le levier de stabilité oublié. Avant chaque répétition lourde : inspire profondément dans le ventre (pas dans la poitrine), serre tout l'abdomen comme si tu allais recevoir un coup. Pression intra-abdominale = colonne stable = squat plus lourd et plus sûr.",
       ],
     },
     faqs: [
@@ -191,7 +191,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     h1: "Échauffement avant le soulevé de terre",
     subtitle: "Hanches · Chaîne postérieure · Gainage · 5 minutes",
     intro: [
-      "Le <strong class='text-white'>soulevé de terre</strong> (SDT) est l'exercice qui sollicite le plus de masse musculaire en une seule répétition. C'est aussi celui qui blesse le plus de bas du dos — quand il est fait à froid, sans charnière de hanche maîtrisée, avec un gainage absent. Ce protocole prépare les trois piliers du SDT : <strong class='text-white'>mobilité de hanche</strong>, <strong class='text-white'>activation chaîne postérieure</strong>, et <strong class='text-white'>gainage anti-extension</strong>.",
+      "Le <strong class='text-ink'>soulevé de terre</strong> (SDT) est l'exercice qui sollicite le plus de masse musculaire en une seule répétition. C'est aussi celui qui blesse le plus de bas du dos — quand il est fait à froid, sans charnière de hanche maîtrisée, avec un gainage absent. Ce protocole prépare les trois piliers du SDT : <strong class='text-ink'>mobilité de hanche</strong>, <strong class='text-ink'>activation chaîne postérieure</strong>, et <strong class='text-ink'>gainage anti-extension</strong>.",
       "À pratiquer juste avant tes séries de chauffe avec barre. Compte 5 minutes. Le résultat : pattern de hip hinge programmé, fessiers et ischios actifs, gainage solide pour transférer la force du sol jusqu'aux épaules sans que la colonne ne fléchisse. Sur le SDT, c'est exactement ce qui sépare une PR propre d'une blessure du dos.",
     ],
     exercises: [
@@ -241,9 +241,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Le hip hinge : le mouvement le plus mal compris",
       paragraphs: [
-        "Le <strong class='text-white'>hip hinge</strong> (charnière de hanche) est la base de tout SDT propre. Pourtant, beaucoup de pratiquants le confondent avec un squat. Différence : sur le squat, les genoux fléchissent fortement et le tronc reste vertical. Sur le hip hinge, ce sont les <em>hanches</em> qui partent en arrière et le tronc qui s'incline vers l'avant — les genoux se déverrouillent légèrement seulement.",
-        "<strong class='text-white'>Test simple</strong> : place un manche à balai dans le dos, en contact avec la nuque, le milieu du dos et le sacrum. Hip hinge correct = les trois points restent en contact pendant tout le mouvement. Si le sacrum se décolle, ton bas du dos s'enroule — c'est exactement ce qu'il faut éviter sous charge.",
-        "Pour les <strong class='text-white'>charges lourdes</strong> (>80 % du 1RM), une ceinture de force devient légitime. Elle augmente la pression intra-abdominale et offre plus de stabilité. À utiliser sur les séries top set, pas sur tout l'échauffement et les warm-up sets — ça affaiblit ton bracing naturel.",
+        "Le <strong class='text-ink'>hip hinge</strong> (charnière de hanche) est la base de tout SDT propre. Pourtant, beaucoup de pratiquants le confondent avec un squat. Différence : sur le squat, les genoux fléchissent fortement et le tronc reste vertical. Sur le hip hinge, ce sont les <em>hanches</em> qui partent en arrière et le tronc qui s'incline vers l'avant — les genoux se déverrouillent légèrement seulement.",
+        "<strong class='text-ink'>Test simple</strong> : place un manche à balai dans le dos, en contact avec la nuque, le milieu du dos et le sacrum. Hip hinge correct = les trois points restent en contact pendant tout le mouvement. Si le sacrum se décolle, ton bas du dos s'enroule — c'est exactement ce qu'il faut éviter sous charge.",
+        "Pour les <strong class='text-ink'>charges lourdes</strong> (>80 % du 1RM), une ceinture de force devient légitime. Elle augmente la pression intra-abdominale et offre plus de stabilité. À utiliser sur les séries top set, pas sur tout l'échauffement et les warm-up sets — ça affaiblit ton bracing naturel.",
       ],
     },
     faqs: [
@@ -275,7 +275,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     h1: "Échauffement avant le rowing barre",
     subtitle: "Thoracique · Scapulaires · Hip hinge · 5 minutes",
     intro: [
-      "Le <strong class='text-white'>rowing barre</strong> est probablement l'exercice le plus rentable pour développer un dos épais et puissant. C'est aussi un des plus techniques : il combine un <em>hip hinge</em> tenu (comme un demi-SDT statique), une rétraction scapulaire, et une flexion de coude — le tout sous charge. Ce protocole prépare ces trois éléments en 5 minutes.",
+      "Le <strong class='text-ink'>rowing barre</strong> est probablement l'exercice le plus rentable pour développer un dos épais et puissant. C'est aussi un des plus techniques : il combine un <em>hip hinge</em> tenu (comme un demi-SDT statique), une rétraction scapulaire, et une flexion de coude — le tout sous charge. Ce protocole prépare ces trois éléments en 5 minutes.",
       "À pratiquer avant ta série de chauffe à la barre. Le résultat : cage thoracique mobile (clé d'une bonne extension de buste), omoplates qui glissent et se rétractent librement, chaîne postérieure stable pour tenir le hip hinge sous la charge. Tu cesseras de \"tirer avec les biceps\" — le dos prend enfin la moitié du travail qui lui revient.",
     ],
     exercises: [
@@ -325,9 +325,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Tirer avec le dos, pas avec les bras",
       paragraphs: [
-        "L'erreur n°1 sur le rowing : <strong class='text-white'>commencer le mouvement par les coudes</strong>. Conséquence : les biceps font tout le travail, les omoplates restent en élévation, le dos n'est pas vraiment sollicité. Tu ne progresses plus en épaisseur de dos, et tes coudes finissent par crier.",
-        "La séquence saine : <strong class='text-white'>(1) épaules basses (dépression scapulaire), (2) omoplates qui se rapprochent (rétraction), (3) flexion du coude</strong>. Les deux premières étapes prennent 0,3 seconde mais font toute la différence. Si tu n'arrives pas à les sentir, travaille à charge réduite (50 % de l'habituel) pendant 2-3 séances en te concentrant uniquement sur cette séquence.",
-        "Pour la <strong class='text-white'>position</strong> : penche-toi à environ 45° (pas trop horizontal — c'est plus du SDT —, pas trop vertical — c'est plus du shrug). Genoux légèrement fléchis. Barre proche des tibias. Dos plat (cambrure naturelle). C'est cette position que tu dois maintenir pendant toute la série, sans que le buste remonte progressivement à chaque répétition.",
+        "L'erreur n°1 sur le rowing : <strong class='text-ink'>commencer le mouvement par les coudes</strong>. Conséquence : les biceps font tout le travail, les omoplates restent en élévation, le dos n'est pas vraiment sollicité. Tu ne progresses plus en épaisseur de dos, et tes coudes finissent par crier.",
+        "La séquence saine : <strong class='text-ink'>(1) épaules basses (dépression scapulaire), (2) omoplates qui se rapprochent (rétraction), (3) flexion du coude</strong>. Les deux premières étapes prennent 0,3 seconde mais font toute la différence. Si tu n'arrives pas à les sentir, travaille à charge réduite (50 % de l'habituel) pendant 2-3 séances en te concentrant uniquement sur cette séquence.",
+        "Pour la <strong class='text-ink'>position</strong> : penche-toi à environ 45° (pas trop horizontal — c'est plus du SDT —, pas trop vertical — c'est plus du shrug). Genoux légèrement fléchis. Barre proche des tibias. Dos plat (cambrure naturelle). C'est cette position que tu dois maintenir pendant toute la série, sans que le buste remonte progressivement à chaque répétition.",
       ],
     },
     faqs: [
@@ -359,7 +359,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     h1: "Échauffement avant les tractions",
     subtitle: "Pull-ups · Scapulae · Thoracique · Grip · 5 minutes",
     intro: [
-      "Les <strong class='text-white'>tractions</strong> (pull-ups) sont l'exercice de tirage de référence — et l'un des plus exigeants pour les épaules quand elles sont mal préparées. Sous une charge égale à ton poids du corps (et plus si tu lestes), la coiffe des rotateurs et les fixateurs scapulaires doivent être <em>déjà actifs</em> avant la première répétition. Ce protocole les active spécifiquement.",
+      "Les <strong class='text-ink'>tractions</strong> (pull-ups) sont l'exercice de tirage de référence — et l'un des plus exigeants pour les épaules quand elles sont mal préparées. Sous une charge égale à ton poids du corps (et plus si tu lestes), la coiffe des rotateurs et les fixateurs scapulaires doivent être <em>déjà actifs</em> avant la première répétition. Ce protocole les active spécifiquement.",
       "À pratiquer juste avant tes premières tractions de la séance. Compte 4 à 5 minutes. Le résultat : omoplates qui glissent et se rétractent librement (la base d'une traction propre), grip prêt, coiffe activée, mobilité thoracique disponible pour amener la poitrine vers la barre. Tu enchaîneras 1 à 2 répétitions de plus dès la première série juste grâce à un échauffement bien fait.",
     ],
     exercises: [
@@ -409,9 +409,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Engager le dos avant les bras",
       paragraphs: [
-        "Une <strong class='text-white'>traction propre</strong> commence par une <em>scapular pull</em> — les omoplates tirent en premier, le corps s'élève de quelques centimètres avant que les coudes ne plient. Si tu plies directement les coudes, tu fais une traction \"biceps\" : épaules dans les oreilles, dos non engagé, plafond de progression rapide. La séquence saine : <strong class='text-white'>épaules basses → rétraction scapulaire → flexion des coudes</strong>.",
-        "Pour <strong class='text-white'>monter haut</strong> (poitrine à la barre, pas juste menton), tu as besoin d'une cage thoracique mobile en extension. C'est la mobilité thoracique en quadrupédie de ce protocole qui te la donne. Sans elle, tu plafonnes au menton et tu rates la moitié du recrutement du grand dorsal.",
-        "Si tu ne fais <strong class='text-white'>pas encore une seule traction</strong>, suis ce protocole puis travaille les tractions <em>excentriques</em> (saute en haut, descends en 5 secondes) et les <em>scapular pulls</em>. C'est plus efficace que les tirages assistés à la machine. Compte 4-8 semaines pour ta première traction stricte si tu pars de zéro.",
+        "Une <strong class='text-ink'>traction propre</strong> commence par une <em>scapular pull</em> — les omoplates tirent en premier, le corps s'élève de quelques centimètres avant que les coudes ne plient. Si tu plies directement les coudes, tu fais une traction \"biceps\" : épaules dans les oreilles, dos non engagé, plafond de progression rapide. La séquence saine : <strong class='text-ink'>épaules basses → rétraction scapulaire → flexion des coudes</strong>.",
+        "Pour <strong class='text-ink'>monter haut</strong> (poitrine à la barre, pas juste menton), tu as besoin d'une cage thoracique mobile en extension. C'est la mobilité thoracique en quadrupédie de ce protocole qui te la donne. Sans elle, tu plafonnes au menton et tu rates la moitié du recrutement du grand dorsal.",
+        "Si tu ne fais <strong class='text-ink'>pas encore une seule traction</strong>, suis ce protocole puis travaille les tractions <em>excentriques</em> (saute en haut, descends en 5 secondes) et les <em>scapular pulls</em>. C'est plus efficace que les tirages assistés à la machine. Compte 4-8 semaines pour ta première traction stricte si tu pars de zéro.",
       ],
     },
     faqs: [
@@ -443,7 +443,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     h1: "Échauffement avant le développé militaire",
     subtitle: "OHP · Coiffe · Thoracique · Grand dentelé · 5 minutes",
     intro: [
-      "Le <strong class='text-white'>développé militaire</strong> (OHP — overhead press) est l'exercice qui exige le plus de mobilité et de stabilité d'épaule. Pour pousser une charge au-dessus de la tête sans douleur, tu as besoin d'une <strong class='text-white'>flexion gléno-humérale complète</strong>, d'un <strong class='text-white'>thoracique mobile</strong> en extension, et d'un <strong class='text-white'>grand dentelé actif</strong> qui fait basculer correctement les omoplates en haut du mouvement.",
+      "Le <strong class='text-ink'>développé militaire</strong> (OHP — overhead press) est l'exercice qui exige le plus de mobilité et de stabilité d'épaule. Pour pousser une charge au-dessus de la tête sans douleur, tu as besoin d'une <strong class='text-ink'>flexion gléno-humérale complète</strong>, d'un <strong class='text-ink'>thoracique mobile</strong> en extension, et d'un <strong class='text-ink'>grand dentelé actif</strong> qui fait basculer correctement les omoplates en haut du mouvement.",
       "À pratiquer juste avant tes séries de chauffe. Compte 5 minutes. Le résultat : l'épaule passe \"librement\" en flexion totale, la cage thoracique reste ouverte, le grand dentelé active la rotation supérieure de l'omoplate (rythme scapulo-huméral). Tu pousses 5-10 kg de plus avec moins de stress articulaire — et surtout, tu protèges ta coiffe contre l'usure répétée du push lourd.",
     ],
     exercises: [
@@ -493,9 +493,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Trajectoire et bracing : les non-dits du push lourd",
       paragraphs: [
-        "La <strong class='text-white'>trajectoire de la barre</strong> à l'OHP n'est pas verticale comme on l'imagine. Au démarrage, ta tête est sur le passage de la barre — pour la laisser monter, tu dois soit pencher la tête en arrière, soit ramener la tête vers l'avant <em>après</em> que la barre soit passée. La barre finit <strong class='text-white'>au-dessus du milieu de l'oreille</strong>, pas devant. Une trajectoire \"en avant\" charge les épaules et le bas du dos.",
-        "Le <strong class='text-white'>bracing</strong> est aussi important qu'au squat. Une OHP debout sans gainage sérieux = un transfert de force qui passe par les lombaires. Avant chaque répétition lourde : inspire profondément, serre les abdos et les fessiers comme si tu allais recevoir un coup. La cage abdominale stable = les épaules peuvent pousser sans qu'aucune énergie ne se perde.",
-        "Pour <strong class='text-white'>les pratiquants avec mobilité d'épaule limitée</strong>, le <em>landmine press</em> (barre dans un coin, on pousse en diagonale) est une excellente alternative pendant que tu travailles la mobilité. Le push press (avec impulsion des jambes) est aussi plus accessible que le strict press pour les charges lourdes.",
+        "La <strong class='text-ink'>trajectoire de la barre</strong> à l'OHP n'est pas verticale comme on l'imagine. Au démarrage, ta tête est sur le passage de la barre — pour la laisser monter, tu dois soit pencher la tête en arrière, soit ramener la tête vers l'avant <em>après</em> que la barre soit passée. La barre finit <strong class='text-ink'>au-dessus du milieu de l'oreille</strong>, pas devant. Une trajectoire \"en avant\" charge les épaules et le bas du dos.",
+        "Le <strong class='text-ink'>bracing</strong> est aussi important qu'au squat. Une OHP debout sans gainage sérieux = un transfert de force qui passe par les lombaires. Avant chaque répétition lourde : inspire profondément, serre les abdos et les fessiers comme si tu allais recevoir un coup. La cage abdominale stable = les épaules peuvent pousser sans qu'aucune énergie ne se perde.",
+        "Pour <strong class='text-ink'>les pratiquants avec mobilité d'épaule limitée</strong>, le <em>landmine press</em> (barre dans un coin, on pousse en diagonale) est une excellente alternative pendant que tu travailles la mobilité. Le push press (avec impulsion des jambes) est aussi plus accessible que le strict press pour les charges lourdes.",
       ],
     },
     faqs: [

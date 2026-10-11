@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const OG_SIZE = { width: 1200, height: 630 };
@@ -9,92 +11,80 @@ interface OgCardOptions {
   subtitle: string;
 }
 
-export function createOgCard({ eyebrow, title, subtitle }: OgCardOptions) {
+// Mêmes codes que le site : papier, encre, accent vermillon, et la barre
+// chargée aux couleurs des disques de compétition — reconnaissable en
+// vignette dans un fil Reddit ou WhatsApp.
+const PAPER = "#f3f0e8";
+const INK = "#17150f";
+const MUTED = "#55514a";
+const ACCENT = "#e2421b";
+const PLATES: [string, number, number][] = [
+  ["#d3272b", 200, 34],
+  ["#1f5fbf", 200, 30],
+  ["#e8b417", 172, 26],
+  ["#2f9a48", 144, 22],
+];
+
+// Geist (OFL), copiée depuis le paquet geist : le moteur d'images n'a sinon
+// qu'une graisse, et les titres perdent toute présence.
+const font = (file: string) => readFile(join(process.cwd(), "assets/fonts", file));
+
+export async function createOgCard({ eyebrow, title, subtitle }: OgCardOptions) {
+  const [black, medium] = await Promise.all([font("Geist-Black.ttf"), font("Geist-Medium.ttf")]);
   return new ImageResponse(
     (
       <div
         style={{
           width: "100%",
           height: "100%",
-          background: "#050505",
-          color: "#fff",
+          background: PAPER,
+          color: INK,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px",
-          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+          padding: "64px 72px",
+          fontFamily: "Geist",
           position: "relative",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "radial-gradient(circle at 12% 16%, rgba(163,255,18,0.24), transparent 30%), radial-gradient(circle at 90% 92%, rgba(163,255,18,0.14), transparent 34%)",
-          }}
-        />
-        <div style={{ display: "flex", alignItems: "center", gap: 18, position: "relative" }}>
-          <div
-            style={{
-              width: 66,
-              height: 66,
-              borderRadius: 18,
-              background: "rgba(163,255,18,0.10)",
-              border: "1px solid rgba(163,255,18,0.32)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="#A3FF12">
-              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-            </svg>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", borderBottom: `4px solid ${INK}`, paddingBottom: 18 }}>
+          <div style={{ display: "flex", fontSize: 34, fontWeight: 900, letterSpacing: "-0.02em" }}>
+            WARMUP<span style={{ color: ACCENT }}>.</span>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <div style={{ fontSize: 22, fontWeight: 900, letterSpacing: "0.18em" }}>
-              WARMUP GENERATOR
-            </div>
-            <div style={{ color: "#A3FF12", fontSize: 18, fontWeight: 800, letterSpacing: "0.12em" }}>
-              {eyebrow}
-            </div>
+          <div style={{ display: "flex", fontSize: 24, fontWeight: 900, color: ACCENT, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+            {eyebrow}
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 24, position: "relative" }}>
-          <div
-            style={{
-              maxWidth: 960,
-              fontSize: 82,
-              lineHeight: 0.9,
-              fontWeight: 950,
-              letterSpacing: "-0.03em",
-              textTransform: "uppercase",
-            }}
-          >
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 22, maxWidth: 820 }}>
+          <div style={{ display: "flex", fontSize: 74, lineHeight: 0.94, fontWeight: 900, letterSpacing: "-0.035em", textTransform: "uppercase" }}>
             {title}
           </div>
-          <div style={{ maxWidth: 860, color: "#D7D7DA", fontSize: 30, lineHeight: 1.25, fontWeight: 650 }}>
-            {subtitle}
+          <div style={{ display: "flex", color: MUTED, fontSize: 30, lineHeight: 1.3, fontWeight: 500 }}>{subtitle}</div>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", color: MUTED, fontSize: 24, fontWeight: 500 }}>
+            Gratuit · sans compte · fonctionne hors ligne
           </div>
         </div>
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderTop: "1px solid rgba(255,255,255,0.10)",
-            paddingTop: 24,
-            color: "#A1A1A6",
-            fontSize: 22,
-            fontWeight: 700,
-          }}
-        >
-          <span>Plans gratuits en 5 minutes</span>
-          <span style={{ color: "#A3FF12" }}>Sans inscription</span>
+
+        {/* Barre chargée, à droite */}
+        <div style={{ position: "absolute", right: 72, top: 190, display: "flex", alignItems: "center" }}>
+          <div style={{ width: 70, height: 14, background: "#bdb6a7", borderRadius: 4 }} />
+          {PLATES.map(([color, h, w], i) => (
+            <div key={i} style={{ width: w, height: h, background: color, borderRadius: 6, marginLeft: 6 }} />
+          ))}
+          <div style={{ width: 40, height: 22, background: "#bdb6a7", marginLeft: 6, borderRadius: 4 }} />
         </div>
       </div>
     ),
-    OG_SIZE
+    {
+      ...OG_SIZE,
+      fonts: [
+        { name: "Geist", data: black, weight: 900, style: "normal" },
+        { name: "Geist", data: medium, weight: 500, style: "normal" },
+      ],
+    },
   );
 }

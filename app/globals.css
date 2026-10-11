@@ -1,70 +1,96 @@
 @import "tailwindcss";
 
+/*
+ * Direction : la fiche de séance du coach.
+ * Papier et encre, un seul accent vermillon (le feutre rouge qui annote le
+ * programme), chiffres en condensé pour être lus d'un coup d'œil, téléphone
+ * posé au sol. Les couleurs des disques reprennent le code des disques de
+ * compétition, que tout pratiquant reconnaît sans légende.
+ *
+ * Le thème suit le réglage du téléphone : clair par défaut (salles éclairées,
+ * plein jour), sombre si le système l'est.
+ */
 :root {
-  --bg: #050505;
-  --bg-card: #0C0C0E;
-  --bg-card-active: rgba(163, 255, 18, 0.04);
-  --border: rgba(255, 255, 255, 0.06);
-  --border-active: #A3FF12;
-  --fg: #ffffff;
-  --fg-mid: #A1A1A6;
-  --fg-low: #5A5A60;
-  --fg-disabled: #2E2E33;
-  --lime: #A3FF12;
-  --lime-glow: rgba(163, 255, 18, 0.18);
-  --lime-soft: rgba(163, 255, 18, 0.08);
+  color-scheme: light dark;
 
-  --background: var(--bg);
-  --foreground-color: var(--fg);
+  --paper: #f3f0e8;
+  --card: #fbfaf6;
+  --ink: #17150f;
+  --muted: #55514a;
+  --subtle: #858075;
+  --faint: #c9c3b6;
+  --line: #ddd7ca;
+  --line-strong: #bdb6a7;
+  --accent: #e2421b;
+  --accent-ink: #b83310;
+  --on-accent: #ffffff;
+  --warn: #a8540e;
+  --warn-bg: #f7e6d2;
+  --warn-ink: #5c2f08;
+
+  /* Disques de compétition */
+  --plate-25: #d3272b;
+  --plate-20: #1f5fbf;
+  --plate-15: #e8b417;
+  --plate-10: #2f9a48;
+  --plate-5: #f4f2ec;
+  --plate-2_5: #1d1b17;
+  --plate-1_25: #a7a39b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131210;
+    --card: #1c1b18;
+    --ink: #f2eee6;
+    --muted: #b6b0a5;
+    --subtle: #7f7a70;
+    --faint: #403d37;
+    --line: #2d2b27;
+    --line-strong: #47443e;
+    --accent: #ff5a2e;
+    --accent-ink: #ff8661;
+    --on-accent: #ffffff;
+    --warn: #f0a35e;
+    --warn-bg: #2b1f14;
+    --warn-ink: #f6d2ae;
+    --plate-2_5: #3a3833;
+  }
 }
 
 @theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--fg);
-  --color-lime: var(--lime);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-ink: var(--warn-ink);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-barlow), var(--font-geist-sans), sans-serif;
 }
 
 html {
-  background: var(--bg);
-  color: var(--fg);
+  background: var(--paper);
+  color: var(--ink);
   scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
-  background: var(--bg);
-  color: var(--fg);
-  position: relative;
+  background: var(--paper);
+  color: var(--ink);
   overflow-x: hidden;
-}
-
-/* Halo lime radial top — donne la profondeur */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(163, 255, 18, 0.12), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(163, 255, 18, 0.04), transparent 70%);
-  z-index: 0;
-}
-
-/* Grain noise subtil */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
-main, .content-layer {
-  position: relative;
-  z-index: 2;
+  font-feature-settings: "ss01", "cv11";
 }
 
 * {
@@ -73,24 +99,19 @@ main, .content-layer {
 }
 
 *::selection {
-  background: var(--lime);
-  color: #000;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
-/* Ring de progression CTA */
-@keyframes energy-ring {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(163, 255, 18, 0.6), 0 0 24px rgba(163, 255, 18, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(163, 255, 18, 0), 0 0 32px rgba(163, 255, 18, 0.6); }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
-.energy-ring {
-  animation: energy-ring 2.4s ease-in-out infinite;
-}
-
-/* Compose timeline reveal */
-@keyframes reveal-char {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Chiffres alignés partout où l'on compare des charges. */
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -95,22 +95,22 @@ export default function HomepageSEO() {
   return (
     <section
       aria-labelledby="seo-heading"
-      className="content-layer relative w-full bg-[#050505] border-t border-white/[0.06]"
+      className="content-layer relative w-full bg-paper border-t border-line"
     >
       <div className="mx-auto w-full max-w-[640px] px-5 py-12 flex flex-col gap-10">
 
         {/* INTRO SEO */}
         <article className="flex flex-col gap-3">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
             Le guide
           </p>
           <h2
             id="seo-heading"
-            className="font-sans text-[24px] font-black leading-tight tracking-tight text-white"
+            className="font-display text-[28px] font-extrabold leading-tight tracking-tight text-ink"
           >
             Pourquoi s&apos;échauffer avant la musculation ?
           </h2>
-          <div className="flex flex-col gap-3 text-[14px] leading-relaxed text-[#A1A1A6]">
+          <div className="flex flex-col gap-3 text-[14px] leading-relaxed text-muted">
             <p>
               Sauter l&apos;échauffement, c&apos;est entrer en séance avec un corps froid : articulations
               raides, muscles peu vascularisés, système nerveux endormi. À court terme, ta première
@@ -119,7 +119,7 @@ export default function HomepageSEO() {
             </p>
             <p>
               Un bon échauffement musculation suit une logique simple :{" "}
-              <strong className="text-white">élever la température, mobiliser les articulations
+              <strong className="text-ink">élever la température, mobiliser les articulations
               ciblées, activer les muscles que tu vas solliciter</strong>. Cinq minutes bien dosées
               valent mieux que quinze minutes mal pensées. Ce générateur part des exercices de ta séance : un squat
               demande des chevilles et des hanches mobiles, un développé couché des épaules stables. Il
@@ -127,7 +127,7 @@ export default function HomepageSEO() {
               premier.
             </p>
             <p>
-              L&apos;outil est <strong className="text-white">gratuit, sans inscription, et fonctionne
+              L&apos;outil est <strong className="text-ink">gratuit, sans inscription, et fonctionne
               hors ligne</strong> une fois la page chargée. Aucune donnée n&apos;est collectée, aucun
               compte n&apos;est requis — pose ton téléphone à côté du tapis et suis l&apos;échauffement
               étape par étape, avec les temps de repos décomptés.
@@ -138,10 +138,10 @@ export default function HomepageSEO() {
         {/* ÉCHAUFFEMENTS POPULAIRES */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               Plans prêts à l&apos;emploi
             </p>
-            <h2 className="font-sans text-[20px] font-black leading-tight tracking-tight text-white">
+            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
               Échauffements populaires
             </h2>
           </div>
@@ -150,12 +150,12 @@ export default function HomepageSEO() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
               >
                 <span className="truncate">{label}</span>
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[#5A5A60] transition-colors group-hover:text-[#A3FF12]"
+                  className="font-mono text-subtle transition-colors group-hover:text-accent-ink"
                 >
                   →
                 </span>
@@ -163,7 +163,7 @@ export default function HomepageSEO() {
             ))}
           </div>
           <div className="flex flex-col gap-2 pt-1">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               Guides par muscle
             </p>
             <div className="flex flex-wrap gap-2">
@@ -171,7 +171,7 @@ export default function HomepageSEO() {
                 <Link
                   key={href}
                   href={href}
-                  className="rounded-full border border-white/[0.06] bg-[#0C0C0E] px-3.5 py-1.5 text-[12px] font-bold text-[#A1A1A6] transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                  className="rounded-full border border-line bg-card px-3.5 py-1.5 text-[12px] font-bold text-muted transition-colors hover:border-accent/40 hover:text-accent-ink"
                 >
                   {label}
                 </Link>
@@ -183,32 +183,32 @@ export default function HomepageSEO() {
         {/* SÉRIES D'APPROCHE — l'étape spécifique, après l'échauffement général */}
         <Link
           href="/series-approche"
-          className="group flex items-center justify-between gap-4 rounded-2xl border border-[#A3FF12]/25 bg-[#A3FF12]/[0.04] px-5 py-4 transition-colors hover:border-[#A3FF12]/50"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-accent/25 bg-accent/[0.04] px-5 py-4 transition-colors hover:border-accent/50"
         >
           <span className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12]">
+            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
               Nouveau · Calculateur
             </span>
-            <span className="font-sans text-[18px] font-black leading-tight tracking-tight text-white">
+            <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight text-ink">
               Séries d&apos;approche : quelle charge, combien de reps
             </span>
-            <span className="text-[13px] text-[#A1A1A6]">
+            <span className="text-[13px] text-muted">
               Entre ta charge de travail, obtiens ta montée en charge et les disques par côté.
             </span>
           </span>
-          <span aria-hidden="true" className="font-mono text-[18px] text-[#A3FF12] transition-transform group-hover:translate-x-0.5">→</span>
+          <span aria-hidden="true" className="font-mono text-[18px] text-accent transition-transform group-hover:translate-x-0.5">→</span>
         </Link>
 
         {/* PROTECTION — zones sensibles */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               Tu as une douleur ?
             </p>
-            <h2 className="font-sans text-[20px] font-black leading-tight tracking-tight text-white">
+            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
               Échauffements pour zones sensibles
             </h2>
-            <p className="text-[13px] text-[#A1A1A6] leading-relaxed mt-1">
+            <p className="text-[13px] text-muted leading-relaxed mt-1">
               Protocoles spécifiques pour s&apos;entraîner malgré une gêne ou une douleur articulaire
               (sous réserve d&apos;avis médical en cas de douleur installée).
             </p>
@@ -218,12 +218,12 @@ export default function HomepageSEO() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-[#A3FF12]/15 bg-[#A3FF12]/[0.03] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                className="group flex items-center justify-between gap-2 rounded-xl border border-accent/15 bg-accent/[0.03] px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
               >
                 <span className="truncate">{label}</span>
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[#A3FF12]/60 transition-colors group-hover:text-[#A3FF12]"
+                  className="font-mono text-accent/60 transition-colors group-hover:text-accent-ink"
                 >
                   →
                 </span>
@@ -235,13 +235,13 @@ export default function HomepageSEO() {
         {/* DOULEUR — diagnostic par exercice */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               La douleur vient d&apos;un exercice précis ?
             </p>
-            <h2 className="font-sans text-[20px] font-black leading-tight tracking-tight text-white">
+            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
               Comprendre d&apos;où vient la douleur
             </h2>
-            <p className="text-[13px] text-[#A1A1A6] leading-relaxed mt-1">
+            <p className="text-[13px] text-muted leading-relaxed mt-1">
               Le genou qui souffre au squat vient presque toujours de la cheville ou de la
               hanche. Chaque guide part du mouvement qui déclenche la douleur, explique le
               mécanisme, puis donne les corrections et le protocole.
@@ -252,12 +252,12 @@ export default function HomepageSEO() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-white/[0.08] bg-[#0C0C0E] px-3 py-3 text-[13px] font-bold text-white transition-colors hover:border-[#A3FF12]/40 hover:text-[#A3FF12]"
+                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
               >
                 <span className="truncate">{label}</span>
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[#5A5A60] transition-colors group-hover:text-[#A3FF12]"
+                  className="font-mono text-subtle transition-colors group-hover:text-accent-ink"
                 >
                   →
                 </span>
@@ -269,10 +269,10 @@ export default function HomepageSEO() {
         {/* FAQ */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               FAQ
             </p>
-            <h2 className="font-sans text-[20px] font-black leading-tight tracking-tight text-white">
+            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
               Questions fréquentes
             </h2>
           </div>
@@ -280,34 +280,34 @@ export default function HomepageSEO() {
             {FAQS.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
+                className="group rounded-xl border border-line bg-card px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-bold text-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-bold text-ink">
                   <span>{f.q}</span>
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[#5A5A60] transition-transform group-open:rotate-180"
+                    className="font-mono text-subtle transition-transform group-open:rotate-180"
                   >
                     ▾
                   </span>
                 </summary>
-                <p className="mt-3 text-[13px] leading-relaxed text-[#A1A1A6]">{f.a}</p>
+                <p className="mt-3 text-[13px] leading-relaxed text-muted">{f.a}</p>
               </details>
             ))}
           </div>
         </article>
 
         {/* GUIDES — liens discrets */}
-        <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-white/[0.06] pt-6">
-          <span className="w-full font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-[#3A3A40]">Guides</span>
-          <Link href="/blog/guide-complet-echauffement-musculation" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Guide complet</Link>
-          <Link href="/blog/pourquoi-s-echauffer-musculation" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Pourquoi s&apos;échauffer</Link>
-          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Combien de temps</Link>
-          <Link href="/blog/echauffement-dynamique-ou-statique" className="font-mono text-[10px] text-[#5A5A60] transition-colors hover:text-[#A3FF12]">Dynamique ou statique</Link>
+        <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-6">
+          <span className="w-full font-display text-[14px] font-bold uppercase tracking-wide text-faint">Guides</span>
+          <Link href="/blog/guide-complet-echauffement-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Guide complet</Link>
+          <Link href="/blog/pourquoi-s-echauffer-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Pourquoi s&apos;échauffer</Link>
+          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Combien de temps</Link>
+          <Link href="/blog/echauffement-dynamique-ou-statique" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Dynamique ou statique</Link>
         </nav>
 
         {/* FOOTER */}
-        <footer className="flex flex-col gap-4 border-t border-white/[0.06] pt-8 text-[11px] text-[#5A5A60]">
+        <footer className="flex flex-col gap-4 border-t border-line pt-8 text-[11px] text-subtle">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="font-mono uppercase tracking-[0.18em]">
               Warmup Generator
@@ -317,23 +317,23 @@ export default function HomepageSEO() {
             </p>
           </div>
           <nav aria-label="Liens secondaires" className="flex flex-wrap gap-x-4 gap-y-2">
-            <Link href="/blog" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/blog" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
               Blog
             </Link>
-            <Link href="/a-propos" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/a-propos" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
               À propos
             </Link>
-            <Link href="/methodologie" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/methodologie" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
               Méthodologie
             </Link>
-            <Link href="/echauffement/exercice" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/echauffement/exercice" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
               Exercices
             </Link>
-            <Link href="/echauffement/protection" className="font-mono uppercase tracking-[0.12em] transition-colors hover:text-[#A3FF12]">
+            <Link href="/echauffement/protection" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
               Zones sensibles
             </Link>
           </nav>
-          <p className="text-[#5A5A60]/80">
+          <p className="text-subtle/80">
             Cet outil ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du
             sport. En cas de douleur persistante, consulte un professionnel de santé.
           </p>

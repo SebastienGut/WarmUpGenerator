@@ -9,7 +9,7 @@ interface Props {
 
 export default function DurationPicker({ value, onChange }: Props) {
   return (
-    <div className="flex bg-[var(--surface)] rounded-xl p-1 border border-[var(--border)] gap-1">
+    <div className="flex bg-card rounded-xl p-1 border border-line gap-1">
       {DURATION_OPTIONS.map((opt) => (
         <button
           key={opt.value}
@@ -17,8 +17,8 @@ export default function DurationPicker({ value, onChange }: Props) {
           onClick={() => onChange(opt.value)}
           className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150 select-none ${
             value === opt.value
-              ? "bg-[var(--accent)] text-black"
-              : "text-[var(--muted)] hover:text-[var(--fg)]"
+              ? "bg-[var(--accent)] text-on-accent"
+              : "text-muted hover:text-ink"
           }`}
         >
           {opt.label}

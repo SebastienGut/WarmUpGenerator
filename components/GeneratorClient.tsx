@@ -76,24 +76,24 @@ export default function GeneratorClient() {
 
   return (
     <>
-      <main className="relative flex min-h-screen flex-col bg-[#050505]">
+      <main className="relative flex min-h-screen flex-col bg-paper">
         <div className="content-layer mx-auto flex w-full max-w-[440px] flex-1 flex-col px-5 pt-7 pb-6">
 
           {/* HEADER */}
           <header className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#A3FF12]/10 ring-1 ring-[#A3FF12]/20">
-              <Zap className="h-4.5 w-4.5 fill-[#A3FF12] stroke-[#A3FF12]" strokeWidth={2.5} />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10 ring-1 ring-accent/20">
+              <Zap className="h-4.5 w-4.5 fill-accent stroke-accent" strokeWidth={2.5} />
             </div>
-            <h1 className="font-sans text-[17px] font-black uppercase tracking-tight text-white">
+            <h1 className="font-display text-[20px] font-extrabold uppercase tracking-tight text-ink">
               Générateur d&apos;échauffement musculation
             </h1>
           </header>
 
           {/* HERO TITLE */}
           <div className="mt-5">
-            <h2 className="font-sans text-[34px] font-black leading-[0.95] tracking-tight text-white">
+            <h2 className="font-display text-[39px] font-extrabold leading-[0.95] tracking-tight text-ink">
               Ton échauffement<br />
-              <span className="italic text-[#A3FF12]">sur mesure.</span>
+              <span className="italic text-accent-ink">sur mesure.</span>
             </h2>
           </div>
 
@@ -112,10 +112,10 @@ export default function GeneratorClient() {
                       onClick={() => toggleMuscle(key)}
                       aria-pressed={active}
                       aria-label={`${active ? "Retirer" : "Ajouter"} ${label} des zones cibles`}
-                      className={`relative overflow-hidden rounded-xl border h-[80px] w-full bg-[#111318] transition-all duration-150 active:scale-95 focus-visible:outline-none ${
+                      className={`relative overflow-hidden rounded-xl border h-[80px] w-full bg-card transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
-                          ? "border-[#A3FF12] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
-                          : "border-white/[0.06] hover:border-white/[0.12]"
+                          ? "border-accent"
+                          : "border-line hover:border-line-strong"
                       }`}
                     >
                       <Image
@@ -145,15 +145,15 @@ export default function GeneratorClient() {
                       aria-label={`Choisir l'objectif ${label}`}
                       className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border py-4 transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
-                          ? "border-[#A3FF12] bg-[#A3FF12]/[0.06] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
-                          : "border-white/[0.06] bg-[#0C0C0E]"
+                          ? "border-accent bg-accent/[0.06]"
+                          : "border-line bg-card"
                       }`}
                     >
                       <Icon
-                        className={`h-6 w-6 ${active ? "text-[#A3FF12]" : "text-[#5A5A60]"}`}
+                        className={`h-6 w-6 ${active ? "text-accent-ink" : "text-subtle"}`}
                         strokeWidth={active ? 2.4 : 1.8}
                       />
-                      <span className={`text-[10px] font-bold leading-tight ${active ? "text-[#A3FF12]" : "text-[#A1A1A6]"}`}>
+                      <span className={`text-[10px] font-bold leading-tight ${active ? "text-accent-ink" : "text-muted"}`}>
                         {label}
                       </span>
                     </button>
@@ -171,15 +171,15 @@ export default function GeneratorClient() {
                   onClick={() => setModalOpen(true)}
                   aria-haspopup="dialog"
                   aria-expanded={modalOpen}
-                  className="flex h-[44px] w-full min-w-0 items-center justify-between rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-3 text-left transition active:scale-[0.99] hover:border-white/[0.12]"
+                  className="flex h-[44px] w-full min-w-0 items-center justify-between rounded-xl border border-line bg-card px-3 text-left transition active:scale-[0.99] hover:border-line-strong"
                 >
                   <div className="flex items-center gap-2 min-w-0">
-                    <Plus className="h-4 w-4 shrink-0 text-[#A3FF12]" strokeWidth={2.4} />
-                    <span className="truncate text-[12px] font-semibold text-white">
+                    <Plus className="h-4 w-4 shrink-0 text-accent-ink" strokeWidth={2.4} />
+                    <span className="truncate text-[12px] font-semibold text-ink">
                       {zones.length ? zoneSummary : "J'ai une douleur / gêne"}
                     </span>
                   </div>
-                  <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#5A5A60]" strokeWidth={2} />
+                  <ChevronRight className="h-3.5 w-3.5 shrink-0 text-subtle" strokeWidth={2} />
                 </button>
               </Section>
 
@@ -197,8 +197,8 @@ export default function GeneratorClient() {
                         aria-label={`Choisir une durée de ${label}`}
                         className={`flex h-[44px] w-[52px] items-center justify-center rounded-xl border font-mono text-[12px] font-black transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                           active
-                            ? "border-[#A3FF12] bg-[#A3FF12]/[0.06] text-[#A3FF12] shadow-[0_0_0_1px_rgba(163,255,18,0.2)]"
-                            : "border-white/[0.06] bg-[#0C0C0E] text-[#5A5A60]"
+                            ? "border-accent bg-accent/[0.06] text-accent-ink"
+                            : "border-line bg-card text-subtle"
                         }`}
                       >
                         {label}
@@ -218,27 +218,27 @@ export default function GeneratorClient() {
               disabled={!ready || generating}
               className={`group relative flex w-full items-center justify-between overflow-hidden rounded-2xl px-6 py-5 text-left transition-all active:scale-[0.98] focus-visible:outline-none ${
                 ready
-                  ? "bg-[#A3FF12] text-black energy-ring"
-                  : "bg-[#111316] border border-[#A3FF12]/40 text-white"
+                  ? "bg-accent text-on-accent energy-ring"
+                  : "bg-card border border-accent/40 text-ink"
               }`}
             >
               <div>
-                <div className="font-sans text-[19px] font-black uppercase leading-none tracking-tight">
+                <div className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight">
                   Générer le plan
                 </div>
               </div>
-              <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${ready ? "bg-black/15" : "bg-[#A3FF12]/10"}`}>
-                <Zap className={`h-5 w-5 ${ready ? "fill-black stroke-black" : "stroke-[#A3FF12] fill-[#A3FF12]"}`} strokeWidth={2.4} />
+              <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${ready ? "bg-black/15" : "bg-accent/10"}`}>
+                <Zap className={`h-5 w-5 ${ready ? "fill-black stroke-black" : "stroke-accent fill-accent"}`} strokeWidth={2.4} />
               </div>
             </button>
-            <div className="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-[#5A5A60]">
+            <div className="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-subtle">
               {ready ? (
                 <>
                   <Shield className="h-3 w-3 shrink-0" strokeWidth={2} />
                   <span>Gratuit · Sans inscription · Par un sportif pour les sportifs</span>
                 </>
               ) : (
-                <span className="text-[#A3FF12]/70">Sélectionne au moins une zone cible</span>
+                <span className="text-accent/70">Sélectionne au moins une zone cible</span>
               )}
             </div>
           </div>
@@ -265,13 +265,13 @@ export default function GeneratorClient() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 40, opacity: 0 }}
               transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              className="w-full max-w-[440px] rounded-3xl border border-white/[0.08] bg-[#0C0C0E] p-5"
+              className="w-full max-w-[440px] rounded-3xl border border-line bg-card p-5"
               onClick={(e) => e.stopPropagation()}
             >
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#5A5A60]">
+              <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
                 03 · Zones sensibles
               </p>
-              <h3 className="mt-1 font-sans text-[20px] font-black uppercase leading-tight text-white">
+              <h3 className="mt-1 font-display text-[23px] font-extrabold uppercase leading-tight text-ink">
                 Sélectionne tes zones
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-2">
@@ -286,8 +286,8 @@ export default function GeneratorClient() {
                       aria-label={`${active ? "Retirer" : "Ajouter"} ${ZONE_LABELS[zone]} des zones sensibles`}
                       className={`rounded-xl border px-3 py-2.5 text-left text-[13px] font-bold transition-all duration-150 active:scale-95 focus-visible:outline-none ${
                         active
-                          ? "border-[#A3FF12] bg-[#A3FF12]/[0.06] text-[#A3FF12]"
-                          : "border-white/[0.06] bg-white/[0.02] text-white"
+                          ? "border-accent bg-accent/[0.06] text-accent-ink"
+                          : "border-line bg-ink/[0.03] text-ink"
                       }`}
                     >
                       {ZONE_LABELS[zone]}
@@ -300,7 +300,7 @@ export default function GeneratorClient() {
                   <button
                     type="button"
                     onClick={() => setZones([])}
-                    className="flex-1 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 text-[13px] font-bold text-[#A1A1A6] active:scale-[0.98]"
+                    className="flex-1 rounded-xl border border-line bg-ink/[0.03] px-4 py-3 text-[13px] font-bold text-muted active:scale-[0.98]"
                   >
                     Effacer
                   </button>
@@ -308,7 +308,7 @@ export default function GeneratorClient() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="flex-1 rounded-xl bg-[#A3FF12] px-4 py-3 text-[13px] font-black uppercase tracking-wider text-black active:scale-[0.98]"
+                  className="flex-1 rounded-xl bg-accent px-4 py-3 text-[13px] font-black uppercase tracking-wider text-on-accent active:scale-[0.98]"
                 >
                   Valider
                 </button>
@@ -340,14 +340,14 @@ function Section({
     <section className={`flex min-w-0 flex-col gap-2 ${align === "end" ? "items-end" : "items-stretch"}`}>
       <div className="flex items-baseline justify-between gap-2">
         <div className="flex items-baseline gap-1.5">
-          <span className="font-mono text-[11px] font-bold tracking-widest text-[#5A5A60]">{number}</span>
-          <span className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white">{label}</span>
+          <span className="font-mono text-[11px] font-bold tracking-widest text-subtle">{number}</span>
+          <span className="font-display text-[14px] font-bold uppercase tracking-wide text-ink">{label}</span>
           {optional && (
-            <span className="font-mono text-[9px] uppercase tracking-widest text-[#5A5A60]">opt.</span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-subtle">opt.</span>
           )}
         </div>
         {hint && (
-          <span className="font-mono text-[9.5px] font-semibold uppercase tracking-widest text-[#A3FF12]">
+          <span className="font-mono text-[9.5px] font-semibold uppercase tracking-widest text-accent-ink">
             {hint}
           </span>
         )}
@@ -364,7 +364,7 @@ function GeneratingOverlay() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050505]"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-paper"
     >
       <div className="flex flex-col items-center gap-8 px-6">
         {/* Pulse rings */}
@@ -372,18 +372,18 @@ function GeneratingOverlay() {
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="absolute inset-0 rounded-full border border-[#A3FF12]"
+              className="absolute inset-0 rounded-full border border-accent"
               initial={{ scale: 0.5, opacity: 0.6 }}
               animate={{ scale: 1.6, opacity: 0 }}
               transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.4, ease: "easeOut" }}
             />
           ))}
-          <Zap className="relative h-9 w-9 fill-[#A3FF12] stroke-[#A3FF12]" strokeWidth={2.5} />
+          <Zap className="relative h-9 w-9 fill-accent stroke-accent" strokeWidth={2.5} />
         </div>
 
         {/* Phases timeline reveal */}
         <div className="flex flex-col items-center gap-3">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-[#5A5A60]">
+          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
             Composition en cours
           </p>
           <div className="flex flex-col items-center gap-1.5">
@@ -399,9 +399,9 @@ function GeneratingOverlay() {
                   initial={{ width: 0 }}
                   animate={{ width: 20 }}
                   transition={{ delay: 0.3 + i * 0.45, duration: 0.3 }}
-                  className="h-px bg-[#A3FF12]"
+                  className="h-px bg-accent"
                 />
-                <span className="font-sans text-[16px] font-black uppercase tracking-wide text-white">
+                <span className="font-display text-[18px] font-extrabold uppercase tracking-wide text-ink">
                   {phase}
                 </span>
               </motion.div>

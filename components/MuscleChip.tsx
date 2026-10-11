@@ -16,8 +16,8 @@ export default function MuscleChip({ muscle, selected, onToggle }: Props) {
       onClick={() => onToggle(muscle)}
       className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-150 select-none ${
         selected
-          ? "bg-[var(--accent)] border-[var(--accent)] text-black font-semibold"
-          : "bg-transparent border-[var(--border)] text-[var(--muted)] hover:border-[var(--border-hover)] hover:text-[var(--fg)]"
+          ? "bg-[var(--accent)] border-[var(--accent)] text-on-accent font-semibold"
+          : "bg-transparent border-line text-muted hover:border-line-strong hover:text-ink"
       }`}
     >
       {MUSCLE_LABELS[muscle]}

@@ -47,7 +47,7 @@ export default function ObjectiveCard({ objective, selected, onSelect }: Props) 
       className={`flex flex-col items-center justify-center gap-2 py-4 rounded-2xl border transition-all duration-150 select-none ${
         selected
           ? "bg-green-500/10 border-green-500/70 text-green-400"
-          : "bg-[var(--surface)] border-[var(--border)] text-[var(--muted)] hover:border-[var(--border-hover)] hover:text-[var(--fg)]"
+          : "bg-card border-line text-muted hover:border-line-strong hover:text-ink"
       }`}
     >
       <div className="w-6 h-6">{ICONS[objective]}</div>

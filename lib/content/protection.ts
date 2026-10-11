@@ -25,7 +25,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     h1: "Échauffement épaule pour douleur ou gêne",
     subtitle: "Protocole musculation · Coiffe des rotateurs · Mobilité scapulaire",
     keyAnswer:
-      "Échauffer une épaule sensible avant la musculation demande 5 à 6 minutes et trois cibles : la <strong class='text-white'>mobilité thoracique</strong>, car une cage rigide reporte le stress sur l'épaule ; le <strong class='text-white'>contrôle de l'omoplate</strong>, qui stabilise la base du mouvement ; et l'activation de la <strong class='text-white'>coiffe des rotateurs</strong>, qui centre la tête humérale sous charge. Aucun matériel nécessaire, un élastique léger est un plus.",
+      "Échauffer une épaule sensible avant la musculation demande 5 à 6 minutes et trois cibles : la <strong class='text-ink'>mobilité thoracique</strong>, car une cage rigide reporte le stress sur l'épaule ; le <strong class='text-ink'>contrôle de l'omoplate</strong>, qui stabilise la base du mouvement ; et l'activation de la <strong class='text-ink'>coiffe des rotateurs</strong>, qui centre la tête humérale sous charge. Aucun matériel nécessaire, un élastique léger est un plus.",
     intro: [
       "L'épaule est l'articulation la plus mobile du corps, et cette mobilité se paie en stabilité : elle tient par ses muscles bien plus que par sa forme osseuse. Quand elle devient capricieuse, deux minutes de moulinets de bras ne changent rien — ce n'est pas de chaleur qu'elle manque, c'est de stabilisateurs réveillés.",
       "Cet échauffement ne traite pas la cause d'une douleur installée. Si tu ressens une douleur aiguë, persistante ou qui s'aggrave, consulte un kinésithérapeute. En revanche, pour les gênes diffuses, les épaules \"capricieuses\" ou les sensations d'accrochage, ce protocole en 6 mouvements réduit le risque de blessure et améliore le confort articulaire dès la première série.",
@@ -78,9 +78,9 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     advice: {
       title: "Erreurs fréquentes à éviter",
       paragraphs: [
-        "<strong class='text-white'>Sauter directement aux séries de chauffe sur l'exercice principal</strong> est la première cause d'aggravation des douleurs d'épaule. La coiffe des rotateurs a besoin d'un signal d'activation spécifique avant de stabiliser des charges lourdes en développé couché ou militaire.",
-        "<strong class='text-white'>Forcer l'amplitude</strong> en pensant \"si je tire plus fort, j'irai mieux\" est une autre erreur. La règle est simple : zéro douleur pendant l'échauffement. Une légère tension est normale, une douleur — même modérée — signale qu'il faut réduire l'amplitude ou arrêter.",
-        "<strong class='text-white'>Négliger la mobilité thoracique</strong> est un classique. Une cage thoracique rigide reporte tout le stress sur l'épaule. Les deux exercices de rotation thoracique du protocole sont non négociables.",
+        "<strong class='text-ink'>Sauter directement aux séries de chauffe sur l'exercice principal</strong> est la première cause d'aggravation des douleurs d'épaule. La coiffe des rotateurs a besoin d'un signal d'activation spécifique avant de stabiliser des charges lourdes en développé couché ou militaire.",
+        "<strong class='text-ink'>Forcer l'amplitude</strong> en pensant \"si je tire plus fort, j'irai mieux\" est une autre erreur. La règle est simple : zéro douleur pendant l'échauffement. Une légère tension est normale, une douleur — même modérée — signale qu'il faut réduire l'amplitude ou arrêter.",
+        "<strong class='text-ink'>Négliger la mobilité thoracique</strong> est un classique. Une cage thoracique rigide reporte tout le stress sur l'épaule. Les deux exercices de rotation thoracique du protocole sont non négociables.",
       ],
     },
     faqs: [
@@ -112,7 +112,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     h1: "Échauffement genou pour la musculation",
     subtitle: "Protocole bas du corps · Hanche · Cheville · VMO",
     keyAnswer:
-      "Un échauffement du genou efficace ne cible pas le genou : il cible la <strong class='text-white'>cheville</strong> et la <strong class='text-white'>hanche</strong>, dont les limitations reportent la contrainte sur l'articulation intermédiaire. Le protocole demande 5 minutes avant toute séance de jambes et travaille la dorsiflexion de cheville, la rotation de hanche, l'activation fessière et le vaste médial, stabilisateur du suivi rotulien.",
+      "Un échauffement du genou efficace ne cible pas le genou : il cible la <strong class='text-ink'>cheville</strong> et la <strong class='text-ink'>hanche</strong>, dont les limitations reportent la contrainte sur l'articulation intermédiaire. Le protocole demande 5 minutes avant toute séance de jambes et travaille la dorsiflexion de cheville, la rotation de hanche, l'activation fessière et le vaste médial, stabilisateur du suivi rotulien.",
     intro: [
       "Le réflexe habituel face à un genou qui gêne, c'est de le ménager : moins d'amplitude, une genouillère, on évite les fentes. Ça soulage sur le moment et ça ne règle rien, parce que le genou n'est presque jamais l'endroit où le problème est né — c'est seulement l'endroit où il se fait sentir.",
       "À pratiquer avant chaque séance jambes — squat, presse, fentes, soulevé de terre roumain. Compte 5 minutes. L'objectif : que tu arrives sur ta première série de chauffe avec la mobilité, l'activation et la stabilité nécessaires pour exécuter le mouvement proprement, sans compensation pathogène.",
@@ -165,8 +165,8 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     advice: {
       title: "Le piège \"genou en avant des orteils\"",
       paragraphs: [
-        "Pendant des décennies, on a entendu \"interdit, le genou ne doit pas dépasser les orteils\". <strong class='text-white'>C'est faux pour la plupart des squats.</strong> Empêcher le genou d'avancer reporte tout le stress sur le bas du dos et limite l'activation du quadriceps. Ce qui compte : que le genou suive l'axe du pied (pas de valgus dynamique), pas qu'il reste derrière les orteils.",
-        "<strong class='text-white'>Le valgus dynamique</strong> (genou qui rentre vers l'intérieur en sortie de squat) est la vraie cause de blessure. Il vient quasi-toujours d'une faiblesse du moyen fessier ou d'une cheville rigide. C'est pour ça que ce protocole insiste sur la hanche et la cheville plutôt que sur le genou lui-même.",
+        "Pendant des décennies, on a entendu \"interdit, le genou ne doit pas dépasser les orteils\". <strong class='text-ink'>C'est faux pour la plupart des squats.</strong> Empêcher le genou d'avancer reporte tout le stress sur le bas du dos et limite l'activation du quadriceps. Ce qui compte : que le genou suive l'axe du pied (pas de valgus dynamique), pas qu'il reste derrière les orteils.",
+        "<strong class='text-ink'>Le valgus dynamique</strong> (genou qui rentre vers l'intérieur en sortie de squat) est la vraie cause de blessure. Il vient quasi-toujours d'une faiblesse du moyen fessier ou d'une cheville rigide. C'est pour ça que ce protocole insiste sur la hanche et la cheville plutôt que sur le genou lui-même.",
         "Si tu as déjà une douleur fémoro-patellaire (en avant du genou), réduis temporairement l'amplitude du squat à un parallèle ou au-dessus, et travaille le VMO via les step-ups et les terminal knee extensions. La douleur disparaît souvent en 4 à 6 semaines avec ce protocole.",
       ],
     },
@@ -199,11 +199,11 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     h1: "Échauffement bas du dos / lombaires",
     subtitle: "Protocole musculation · Mobilisation rachis · Activation fessière",
     keyAnswer:
-      "Le bas du dos est la zone la plus blessée en musculation, et la cause est rarement un dos faible. C'est un <strong class='text-white'>manque de mobilité de hanche</strong> qui force les lombaires à compenser, ou un <strong class='text-white'>gainage inactif</strong> qui laisse la colonne fléchir sous charge. Le protocole traite les deux en 5 à 6 minutes : mobilisation du rachis, gainage anti-extension, activation fessière.",
+      "Le bas du dos est la zone la plus blessée en musculation, et la cause est rarement un dos faible. C'est un <strong class='text-ink'>manque de mobilité de hanche</strong> qui force les lombaires à compenser, ou un <strong class='text-ink'>gainage inactif</strong> qui laisse la colonne fléchir sous charge. Le protocole traite les deux en 5 à 6 minutes : mobilisation du rachis, gainage anti-extension, activation fessière.",
     intro: [
       "« J'ai le dos fragile » est probablement la phrase la plus répandue et la plus fausse de la salle de musculation. Un dos qui se plaint n'est pas un dos faible : c'est un dos à qui on demande de faire le travail d'une hanche qui ne bouge pas, ou d'un tronc qui ne se verrouille pas. Renforcer les lombaires sans traiter ça revient à muscler le compensateur.",
       "À pratiquer avant chaque séance impliquant un soulevé de terre, un squat lourd, des rowings ou tout exercice debout chargé. Compte 5 à 6 minutes. Tu peux aussi l'utiliser comme routine de matin si ton dos est raide au réveil — c'est souvent plus efficace que des étirements statiques.",
-      "Si tu as une <strong class='text-white'>douleur sciatique</strong> (irradiation jusqu'à la jambe), une <strong class='text-white'>douleur aiguë qui te bloque</strong>, ou un trauma récent, ce n'est pas un sujet d'échauffement — consulte un médecin du sport ou un kinésithérapeute. Pour les raideurs, les gênes diffuses ou les lombaires \"qui chauffent\" sur le SDT, le protocole change la donne.",
+      "Si tu as une <strong class='text-ink'>douleur sciatique</strong> (irradiation jusqu'à la jambe), une <strong class='text-ink'>douleur aiguë qui te bloque</strong>, ou un trauma récent, ce n'est pas un sujet d'échauffement — consulte un médecin du sport ou un kinésithérapeute. Pour les raideurs, les gênes diffuses ou les lombaires \"qui chauffent\" sur le SDT, le protocole change la donne.",
     ],
     exercises: [
       {
@@ -252,9 +252,9 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     advice: {
       title: "Mobilité de hanche : la clé du dos sain",
       paragraphs: [
-        "Si tu fais des heures de bureau par jour, tes <strong class='text-white'>fléchisseurs de hanche</strong> (ilio-psoas) sont raccourcis. Quand tu te mets en position de squat ou de soulevé, ils tirent sur les lombaires et créent une hyperlordose compensatoire. Résultat : tu \"sors les fesses\" exagérément et chauffes le bas du dos sur chaque rep.",
-        "Le <strong class='text-white'>cat-cow et la rotation thoracique</strong> dans ce protocole adressent en partie ce problème. Si tu veux aller plus loin, ajoute 2 minutes d'étirement du psoas en fente debout après ta séance — pas avant. Les étirements statiques avant une séance lourde réduisent ta force et la stabilité.",
-        "Le second levier critique : le <strong class='text-white'>gainage anti-extension</strong>. Les exercices de type dead bug, planche, gainage latéral apprennent à ton tronc à <em>résister</em> à l'extension lombaire sous charge. C'est ce qui te permet de tenir un squat lourd sans que ton bassin bascule en avant à chaque répétition.",
+        "Si tu fais des heures de bureau par jour, tes <strong class='text-ink'>fléchisseurs de hanche</strong> (ilio-psoas) sont raccourcis. Quand tu te mets en position de squat ou de soulevé, ils tirent sur les lombaires et créent une hyperlordose compensatoire. Résultat : tu \"sors les fesses\" exagérément et chauffes le bas du dos sur chaque rep.",
+        "Le <strong class='text-ink'>cat-cow et la rotation thoracique</strong> dans ce protocole adressent en partie ce problème. Si tu veux aller plus loin, ajoute 2 minutes d'étirement du psoas en fente debout après ta séance — pas avant. Les étirements statiques avant une séance lourde réduisent ta force et la stabilité.",
+        "Le second levier critique : le <strong class='text-ink'>gainage anti-extension</strong>. Les exercices de type dead bug, planche, gainage latéral apprennent à ton tronc à <em>résister</em> à l'extension lombaire sous charge. C'est ce qui te permet de tenir un squat lourd sans que ton bassin bascule en avant à chaque répétition.",
       ],
     },
     faqs: [
@@ -286,11 +286,11 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     h1: "Échauffement poignets pour la musculation",
     subtitle: "Protocole · Mobilité · Renforcement extrinsèque · Préhension",
     keyAnswer:
-      "Le poignet est sollicité dès qu'il y a charge sur les bras : développé couché, dips, tractions, pompes, calisthénie. La douleur vient le plus souvent d'un <strong class='text-white'>manque de mobilité</strong> qui impose des angles défavorables sous charge, d'avant-bras insuffisamment renforcés, ou d'une mauvaise prise de barre. Le protocole prend 4 minutes : mobilisation, étirements actifs, activation des stabilisateurs.",
+      "Le poignet est sollicité dès qu'il y a charge sur les bras : développé couché, dips, tractions, pompes, calisthénie. La douleur vient le plus souvent d'un <strong class='text-ink'>manque de mobilité</strong> qui impose des angles défavorables sous charge, d'avant-bras insuffisamment renforcés, ou d'une mauvaise prise de barre. Le protocole prend 4 minutes : mobilisation, étirements actifs, activation des stabilisateurs.",
     intro: [
       "Le poignet est l'articulation qu'on n'échauffe jamais. On mobilise les épaules, on fait quelques squats à vide, et on va poser 80 kg sur deux articulations grandes comme une montre — qui viennent en plus de passer huit heures immobiles sur un clavier. Vu comme ça, l'étonnant n'est pas que ça finisse par faire mal, c'est que ça tienne aussi longtemps.",
       "Ce protocole prépare le poignet en 4 minutes via mobilisation, étirements actifs et activation des muscles stabilisateurs de l'avant-bras. À pratiquer avant chaque séance haut du corps. Particulièrement utile pour les pratiquants de calisthénie, ceux qui font beaucoup de pompes, ou qui développent des charges lourdes au DC.",
-      "Si tu as une <strong class='text-white'>douleur aiguë</strong>, un gonflement, ou un déficit de force soudain, consulte. Une fracture du scaphoïde mal diagnostiquée laisse des séquelles. Pour les gênes diffuses, les sensations de pincement ou les poignets qui chauffent en bas de pompe, le protocole résout l'essentiel.",
+      "Si tu as une <strong class='text-ink'>douleur aiguë</strong>, un gonflement, ou un déficit de force soudain, consulte. Une fracture du scaphoïde mal diagnostiquée laisse des séquelles. Pour les gênes diffuses, les sensations de pincement ou les poignets qui chauffent en bas de pompe, le protocole résout l'essentiel.",
     ],
     exercises: [
       {
@@ -339,9 +339,9 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     advice: {
       title: "Prise de barre : 90 % des problèmes viennent de là",
       paragraphs: [
-        "Sur le développé couché, beaucoup de pratiquants ont une <strong class='text-white'>prise \"poignets cassés\"</strong> où la barre s'enfonce dans la paume vers les doigts. Sous charge, le poignet est en hyperextension extrême, ce qui crée une douleur en quelques semaines. La bonne prise : barre dans la <strong class='text-white'>base de la paume</strong>, alignée avec l'avant-bras. Poignet droit ou très légèrement en extension.",
-        "Sur les pompes et les dips, la <strong class='text-white'>douleur en bas du mouvement</strong> vient souvent d'un manque de mobilité en extension de poignet. Le protocole ci-dessus la corrige en 2-3 semaines. En attendant, pose les pompes sur des poignées de pompes (parallètes) — la prise neutre soulage instantanément.",
-        "Pour les pratiquants de musculation lourde au-delà de 100 kg au DC, des <strong class='text-white'>bandes de poignet (wrist wraps)</strong> ne sont pas un signe de faiblesse — elles protègent la structure passive sur les charges proches du max. Les utiliser au-dessous de 70 % du 1RM est par contre contre-productif : tu n'entraînes plus tes stabilisateurs.",
+        "Sur le développé couché, beaucoup de pratiquants ont une <strong class='text-ink'>prise \"poignets cassés\"</strong> où la barre s'enfonce dans la paume vers les doigts. Sous charge, le poignet est en hyperextension extrême, ce qui crée une douleur en quelques semaines. La bonne prise : barre dans la <strong class='text-ink'>base de la paume</strong>, alignée avec l'avant-bras. Poignet droit ou très légèrement en extension.",
+        "Sur les pompes et les dips, la <strong class='text-ink'>douleur en bas du mouvement</strong> vient souvent d'un manque de mobilité en extension de poignet. Le protocole ci-dessus la corrige en 2-3 semaines. En attendant, pose les pompes sur des poignées de pompes (parallètes) — la prise neutre soulage instantanément.",
+        "Pour les pratiquants de musculation lourde au-delà de 100 kg au DC, des <strong class='text-ink'>bandes de poignet (wrist wraps)</strong> ne sont pas un signe de faiblesse — elles protègent la structure passive sur les charges proches du max. Les utiliser au-dessous de 70 % du 1RM est par contre contre-productif : tu n'entraînes plus tes stabilisateurs.",
       ],
     },
     faqs: [

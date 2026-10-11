@@ -1,7 +1,6 @@
 import { createOgCard, OG_CONTENT_TYPE, OG_SIZE } from "@/lib/og-card";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS, type MuscleGroup, type Objective } from "@/lib/warmup-data";
 
-export const runtime = "edge";
 export const alt = "Échauffement musculation — Warmup Generator";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;

@@ -4,45 +4,102 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GuidedMode from "@/components/GuidedMode";
-import { buildSessionPlan, parseSession, serializeSession, type PlanStep, type SessionPlan } from "@/lib/session-engine";
+import Plates from "@/components/Plates";
+import { sessionLabel } from "@/lib/lifts";
+import {
+  buildSessionPlan,
+  parseSession,
+  serializeSession,
+  type PlanPhase,
+  type PlanStep,
+  type RampStep,
+  type SessionPlan,
+} from "@/lib/session-engine";
 
-function StepCard({ step }: { step: PlanStep }) {
-  if (step.kind === "ramp") {
-    return (
-      <li className="rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3.5">
-        <div className="mb-2 flex items-baseline justify-between gap-3">
-          <h3 className="text-[15px] font-bold text-white">{step.lift.name}</h3>
-          <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-[#5A5A60]">
-            {step.full ? "Montée complète" : "Rappel"}
-          </span>
-        </div>
-        <ol className="flex flex-col gap-1.5">
+function phaseSeconds(phase: PlanPhase) {
+  return phase.steps.reduce((s, st) => {
+    if (st.kind !== "ramp") return s + st.seconds;
+    return st.full ? s + st.lines.reduce((a, l) => a + 30 + l.restSeconds, 0) : s;
+  }, 0);
+}
+
+function fmtDuration(s: number) {
+  const m = Math.round(s / 60);
+  return m >= 1 ? `${m} min` : `${s} s`;
+}
+
+/** Répartition du temps : on voit d'un coup d'œil où va l'échauffement. */
+function Timeline({ phases }: { phases: PlanPhase[] }) {
+  const secs = phases.map(phaseSeconds);
+  const total = secs.reduce((a, b) => a + b, 0) || 1;
+  return (
+    <div className="mt-6">
+      <div className="flex h-2 gap-[3px] overflow-hidden rounded-full">
+        {phases.map((p, i) => (
+          <span
+            key={p.key}
+            className={i === phases.length - 1 ? "bg-accent" : "bg-ink"}
+            style={{ width: `${(secs[i] / total) * 100}%`, opacity: i === phases.length - 1 ? 1 : 0.25 + (0.55 * i) / phases.length }}
+          />
+        ))}
+      </div>
+      <ol className="mt-2.5 flex justify-between gap-2">
+        {phases.map((p, i) => (
+          <li key={p.key} className="flex min-w-0 flex-col">
+            <span className="truncate font-display text-[13px] font-bold uppercase tracking-wide text-ink">{p.title}</span>
+            <span className="tabular text-[11px] text-subtle">{fmtDuration(secs[i])}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function RampTable({ step }: { step: RampStep }) {
+  return (
+    <li className="py-4">
+      <div className="mb-2.5 flex items-baseline justify-between gap-3">
+        <h3 className="font-display text-[20px] font-bold uppercase leading-none tracking-wide text-ink">{step.lift.name}</h3>
+        <span className="text-[11px] font-medium text-subtle">{step.full ? "Montée complète" : "Rappel avant l'exercice"}</span>
+      </div>
+      <table className="w-full text-left">
+        <tbody>
           {step.lines.map((l, i) => (
-            <li key={i} className="flex items-baseline justify-between gap-3 text-[14px]">
-              <span className="text-white">
-                <span className="font-bold">{l.load}</span> × {l.reps}
-                {l.plates && <span className="ml-2 text-[12px] text-[#5A5A60]">{l.plates} / côté</span>}
-              </span>
-              {step.full && <span className="shrink-0 font-mono text-[11px] text-[#5A5A60]">repos {l.restSeconds}s</span>}
-            </li>
+            <tr key={i} className="border-t border-line first:border-t-0">
+              <td className="w-7 py-2 align-middle font-display text-[15px] font-bold text-subtle tabular">{i + 1}</td>
+              <td className="py-2 align-middle">
+                <span className="font-display text-[22px] font-bold leading-none text-ink tabular">{l.load}</span>
+                <span className="ml-1.5 font-display text-[18px] font-semibold text-muted">× {l.reps}</span>
+              </td>
+              <td className="py-2 text-right align-middle">
+                {l.plates ? <Plates plates={l.plates} size={22} /> : null}
+              </td>
+              {step.full && (
+                <td className="w-14 py-2 text-right align-middle text-[11px] text-subtle tabular">{l.restSeconds} s</td>
+              )}
+            </tr>
           ))}
-        </ol>
-        {step.note && <p className="mt-2 text-[12px] text-[#5A5A60]">{step.note}</p>}
-      </li>
-    );
-  }
+        </tbody>
+      </table>
+      {step.note && <p className="mt-2 text-[12px] leading-relaxed text-subtle">{step.note}</p>}
+    </li>
+  );
+}
+
+function StepRow({ step }: { step: PlanStep }) {
+  if (step.kind === "ramp") return <RampTable step={step} />;
   const name = step.kind === "prep" ? step.exercise.name : step.name;
   return (
-    <li className="rounded-xl border border-white/[0.06] bg-[#0C0C0E] px-4 py-3.5">
-      <div className="flex items-baseline justify-between gap-3">
-        <h3 className="text-[15px] font-bold text-white">{name}</h3>
-        <span className="shrink-0 font-mono text-[12px] font-bold text-[#A3FF12]">{step.reps}</span>
+    <li className="py-4">
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="text-[16px] font-semibold leading-snug text-ink">{name}</h3>
+        <span className="shrink-0 font-display text-[17px] font-bold text-accent-ink tabular">{step.reps}</span>
       </div>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-[#A1A1A6]">{step.instructions}</p>
+      <p className="mt-1.5 text-[14px] leading-relaxed text-muted">{step.instructions}</p>
       {step.kind === "prep" && (
-        <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium text-[#5A5A60]">
+        <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[12px] text-subtle">
           <span>{step.reason}</span>
-          {step.substituted && <span className="text-[#A1A1A6]">Version sans élastique</span>}
+          {step.substituted && <span className="font-medium text-muted">· version sans élastique</span>}
         </p>
       )}
     </li>
@@ -70,64 +127,72 @@ function PlanContent({ plan, query }: { plan: SessionPlan; query: string }) {
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-[560px] bg-[#050505] px-4 pb-36 pt-6 sm:px-6">
-      <div className="mb-6 flex items-center justify-between">
-        <Link href={`/?${query}`} className="text-[13px] font-bold text-[#A1A1A6] hover:text-white">
+    <main className="mx-auto min-h-screen w-full max-w-[560px] px-5 pb-36 pt-5">
+      <nav className="mb-8 flex items-center justify-between text-[14px] font-medium">
+        <Link href={`/?${query}`} className="text-muted hover:text-ink">
           ← Modifier
         </Link>
-        <button type="button" onClick={share} className="text-[13px] font-bold text-[#A1A1A6] hover:text-white">
+        <button type="button" onClick={share} className="text-muted hover:text-ink">
           {copied ? "Lien copié" : "Partager"}
         </button>
-      </div>
+      </nav>
 
-      <p className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
-        Échauffement · ≈ {plan.minutes} min
-      </p>
-      <h1 className="mt-2 font-sans text-[28px] font-black leading-[1.05] tracking-tight text-white">{title}</h1>
+      <header className="border-b-2 border-ink pb-6">
+        <p className="text-[13px] font-medium text-subtle">Échauffement · environ {plan.minutes} minutes</p>
+        <h1 className="mt-2 font-display text-[44px] font-extrabold uppercase leading-[0.9] tracking-tight text-ink">
+          {sessionLabel(plan.lifts.map((l) => l.id))}
+        </h1>
+        {plan.lifts.length > 1 && <p className="mt-2 text-[15px] leading-snug text-muted">{title}</p>}
+        <Timeline phases={plan.phases} />
+      </header>
 
       {plan.warnings.map((w) => (
-        <div key={w.zone} className="mt-5 rounded-xl border border-[#FF8A3D]/30 bg-[#FF8A3D]/[0.06] px-4 py-3">
-          <p className="text-[13px] leading-relaxed text-[#FFD2B0]">{w.text}</p>
-          <Link href={w.href} className="mt-1.5 inline-block text-[12px] font-bold text-[#FFB27A] underline underline-offset-4">
-            Comprendre cette douleur →
+        <aside key={w.zone} className="mt-6 border-l-[3px] border-warn bg-warn-bg px-4 py-3.5">
+          <p className="text-[14px] leading-relaxed text-warn-ink">{w.text}</p>
+          <Link href={w.href} className="mt-1.5 inline-block text-[13px] font-semibold text-warn underline underline-offset-4">
+            Comprendre cette douleur
           </Link>
-        </div>
+        </aside>
       ))}
 
-      <div className="mt-8 flex flex-col gap-9">
+      <div className="mt-4">
         {plan.phases.map((phase, i) => (
-          <section key={phase.key}>
-            <div className="mb-3 flex items-baseline gap-3">
-              <span className="font-mono text-[13px] font-black text-[#A3FF12]">{i + 1}</span>
-              <h2 className="font-sans text-[19px] font-black uppercase tracking-tight text-white">{phase.title}</h2>
+          <section key={phase.key} className="border-b border-line-strong pt-8 pb-2">
+            <div className="flex items-baseline gap-3">
+              <span className="font-display text-[30px] font-extrabold leading-none text-accent tabular">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h2 className="font-display text-[26px] font-extrabold uppercase leading-none tracking-tight text-ink">
+                {phase.title}
+              </h2>
             </div>
-            <p className="mb-3 text-[13px] leading-relaxed text-[#5A5A60]">{phase.why}</p>
-            <ol className="flex flex-col gap-2">
+            <p className="mt-2 text-[14px] leading-relaxed text-subtle">{phase.why}</p>
+            <ol className="mt-1 divide-y divide-line">
               {phase.steps.map((s, j) => (
-                <StepCard key={j} step={s} />
+                <StepRow key={j} step={s} />
               ))}
             </ol>
           </section>
         ))}
       </div>
 
-      <p className="mt-10 text-[11px] leading-relaxed text-[#5A5A60]">
-        Plan informatif, construit à partir des exigences de tes exercices. Il ne remplace pas l&apos;avis d&apos;un
-        kinésithérapeute en cas de douleur installée.{" "}
-        <Link href="/methodologie" className="underline underline-offset-2">
-          Méthode
+      <p className="mt-8 text-[12px] leading-relaxed text-subtle">
+        Plan construit à partir des exigences de tes exercices. Il ne remplace pas l&apos;avis d&apos;un kinésithérapeute
+        en cas de douleur installée.{" "}
+        <Link href="/methodologie" className="underline underline-offset-2 hover:text-ink">
+          Voir la méthode
         </Link>
       </p>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/[0.06] bg-[#050505]/95 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-5 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md">
         <div className="mx-auto max-w-[560px]">
           <button
             type="button"
             onClick={() => setGuided(true)}
-            className="flex w-full items-center justify-between rounded-2xl bg-[#A3FF12] px-6 py-4 text-black transition-transform active:scale-[0.98]"
+            className="flex w-full items-center justify-between rounded-xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
           >
-            <span className="font-sans text-[17px] font-black tracking-tight">Démarrer, étape par étape</span>
-            <svg width="14" height="16" viewBox="0 0 14 16" fill="#000" aria-hidden="true">
+            <span className="font-display text-[22px] font-extrabold uppercase tracking-wide">Démarrer l&apos;échauffement</span>
+            <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
               <path d="M0 0 L14 8 L0 16 Z" />
             </svg>
           </button>
@@ -157,6 +222,6 @@ export default function PlanView() {
     setState({ plan, query: serializeSession(input) });
   }, [router]);
 
-  if (!state) return <main className="min-h-screen bg-[#050505]" aria-busy="true" />;
+  if (!state) return <main className="min-h-screen" aria-busy="true" />;
   return <PlanContent plan={state.plan} query={state.query} />;
 }

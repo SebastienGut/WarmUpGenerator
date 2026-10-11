@@ -74,7 +74,7 @@ export default async function MuscleHubPage({ params }: PageProps) {
   const path = `/echauffement/${muscle}`;
 
   const intro = [
-    `S'échauffer les <strong class='text-white'>${muscleLow}</strong> avant la musculation ne consiste pas à pédaler dix minutes ni à s'étirer. Un échauffement efficace fait trois choses, dans cet ordre : <strong class='text-white'>mobiliser les articulations</strong> qui vont travailler, <strong class='text-white'>activer les muscles cibles</strong> pour établir la connexion neuro-musculaire, et préparer le système nerveux à la charge. Le tout en ${totalMinutes} à 8 minutes — au-delà, tu fatigues sans bénéfice.`,
+    `S'échauffer les <strong class='text-ink'>${muscleLow}</strong> avant la musculation ne consiste pas à pédaler dix minutes ni à s'étirer. Un échauffement efficace fait trois choses, dans cet ordre : <strong class='text-ink'>mobiliser les articulations</strong> qui vont travailler, <strong class='text-ink'>activer les muscles cibles</strong> pour établir la connexion neuro-musculaire, et préparer le système nerveux à la charge. Le tout en ${totalMinutes} à 8 minutes — au-delà, tu fatigues sans bénéfice.`,
     MUSCLE_INSIGHTS[muscleTyped],
     `Le plan ci-dessous est le protocole de référence pour les ${muscleLow}. Il prépare une séance type : ${hub.sessionExamples}. Si ta séance a un objectif précis (force lourde, reprise après blessure, travail de mobilité), les variantes adaptées sont listées en bas de page.`,
   ];
@@ -82,8 +82,8 @@ export default async function MuscleHubPage({ params }: PageProps) {
   const advice = {
     title: "Force, hypertrophie, reprise : quelle variante choisir ?",
     paragraphs: [
-      `Le plan affiché ici est calibré pour une séance classique d'<strong class='text-white'>hypertrophie</strong> (8-15 répétitions). Pour une séance de <strong class='text-white'>force lourde</strong> (1-5 reps), l'activation neuro-musculaire devient prioritaire : prends la variante force, puis ajoute tes séries de chauffe progressives à la barre. En <strong class='text-white'>reprise</strong> (retour de blessure, longue pause, courbatures sévères), la variante reprise monte en charge plus doucement. Et si ta séance est dédiée à la <strong class='text-white'>mobilité</strong>, la variante mobilité fait de l'échauffement une partie intégrante du travail.`,
-      `Dans tous les cas, la règle reste la même : cet échauffement précède (et ne remplace pas) tes <strong class='text-white'>séries de chauffe avec barre</strong> sur les exercices polyarticulaires lourds. Et si une articulation te gêne, passe par le générateur — il intègre des exercices de protection spécifiques à ta zone sensible.`,
+      `Le plan affiché ici est calibré pour une séance classique d'<strong class='text-ink'>hypertrophie</strong> (8-15 répétitions). Pour une séance de <strong class='text-ink'>force lourde</strong> (1-5 reps), l'activation neuro-musculaire devient prioritaire : prends la variante force, puis ajoute tes séries de chauffe progressives à la barre. En <strong class='text-ink'>reprise</strong> (retour de blessure, longue pause, courbatures sévères), la variante reprise monte en charge plus doucement. Et si ta séance est dédiée à la <strong class='text-ink'>mobilité</strong>, la variante mobilité fait de l'échauffement une partie intégrante du travail.`,
+      `Dans tous les cas, la règle reste la même : cet échauffement précède (et ne remplace pas) tes <strong class='text-ink'>séries de chauffe avec barre</strong> sur les exercices polyarticulaires lourds. Et si une articulation te gêne, passe par le générateur — il intègre des exercices de protection spécifiques à ta zone sensible.`,
     ],
   };
 

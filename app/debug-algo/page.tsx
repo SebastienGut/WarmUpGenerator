@@ -116,17 +116,17 @@ export default function DebugAlgoPage() {
   const grouped = groupExercisesByCategory();
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-paper text-ink">
       <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-10 px-6 py-8">
-        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-6">
+        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-6">
           <div>
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#A3FF12]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
               Vue Interne
             </p>
             <h1 className="mt-2 text-[32px] font-black uppercase leading-none tracking-tight">
               Debug de l&apos;algo
             </h1>
-            <p className="mt-3 max-w-[780px] text-sm leading-6 text-[#A1A1A6]">
+            <p className="mt-3 max-w-[780px] text-sm leading-6 text-muted">
               Cette page sert a juger l&apos;algorithme comme un coach regarderait un protocole
               d&apos;echauffement : priorites metier, sorties concretes et catalogue d&apos;exos avec
               leurs tags.
@@ -134,25 +134,25 @@ export default function DebugAlgoPage() {
           </div>
           <Link
             href="/"
-            className="rounded-xl border border-[#A3FF12]/25 bg-[#A3FF12]/[0.06] px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#A3FF12]"
+            className="rounded-xl border border-accent/25 bg-accent/[0.06] px-4 py-2 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink"
           >
             Retour au generateur
           </Link>
         </header>
 
         <section className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border border-white/[0.08] bg-[#0C0C0E] p-5">
-            <h2 className="font-sans text-[20px] font-black uppercase tracking-tight">Logique V2</h2>
-            <div className="mt-4 flex flex-col gap-3 text-sm leading-6 text-[#A1A1A6]">
+          <div className="rounded-2xl border border-line bg-card p-5">
+            <h2 className="font-display text-[23px] font-extrabold uppercase tracking-tight">Logique V2</h2>
+            <div className="mt-4 flex flex-col gap-3 text-sm leading-6 text-muted">
               {PRIORITY_RULES.map((rule) => (
                 <p key={rule}>{rule}</p>
               ))}
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/[0.08] bg-[#0C0C0E] p-5">
-            <h2 className="font-sans text-[20px] font-black uppercase tracking-tight">Ce qu&apos;on veut voir</h2>
-            <div className="mt-4 flex flex-col gap-3 text-sm leading-6 text-[#A1A1A6]">
+          <div className="rounded-2xl border border-line bg-card p-5">
+            <h2 className="font-display text-[23px] font-extrabold uppercase tracking-tight">Ce qu&apos;on veut voir</h2>
+            <div className="mt-4 flex flex-col gap-3 text-sm leading-6 text-muted">
               <p>Epaule : face pull, coiffe, scapula, Y-T, mobilite thoracique utile.</p>
               <p>Lombaires : bird dog, pont fessier, banc lombaires, gainage utile, pas de remplissage mou.</p>
               <p>Genou : TKE, step-up, abduction, chauffe hanche-cheville-genou coherente.</p>
@@ -164,7 +164,7 @@ export default function DebugAlgoPage() {
         <section>
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="text-[22px] font-black uppercase tracking-tight">Scenarios de test</h2>
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               Sortie reelle du moteur
             </p>
           </div>
@@ -181,12 +181,12 @@ export default function DebugAlgoPage() {
               return (
                 <article
                   key={scenario.title}
-                  className="rounded-2xl border border-white/[0.08] bg-[#0C0C0E] p-5"
+                  className="rounded-2xl border border-line bg-card p-5"
                 >
-                  <div className="flex flex-col gap-2 border-b border-white/[0.06] pb-4">
-                    <h3 className="text-[20px] font-black leading-tight text-white">{scenario.title}</h3>
-                    <p className="text-sm leading-6 text-[#A1A1A6]">{scenario.why}</p>
-                    <p className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-[#A3FF12]">
+                  <div className="flex flex-col gap-2 border-b border-line pb-4">
+                    <h3 className="text-[20px] font-black leading-tight text-ink">{scenario.title}</h3>
+                    <p className="text-sm leading-6 text-muted">{scenario.why}</p>
+                    <p className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
                       Muscles: {scenario.muscles.map((muscle) => MUSCLE_LABELS[muscle]).join(", ")}
                       {" · "}
                       Objectif: {OBJECTIVE_LABELS[scenario.objective]}
@@ -209,19 +209,19 @@ export default function DebugAlgoPage() {
         <section>
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="text-[22px] font-black uppercase tracking-tight">Catalogue des exercices</h2>
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A5A60]">
+            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               Exos en clair + tags metier
             </p>
           </div>
 
           <div className="grid gap-6">
             {EXERCISE_CATEGORIES.map((category) => (
-              <section key={category} className="rounded-2xl border border-white/[0.08] bg-[#0C0C0E] p-5">
-                <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/[0.06] pb-3">
+              <section key={category} className="rounded-2xl border border-line bg-card p-5">
+                <div className="mb-4 flex items-center justify-between gap-3 border-b border-line pb-3">
                   <h3 className="text-[18px] font-black uppercase tracking-tight">
                     {CATEGORY_LABELS[category]}
                   </h3>
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12]">
+                  <span className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
                     {grouped[category].length} exos
                   </span>
                 </div>
@@ -230,40 +230,40 @@ export default function DebugAlgoPage() {
                   {grouped[category].map((exercise) => (
                     <article
                       key={exercise.id}
-                      className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4"
+                      className="rounded-xl border border-line bg-ink/[0.03] p-4"
                     >
                       <div className="flex flex-col gap-2">
                         <div className="flex flex-wrap items-start justify-between gap-3">
                           <div>
-                            <p className="text-[16px] font-bold text-white">{exercise.name}</p>
-                            <p className="mt-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-[#5A5A60]">
+                            <p className="text-[16px] font-bold text-ink">{exercise.name}</p>
+                            <p className="mt-1 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
                               {exercise.id}
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="text-[12px] font-semibold text-[#A1A1A6]">
+                            <p className="text-[12px] font-semibold text-muted">
                               {EQUIPMENT_LABELS[exercise.equipment]}
                             </p>
-                            <p className="mt-1 text-[12px] font-semibold text-[#A1A1A6]">
+                            <p className="mt-1 text-[12px] font-semibold text-muted">
                               {exercise.durationSeconds}s
                             </p>
                           </div>
                         </div>
 
-                        <p className="text-sm leading-6 text-[#A1A1A6]">{exercise.description}</p>
+                        <p className="text-sm leading-6 text-muted">{exercise.description}</p>
 
                         <div className="flex flex-wrap gap-2">
                           {renderTags(exercise).map((tag) => (
                             <span
                               key={`${exercise.id}-${tag}`}
-                              className="rounded-full border border-[#A3FF12]/20 bg-[#A3FF12]/[0.05] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#A3FF12]"
+                              className="rounded-full border border-accent/20 bg-accent/[0.05] px-2.5 py-1 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink"
                             >
                               {tag}
                             </span>
                           ))}
                         </div>
 
-                        <div className="grid gap-2 text-[12px] leading-5 text-[#7E7E84] md:grid-cols-2">
+                        <div className="grid gap-2 text-[12px] leading-5 text-subtle md:grid-cols-2">
                           <p>
                             Muscles: {exercise.muscles.map((muscle) => MUSCLE_LABELS[muscle]).join(", ")}
                           </p>
@@ -293,19 +293,19 @@ export default function DebugAlgoPage() {
 
 function PlanColumn({ title, exercises }: { title: string; exercises: Exercise[] }) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#A3FF12]">
+    <div className="rounded-xl border border-line bg-ink/[0.03] p-4">
+      <p className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
         {title}
       </p>
       <div className="mt-3 flex flex-col gap-3">
         {exercises.length === 0 ? (
-          <p className="text-sm text-[#5A5A60]">Aucun exercice</p>
+          <p className="text-sm text-subtle">Aucun exercice</p>
         ) : (
           exercises.map((exercise) => (
-            <div key={`${title}-${exercise.id}`} className="rounded-lg border border-white/[0.06] bg-[#050505] p-3">
-              <p className="text-[14px] font-bold text-white">{exercise.name}</p>
-              <p className="mt-1 text-[12px] leading-5 text-[#A1A1A6]">{exercise.description}</p>
-              <p className="mt-2 text-[11px] text-[#5A5A60]">
+            <div key={`${title}-${exercise.id}`} className="rounded-lg border border-line bg-paper p-3">
+              <p className="text-[14px] font-bold text-ink">{exercise.name}</p>
+              <p className="mt-1 text-[12px] leading-5 text-muted">{exercise.description}</p>
+              <p className="mt-2 text-[11px] text-subtle">
                 {EQUIPMENT_LABELS[exercise.equipment]} · {exercise.durationSeconds}s
               </p>
             </div>

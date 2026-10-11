@@ -4,7 +4,7 @@ import Link from "next/link";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
 export const metadata: Metadata = {
-  title: "À propos — Warmup Generator, l'outil d'échauffement gratuit",
+  title: "À propos de Warmup, l'outil d'échauffement gratuit",
   description:
     "Pourquoi Warmup Generator existe : un outil gratuit, sans inscription, sans pub, conçu par un sportif pour les sportifs. Notre philosophie et nos engagements.",
   alternates: { canonical: "/a-propos", languages: { "fr-FR": "/a-propos" } },
@@ -121,8 +121,8 @@ export default function AboutPage() {
             Pourtant, un échauffement ciblé prend 5 minutes et change tout. Le problème, c&apos;est
             que <strong className="text-ink">trouver le bon protocole pour <em>sa</em> séance, <em>son</em> objectif et
             <em> ses</em> zones sensibles</strong> demande des heures de recherche dans des articles génériques
-            ou contradictoires. Cet outil règle ce problème en 30 secondes, sans inscription,
-            sans pub, et avec un plan adapté à ton profil exact.
+            ou contradictoires. Cet outil règle ce problème : tu indiques les exercices de ta séance, il construit
+            l&apos;échauffement qui les prépare, séries d&apos;approche comprises. Sans inscription, sans pub.
           </p>
         </section>
 
@@ -232,14 +232,14 @@ export default function AboutPage() {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
+              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
                 → Essai
               </span>
               <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
-                Générer ton plan en 30 secondes
+                Construire mon échauffement
               </span>
-              <span className="text-[12px] font-medium opacity-75">
-                Sélectionne tes muscles, ton objectif, tes zones sensibles.
+              <span className="text-[12px] font-medium">
+                Choisis tes exercices du jour, la charge et ce qui coince.
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">

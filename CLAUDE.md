@@ -5,7 +5,7 @@
 Application web publique de génération d'échauffements personnalisés pour la musculation.
 
 ## Stack
-- **Framework** : Next.js 15 (App Router)
+- **Framework** : Next.js 16 (App Router) — lire `node_modules/next/dist/docs/` avant d'écrire du code
 - **Style** : Tailwind CSS v4, tokens sémantiques (clair/sombre selon le système)
 - **Langage** : TypeScript
 - **Déploiement** : Vercel
@@ -17,44 +17,47 @@ npm run build    # build production
 npm run lint     # vérifier le code
 ```
 
-## Structure cible
+## Structure
 ```
 app/
-  page.tsx              # Page de configuration (muscles, objectif, durée)
-  result/page.tsx       # Page de résultat (plan généré)
-  layout.tsx            # Layout global dark
+  page.tsx                # Constructeur de séance (SessionBuilder)
+  plan/page.tsx           # Plan, calculé dans le navigateur à partir de l'URL (PlanView)
+  series-approche/        # Calculateur de séries d'approche
+  result/page.tsx         # Ancienne URL, redirige vers /plan
+  echauffement/, douleur/, blog/   # Pages SEO statiques
 lib/
-  warmup-data.ts        # Base de données des exercices
-  warmup-engine.ts      # Algorithme de génération du plan
+  lifts.ts                # Exercices de séance et leurs exigences (entrée du moteur)
+  warmup-data.ts          # Exercices de préparation annotés (prepFocus, contre-indications…)
+  session-engine.ts       # Moteur : mise en route → mobilité → activation → séries d'approche
+  approach-sets.ts        # Paliers de montée en charge et disques par côté
+  seo-plan.ts             # Plans des pages SEO, produits par le moteur
+  saved-sessions.ts       # Séances récentes (localStorage, sur l'appareil)
 components/
-  MuscleChip.tsx        # Bouton pill sélectionnable
-  ObjectiveCard.tsx     # Carte sélectionnable (Force / Hypertrophie / etc.)
-  DurationPicker.tsx    # Sélecteur 3 / 5 / 8 min
-  ExerciseCard.tsx      # Carte exercice dans le résultat
+  SessionBuilder.tsx, PlanView.tsx, GuidedMode.tsx, Plates.tsx, ApproachCalculator.tsx
+  SEOPage.tsx, SEOHubPage.tsx, BlogArticle.tsx   # Gabarits éditoriaux
 ```
 
 ## Fonctionnalités
-1. Sélection groupes musculaires (Pecs, Dos, Épaules, Jambes, Fessiers, Bras, Core)
-2. Objectif (Force, Hypertrophie, Reprise, Mobilité)
-3. Zones sensibles (Aucune, Épaule, Genou, Bas du dos, Hanches, Poignets)
-4. Durée (3, 5 ou 8 min)
-5. Plan séquencé : articulaire → activation → spécifique
+1. Choix des exercices de la séance (catalogue + séances types Push, Pull, Jambes…)
+2. Charge et répétitions de la première série (facultatif)
+3. Zones qui coincent (épaule, coude, poignet, bas du dos, hanche, genou, cheville)
+4. Options : élastique disponible, version courte
+5. Plan RAMP : mise en route → mobilité → activation → séries d'approche
+6. Mode guidé plein écran (repos décomptés, écran maintenu allumé), séances récentes
 
 ## Philosophie produit
 - **100% gratuit**, aucune monétisation, aucun affiliation, aucun emailing
 - **Zéro coût serveur** : pas d'API externe, tout tourne en local dans le navigateur
 - La génération du plan est purement algorithmique (JS statique, pas d'IA)
-- L'outil doit fonctionner même hors ligne (PWA à terme)
+- L'outil fonctionne hors ligne (service worker, pages-outils mises en cache)
 
-## Stratégie SEO (priorité)
-- Cible : grand public francophone qui ne sait pas comment s'échauffer en salle
-- Keywords principaux : "échauffement musculation", "exercices échauffement avant séance", "s'échauffer avant musculation"
-- Next.js SSR/SSG pour un score Core Web Vitals maximal
-- Métadonnées complètes sur chaque page (title, description, og:image)
-- Données structurées JSON-LD (HowTo schema) pour apparaître en featured snippet Google
-- URL lisibles : `/echauffement-pecs-force`, `/echauffement-dos-hypertrophie`, etc.
-- Page blog/guide : articles statiques sur l'importance de l'échauffement
-- Sitemap XML généré automatiquement
+## Stratégie SEO / GEO
+- Cible : pratiquants francophones qui veulent savoir comment s'échauffer en salle
+- Keywords : "échauffement musculation", "échauffement [exercice]", "séries d'approche", requêtes symptôme ("mal à l'épaule au développé couché")
+- SSG partout, métadonnées complètes, og:image par section
+- JSON-LD : BreadcrumbList, Article, WebApplication, Dataset (HowTo et FAQPage retirés : plus de rich results)
+- GEO : blocs « En bref » autoportants, `/llms.txt`, open data `/api/exercices` (CC BY 4.0), IndexNow pour Bing
+- Ne pas générer de pages sans demande de recherche réelle (leçon de la matrice muscle × objectif)
 
 ## Conventions
 - Composants en PascalCase

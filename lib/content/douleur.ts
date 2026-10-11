@@ -37,7 +37,7 @@ export interface DouleurContent {
   exercises: SEOExercise[];
   advice: { title: string; paragraphs: string[] };
   faqs: SEOFaq[];
-  /** Query string de deep-link vers /result */
+  /** Query string de deep-link vers /plan (format de serializeSession) */
   planParams: string;
   /** Page protection correspondante, pour le maillage interne */
   relatedProtection: string;

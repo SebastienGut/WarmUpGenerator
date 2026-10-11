@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Plates from "@/components/Plates";
 
 export interface SEOExercise {
   name: string;
@@ -25,6 +26,24 @@ export interface SEOBreadcrumb {
 export interface SEOSection {
   title: string;
   paragraphs: string[];
+}
+
+export interface SEORampRow {
+  load: string;
+  reps: number;
+  percent: number;
+  plates?: number[];
+  restSeconds: number;
+}
+
+/** Exemple de séries d'approche calculé par le moteur, rendu côté serveur :
+ * un contenu chiffré et vérifiable, citable tel quel. */
+export interface SEORamp {
+  title: string;
+  intro: string;
+  rows: SEORampRow[];
+  work: string;
+  calculatorHref: string;
 }
 
 export interface SEOPageProps {
@@ -64,7 +83,8 @@ export interface SEOPageProps {
   howToName?: string;
   /** @deprecated Conservé pour compat ascendante. */
   totalDurationLabel?: string;
-  /** Deep-link vers /result préconfiguré : le CTA devient "Lancer ce plan en mode timer". */
+  ramp?: SEORamp;
+  /** Deep-link vers /plan préconfiguré : le CTA devient « Lancer ce plan en mode guidé ». */
   planHref?: string;
 }
 
@@ -95,6 +115,7 @@ export default function SEOPage(props: SEOPageProps) {
     siteUrl,
     path,
     planHref,
+    ramp,
   } = props;
 
   const totalSeconds = totalSecondsOf(exercises);
@@ -121,16 +142,16 @@ export default function SEOPage(props: SEOPageProps) {
         className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
       >
         <div className="flex flex-col gap-1">
-          <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
-            {planHref ? "→ Mode timer" : "→ Plan personnalisé"}
+          <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
+            {planHref ? "→ Mode guidé" : "→ Plan personnalisé"}
           </span>
-          <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
-            {planHref ? "Lancer ce plan en mode timer" : "Générer ton échauffement sur mesure"}
+          <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight ">
+            {planHref ? "Lancer ce plan, étape par étape" : "Construire ton échauffement"}
           </span>
-          <span className="text-[12px] font-medium opacity-75">
+          <span className="text-[12px] font-medium">
             {planHref
-              ? "Plein écran, exercice par exercice, posé à côté du tapis · Hors ligne"
-              : "Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes"}
+              ? "Séries d'approche comprises, repos décomptés · Hors ligne"
+              : "À partir des exercices de ta séance · Gratuit, sans compte"}
           </span>
         </div>
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
@@ -261,6 +282,42 @@ export default function SEOPage(props: SEOPageProps) {
             ))}
           </ol>
         </section>
+
+        {ramp && (
+          <section className="mb-14">
+            <h2 className="mb-2 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+              {ramp.title}
+            </h2>
+            <p className="mb-2 text-[15px] leading-[1.7] text-muted" dangerouslySetInnerHTML={{ __html: ramp.intro }} />
+            <table className="w-full text-left">
+              <tbody>
+                {ramp.rows.map((r, i) => (
+                  <tr key={i} className="border-b border-line">
+                    <td className="w-7 py-3 font-display text-[16px] font-bold text-subtle tabular">{i + 1}</td>
+                    <td className="py-3">
+                      <span className="font-display text-[22px] font-bold leading-none text-ink tabular">{r.load}</span>
+                      <span className="ml-1.5 font-display text-[18px] font-semibold text-muted">× {r.reps}</span>
+                      <span className="mt-1 block text-[11px] text-subtle tabular">
+                        {r.percent} % · repos {r.restSeconds} s
+                      </span>
+                    </td>
+                    <td className="py-3 text-right">{r.plates && r.plates.length > 0 && <Plates plates={r.plates} size={22} />}</td>
+                  </tr>
+                ))}
+                <tr className="bg-accent/[0.07]">
+                  <td className="py-3 pl-1 font-display text-[18px] font-extrabold text-accent">→</td>
+                  <td className="py-3" colSpan={2}>
+                    <span className="font-display text-[22px] font-extrabold text-ink tabular">{ramp.work}</span>
+                    <span className="ml-2 text-[13px] font-semibold text-accent-ink">série de travail</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <Link href={ramp.calculatorHref} className="mt-3 inline-block text-[14px] font-semibold text-accent-ink underline underline-offset-4">
+              Calculer avec ta propre charge
+            </Link>
+          </section>
+        )}
 
         {/* CTA générateur — après les exercices */}
         <section className="mb-14">

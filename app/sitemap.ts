@@ -14,7 +14,7 @@ const OBJECTIVES: Objective[] = ["force", "hypertrophie", "reprise", "mobilite"]
 // Date de dernière mise à jour réelle du contenu statique (à actualiser lors
 // des refontes de contenu). Un lastModified recalculé à chaque build envoie
 // un faux signal de fraîcheur à Google et finit par être ignoré.
-const CONTENT_UPDATED = new Date("2026-06-10");
+const CONTENT_UPDATED = new Date("2026-10-11");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = CONTENT_UPDATED;

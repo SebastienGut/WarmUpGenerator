@@ -119,14 +119,14 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
+              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
                 → Plan personnalisé
               </span>
               <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
                 Générer ton échauffement sur mesure
               </span>
-              <span className="text-[12px] font-medium opacity-75">
-                Adapté à tes muscles, ton objectif, tes zones sensibles · 30 secondes
+              <span className="text-[12px] font-medium">
+                À partir des exercices de ta séance · Séries d&apos;approche comprises
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">

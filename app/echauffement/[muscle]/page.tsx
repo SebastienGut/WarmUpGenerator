@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SEOPage from "@/components/SEOPage";
-import { generateWarmup } from "@/lib/warmup-engine";
+import { MUSCLE_LIFTS, seoPlanFor } from "@/lib/seo-plan";
 import type { MuscleGroup } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
 import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS, MUSCLE_HUB } from "@/lib/content/muscle";
@@ -61,14 +61,10 @@ export default async function MuscleHubPage({ params }: PageProps) {
   const muscleLow = muscleLabel.toLowerCase();
   const hub = MUSCLE_HUB[muscleTyped];
 
-  // Plan de référence du hub : hypertrophie (objectif le plus courant en salle)
-  const plan = generateWarmup({
-    muscles: [muscleTyped],
-    objective: "hypertrophie",
-    zones: ["aucune"],
-    duration: 5,
-  });
-  const allExercises = [...plan.articulaire, ...plan.activation];
+  // Plan de référence du hub : séance type du muscle en hypertrophie
+  // (objectif le plus courant en salle), calculé par le moteur du générateur.
+  const plan = seoPlanFor(MUSCLE_LIFTS[muscleTyped], "hypertrophie");
+  const allExercises = plan.exercises;
   const totalSeconds = allExercises.reduce((s, e) => s + e.durationSeconds, 0);
   const totalMinutes = Math.max(1, Math.round(totalSeconds / 60));
   const path = `/echauffement/${muscle}`;
@@ -90,7 +86,7 @@ export default async function MuscleHubPage({ params }: PageProps) {
   const faqs = [
     {
       q: `Quel échauffement avant une séance ${muscleLow} ?`,
-      a: `Deux phases en ${totalMinutes} à 8 minutes : mobilisation des articulations sollicitées (lubrification, amplitude), puis activation ciblée des ${muscleLow} (connexion neuro-musculaire, pré-fatigue zéro). Le plan ci-dessus enchaîne les ${allExercises.length} mouvements dans le bon ordre — suis-le tel quel ou lance-le en mode timer.`,
+      a: `Deux phases en ${totalMinutes} à 8 minutes : mobilisation des articulations sollicitées (lubrification, amplitude), puis activation ciblée des ${muscleLow} (connexion neuro-musculaire, pré-fatigue zéro). Le plan ci-dessus enchaîne les ${allExercises.length} mouvements dans le bon ordre — suis-le tel quel ou lance-le en mode guidé, séries d'approche comprises.`,
     },
     {
       q: "Faut-il un échauffement différent selon l'objectif de la séance ?",
@@ -141,7 +137,7 @@ export default async function MuscleHubPage({ params }: PageProps) {
       path={path}
       howToName={`Échauffement ${muscleLabel} avant la musculation`}
       totalDurationLabel={`${totalMinutes} min`}
-      planHref={`/result?muscles=${muscle}&objectif=hypertrophie&duree=5`}
+      planHref={plan.planHref}
     />
   );
 }

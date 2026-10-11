@@ -1,77 +1,31 @@
-import type { Metadata } from "next";
-import { generateWarmup } from "@/lib/warmup-engine";
-import ResultClient from "./ResultClient";
-import type { MuscleGroup, Objective, SensitiveZone } from "@/lib/warmup-data";
-import { MUSCLE_LABELS, OBJECTIVE_LABELS, ZONE_LABELS } from "@/lib/warmup-data";
+import { redirect } from "next/navigation";
+import { MUSCLE_LIFTS } from "@/lib/seo-plan";
+import { serializeSession } from "@/lib/session-engine";
+import type { BodyZone, MuscleGroup } from "@/lib/warmup-data";
 
 interface PageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-function parseParams(params: { [key: string]: string | string[] | undefined }) {
-  const musclesRaw = typeof params.muscles === "string" ? params.muscles : "";
-  const objectifRaw = typeof params.objectif === "string" ? params.objectif : "hypertrophie";
-  const zonesRaw = typeof params.zones === "string" ? params.zones : "";
-  const dureeRaw = typeof params.duree === "string" ? params.duree : "5";
+const ZONES: BodyZone[] = ["epaule", "genou", "bas-du-dos", "hanches", "poignets", "coudes", "chevilles"];
+const REPS: Record<string, number> = { force: 5, hypertrophie: 10, reprise: 12, mobilite: 12 };
 
-  const muscles = musclesRaw ? (musclesRaw.split(",") as MuscleGroup[]) : [];
-  const objective = (["force", "hypertrophie", "reprise", "mobilite"] as Objective[]).includes(
-    objectifRaw as Objective
-  )
-    ? (objectifRaw as Objective)
-    : "hypertrophie";
-  const zones: SensitiveZone[] = zonesRaw ? (zonesRaw.split(",") as SensitiveZone[]) : ["aucune"];
-  const duration = ([3, 5, 8] as const).includes(Number(dureeRaw) as 3 | 5 | 8)
-    ? (Number(dureeRaw) as 3 | 5 | 8)
-    : 5;
-
-  return { muscles, objective, zones, duration };
-}
-
-export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+// Ancienne page de résultat (générateur par muscle). Les liens déjà partagés
+// sont traduits vers le moteur par séance : chaque muscle devient son
+// exercice de séance le plus représentatif.
+export default async function LegacyResultPage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const { muscles, objective, zones } = parseParams(params);
-  const muscleLabel = muscles.length > 0 ? muscles.map((m) => MUSCLE_LABELS[m]).join(", ") : "General";
-  const activeZones = zones.filter((z) => z !== "aucune");
-  const zonesSuffix = activeZones.length > 0 ? ` | ${activeZones.map((z) => ZONE_LABELS[z]).join(", ")}` : "";
-
-  return {
-    title: `Echauffement ${muscleLabel} | ${OBJECTIVE_LABELS[objective]}${zonesSuffix}`,
-    robots: { index: false, follow: false },
-  };
-}
-
-export default async function ResultPage({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const { muscles, objective, zones, duration } = parseParams(params);
-
-  const plan = generateWarmup({ muscles, objective, zones, duration });
-  const muscleLabel = muscles.length > 0 ? muscles.map((m) => MUSCLE_LABELS[m]).join(", ") : "Général";
-  const allExercises = [...plan.articulaire, ...plan.activation, ...plan.ciblé.map((i) => i.exercise)];
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `Echauffement ${muscleLabel} (${OBJECTIVE_LABELS[objective]})`,
-    description: `Plan d'echauffement de ${duration} minutes pour ${muscleLabel.toLowerCase()}.`,
-    totalTime: `PT${duration}M`,
-    step: allExercises.map((exercise, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: exercise.name,
-      text: exercise.description,
-    })),
-  };
-
-  return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ResultClient
-        plan={plan}
-        muscleLabel={muscleLabel}
-        objectiveLabel={OBJECTIVE_LABELS[objective]}
-        requestedDuration={duration}
-      />
-    </>
+  const str = (k: string) => (typeof params[k] === "string" ? (params[k] as string) : "");
+  const muscles = str("muscles").split(",").filter((m): m is MuscleGroup => m in MUSCLE_LIFTS);
+  const lifts = [...new Set(muscles.map((m) => MUSCLE_LIFTS[m][0]))];
+  if (!lifts.length) redirect("/");
+  redirect(
+    `/plan?${serializeSession({
+      lifts,
+      workReps: REPS[str("objectif")] ?? 10,
+      pain: str("zones").split(",").filter((z): z is BodyZone => (ZONES as string[]).includes(z)),
+      band: false,
+      short: str("duree") === "3",
+    })}`,
   );
 }

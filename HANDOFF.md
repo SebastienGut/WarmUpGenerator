@@ -1,153 +1,118 @@
-# Checklist — ce qui reste à faire
+# Recette et mise en ligne — refonte d'octobre 2026
 
-Mise à jour du 17 août 2026, en fin de session.
-
----
-
-## Déjà fait
-
-**Mise en production**
-- Contenu déployé et vérifié : 14 URL en 200, dont les 6 pages douleur,
-  `/douleur`, `/donnees`, `/api/exercices`, `/llms.txt`
-- `schema.org/Dataset` servi sur `/donnees`
-- Endpoint JSON conforme : 52 exercices, CC BY 4.0, CORS ouvert
-- Accents corrigés dans les titres servis
-- Cluster douleur lié depuis la homepage
-
-**Dépôt GitHub**
-- Passé en **public**, licence **AGPL-3.0** détectée
-- Description, homepage et 8 topics renseignés
-- Audit préalable clean : 66 commits scannés, aucun secret
-
-**Search Console**
-- Sitemap soumis, **45 URL** (élagage de la matrice, 73 → 45)
-- Indexation demandée pour les 8 nouvelles pages
-- Mesure de référence relevée au 14/08 : **30 indexées / 69 connues**, dont
-  **34 en « Détectée, actuellement non indexée »**
+Tout le travail est sur la branche `feat/series-approche`, **non poussée**. Rien
+n'est en production tant que tu ne fusionnes pas.
 
 ---
 
-## Le point de mesure, dans 2 à 3 semaines
+## 1. Recette, à faire avant de fusionner
 
-C'est maintenant la chose la plus utile à faire : **attendre sans rien toucher**.
-Google doit recrawler pour que l'élagage produise de l'information.
+Lancer le build de production en local, puis ouvrir le site **sur ton téléphone**
+(même Wi-Fi : `http://<ip-de-ton-pc>:3000`) :
 
-Vers le **7 septembre 2026**, relever dans **Pages → Non indexées** :
+```bash
+npm run build && npm run start
+```
 
-- le nombre en « Détectée, actuellement non indexée » — il était à **34**
-- le nombre total d'indexées — il était à **30**
+### Le parcours principal
 
-S'il descend côté « Détectée », l'élagage a fonctionné. Si les 6 pages douleur
-sont indexées et commencent à afficher des impressions, le pivot fonctionne.
+- [ ] Accueil : choisir **Jambes**, saisir 100 kg × 5, cocher **Genou**
+- [ ] Plan : l'avertissement genou s'affiche, avec un lien vers la page douleur
+- [ ] Plan : les 4 phases, puis la montée du squat avec les disques dessinés
+      (barre seule, 40, 60, 75, 85 kg)
+- [ ] **Démarrer l'échauffement** : un geste par écran, « Série faite » lance le
+      repos décompté, l'écran ne se met pas en veille
+- [ ] Retour à l'accueil : la séance apparaît dans « Tes dernières séances »
+- [ ] Refaire avec **Push**, sans charge : les séries d'approche sont en %
+- [ ] **Version courte** : pas de cardio, environ 5 minutes
+- [ ] Sans « J'ai un élastique » : les exercices à élastique affichent leur
+      version sans matériel
 
-Ne pas ajouter de pages d'ici là : la deuxième vague de pages douleur attend
-précisément cette mesure.
+### Le jugement de coach (le plus important)
 
----
+C'est la partie que je ne peux pas valider à ta place. Fais 5 ou 6 séances que tu
+pratiques vraiment et demande-toi pour chaque exercice proposé : *est-ce que je le
+ferais avant cette séance ?* Tout ce qui te paraît absurde est un réglage du moteur
+(`lib/lifts.ts` pour les exigences, `lib/session-engine.ts` pour la sélection).
 
-## 1. Publier le jeu de données sur Hugging Face
+### Le reste
 
-Les fichiers sont **déjà générés et validés**, tu n'as rien à rédiger ni à
-convertir. Je te les ai envoyés dans la conversation :
+- [ ] Mode clair et mode sombre (réglage du téléphone)
+- [ ] `/series-approche` : changer d'exercice, de charge, de barre
+- [ ] Une page exercice (`/echauffement/exercice/squat`) : tableau des séries
+      d'approche en bas, et le bouton qui ouvre le plan
+- [ ] Un ancien lien `/result?muscles=pecs&objectif=force` redirige vers un plan
+- [ ] Hors ligne : ouvrir le site, couper le réseau, recharger `/plan?s=squat`
 
-- `exercises.jsonl` — 52 lignes, une par exercice, format idiomatique HF
-- `README.md` — la fiche du jeu de données, avec l'en-tête YAML que Hugging Face
-  attend (licence, langue, tags, configuration)
-- `exercises.json` — la version complète avec les référentiels de libellés, si tu
-  préfères ce format
-
-**Marche à suivre** — https://huggingface.co/new-dataset
-
-1. Nom du dataset : `warmup-exercises-fr`
-2. Licence : `cc-by-4.0`
-3. Visibilité : Public
-4. Créer, puis dans l'onglet **Files** → **Add file** → **Upload files**
-5. Déposer `exercises.jsonl` et `README.md` à la racine
-6. Commit
-
-La fiche s'affiche automatiquement à partir du `README.md`, et Hugging Face
-détecte la licence et les tags depuis son en-tête YAML.
-
-### Zenodo, optionnel — https://zenodo.org/uploads/new
-
-Zenodo attribue un **DOI**, ce qui rend le jeu de données citable dans un travail
-académique. Déposer `exercises.json`, licence CC BY 4.0, même titre et même
-description que la fiche Hugging Face.
+Déjà vérifié de mon côté sur le build de production : 85 URL en 200, redirections,
+aucun débordement horizontal à 375 px, contraste AA en clair et en sombre sur 12
+gabarits, moteur testé sur 8 100 combinaisons sans contre-indication violée.
 
 ---
 
-## 2. Product Hunt
+## 2. Mise en ligne
 
-Un seul lancement possible, à ne pas gâcher. Mardi ou mercredi matin heure du
-Pacifique est le créneau habituellement le plus favorable.
+```bash
+git checkout main
+git merge feat/series-approche
+git push
+```
 
-- **Tagline** (60 caractères max)
+Vercel déploie automatiquement. Ensuite :
 
+1. **Signaler les URL à Bing** (le site n'y est pas indexé, or Bing alimente
+   ChatGPT Search et Copilot) :
+   ```bash
+   node scripts/indexnow.mjs
+   ```
+2. **Bing Webmaster Tools** — https://www.bing.com/webmasters : importer le site
+   depuis la Search Console (2 minutes, depuis ton compte).
+3. **Search Console** — demander l'indexation de `/`, `/series-approche` et des
+   6 pages exercice, dont le contenu a changé.
+4. **Hugging Face** — le jeu de données en ligne est périmé (52 exercices,
+   vouvoiement). Les fichiers à jour sont dans `dataset/` :
+   ```bash
+   hf upload fabdigstudio/warmup-exercises-fr dataset . --repo-type dataset
+   ```
+   Pour les régénérer après une modification : `npm run build && node scripts/export-dataset.mjs`.
+
+---
+
+## 3. Faire connaître l'outil
+
+Les textes de **[SUBMISSIONS.md](SUBMISSIONS.md)** sont réécrits pour le nouvel
+outil (séance → échauffement, séries d'approche, mode guidé). Ordre conseillé et
+mises en garde inchangés : étaler sur plusieurs semaines, jamais Wikipédia.
+
+Le meilleur angle est maintenant le post Reddit FR : l'outil répond à une vraie
+pratique de salle (les séries d'approche), et la demande de retours est sincère.
+
+**Product Hunt** (texte prêt à coller) :
+
+- Tagline : `A gym warm-up built from your actual workout, free and offline`
+- Description :
   ```
-  Personalized gym warm-ups in 30 seconds, free and offline
-  ```
+  Tell it what you're training today — squat, bench, pull-ups — and Warmup builds
+  the warm-up those lifts need: targeted mobility and activation, then warm-up sets
+  calculated from your working weight, with the plates to load drawn in
+  competition colours. A guided full-screen mode runs the rest timers in the gym.
 
-- **Description**
-
-  ```
-  Warmup Generator builds a warm-up routine tailored to the muscles you're
-  training, your session goal, and any joints that bother you — in about 30
-  seconds.
-
-  No account, no ads, no cookies, no personal data. The algorithm runs entirely
-  in your browser, so it works offline in the gym where reception is usually
-  bad. The only analytics is GoatCounter, which is cookieless.
-
-  What makes the selection non-trivial: every exercise is annotated with both
-  contraindications and pain-support data. Declaring a sensitive shoulder
-  doesn't just remove exercises — it brings different ones in.
-
-  The exercise dataset is open under CC BY 4.0, and the code is AGPL-3.0 on
-  GitHub.
-  ```
-
-- **Premier commentaire à poster**
-
-  ```
-  I built this because warming up properly is the one thing everyone knows they
-  should do and nobody actually plans. Existing routines are generic; what you
-  need depends on what you're training and which joints are giving you trouble
-  that week.
-
-  The interesting part was the selection algorithm — covering every requested
-  muscle group, respecting the mobilization → activation → specific sequence,
-  excluding contraindicated movements, reserving a slot for exercises that
-  actively help a declared sensitive zone, avoiding two variants of the same
-  movement, and fitting it all in the chosen duration.
-
-  Free forever, no monetization planned. Dataset and code are open. Happy to
-  answer anything.
+  No account, no ads, no cookies. Everything runs in the browser, so it works
+  offline in a basement gym. Dataset CC BY 4.0, code AGPL-3.0.
   ```
 
 ---
 
-## 3. Les autres soumissions
+## 4. Pistes pour une prochaine session
 
-Textes intégralement rédigés dans **[SUBMISSIONS.md](SUBMISSIONS.md)** :
-AlternativeTo, Show HN, Indie Hackers, Reddit (r/musculation et r/datasets) et
-pull requests vers des awesome-lists. Chaque entrée est prête à coller, avec
-l'ordre de passage conseillé et une évaluation honnête de ce que ça rapporte.
-
-Deux points de vigilance qui y sont détaillés : ne pas tout publier le même jour
-(une salve de liens simultanée sur un domaine jeune est un motif détecté), et ne
-jamais ajouter soi-même son lien sur Wikipédia.
-
----
-
-## Côté code, pour une prochaine session
-
-- **Deuxième vague de pages douleur** — dips/épaule, développé militaire/épaule,
-  hip thrust/lombaires, fentes/genou. À faire **après** avoir vu les données GSC
-  des six premières : produire du volume avant d'avoir vérifié la demande est
-  précisément l'erreur de la matrice muscle × objectif.
-- **Feature silhouettes** — `components/ExerciseSilhouette.tsx`,
-  `public/exercices/*.svg` et `scripts/generate-silhouettes.mjs` sont encore non
-  suivis. Travail en cours volontairement laissé de côté.
-- **Mesure** — la Search Console ne montrera pas les citations dans ChatGPT ou
-  Perplexity. Le signal indirect est une hausse du trafic direct et référent sans
-  mouvement correspondant des impressions Google.
+- **Mesurer avant d'étendre.** Attendre 3 à 4 semaines de données (GoatCounter,
+  Search Console, Bing) avant de créer de nouvelles pages.
+- **Base d'exercices.** 27 des 58 exercices ne sont jamais choisis par le nouveau
+  moteur (rotations de nuque ou de genou, étirements statiques, doublons). Les
+  garder ne gêne pas, mais on peut élaguer ou en faire des alternatives.
+- **Matrice muscle × objectif** (28 pages hors sitemap) : le nouveau moteur ne
+  différencie l'objectif que par la montée en charge, donc les listes d'exercices
+  de ces pages se ressemblent davantage. Candidates à une canonical vers le hub
+  muscle si Google continue de les ignorer.
+- **Feature silhouettes** — `components/ExerciseSilhouette.tsx`, `public/exercices/`
+  et les scripts associés restent non suivis, volontairement.

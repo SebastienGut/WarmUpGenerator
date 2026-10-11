@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     template: "%s · Warmup Generator",
   },
   description:
-    "Crée en 30 secondes un plan d'échauffement adapté à tes muscles cibles, ton objectif et tes zones sensibles. 100% gratuit, sans inscription, fonctionne hors ligne.",
+    "Un échauffement musculation construit sur les exercices de ta séance : mobilité, activation et séries d'approche calculées. Gratuit, sans compte, hors ligne.",
   applicationName: "Warmup Generator",
   authors: [{ name: "Warmup Generator" }],
   openGraph: {
     title: "Warmup Generator — Échauffement musculation personnalisé",
     description:
-      "Plan d'échauffement sur mesure en 30 secondes. Gratuit, sans inscription, sans pub.",
+      "Un échauffement construit sur les exercices de ta séance, séries d'approche comprises. Gratuit, sans compte.",
     type: "website",
     locale: "fr_FR",
     url: SITE_URL,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Warmup Generator — Échauffement musculation personnalisé",
     description:
-      "Plan d'échauffement sur mesure en 30 secondes. Gratuit, sans inscription.",
+      "Un échauffement construit sur les exercices de ta séance, séries d'approche comprises.",
     // twitter:image auto-généré par app/twitter-image.tsx
   },
   robots: {

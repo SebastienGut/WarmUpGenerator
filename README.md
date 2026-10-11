@@ -1,8 +1,10 @@
 # Warmup Generator
 
-Générateur d'échauffements personnalisés pour la musculation. L'utilisateur choisit
-ses groupes musculaires, son objectif de séance, ses zones sensibles et une durée ;
-un algorithme déterministe compose un protocole séquencé en trois phases.
+Générateur d'échauffements pour la musculation, construit sur la séance réelle.
+L'utilisateur indique les exercices qu'il va faire (squat, développé couché,
+tractions…), la charge de sa première série et ce qui le gêne ; un algorithme
+déterministe compose un échauffement en quatre temps, inspiré du protocole RAMP :
+mise en route, mobilité, activation, puis séries d'approche calculées.
 
 **[warmup-generator.com](https://warmup-generator.com)** · Gratuit, sans publicité,
 sans inscription, sans collecte de données.
@@ -25,38 +27,46 @@ Elles sont volontaires et structurent toutes les décisions techniques :
 
 ## Le cœur du projet : l'algorithme de sélection
 
-Le fichier [`lib/warmup-engine.ts`](lib/warmup-engine.ts) contient la logique
-intéressante. Le problème n'est pas de piocher des exercices au hasard dans une
-liste filtrée — c'est de composer un protocole cohérent sous contraintes multiples
-et parfois contradictoires.
+Le moteur est dans [`lib/session-engine.ts`](lib/session-engine.ts). Il part des
+exercices de la séance, décrits dans [`lib/lifts.ts`](lib/lifts.ts) : chacun déclare ses
+**exigences** (`demands`, notées de 1 à 3) — un squat exige des chevilles et des hanches
+mobiles, des genoux contrôlés, des fessiers et un gainage actifs.
+
+1. **Carte des besoins.** Les exigences des exercices sont additionnées, pondérées par la
+   position dans la séance (le premier exercice pèse le plus, l'isolation moitié moins).
+   Une zone déclarée douloureuse renforce les besoins correspondants.
+2. **Sélection gloutonne, une carte par phase.** Pour la mobilité puis l'activation, on
+   retient à chaque tour l'exercice de préparation qui couvre le mieux les besoins
+   restants, puis on réduit ceux qu'il couvre. Les phases ont chacune leur carte : mobiliser
+   les omoplates ne doit pas épuiser le besoin de les activer avant des tractions.
+3. **Garde-fous.** Contre-indications exclues, étirements statiques réservés aux zones
+   douloureuses, seuil de pertinence, versions sans matériel si pas d'élastique, pas de
+   doublon d'un même geste.
+4. **Séries d'approche.** Montée complète sur le premier exercice
+   ([`lib/approach-sets.ts`](lib/approach-sets.ts) : paliers selon les reps de travail,
+   arrondis aux disques réels), rappel court sur les suivants.
 
 Chaque exercice de [`lib/warmup-data.ts`](lib/warmup-data.ts) est annoté avec :
 
 | Dimension | Rôle dans la sélection |
 |---|---|
-| `muscles` | Groupes préparés par l'exercice |
-| `objectives` | Objectifs de séance où il est pertinent |
+| `prepFocus` | Qualités préparées (cheville, coiffe, fessiers…), croisées avec les exigences |
+| `prepRoles` | Phase où l'exercice peut servir (mobilité, activation, stabilité…) |
 | `contraindications` | Zones sensibles qui **excluent** l'exercice |
-| `painSupport` | Zones sensibles que l'exercice **soulage** activement |
-| `joints` | Articulations mobilisées, pour le scoring de couverture |
-| `prepFocus` / `prepIntensity` | Nature et intensité de la préparation |
-| `movementKey` | Identifie les variantes d'un même mouvement, pour éviter les doublons |
+| `painSupport` / `therapeutic` | Zones sensibles que l'exercice **soulage** activement |
+| `trainingValue` | Qualité intrinsèque, départage à pertinence égale |
+| `fallback` | Version sans matériel |
 
-L'algorithme doit alors : couvrir tous les groupes musculaires demandés, respecter la
-séquence articulaire → activation → spécifique, écarter les exercices contre-indiqués,
-réserver un créneau aux exercices qui soulagent une zone sensible déclarée, éviter deux
-variantes du même mouvement, et faire tenir le tout dans la durée choisie.
-
-La distinction `contraindications` / `painSupport` est ce qui rend le résultat utile
-plutôt que générique : déclarer une épaule sensible ne se contente pas de retirer des
-exercices, ça en fait entrer d'autres.
+Le moteur est vérifié sur l'ensemble des combinaisons exercice × douleur × options :
+aucune contre-indication violée.
 
 ## Structure
 
 ```
 app/
-  page.tsx                              Configuration du plan
-  result/                               Plan généré, mode timer plein écran
+  page.tsx                              Constructeur de séance
+  plan/                                 Plan calculé dans le navigateur, mode guidé
+  series-approche/                      Calculateur de séries d'approche
   douleur/[slug]/                       Cluster « douleur × exercice » (requête symptôme)
   echauffement/
     [muscle]/[objectif]/                Matrice muscle × objectif
@@ -68,8 +78,10 @@ app/
   api/exercices/                        Export JSON (CC BY 4.0)
   llms.txt/                             Description du site pour les moteurs génératifs
 lib/
-  warmup-data.ts                        Référentiel d'exercices annotés
-  warmup-engine.ts                      Algorithme de composition du plan
+  warmup-data.ts                        Référentiel d'exercices de préparation annotés
+  lifts.ts                              Catalogue des exercices de séance et leurs exigences
+  session-engine.ts                     Algorithme de composition du plan
+  approach-sets.ts                      Calcul des séries d'approche et des disques
   content/                              Contenu éditorial par cluster
 ```
 
@@ -96,8 +108,9 @@ npm run build    # build de production
 npm run lint
 ```
 
-Next.js 15 (App Router) · TypeScript · Tailwind CSS · déployé sur Vercel.
-Toutes les pages de contenu sont générées statiquement (SSG).
+Next.js 16 (App Router) · TypeScript · Tailwind CSS · déployé sur Vercel.
+Toutes les pages sont générées statiquement (SSG) ; le plan est calculé côté client.
+Icônes : `node scripts/generate-icons.mjs`. Signalement à Bing : `node scripts/indexnow.mjs`.
 
 ## Avertissement
 

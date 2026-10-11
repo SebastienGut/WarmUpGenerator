@@ -299,7 +299,7 @@ export default function HomepageSEO() {
 
         {/* GUIDES — liens discrets */}
         <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-6">
-          <span className="w-full font-display text-[14px] font-bold uppercase tracking-wide text-faint">Guides</span>
+          <span className="w-full font-display text-[14px] font-bold uppercase tracking-wide text-subtle">Guides</span>
           <Link href="/blog/guide-complet-echauffement-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Guide complet</Link>
           <Link href="/blog/pourquoi-s-echauffer-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Pourquoi s&apos;échauffer</Link>
           <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Combien de temps</Link>
@@ -333,7 +333,7 @@ export default function HomepageSEO() {
               Zones sensibles
             </Link>
           </nav>
-          <p className="text-subtle/80">
+          <p className="text-subtle">
             Cet outil ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du
             sport. En cas de douleur persistante, consulte un professionnel de santé.
           </p>

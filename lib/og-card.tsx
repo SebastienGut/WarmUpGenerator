@@ -17,7 +17,7 @@ interface OgCardOptions {
 const PAPER = "#f3f0e8";
 const INK = "#17150f";
 const MUTED = "#55514a";
-const ACCENT = "#e2421b";
+const ACCENT = "#d23a14";
 const PLATES: [string, number, number][] = [
   ["#d3272b", 200, 34],
   ["#1f5fbf", 200, 30],

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SEOPage from "@/components/SEOPage";
-import { generateWarmup } from "@/lib/warmup-engine";
+import { MUSCLE_LIFTS, seoPlanFor } from "@/lib/seo-plan";
 import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
 import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS, MUSCLE_HUB } from "@/lib/content/muscle";
@@ -80,16 +80,11 @@ export default async function StaticPlanPage({ params }: PageProps) {
   const muscleTyped = muscle as MuscleGroup;
   const objectiveTyped = objectif as Objective;
 
-  const plan = generateWarmup({
-    muscles: [muscleTyped],
-    objective: objectiveTyped,
-    zones: ["aucune"],
-    duration: 5,
-  });
+  const plan = seoPlanFor(MUSCLE_LIFTS[muscleTyped], objectiveTyped);
 
   const muscleLabel = MUSCLE_LABELS[muscleTyped];
   const objectiveLabel = OBJECTIVE_LABELS[objectiveTyped];
-  const allExercises = [...plan.articulaire, ...plan.activation];
+  const allExercises = plan.exercises;
   const path = `/echauffement/${muscle}/${objectif}`;
   const muscleLow = muscleLabel.toLowerCase();
   const objLow = objectiveLabel.toLowerCase();
@@ -113,7 +108,7 @@ export default async function StaticPlanPage({ params }: PageProps) {
     paragraphs: [
       profile.science(muscleLow),
       profile.chargeReps(muscleLow),
-      `Si tu as une <strong class='text-ink'>zone sensible</strong> (épaule, genou, lombaires, poignets), utilise plutôt le générateur en haut de page pour produire un plan adapté à ta situation exacte — il intègre des exercices thérapeutiques spécifiques en bonus.`,
+      `Si tu as une <strong class='text-ink'>zone sensible</strong> (épaule, genou, lombaires, poignets), utilise plutôt le générateur : indique tes exercices et la zone qui coince, il ajoute une préparation dédiée et retire ce qui est contre-indiqué.`,
     ],
   };
 
@@ -173,7 +168,7 @@ export default async function StaticPlanPage({ params }: PageProps) {
       }}
       siteUrl={SITE_URL}
       path={path}
-      planHref={`/result?muscles=${muscle}&objectif=${objectif}&duree=5`}
+      planHref={plan.planHref}
     />
   );
 }

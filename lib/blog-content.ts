@@ -62,7 +62,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "Combien de temps faut-il s'échauffer avant la musculation ?",
-        a: "5 à 8 minutes pour la majorité des séances. En dessous de 5 min, la température musculaire n'a pas eu le temps de monter suffisamment. Au-delà de 10 min, tu commences à fatiguer sans bénéfice supplémentaire. Le générateur propose des plans sur 3, 5 ou 8 minutes selon l'intensité de ta séance.",
+        a: "5 à 8 minutes pour la majorité des séances. En dessous de 5 min, la température musculaire n'a pas eu le temps de monter suffisamment. Au-delà de 10 min, tu commences à fatiguer sans bénéfice supplémentaire. Le générateur propose une version courte (environ 5 minutes) et une version complète, qui allonge surtout la montée en charge quand ta première série est lourde.",
       },
       {
         q: "Faut-il s'étirer avant la musculation ?",
@@ -127,7 +127,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "Est-ce que 3 minutes d'échauffement suffisent ?",
-        a: "Pour une séance légère ou de mobilité, oui. Pour des charges lourdes (80 %+ du max), non — 5 à 8 minutes sont nécessaires pour que les tendons et les articulations soient prêts. Le générateur propose des plans sur 3, 5 ou 8 minutes selon l'intensité.",
+        a: "Pour une séance légère ou de mobilité, oui. Pour des charges lourdes (80 %+ du max), non — 5 à 8 minutes sont nécessaires pour que les tendons et les articulations soient prêts. Le générateur propose une version courte et une version complète, selon le temps dont tu disposes.",
       },
       {
         q: "Pourquoi ne pas faire 20 minutes d'échauffement pour être sûr ?",
@@ -181,7 +181,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "La méthode complète, de l'entrée en salle au retour vestiaire",
         content: [
-          "<strong class='text-ink'>Avant la séance (5-8 min) :</strong> mobilité dynamique ciblée sur les articulations sollicitées + activation musculaire spécifique. C'est ce que le générateur construit pour toi en 30 secondes.",
+          "<strong class='text-ink'>Avant la séance (5-8 min) :</strong> mobilité dynamique ciblée sur les articulations sollicitées + activation musculaire spécifique. C'est ce que le générateur construit pour toi à partir des exercices de ta séance.",
           "<strong class='text-ink'>Début de chaque exercice polyarticulaire lourd :</strong> 2 à 3 séries de chauffe progressives avec charge réduite avant le poids de travail.",
           "<strong class='text-ink'>Après la séance :</strong> étirements statiques des groupes travaillés, 30 à 60 secondes par groupe. Favorise la récupération et le maintien de la souplesse.",
           "<strong class='text-ink'>Jours off :</strong> routine de mobilité ou étirements statiques longs (60-90 sec) pour le gain de souplesse réel sur le long terme.",
@@ -218,7 +218,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "19 mai 2026",
     readingTime: "7 min",
     intro:
-      "L'échauffement est probablement la partie de la séance la moins bien comprise — et la plus souvent sabotée. Trop court, trop long, mal orienté, ou tout simplement absent. Ce guide couvre tout : la physiologie derrière l'échauffement, les 3 phases d'un protocole efficace, la durée selon ton objectif, les erreurs classiques et comment générer un plan adapté en 30 secondes.",
+      "L'échauffement est probablement la partie de la séance la moins bien comprise — et la plus souvent sabotée. Trop court, trop long, mal orienté, ou tout simplement absent. Ce guide couvre tout : la physiologie derrière l'échauffement, les 3 phases d'un protocole efficace, la durée selon ton objectif, les erreurs classiques et comment construire un échauffement adapté aux exercices de ta séance.",
     sections: [
       {
         heading: "Pourquoi le corps a besoin d'être échauffé",
@@ -307,7 +307,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Un générateur d'échauffement, c'est vraiment utile ?",
-        a: "Il résout le problème principal : savoir quoi faire exactement selon ce qu'on travaille. La plupart des pratiquants font toujours le même échauffement générique parce que créer un protocole adapté prend du temps. Un générateur qui prend en compte les muscles cibles, l'objectif et les zones sensibles en 30 secondes, c'est la différence entre un échauffement qui prépare et un échauffement qui fait perdre du temps.",
+        a: "Il résout le problème principal : savoir quoi faire exactement selon ce qu'on travaille. La plupart des pratiquants font toujours le même échauffement générique parce que créer un protocole adapté prend du temps. Un générateur qui part des exercices de ta séance et des zones qui coincent, c'est la différence entre un échauffement qui prépare et un échauffement qui fait perdre du temps.",
       },
     ],
     relatedLinks: [
@@ -351,7 +351,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Adapter selon la séance du jour",
         content: [
-          "Le protocole ci-dessus est généraliste — il prépare l'ensemble des articulations. Selon ce que tu vas travailler, tu peux l'adapter en 30 secondes :",
+          "Le protocole ci-dessus est généraliste — il prépare l'ensemble des articulations. Selon les exercices de ta séance, adapte-le :",
           "<strong class='text-ink'>Séance haut du corps :</strong> insiste sur les rotations d'épaules et les poignets. Ajoute 5 cercles de bras lents avant de prendre la barre.",
           "<strong class='text-ink'>Séance bas du corps :</strong> insiste sur les hip circles et les flexions de genoux. Ajoute des rotations de cheville (10 dans chaque sens) — les chevilles sont souvent les premières à limiter la profondeur de squat.",
           "<strong class='text-ink'>Full body :</strong> le protocole 5 minutes complet suffit — il couvre tout.",

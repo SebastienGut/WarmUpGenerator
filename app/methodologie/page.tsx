@@ -6,7 +6,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   title: "Méthodologie & sources — Comment l'algorithme construit ton plan",
   description:
-    "Comment Warmup Generator choisit les exercices, les durées et l'ordre. Sources scientifiques, principes de préparation physique, transparence totale sur l'algorithme.",
+    "Comment Warmup construit ton échauffement à partir des exercices de ta séance : mobilité, activation, séries d'approche. Principes, sources scientifiques et limites.",
   alternates: { canonical: "/methodologie", languages: { "fr-FR": "/methodologie" } },
   openGraph: {
     title: "Méthodologie & sources — Warmup Generator",
@@ -23,32 +23,37 @@ export const metadata: Metadata = {
 const PRINCIPLES = [
   {
     n: "01",
-    title: "Élever la température corporelle",
-    body: "L'augmentation de la température musculaire (1 à 2°C) améliore l'élasticité des tissus, la vitesse de conduction nerveuse et la libération d'oxygène par l'hémoglobine. Effet direct : plus de force et de vitesse disponibles.",
+    title: "Partir des exercices de la séance",
+    body: "Tu indiques ce que tu vas faire (squat, développé couché, tractions…), pas des groupes musculaires. Chaque exercice du catalogue déclare ses exigences, notées de 1 à 3 : le squat demande des chevilles et des hanches mobiles, des genoux contrôlés, des fessiers et un gainage actifs ; le développé couché demande des omoplates stables et une coiffe des rotateurs prête. Le premier exercice pèse le plus, les suivants un peu moins, l'isolation moitié moins.",
   },
   {
     n: "02",
-    title: "Mobiliser les articulations sollicitées",
-    body: "Le générateur cible les articulations spécifiques au groupe musculaire choisi (ex : épaule + thoracique pour les pecs, hanche + cheville pour les jambes). La mobilité dynamique préserve la force, contrairement aux étirements statiques pré-effort.",
+    title: "Mobilité et activation, chacune sa carte",
+    body: "Ces exigences forment deux cartes de besoins, l'une pour la mobilité (chevilles, hanches, haut du dos, ischio-jambiers, épaules en hauteur…), l'autre pour l'activation (coiffe, omoplates, fessiers, gainage…). L'algorithme retient à chaque tour l'exercice de préparation qui couvre le mieux les besoins restants, puis réduit ceux qu'il vient de couvrir. Résultat : pas de doublon, et chaque exercice affiché dit pour quel mouvement il est là.",
   },
   {
     n: "03",
-    title: "Activer la chaîne musculaire ciblée",
-    body: "Activation à charge légère pour signaler aux muscles cibles \"tu vas bosser\". Améliore la connexion neuro-musculaire et la synchronisation des fibres dès la première série de travail.",
+    title: "Les séries d'approche sur le geste réel",
+    body: "Le premier exercice reçoit une montée en charge complète, calculée à partir de ta charge et de tes répétitions de travail : plus la série est lourde, plus il y a de paliers et moins chaque palier compte de répétitions (pour 5 reps : barre × 10, 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1). Les exercices suivants ont un simple rappel, plus court si le même schéma a déjà été chauffé.",
   },
   {
     n: "04",
-    title: "Adapter à l'objectif",
-    body: "Force : focus sur l'activation neuro-musculaire (recrutement de fibres). Hypertrophie : connexion mind-muscle. Mobilité : amplitudes complètes. Reprise : progressivité, plus de mobilisation, moins de charge.",
+    title: "Rien d'inutile",
+    body: "Pas d'étirement statique avant l'effort (il réduit temporairement la force), pas de rotation de genou ou de nuque sans intérêt pour la séance, et un seuil de pertinence : un exercice n'entre dans le plan que s'il répond à un vrai besoin de tes exercices. Sans élastique, chaque exercice qui en demande un est remplacé par sa version sans matériel.",
   },
   {
     n: "05",
-    title: "Protéger les zones sensibles",
-    body: "Si une zone est marquée comme sensible (épaule, genou, lombaires...), l'algorithme injecte des exercices thérapeutiques spécifiques (coiffe des rotateurs, gainage anti-extension, mobilité de cheville) en remplacement d'exercices contre-indiqués.",
+    title: "Les zones qui coincent",
+    body: "Une zone déclarée douloureuse exclut tous les exercices contre-indiqués, ajoute une préparation dédiée (par exemple un step-up contrôlé pour le genou) et affiche un repère d'auto-régulation : la douleur doit rester sous 3 sur 10 pendant la montée en charge, sinon on arrête de monter. Ce sont des aides pour des gênes mineures, pas des traitements.",
   },
 ];
 
 const SOURCES = [
+  {
+    label: "Jeffreys (2007)",
+    full: "Warm-up revisited: the RAMP method of optimising warm-ups",
+    desc: "Le cadre en trois temps repris par l'outil : élever la température (Raise), activer et mobiliser (Activate & Mobilise), puis potentialiser sur le geste de la séance (Potentiate).",
+  },
   {
     label: "ACSM",
     full: "American College of Sports Medicine",
@@ -98,7 +103,7 @@ export default function MethodologyPage() {
     description: metadata.description,
     url: `${SITE_URL}/methodologie`,
     inLanguage: "fr-FR",
-    dateModified: "2026-05-18",
+    dateModified: "2026-10-11",
     author: { "@type": "Organization", name: "Warmup Generator" },
     publisher: {
       "@type": "Organization",
@@ -151,8 +156,8 @@ export default function MethodologyPage() {
             <p>
               Warmup Generator n&apos;utilise <strong className="text-ink">aucune intelligence artificielle générative</strong>.
               Le plan que tu reçois est construit par un algorithme déterministe : à entrées identiques (mêmes
-              muscles, même objectif, même durée, mêmes zones sensibles), tu obtiens toujours le même
-              plan. Pas de hallucinations, pas d&apos;exercices inventés.
+              exercices, même charge, mêmes zones sensibles), tu obtiens toujours le même plan. Le calcul se
+              fait dans ton navigateur, rien n&apos;est envoyé à un serveur.
             </p>
             <p>
               Cette page documente <strong className="text-ink">les 5 principes</strong> qui guident la sélection,
@@ -195,37 +200,36 @@ export default function MethodologyPage() {
         </section>
 
         {/* STRUCTURE DU PLAN */}
-        <section className="mb-14 border-l-2 border-accent/40 pl-6">
-          <h2 className="mb-4 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
-            Structure d&apos;un plan généré
+        <section className="mb-14 border-l-[3px] border-accent pl-6">
+          <h2 className="mb-4 font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+            Structure d&apos;un plan
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             <p>
-              Chaque plan suit une <strong className="text-ink">séquence en trois temps</strong> identique,
-              quel que soit le profil :
+              Chaque plan suit le protocole <strong className="text-ink">RAMP</strong>, en quatre temps :
             </p>
             <ol className="flex flex-col gap-3 pl-4">
               <li>
-                <strong className="text-ink">1. Mobilisation articulaire</strong> — 2 à 3 mouvements
-                ciblés sur les articulations sollicitées par les muscles choisis. Lubrifie, prépare,
-                augmente l&apos;amplitude utile.
+                <strong className="text-ink">1. Mise en route</strong> — 2 minutes de cardio léger (rameur,
+                vélo, corde) pour élever la température. Supprimée en version courte.
               </li>
               <li>
-                <strong className="text-ink">2. Activation musculaire</strong> — 2 à 3 exercices à
-                charge légère (poids du corps ou élastique) pour signaler aux fibres musculaires
-                qu&apos;elles vont travailler. Améliore la connexion neuro-musculaire.
+                <strong className="text-ink">2. Mobilité</strong> — 2 à 3 mouvements sur les amplitudes que
+                tes exercices exigent.
               </li>
               <li>
-                <strong className="text-ink">3. Protection (si zone sensible)</strong> — 1 à 2
-                exercices thérapeutiques spécifiques en cas de zone sensible cochée. Coiffe des
-                rotateurs pour l&apos;épaule, gainage anti-extension pour les lombaires, mobilité de
-                cheville pour le genou, etc.
+                <strong className="text-ink">3. Activation</strong> — 1 à 2 exercices légers sur les muscles
+                stabilisateurs de tes mouvements, plus une préparation dédiée par zone qui coince.
+              </li>
+              <li>
+                <strong className="text-ink">4. Séries d&apos;approche</strong> — la montée en charge sur ton
+                premier exercice, puis un rappel avant chacun des suivants.
               </li>
             </ol>
             <p>
-              Les durées (5, 8 minutes...) modulent le nombre d&apos;exercices et leur durée individuelle,
-              pas la séquence. Sur 5 minutes, on garde l&apos;essentiel. Sur 8 minutes, on ajoute des
-              variations utiles.
+              Compte 5 minutes en version courte, 10 à 13 minutes en version complète avec une montée en
+              charge lourde : l&apos;essentiel du temps va aux séries d&apos;approche, qui sont la partie la plus
+              utile d&apos;un échauffement de musculation.
             </p>
           </div>
         </section>
@@ -291,14 +295,14 @@ export default function MethodologyPage() {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
+              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
                 → Essai
               </span>
               <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
-                Tester l&apos;algorithme
+                Construire mon échauffement
               </span>
-              <span className="text-[12px] font-medium opacity-75">
-                30 secondes pour générer ton plan personnalisé.
+              <span className="text-[12px] font-medium">
+                Choisis tes exercices, l&apos;échauffement se construit en quelques secondes.
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">

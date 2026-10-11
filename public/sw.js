@@ -1,4 +1,4 @@
-const CACHE = 'warmup-v5';
+const CACHE = 'warmup-v6';
 
 // Pages-outils : statiques, elles calculent tout dans le navigateur à partir
 // de l'URL. En cache, elles fonctionnent sans réseau.
@@ -63,17 +63,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
+  // Cache d'abord uniquement pour ce qui ne change jamais à URL constante : les
+  // assets hashés du build et les fichiers statiques. Le reste (charges RSC de
+  // la navigation interne `?_rsc=…`, API, images générées) passe en réseau
+  // d'abord : servis depuis le cache, ils figeraient d'anciennes versions des
+  // pages après un déploiement.
+  const immutable =
+    url.pathname.startsWith('/_next/static/') ||
+    /\.(png|svg|ico|woff2?|ttf|txt)$/.test(url.pathname);
 
-      return fetch(event.request).then((response) => {
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE).then((cache) => cache.put(event.request, clone));
-        }
-        return response;
-      });
-    })
+  const store = (response) => {
+    if (response.ok) {
+      const clone = response.clone();
+      caches.open(CACHE).then((cache) => cache.put(event.request, clone));
+    }
+    return response;
+  };
+
+  event.respondWith(
+    immutable
+      ? caches.match(event.request).then((cached) => cached ?? fetch(event.request).then(store))
+      : fetch(event.request).then(store).catch(() => caches.match(event.request))
   );
 });

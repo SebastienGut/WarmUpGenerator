@@ -6,12 +6,13 @@ import { DOULEUR_PAGES, DOULEUR_SLUGS } from "@/lib/content/douleur";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
-// Deep-link générateur : zone sensible + muscles associés, en mode reprise (doux)
+// Deep-link générateur : la séance où la zone est la plus sollicitée, avec la
+// douleur déclarée.
 const PLAN_PARAMS: Record<string, string> = {
-  "epaule-douleur": "muscles=epaules&objectif=reprise&zones=epaule",
-  genou: "muscles=jambes&objectif=reprise&zones=genou",
-  lombaires: "muscles=core,dos&objectif=reprise&zones=bas-du-dos",
-  poignets: "muscles=bras&objectif=reprise&zones=poignets",
+  "epaule-douleur": "s=developpe-couche&r=8&p=epaule",
+  genou: "s=squat&r=8&p=genou",
+  lombaires: "s=souleve-de-terre&r=8&p=bas-du-dos",
+  poignets: "s=pompes&r=8&p=poignets",
 };
 
 interface PageProps {
@@ -91,7 +92,7 @@ export default async function ProtectionPage({ params }: PageProps) {
       path={path}
       howToName={data.h1}
       totalDurationLabel="5 min"
-      planHref={PLAN_PARAMS[zone] ? `/result?${PLAN_PARAMS[zone]}&duree=5` : undefined}
+      planHref={PLAN_PARAMS[zone] ? `/plan?${PLAN_PARAMS[zone]}` : undefined}
     />
   );
 }

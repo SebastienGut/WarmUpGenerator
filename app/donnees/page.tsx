@@ -135,13 +135,13 @@ export default function DonneesPage() {
             className="group mb-6 flex items-center justify-between gap-4 rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-70">
+              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
                 → Endpoint JSON
               </span>
               <span className="font-mono text-[15px] font-black tracking-tight md:text-[17px]">
                 /api/exercices
               </span>
-              <span className="text-[12px] font-medium opacity-75">
+              <span className="text-[12px] font-medium">
                 {exercises.length} exercices · Libellés inclus · CORS ouvert
               </span>
             </div>
@@ -177,6 +177,9 @@ curl -s ${SITE_URL}/api/exercices \\
               </thead>
               <tbody className="text-muted">
                 {[
+                  ["prepFocus", "Qualités physiques préparées : mobilité de cheville, stabilité des omoplates, gainage…"],
+                  ["prepRoles", "Phases où l'exercice peut servir : mobilité, activation, stabilité…"],
+                  ["fallback", "Version sans matériel quand l'exercice demande un élastique ou une barre"],
                   ["muscles", "Groupes musculaires préparés par l'exercice"],
                   ["objectives", "Force, hypertrophie, reprise ou mobilité"],
                   ["contraindications", "Zones sensibles pour lesquelles l'exercice est déconseillé"],

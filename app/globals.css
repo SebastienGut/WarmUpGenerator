@@ -17,14 +17,14 @@
   --card: #fbfaf6;
   --ink: #17150f;
   --muted: #55514a;
-  --subtle: #858075;
+  --subtle: #6b665d; /* 4,9:1 sur papier : minimum AA du petit texte */
   --faint: #c9c3b6;
   --line: #ddd7ca;
   --line-strong: #bdb6a7;
-  --accent: #e2421b;
+  --accent: #d23a14; /* 4,8:1 avec du blanc dessus */
   --accent-ink: #b83310;
   --on-accent: #ffffff;
-  --warn: #a8540e;
+  --warn: #8f460a;
   --warn-bg: #f7e6d2;
   --warn-ink: #5c2f08;
 
@@ -44,13 +44,14 @@
     --card: #1c1b18;
     --ink: #f2eee6;
     --muted: #b6b0a5;
-    --subtle: #7f7a70;
+    --subtle: #8f8a7f;
     --faint: #403d37;
     --line: #2d2b27;
     --line-strong: #47443e;
     --accent: #ff5a2e;
     --accent-ink: #ff8661;
-    --on-accent: #ffffff;
+    /* Le vermillon clair du mode sombre porte mal le blanc : encre foncée dessus. */
+    --on-accent: #1a0c06;
     --warn: #f0a35e;
     --warn-bg: #2b1f14;
     --warn-ink: #f6d2ae;

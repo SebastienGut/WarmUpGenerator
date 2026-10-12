@@ -20,7 +20,7 @@ configs:
 
 # Exercices d'échauffement pour la musculation (français)
 
-58 exercices d'échauffement en français, annotés pour une sélection
+80 exercices d'échauffement en français, annotés pour une sélection
 automatique : qualités physiques préparées, contre-indications par zone sensible,
 zones soulagées, phase de l'échauffement, matériel et alternative sans matériel.
 
@@ -30,7 +30,7 @@ couché, tractions…) : il croise le champ `prepFocus` avec les exigences de ce
 exercices, exclut les `contraindications` des zones déclarées douloureuses et
 ajoute ce qui figure dans `painSupport`.
 
-Version 1.1.0.
+Version 1.2.0.
 
 ## Champs
 

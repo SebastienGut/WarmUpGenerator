@@ -115,6 +115,27 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/*
+ * Animations d'entrée en CSS plutôt qu'en JS : le HTML rendu côté serveur reste
+ * visible tel quel (robots, onglet en arrière-plan, appareil lent), et
+ * l'animation se joue simplement au chargement. Délai via --d, sens via --dir.
+ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 48px)); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.anim-rise { animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0ms); }
+.anim-slide { animation: slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-grow { transform-origin: left; animation: grow 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0ms); }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

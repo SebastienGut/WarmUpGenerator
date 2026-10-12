@@ -430,14 +430,15 @@ export const LIFTS_BY_ID: Record<string, Lift> = Object.fromEntries(LIFTS.map((l
 
 export const LIFT_GROUPS: LiftGroup[] = ["Poussée", "Tirage", "Jambes", "Isolation"];
 
-/** Séances types : un tap pour pré-remplir, modifiable ensuite. */
-export const SESSION_TEMPLATES: { id: string; label: string; lifts: string[] }[] = [
-  { id: "push", label: "Push", lifts: ["developpe-couche", "developpe-epaules-halteres", "elevations-laterales", "triceps"] },
-  { id: "pull", label: "Pull", lifts: ["tractions", "rowing-barre", "tirage-horizontal", "curl-biceps"] },
-  { id: "legs", label: "Jambes", lifts: ["squat", "souleve-roumain", "presse", "leg-curl"] },
-  { id: "haut", label: "Haut du corps", lifts: ["developpe-couche", "rowing-barre", "developpe-militaire", "tractions"] },
-  { id: "bas", label: "Bas du corps", lifts: ["squat", "souleve-roumain", "fentes", "hip-thrust"] },
-  { id: "full", label: "Full body", lifts: ["squat", "developpe-couche", "rowing-barre"] },
+/** Séances types : un tap pour obtenir le plan. `cover` est l'exercice dont le
+ * pictogramme illustre la tuile. */
+export const SESSION_TEMPLATES: { id: string; label: string; cover: string; lifts: string[] }[] = [
+  { id: "push", label: "Push", cover: "developpe-couche", lifts: ["developpe-couche", "developpe-epaules-halteres", "elevations-laterales", "triceps"] },
+  { id: "pull", label: "Pull", cover: "tractions", lifts: ["tractions", "rowing-barre", "tirage-horizontal", "curl-biceps"] },
+  { id: "legs", label: "Jambes", cover: "squat", lifts: ["squat", "souleve-roumain", "presse", "leg-curl"] },
+  { id: "haut", label: "Haut du corps", cover: "developpe-militaire", lifts: ["developpe-couche", "rowing-barre", "developpe-militaire", "tractions"] },
+  { id: "bas", label: "Bas du corps", cover: "souleve-de-terre", lifts: ["squat", "souleve-roumain", "fentes", "hip-thrust"] },
+  { id: "full", label: "Full body", cover: "kettlebell-swing", lifts: ["squat", "developpe-couche", "rowing-barre"] },
 ];
 
 export function normalize(s: string) {

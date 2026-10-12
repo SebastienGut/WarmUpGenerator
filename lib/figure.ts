@@ -77,7 +77,7 @@ export interface Figure {
 export const VIEW_W = 240;
 export const VIEW_H = 220;
 export const GROUND = 204;
-const BAR_Y = 30;
+const BAR_Y = 38;
 
 const LEN = { torso: 58, neck: 6, head: 14, ua: 32, fa: 30, th: 44, sh: 43, foot: 12 };
 const SHOULDER_HALF = 17;

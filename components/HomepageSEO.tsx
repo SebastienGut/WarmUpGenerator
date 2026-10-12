@@ -97,20 +97,21 @@ export default function HomepageSEO() {
       aria-labelledby="seo-heading"
       className="content-layer relative w-full bg-paper border-t border-line"
     >
-      <div className="mx-auto w-full max-w-[640px] px-5 py-12 flex flex-col gap-10">
+      <div className="mx-auto grid w-full max-w-[1080px] gap-10 px-5 py-12 sm:px-8 lg:grid-cols-2 lg:gap-x-14">
 
         {/* INTRO SEO */}
-        <article className="flex flex-col gap-3">
-          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-            Le guide
-          </p>
-          <h2
-            id="seo-heading"
-            className="font-display text-[28px] font-extrabold leading-tight tracking-tight text-ink"
-          >
-            Pourquoi s&apos;échauffer avant la musculation ?
-          </h2>
-          <div className="flex flex-col gap-3 text-[14px] leading-relaxed text-muted">
+        {/* Replié par défaut : lisible par les moteurs, discret pour l'utilisateur. */}
+        <details className="group lg:col-span-2 [&_summary::-webkit-details-marker]:hidden">
+          <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4">
+            <h2
+              id="seo-heading"
+              className="font-display text-[26px] font-extrabold uppercase leading-tight tracking-tight text-ink"
+            >
+              Pourquoi s&apos;échauffer avant la musculation ?
+            </h2>
+            <span aria-hidden="true" className="shrink-0 font-display text-[22px] text-subtle transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div className="mt-4 flex max-w-[68ch] flex-col gap-3 text-[15px] leading-relaxed text-muted">
             <p>
               Sauter l&apos;échauffement, c&apos;est entrer en séance avec un corps froid : articulations
               raides, muscles peu vascularisés, système nerveux endormi. À court terme, ta première
@@ -133,7 +134,7 @@ export default function HomepageSEO() {
               étape par étape, avec les temps de repos décomptés.
             </p>
           </div>
-        </article>
+        </details>
 
         {/* ÉCHAUFFEMENTS POPULAIRES */}
         <article className="flex flex-col gap-4">
@@ -267,7 +268,7 @@ export default function HomepageSEO() {
         </article>
 
         {/* FAQ */}
-        <article className="flex flex-col gap-4">
+        <article className="flex flex-col gap-4 lg:col-span-2">
           <div className="flex flex-col gap-1">
             <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
               FAQ
@@ -298,19 +299,19 @@ export default function HomepageSEO() {
         </article>
 
         {/* GUIDES — liens discrets */}
-        <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-6">
+        <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-6 lg:col-span-2">
           <span className="w-full font-display text-[14px] font-bold uppercase tracking-wide text-subtle">Guides</span>
-          <Link href="/blog/guide-complet-echauffement-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Guide complet</Link>
-          <Link href="/blog/pourquoi-s-echauffer-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Pourquoi s&apos;échauffer</Link>
-          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Combien de temps</Link>
-          <Link href="/blog/echauffement-dynamique-ou-statique" className="font-mono text-[10px] text-subtle transition-colors hover:text-accent-ink">Dynamique ou statique</Link>
+          <Link href="/blog/guide-complet-echauffement-musculation" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Guide complet</Link>
+          <Link href="/blog/pourquoi-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Pourquoi s&apos;échauffer</Link>
+          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Combien de temps</Link>
+          <Link href="/blog/echauffement-dynamique-ou-statique" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Dynamique ou statique</Link>
         </nav>
 
         {/* FOOTER */}
-        <footer className="flex flex-col gap-4 border-t border-line pt-8 text-[11px] text-subtle">
+        <footer className="flex flex-col gap-4 border-t border-line pt-8 text-[12px] text-subtle lg:col-span-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="font-mono uppercase tracking-[0.18em]">
-              Warmup Generator
+            <p className="font-display text-[18px] font-extrabold uppercase text-ink">
+              Warmup<span className="text-accent">.</span>
             </p>
             <p>
               Gratuit · Sans inscription · Fonctionne hors ligne

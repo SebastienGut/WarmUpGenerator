@@ -32,8 +32,10 @@ lib/
   approach-sets.ts        # Paliers de montée en charge et disques par côté
   seo-plan.ts             # Plans des pages SEO, produits par le moteur
   saved-sessions.ts       # Séances récentes (localStorage, sur l'appareil)
+  figure.ts, figures.ts   # Moteur de pictogrammes animés + postures de chaque exercice
 components/
   SessionBuilder.tsx, PlanView.tsx, GuidedMode.tsx, Plates.tsx, ApproachCalculator.tsx
+  ExerciseFigure.tsx, Sheet.tsx                  # Pictogramme animé, panneau coulissant
   SEOPage.tsx, SEOHubPage.tsx, BlogArticle.tsx   # Gabarits éditoriaux
 ```
 
@@ -66,4 +68,6 @@ components/
 - Typo : `font-display` (Barlow Condensed) pour titres et chiffres, Geist pour le texte. Petit texte d'accent en `text-accent-ink` (contraste AA).
 - Disques de charge : composant `Plates` aux couleurs de compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
+- Animations d'entrée en CSS (`anim-rise`, `anim-slide`, `anim-grow`) : jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
+- Tout nouvel exercice (lib/warmup-data.ts ou lib/lifts.ts) doit avoir sa posture dans lib/figures.ts.
 - Aucun tracking, aucun cookie, aucune dépendance externe payante

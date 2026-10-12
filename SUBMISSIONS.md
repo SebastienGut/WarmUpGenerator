@@ -108,11 +108,11 @@ itself. My first version asked for muscle groups and a goal, like every other
 generator. Nobody thinks like that in a gym — you think "today is squat, RDL, leg
 press". So I rebuilt it around the session.
 
-Each lift in the catalogue (25 of them) declares weighted demands: squat needs
+Each lift in the catalogue (37 of them) declares weighted demands: squat needs
 ankle and hip mobility, knee control, glutes and bracing; bench needs scapular
 stability and a ready rotator cuff. Demands are summed across the session,
 weighted by position (first lift counts most, isolation half). Then a greedy pass
-picks, for mobility and then activation, the drill from a 58-exercise dataset that
+picks, for mobility and then activation, the drill from an 80-exercise dataset that
 covers the most remaining demand, and discounts what it just covered. Mobility and
 activation get separate demand maps — otherwise mobilising the shoulder blades
 "uses up" the need to activate them before pull-ups, which was my first bug.
@@ -230,7 +230,7 @@ votre séance — c'est exactement ce que je cherche à corriger.
 - **Titre**
 
 ```
-[OC] 58 French-language warm-up exercises annotated with injury contraindications (CC BY 4.0)
+[OC] 80 French-language warm-up exercises annotated with injury contraindications (CC BY 4.0)
 ```
 
 - **Corps**
@@ -238,7 +238,7 @@ votre séance — c'est exactement ce que je cherche à corriger.
 ```
 I've released the exercise dataset behind a warm-up generator I built.
 
-58 exercises in French, each annotated with target muscle groups, the physical
+80 exercises in French, each annotated with target muscle groups, the physical
 qualities they prepare (ankle mobility, scapular stability…), required equipment — and two fields I haven't found
 in other open exercise datasets: contraindications (sensitive zones where the
 movement is inadvisable) and pain-support (zones the movement actively helps).
@@ -300,7 +300,7 @@ exercises of the session and computes targeted prep plus warm-up sets.
 
 - No ads, no account, no cookies, no monetization
 - Runs fully client-side and works offline (PWA)
-- Ships an open exercise dataset (58 entries, CC BY 4.0) with injury
+- Ships an open exercise dataset (80 entries, CC BY 4.0) with injury
   contraindication annotations
 - Code is AGPL-3.0: https://github.com/SebastienGut/WarmUpGenerator
 

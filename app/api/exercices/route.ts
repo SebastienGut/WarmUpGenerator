@@ -23,7 +23,7 @@ export function GET() {
     $schema: `${SITE_URL}/api/exercices`,
     name: "Référentiel d'exercices d'échauffement pour la musculation",
     description: `Base de données ouverte de ${exercises.length} exercices d'échauffement en français, annotés par qualité physique préparée, contre-indications par zone sensible, groupe musculaire, articulations mobilisées et matériel requis.`,
-    version: "1.1.0",
+    version: "1.2.0",
     language: "fr",
     license: {
       name: "Creative Commons Attribution 4.0 International",

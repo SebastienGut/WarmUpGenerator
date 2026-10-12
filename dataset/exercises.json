@@ -1,8 +1,8 @@
 {
   "$schema": "https://warmup-generator.com/api/exercices",
   "name": "Référentiel d'exercices d'échauffement pour la musculation",
-  "description": "Base de données ouverte de 58 exercices d'échauffement en français, annotés par qualité physique préparée, contre-indications par zone sensible, groupe musculaire, articulations mobilisées et matériel requis.",
-  "version": "1.1.0",
+  "description": "Base de données ouverte de 80 exercices d'échauffement en français, annotés par qualité physique préparée, contre-indications par zone sensible, groupe musculaire, articulations mobilisées et matériel requis.",
+  "version": "1.2.0",
   "language": "fr",
   "license": {
     "name": "Creative Commons Attribution 4.0 International",
@@ -11,7 +11,7 @@
     "attribution": "Warmup Generator — https://warmup-generator.com"
   },
   "source": "https://warmup-generator.com/donnees",
-  "count": 58,
+  "count": 80,
   "vocabularies": {
     "muscles": {
       "pecs": "Pectoraux",
@@ -2118,6 +2118,762 @@
       "prepFocus": [
         "scapula",
         "rotator-cuff"
+      ]
+    },
+    {
+      "id": "prep-90-90",
+      "name": "Bascules 90/90 des hanches",
+      "category": "articulaire",
+      "muscles": [
+        "jambes",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "genou"
+      ],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Assis au sol, une jambe pliée à 90° devant toi, l'autre à 90° sur le côté. Bascule les deux genoux de l'autre côté, buste droit, sans t'aider des mains si possible. Ouvre les rotations de hanche dont le squat a besoin.",
+      "reps": "8 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [
+        "hanches"
+      ],
+      "prepFocus": [
+        "hip"
+      ]
+    },
+    {
+      "id": "prep-cossack",
+      "name": "Squat cosaque",
+      "category": "articulaire",
+      "muscles": [
+        "jambes",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "genou",
+        "chevilles"
+      ],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Pieds très écartés, transfère le poids sur une jambe en descendant en squat, l'autre jambe tendue, pointe vers le haut. Talon au sol, genou dans l'axe du pied. Change de côté sans te relever complètement.",
+      "reps": "6 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "mobility",
+        "activation"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "hip",
+        "ankle",
+        "knee-control"
+      ]
+    },
+    {
+      "id": "prep-thread-needle",
+      "name": "Rotation thoracique à quatre pattes",
+      "category": "articulaire",
+      "muscles": [
+        "dos",
+        "epaules"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "À quatre pattes, lève un bras vers le plafond en tournant le buste, puis passe-le sous l'autre bras en allant chercher loin, épaule vers le sol. Le mouvement vient du haut du dos, le bassin reste au-dessus des genoux.",
+      "reps": "8 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 5,
+      "painSupport": [],
+      "prepFocus": [
+        "thoracic",
+        "scapula"
+      ]
+    },
+    {
+      "id": "prep-open-book",
+      "name": "Livre ouvert au sol",
+      "category": "articulaire",
+      "muscles": [
+        "dos",
+        "pecs"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "epaule"
+      ],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Allongé sur le côté, genoux pliés à 90°, bras tendus devant toi. Ouvre le bras du dessus en arc jusqu'au sol derrière toi en suivant la main des yeux, genoux collés au sol. Reviens lentement.",
+      "reps": "8 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "thoracic",
+        "overhead"
+      ]
+    },
+    {
+      "id": "prep-dislocations",
+      "name": "Passages d'épaules à l'élastique",
+      "category": "articulaire",
+      "muscles": [
+        "epaules",
+        "pecs"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "epaule"
+      ],
+      "durationSeconds": 40,
+      "equipment": "elastique",
+      "description": "Élastique tenu bras tendus, prise large. Fais passer les bras de devant les cuisses jusque derrière le dos en passant au-dessus de la tête, sans plier les coudes ni cambrer. Resserre la prise à mesure que l'épaule se libère.",
+      "reps": "10 passages",
+      "fallback": "Même mouvement avec une serviette tendue entre les mains, prise très large.",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "overhead",
+        "rotator-cuff",
+        "thoracic"
+      ]
+    },
+    {
+      "id": "prep-hamstring-sweep",
+      "name": "Balayages ischios",
+      "category": "articulaire",
+      "muscles": [
+        "jambes"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 40,
+      "equipment": "aucun",
+      "description": "Pose un talon devant toi, pointe vers le haut, jambe tendue. Penche-toi dos plat en balayant le sol des deux mains vers ta jambe, puis remonte. Alterne les jambes en avançant d'un pas à chaque répétition.",
+      "reps": "8 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "hamstrings",
+        "hip"
+      ]
+    },
+    {
+      "id": "prep-frog",
+      "name": "Grenouille à quatre pattes",
+      "category": "articulaire",
+      "muscles": [
+        "jambes",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "genou"
+      ],
+      "durationSeconds": 40,
+      "equipment": "aucun",
+      "description": "À quatre pattes, écarte les genoux au maximum confortable, pieds alignés avec les genoux. Recule lentement les fesses vers l'arrière, dos plat, puis reviens. Ouvre l'intérieur des cuisses avant le squat et le sumo.",
+      "reps": "10 bascules",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 3,
+      "painSupport": [
+        "hanches"
+      ],
+      "prepFocus": [
+        "hip"
+      ]
+    },
+    {
+      "id": "prep-spiderman",
+      "name": "Fente spiderman",
+      "category": "articulaire",
+      "muscles": [
+        "jambes",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "poignets"
+      ],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "En planche, avance un pied à l'extérieur de la main du même côté. Laisse descendre la hanche deux secondes, puis reviens en planche et change de côté. Ouvre la hanche et étire l'arrière de la jambe tendue.",
+      "reps": "6 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "hip",
+        "hamstrings"
+      ]
+    },
+    {
+      "id": "prep-epaules-cars",
+      "name": "Cercles d'épaule contrôlés",
+      "category": "articulaire",
+      "muscles": [
+        "epaules"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Debout, gainé, fais le plus grand cercle possible avec un bras tendu, très lentement, sans que le buste bouge ni que le bas du dos se cambre. Explore toute l'amplitude de l'épaule, en avant puis en arrière.",
+      "reps": "3 lents par bras",
+      "setting": "both",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [
+        "epaule"
+      ],
+      "prepFocus": [
+        "overhead",
+        "rotator-cuff",
+        "scapula"
+      ]
+    },
+    {
+      "id": "prep-pont-marche",
+      "name": "Pont fessier en marche",
+      "category": "activation",
+      "muscles": [
+        "fessiers",
+        "core"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "En position de pont, bassin haut, lève un genou vers la poitrine sans laisser la hanche tomber, repose, puis l'autre. Le bassin reste parfaitement horizontal : c'est le fessier d'appui qui travaille.",
+      "reps": "8 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "posterior-chain"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [
+        "bas-du-dos"
+      ],
+      "prepFocus": [
+        "glutes",
+        "core",
+        "lumbar"
+      ]
+    },
+    {
+      "id": "prep-clamshell",
+      "name": "Coquillage (clamshell)",
+      "category": "ciblé",
+      "muscles": [
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Allongé sur le côté, genoux pliés, talons alignés avec les fesses. Ouvre le genou du dessus en gardant les pieds collés, sans faire rouler le bassin vers l'arrière. Réveille le moyen fessier qui stabilise le genou au squat.",
+      "reps": "15 de chaque côté",
+      "therapeutic": "hanches",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "stability",
+        "therapeutic"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [
+        "hanches",
+        "genou"
+      ],
+      "prepFocus": [
+        "glutes",
+        "hip",
+        "knee-control"
+      ]
+    },
+    {
+      "id": "prep-marche-laterale",
+      "name": "Marche latérale à l'élastique",
+      "category": "activation",
+      "muscles": [
+        "fessiers",
+        "jambes"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 45,
+      "equipment": "elastique",
+      "description": "Élastique au-dessus des genoux, en demi-squat. Fais de petits pas sur le côté sans laisser les genoux rentrer ni les pieds se toucher. Garde la tension tout le long.",
+      "reps": "10 pas de chaque côté",
+      "fallback": "Pas chassés en demi-squat, pieds parallèles, en poussant activement les genoux vers l'extérieur.",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "stability"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 5,
+      "painSupport": [
+        "genou",
+        "hanches"
+      ],
+      "prepFocus": [
+        "glutes",
+        "knee-control",
+        "hip"
+      ]
+    },
+    {
+      "id": "prep-w-sol",
+      "name": "W allongé sur le ventre",
+      "category": "ciblé",
+      "muscles": [
+        "epaules",
+        "dos"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 40,
+      "equipment": "aucun",
+      "description": "Allongé sur le ventre, coudes pliés, bras en forme de W. Décolle les coudes et les mains du sol en serrant les omoplates vers le bas, pouces vers le plafond, tiens deux secondes. Réveille l'arrière de l'épaule et la coiffe.",
+      "reps": "10 reps",
+      "therapeutic": "epaule",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "stability",
+        "therapeutic"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [
+        "epaule"
+      ],
+      "prepFocus": [
+        "rotator-cuff",
+        "scapula"
+      ]
+    },
+    {
+      "id": "prep-hollow",
+      "name": "Position creuse (hollow hold)",
+      "category": "activation",
+      "muscles": [
+        "core"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "bas-du-dos"
+      ],
+      "durationSeconds": 30,
+      "equipment": "aucun",
+      "description": "Allongé sur le dos, colle le bas du dos au sol, décolle les épaules et les jambes tendues, bras le long des oreilles. Tiens la position sans que le bas du dos se décolle. Plie les genoux si c'est trop dur.",
+      "reps": "20 secondes",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "core-bracing"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "core"
+      ]
+    },
+    {
+      "id": "prep-pallof",
+      "name": "Pallof press à l'élastique",
+      "category": "activation",
+      "muscles": [
+        "core"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 40,
+      "equipment": "elastique",
+      "description": "Élastique fixé sur le côté à hauteur de poitrine. Mains contre le sternum, pousse les bras tendus devant toi sans laisser le buste tourner vers l'élastique, tiens deux secondes, reviens. Gainage anti-rotation, idéal avant le squat et le soulevé de terre.",
+      "reps": "10 de chaque côté",
+      "fallback": "Planche latérale sur l'avant-bras, 20 secondes par côté.",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "core-bracing"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 5,
+      "painSupport": [
+        "bas-du-dos"
+      ],
+      "prepFocus": [
+        "core"
+      ]
+    },
+    {
+      "id": "prep-planche-laterale",
+      "name": "Planche latérale",
+      "category": "activation",
+      "muscles": [
+        "core",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "epaule",
+        "coudes"
+      ],
+      "durationSeconds": 40,
+      "equipment": "aucun",
+      "description": "Sur l'avant-bras, coude sous l'épaule, corps aligné des pieds à la tête. Pousse le bassin vers le haut et tiens sans t'affaisser. Travaille le gainage latéral et le moyen fessier.",
+      "reps": "20 secondes par côté",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "core-bracing",
+        "stability"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "core",
+        "glutes"
+      ]
+    },
+    {
+      "id": "prep-sdt-une-jambe",
+      "name": "Soulevé de terre une jambe",
+      "category": "activation",
+      "muscles": [
+        "jambes",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "chevilles"
+      ],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Debout sur une jambe, genou légèrement fléchi. Penche le buste dos plat en tendant l'autre jambe derrière toi jusqu'à l'horizontale, puis remonte en serrant le fessier. Bassin bien de face : c'est un exercice d'équilibre autant que d'ischios.",
+      "reps": "6 de chaque côté",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "posterior-chain",
+        "stability"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 5,
+      "painSupport": [],
+      "prepFocus": [
+        "hamstrings",
+        "glutes",
+        "hip",
+        "knee-control"
+      ]
+    },
+    {
+      "id": "prep-releves-pointes",
+      "name": "Relevés de pointes au mur",
+      "category": "ciblé",
+      "muscles": [
+        "jambes"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 35,
+      "equipment": "aucun",
+      "description": "Dos au mur, talons à une trentaine de centimètres. Relève les pointes de pied le plus haut possible, talons au sol, puis repose lentement. Renforce le devant de la jambe, qui protège genou et cheville.",
+      "reps": "15 reps",
+      "therapeutic": "chevilles",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "therapeutic"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 3,
+      "painSupport": [
+        "genou",
+        "chevilles"
+      ],
+      "prepFocus": [
+        "ankle",
+        "knee-control"
+      ]
+    },
+    {
+      "id": "prep-rotation-externe-cote",
+      "name": "Rotation externe allongé sur le côté",
+      "category": "ciblé",
+      "muscles": [
+        "epaules"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 45,
+      "equipment": "aucun",
+      "description": "Allongé sur le côté, coude du dessus collé au flanc et plié à 90°, avant-bras devant le ventre. Tourne l'avant-bras vers le plafond sans décoller le coude, puis redescends lentement. La version sans matériel de la rotation à l'élastique.",
+      "reps": "12 de chaque côté",
+      "therapeutic": "epaule",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "stability",
+        "therapeutic"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [
+        "epaule"
+      ],
+      "prepFocus": [
+        "rotator-cuff"
+      ]
+    },
+    {
+      "id": "prep-suspension",
+      "name": "Suspension à la barre",
+      "category": "articulaire",
+      "muscles": [
+        "dos",
+        "epaules"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "epaule"
+      ],
+      "durationSeconds": 30,
+      "equipment": "barre",
+      "description": "Suspends-toi à la barre de traction, bras tendus, épaules relâchées. Respire et laisse le poids du corps étirer les dorsaux et ouvrir l'épaule au-dessus de la tête. Pieds au sol si besoin pour doser.",
+      "reps": "20 à 30 secondes",
+      "fallback": "Sans barre : mains au mur, bras tendus au-dessus de la tête, recule les hanches et laisse la poitrine descendre.",
+      "setting": "gym",
+      "prepRoles": [
+        "mobility"
+      ],
+      "prepIntensity": "soft",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "overhead",
+        "scapula"
+      ]
+    },
+    {
+      "id": "prep-marche-ours",
+      "name": "Marche de l'ours",
+      "category": "activation",
+      "muscles": [
+        "core",
+        "epaules"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [
+        "poignets"
+      ],
+      "durationSeconds": 40,
+      "equipment": "aucun",
+      "description": "À quatre pattes, décolle les genoux de quelques centimètres et avance main et pied opposés à petits pas, dos plat, sans que le bassin se balance. Reviens en reculant.",
+      "reps": "10 pas avant et arrière",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "core-bracing"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [],
+      "prepFocus": [
+        "core",
+        "scapula"
+      ]
+    },
+    {
+      "id": "prep-fente-iso",
+      "name": "Fente tenue",
+      "category": "ciblé",
+      "muscles": [
+        "jambes",
+        "fessiers"
+      ],
+      "objectives": [
+        "force",
+        "hypertrophie",
+        "reprise",
+        "mobilite"
+      ],
+      "contraindications": [],
+      "durationSeconds": 40,
+      "equipment": "aucun",
+      "description": "Position de fente, genou arrière à quelques centimètres du sol, genou avant au-dessus de la cheville. Tiens la position en poussant dans le talon avant. L'isométrie prépare le genou à la charge sans le solliciter en mouvement.",
+      "reps": "20 secondes par côté",
+      "therapeutic": "genou",
+      "setting": "both",
+      "prepRoles": [
+        "activation",
+        "stability",
+        "therapeutic"
+      ],
+      "prepIntensity": "moderate",
+      "trainingValue": 4,
+      "painSupport": [
+        "genou"
+      ],
+      "prepFocus": [
+        "knee-control",
+        "glutes",
+        "hip"
       ]
     }
   ]

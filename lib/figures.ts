@@ -21,6 +21,9 @@ const f = (view: Figure["view"], a: Pose, b: Pose, extra: Partial<Figure> = {}):
 export const FALLBACK_FIGURE: Figure = f("side", STAND, { ...STAND, ua: 20, fa: 20 }, { dur: 3 });
 
 export const FIGURES: Record<string, Figure> = {
+  // Mise en route : course sur place, bras et genoux alternés.
+  raise: f("side", { t: 8, ua: -40, fa: 60, ua2: 40, fa2: 120, th: 55, sh: -15, th2: -12, sh2: -45 }, { t: 8, ua: 40, fa: 120, ua2: -40, fa2: 60, th: -12, sh: -45, th2: 55, sh2: -15 }, { anchor: "hip", hi: ["th", "th2"], dur: 0.9 }),
+
   // ── Mobilité ─────────────────────────────────────────────────────
   "art-cervicales": f("side", { ...STAND, hd: -38 }, { ...STAND, hd: 38 }, { hi: ["head"], dur: 3 }),
   "art-epaules-cercles": f("side", { ...STAND, ua: -35, fa: -35 }, { ...STAND, ua: 195, fa: 195 }, { hi: ["ua", "fa"], dur: 2.4 }),

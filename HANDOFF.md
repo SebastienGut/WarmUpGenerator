@@ -107,9 +107,9 @@ pratique de salle (les séries d'approche), et la demande de retours est sincèr
 
 - **Mesurer avant d'étendre.** Attendre 3 à 4 semaines de données (GoatCounter,
   Search Console, Bing) avant de créer de nouvelles pages.
-- **Base d'exercices.** 27 des 58 exercices ne sont jamais choisis par le nouveau
-  moteur (rotations de nuque ou de genou, étirements statiques, doublons). Les
-  garder ne gêne pas, mais on peut élaguer ou en faire des alternatives.
+- **Base d'exercices.** 80 exercices de préparation et 37 de séance, chacun avec son pictogramme animé.
+  16 anciens exercices faibles (rotations de nuque ou de genou, étirements statiques)
+  ne sont jamais choisis ; on peut les élaguer.
 - **Matrice muscle × objectif** (28 pages hors sitemap) : le nouveau moteur ne
   différencie l'objectif que par la montée en charge, donc les listes d'exercices
   de ces pages se ressemblent davantage. Candidates à une canonical vers le hub

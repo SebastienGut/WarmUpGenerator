@@ -61,6 +61,25 @@ function Body({ fig, k }: { fig: Figure; k: number }) {
         if (p.kind === "bench") return <rect key={i} x={p.x} y={p.y} width={p.w} height={p.h ?? 8} rx={3} fill="var(--line-strong)" />;
         if (p.kind === "box") return <rect key={i} x={p.x} y={p.y} width={p.w} height={p.h} rx={3} fill="var(--line-strong)" />;
         if (p.kind === "pullbar") return <line key={i} x1={40} y1={BAR_Y} x2={200} y2={BAR_Y} stroke="var(--subtle)" strokeWidth={5} strokeLinecap="round" />;
+        if (p.kind === "rails") {
+          const y = Math.max(s.hand[1], s.hand2[1]) + 6;
+          return (
+            <g key={i} fill="var(--line-strong)">
+              <rect x={s.hand[0] - 46} y={y} width={92} height={6} rx={3} />
+              <rect x={s.hand[0] - 40} y={y} width={6} height={GROUND - y} rx={2} />
+              <rect x={s.hand[0] + 34} y={y} width={6} height={GROUND - y} rx={2} />
+            </g>
+          );
+        }
+        if (p.kind === "hipPad") {
+          const [x, y] = s.hip;
+          return (
+            <g key={i} fill="var(--line-strong)">
+              <rect x={x - 16} y={y + 8} width={32} height={12} rx={5} />
+              <rect x={x - 3} y={y + 18} width={6} height={GROUND - y - 18} rx={2} />
+            </g>
+          );
+        }
         if (p.kind === "mat") return <rect key={i} x={30} y={GROUND - 1} width={180} height={5} rx={2} fill="var(--line)" />;
         return null;
       })}

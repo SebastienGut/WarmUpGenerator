@@ -2,9 +2,10 @@ import { FigureStill } from "@/components/ExerciseFigure";
 import { FIGURES } from "@/lib/figures";
 
 // Planche de contrôle des pictogrammes (temporaire, non publiée).
-export default async function DevFigures({ searchParams }: { searchParams: Promise<{ p?: string }> }) {
-  const page = Number((await searchParams).p ?? 0);
-  const ids = Object.keys(FIGURES).slice(page * 24, page * 24 + 24);
+export default async function DevFigures({ searchParams }: { searchParams: Promise<{ p?: string; ids?: string }> }) {
+  const sp = await searchParams;
+  const page = Number(sp.p ?? 0);
+  const ids = sp.ids ? sp.ids.split(",") : Object.keys(FIGURES).slice(page * 24, page * 24 + 24);
   return (
     <main className="grid grid-cols-3 gap-2 p-3">
       {ids.map((id) => (

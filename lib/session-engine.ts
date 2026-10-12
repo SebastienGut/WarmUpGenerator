@@ -29,6 +29,9 @@ export interface SessionInput {
   band: boolean;
   /** Version courte : pas de mise en route, moins d'exercices. */
   short: boolean;
+  /** Variante : 0 = la sélection la plus pertinente ; au-delà, on tourne parmi
+   * les exercices presque aussi pertinents, pour varier d'une séance à l'autre. */
+  variant?: number;
 }
 
 export interface PrepStep {
@@ -285,11 +288,22 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
       for (const f of ex.prepFocus ?? []) remaining[phase][f] = (remaining[phase][f] ?? 0) * 0.4;
     }
   };
-  const best = (pool: Exercise[], phase: "mobility" | "activation") =>
-    pool.reduce<Exercise | undefined>(
-      (b, ex) => (!b || scoreOf(ex, remaining[phase], phase, input) > scoreOf(b, remaining[phase], phase, input) ? ex : b),
-      undefined,
-    );
+  // Variation : les candidats à au moins 80 % du meilleur score sont tous de
+  // bons choix ; la variante désigne lequel. Déterministe, donc un lien
+  // partagé redonne toujours le même plan.
+  let pick = 0;
+  const best = (pool: Exercise[], phase: "mobility" | "activation") => {
+    const scored = pool
+      .map((ex) => ({ ex, score: scoreOf(ex, remaining[phase], phase, input) }))
+      .sort((a, b) => b.score - a.score || a.ex.id.localeCompare(b.ex.id));
+    if (!scored.length) return undefined;
+    const top = scored[0].score;
+    // Écart relatif au meilleur (un score peut être négatif : pénalités).
+    const close = scored.filter((c) => c.score >= top - Math.abs(top) * 0.2);
+    const v = input.variant ?? 0;
+    pick++;
+    return close[v === 0 ? 0 : (v * 7 + pick * 13) % close.length].ex;
+  };
 
   const mobility: PrepStep[] = [];
   const activation: PrepStep[] = [];
@@ -452,6 +466,7 @@ export function serializeSession(input: SessionInput): string {
   if (input.pain.length) p.set("p", input.pain.join(","));
   if (input.band) p.set("e", "1");
   if (input.short) p.set("c", "1");
+  if (input.variant) p.set("v", String(input.variant));
   return p.toString();
 }
 
@@ -467,6 +482,7 @@ export function parseSession(params: Record<string, string | string[] | undefine
     pain: str("p").split(",").filter((z): z is BodyZone => (ZONES as string[]).includes(z)),
     band: str("e") === "1",
     short: str("c") === "1",
+    variant: Math.max(0, Math.floor(Number(str("v")) || 0)) % 1000,
   };
 }
 

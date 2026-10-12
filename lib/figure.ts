@@ -50,7 +50,11 @@ export type Prop =
   | { kind: "bench"; x: number; y: number; w: number; h?: number }
   | { kind: "box"; x: number; y: number; w: number; h: number }
   | { kind: "pullbar" }
-  | { kind: "mat" };
+  | { kind: "mat" }
+  /** Barres parallèles sous les mains (dips). */
+  | { kind: "rails" }
+  /** Appui sous la hanche, qui suit le corps (banc à lombaires). */
+  | { kind: "hipPad" };
 
 export interface Figure {
   view: "side" | "front";

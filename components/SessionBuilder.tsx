@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ExerciseFigure from "@/components/ExerciseFigure";
+import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
-import { LIFTS_BY_ID, LIFT_GROUPS, SESSION_TEMPLATES, searchLifts, sessionLabel } from "@/lib/lifts";
+import { LIFTS_BY_ID, SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel } from "@/lib/lifts";
 import { serializeSession } from "@/lib/session-engine";
 import { loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
+import { MUSCLE_LABELS, type MuscleGroup } from "@/lib/warmup-data";
 
 /** Variante du jour : le même tap redonne un plan un peu différent d'un jour à
  * l'autre, sans jamais changer au sein d'une même journée. */
@@ -17,23 +19,20 @@ export default function SessionBuilder() {
   const router = useRouter();
   const [saved, setSaved] = useState<SavedSession[]>([]);
   const [picking, setPicking] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
-  const [query, setQuery] = useState("");
+  const [zones, setZones] = useState<MuscleGroup[]>([]);
 
   useEffect(() => {
-    // Séances récentes : stockées sur l'appareil, donc lues après hydratation.
+    // Échauffements récents : stockés sur l'appareil, donc lus après hydratation.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSaved(loadSessions());
   }, []);
 
-  const results = useMemo(() => searchLifts(query), [query]);
-
-  const go = (lifts: string[]) => {
-    const q = serializeSession({ lifts, workReps: 8, pain: [], band: false, short: false, variant: dayVariant() });
-    saveSession({ query: q, label: sessionLabel(lifts) });
+  const go = (z: MuscleGroup[]) => {
+    const q = serializeSession({ zones: z, lifts: [], pain: [], band: false, short: false, variant: dayVariant() });
+    saveSession({ query: q, label: zonesLabel(z) });
     router.push(`/plan?${q}`);
   };
-  const toggle = (id: string) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
+  const toggle = (z: MuscleGroup) => setZones((s) => (s.includes(z) ? s.filter((x) => x !== z) : [...s, z]));
 
   return (
     <main className="mx-auto w-full max-w-[1080px] px-5 pb-16 pt-5 sm:px-8">
@@ -80,14 +79,14 @@ export default function SessionBuilder() {
           <button
             key={t.id}
             type="button"
-            onClick={() => go(t.lifts)}
+            onClick={() => go(t.zones)}
             style={{ "--d": `${i * 50}ms` } as React.CSSProperties}
             className="anim-rise group flex flex-col overflow-hidden rounded-2xl border border-line bg-card text-left transition-[border-color,transform] duration-150 hover:border-ink active:scale-[0.97]"
           >
             <ExerciseFigure id={t.cover} label={LIFTS_BY_ID[t.cover].name} className="aspect-[12/10] w-full bg-ink/[0.025]" />
             <span className="flex flex-col gap-1 px-4 pb-4 pt-3">
               <span className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink sm:text-[24px] lg:text-[20px]">{t.label}</span>
-              <span className="truncate text-[12px] text-subtle">{t.lifts.map((id) => LIFTS_BY_ID[id].name).join(" · ")}</span>
+              <span className="truncate text-[12px] text-subtle">{t.hint}</span>
             </span>
           </button>
         ))}
@@ -99,76 +98,69 @@ export default function SessionBuilder() {
         className="mt-4 flex w-full items-center justify-between rounded-2xl border-2 border-dashed border-line-strong px-5 py-4 text-left transition-colors hover:border-ink"
       >
         <span>
-          <span className="block font-display text-[20px] font-extrabold uppercase leading-none tracking-tight text-ink">Ma séance à moi</span>
-          <span className="mt-1 block text-[13px] text-subtle">Choisis tes exercices parmi {Object.keys(LIFTS_BY_ID).length}</span>
+          <span className="block font-display text-[20px] font-extrabold uppercase leading-none tracking-tight text-ink">Mes zones</span>
+          <span className="mt-1 block text-[13px] text-subtle">Choisis précisément ce que tu travailles</span>
         </span>
         <span aria-hidden="true" className="font-display text-[26px] font-extrabold text-ink">+</span>
       </button>
 
+      {/* Second outil, distinct : la montée en charge sur un exercice précis. */}
+      <Link
+        href="/series-approche"
+        className="mt-10 flex items-center gap-4 rounded-2xl bg-ink px-5 py-5 text-paper transition-transform active:scale-[0.99] sm:px-7"
+      >
+        <span className="min-w-0 flex-1">
+          <span className="block font-display text-[13px] font-bold uppercase tracking-wide text-paper/70">Deuxième outil</span>
+          <span className="mt-1 block font-display text-[26px] font-extrabold uppercase leading-none tracking-tight">Séries d&apos;approche</span>
+          <span className="mt-2 block text-[14px] text-paper/80">Ta charge de travail du jour → ta montée en charge, disques compris.</span>
+        </span>
+        <span className="hidden shrink-0 sm:block" aria-hidden="true">
+          <Plates plates={[25, 20, 5, 2.5]} size={56} showLabel={false} />
+        </span>
+        <span aria-hidden="true" className="font-display text-[26px] font-extrabold">→</span>
+      </Link>
+
       <Sheet
         open={picking}
         onClose={() => setPicking(false)}
-        title="Ta séance"
-        tall
+        title="Mes zones"
         footer={
           <button
             type="button"
-            onClick={() => selected.length && go(selected)}
-            aria-disabled={!selected.length}
+            onClick={() => zones.length && go(zones)}
+            aria-disabled={!zones.length}
             className={`flex w-full items-center justify-between rounded-xl px-5 py-4 transition-transform active:scale-[0.98] ${
-              selected.length ? "bg-accent text-on-accent" : "bg-ink/[0.07] text-subtle"
+              zones.length ? "bg-accent text-on-accent" : "bg-ink/[0.07] text-subtle"
             }`}
           >
             <span className="font-display text-[20px] font-extrabold uppercase tracking-wide">
-              {selected.length ? `Échauffer · ${selected.length} exo${selected.length > 1 ? "s" : ""}` : "Touche tes exercices"}
+              {zones.length ? `Échauffer · ${zonesLabel(zones)}` : "Touche tes zones"}
             </span>
             <span aria-hidden="true" className="font-display text-[22px] font-extrabold">→</span>
           </button>
         }
       >
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Rechercher : squat, bench, tractions…"
-          aria-label="Rechercher un exercice"
-          className="mb-4 w-full rounded-xl border border-line-strong bg-card px-4 py-3 text-[16px] text-ink outline-none placeholder:text-subtle focus:border-ink"
-        />
-        {selected.length > 0 && <p className="mb-3 text-[13px] text-subtle">Le premier choisi reçoit la montée en charge complète.</p>}
-        {LIFT_GROUPS.map((g) => {
-          const items = results.filter((l) => l.group === g);
-          if (!items.length) return null;
-          return (
-            <div key={g} className="mb-5">
-              <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">{g}</p>
-              <div className="grid grid-cols-3 gap-2">
-                {items.map((l) => {
-                  const order = selected.indexOf(l.id);
-                  const on = order >= 0;
-                  return (
-                    <button
-                      key={l.id}
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => toggle(l.id)}
-                      className={`relative flex flex-col overflow-hidden rounded-xl border-2 text-left transition-colors ${
-                        on ? "border-accent bg-accent/[0.06]" : "border-line bg-card hover:border-line-strong"
-                      }`}
-                    >
-                      <ExerciseFigure id={l.id} label={l.name} animate={on} className="aspect-[12/10] w-full" />
-                      <span className="px-2 pb-2 text-[12px] font-semibold leading-tight text-ink">{l.name}</span>
-                      {on && (
-                        <span className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-accent font-display text-[14px] font-extrabold text-on-accent">
-                          {order + 1}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-        {results.length === 0 && <p className="text-[14px] text-subtle">Aucun exercice trouvé.</p>}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {ZONE_ORDER.map((z) => {
+            const on = zones.includes(z);
+            const cover = ZONE_LIFTS[z][0];
+            return (
+              <button
+                key={z}
+                type="button"
+                aria-pressed={on}
+                onClick={() => toggle(z)}
+                className={`flex items-center gap-2 overflow-hidden rounded-xl border-2 pr-3 text-left transition-colors ${
+                  on ? "border-accent bg-accent/[0.06]" : "border-line bg-card hover:border-line-strong"
+                }`}
+              >
+                <ExerciseFigure id={cover} label={MUSCLE_LABELS[z]} animate={on} className="h-14 w-16 shrink-0" />
+                <span className="flex-1 font-display text-[18px] font-extrabold uppercase leading-none tracking-tight text-ink">{MUSCLE_LABELS[z]}</span>
+                {on && <span aria-hidden="true" className="font-display text-[18px] font-extrabold text-accent">✓</span>}
+              </button>
+            );
+          })}
+        </div>
       </Sheet>
     </main>
   );

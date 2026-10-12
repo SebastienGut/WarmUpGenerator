@@ -6,12 +6,13 @@ import { COMBO_PAGES, COMBO_SLUGS } from "@/lib/content/combo";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
 // Deep-link générateur : groupes musculaires du combo
+// Mêmes zones que les séances types de l'accueil.
 const PLAN_PARAMS: Record<string, string> = {
-  "haut-du-corps": "s=developpe-couche,rowing-barre,developpe-militaire,tractions&r=8",
-  "bas-du-corps": "s=squat,souleve-roumain,fentes,hip-thrust&r=8",
-  "full-body": "s=squat,developpe-couche,rowing-barre&r=8",
-  push: "s=developpe-couche,developpe-epaules-halteres,elevations-laterales,triceps&r=8",
-  pull: "s=tractions,rowing-barre,tirage-horizontal,curl-biceps&r=8",
+  "haut-du-corps": "z=pecs,dos,epaules",
+  "bas-du-corps": "z=jambes,fessiers,core",
+  "full-body": "z=pecs,dos,jambes,fessiers",
+  push: "z=pecs,epaules,bras",
+  pull: "z=dos,bras",
 };
 
 interface PageProps {

@@ -151,7 +151,7 @@ export default function SEOPage(props: SEOPageProps) {
           <span className="text-[12px] font-medium">
             {planHref
               ? "Séries d'approche comprises, repos décomptés · Hors ligne"
-              : "À partir des exercices de ta séance · Gratuit, sans compte"}
+              : "Par zone ou type de séance · Gratuit, sans compte"}
           </span>
         </div>
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">

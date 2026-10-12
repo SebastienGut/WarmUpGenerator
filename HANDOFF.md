@@ -16,17 +16,16 @@ npm run build && npm run start
 
 ### Le parcours principal
 
-- [ ] Accueil : choisir **Jambes**, saisir 100 kg × 5, cocher **Genou**
-- [ ] Plan : l'avertissement genou s'affiche, avec un lien vers la page douleur
-- [ ] Plan : les 4 phases, puis la montée du squat avec les disques dessinés
-      (barre seule, 40, 60, 75, 85 kg)
-- [ ] **Démarrer l'échauffement** : un geste par écran, « Série faite » lance le
-      repos décompté, l'écran ne se met pas en veille
-- [ ] Retour à l'accueil : la séance apparaît dans « Tes dernières séances »
-- [ ] Refaire avec **Push**, sans charge : les séries d'approche sont en %
-- [ ] **Version courte** : pas de cardio, environ 5 minutes
-- [ ] Sans « J'ai un élastique » : les exercices à élastique affichent leur
-      version sans matériel
+- [ ] Accueil : toucher **Jambes** → l'échauffement s'ouvre (mise en route,
+      mobilité, activation), sans aucune supposition sur tes exercices
+- [ ] Plan : chaque exercice a son pictogramme animé, la consigne s'ouvre au tap
+- [ ] **Ajuster** : changer les zones, cocher **Genou**, version courte → le plan
+      se met à jour en direct ; **↻ Varier** propose une autre version
+- [ ] **Démarrer** : un geste par écran, chrono du cardio avec « Passer », écran
+      qui ne se met pas en veille
+- [ ] **Séries d'approche** (second outil) : squat, 100 kg × 5 → montée en charge
+      avec disques, puis **Démarrer la montée** avec minuteur de repos
+- [ ] Retour à l'accueil : l'échauffement apparaît dans les récents
 
 ### Le jugement de coach (le plus important)
 
@@ -89,13 +88,13 @@ pratique de salle (les séries d'approche), et la demande de retours est sincèr
 
 **Product Hunt** (texte prêt à coller) :
 
-- Tagline : `A gym warm-up built from your actual workout, free and offline`
+- Tagline : `Your gym warm-up in one tap, plus a warm-up set calculator`
 - Description :
   ```
-  Tell it what you're training today — squat, bench, pull-ups — and Warmup builds
-  the warm-up those lifts need: targeted mobility and activation, then warm-up sets
-  calculated from your working weight, with the plates to load drawn in
-  competition colours. A guided full-screen mode runs the rest timers in the gym.
+  Tap what you're training today — push, pull, legs, upper or lower body — and get a
+  six-minute warm-up targeted to it, every drill shown as an animated pictogram, with
+  a guided full-screen mode for the gym. A separate calculator turns today's working
+  weight into warm-up sets, plates per side, with rest timers.
 
   No account, no ads, no cookies. Everything runs in the browser, so it works
   offline in a basement gym. Dataset CC BY 4.0, code AGPL-3.0.

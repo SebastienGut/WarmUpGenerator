@@ -13,17 +13,19 @@
 // d'exigences (PrepFocus → poids) : chaque exercice retenu « consomme » une
 // part des exigences qu'il couvre, ce qui force la diversité sans règle ad hoc.
 
-import { exercises, type BodyZone, type Exercise, type PrepFocus } from "@/lib/warmup-data";
-import { LIFTS_BY_ID, type Lift, type LiftLoading } from "@/lib/lifts";
+import { exercises, type BodyZone, type Exercise, type MuscleGroup, type PrepFocus } from "@/lib/warmup-data";
+import { LIFTS_BY_ID, ZONE_LIFTS, ZONE_ORDER, zonesLabel, sessionLabel, type Lift, type LiftLoading } from "@/lib/lifts";
 import { computeApproachSets, formatKg, type ApproachExercise } from "@/lib/approach-sets";
 
 export interface SessionInput {
-  /** Identifiants d'exercices de séance, dans l'ordre de la séance. */
+  /** Zones à échauffer (cas principal : séance type ou choix libre). */
+  zones?: MuscleGroup[];
+  /** Ou bien un exercice précis (pages « échauffement avant le squat »). */
   lifts: string[];
   /** Charge de la première série de travail du 1er exercice, en kg. */
   workWeight?: number;
-  /** Répétitions de cette série. */
-  workReps: number;
+  /** Répétitions de cette série (séries d'approche uniquement). */
+  workReps?: number;
   pain: BodyZone[];
   /** Un élastique est disponible. */
   band: boolean;
@@ -87,6 +89,8 @@ export interface PlanWarning {
 }
 
 export interface SessionPlan {
+  /** Nom de l'échauffement : « Jambes », « Pecs + Dos », « Squat »… */
+  title: string;
   lifts: Lift[];
   phases: PlanPhase[];
   minutes: number;
@@ -149,6 +153,22 @@ const movementOf = (ex: Exercise) => ex.movementKey ?? SAME_MOVEMENT[ex.id];
 const NEEDS_PATTERN: Record<string, string> = { "prep-tractions-scapulaires": "pull-v" };
 
 type Demand = Partial<Record<PrepFocus, number>>;
+
+/** Exigences d'un ensemble de zones : moyenne des exercices typiques de chaque
+ * zone, sans en privilégier un (on ne sait pas ce que la personne fera). */
+function zonesDemand(zones: MuscleGroup[]): Demand {
+  const d: Demand = {};
+  for (const zone of zones) {
+    const lifts = ZONE_LIFTS[zone].map((id) => LIFTS_BY_ID[id]);
+    for (const lift of lifts) {
+      const isolation = lift.pattern.startsWith("iso") ? 0.5 : 1;
+      for (const [focus, w] of Object.entries(lift.demands) as [PrepFocus, number][]) {
+        d[focus] = (d[focus] ?? 0) + (w * isolation * 1.4) / lifts.length;
+      }
+    }
+  }
+  return d;
+}
 
 function sessionDemand(lifts: Lift[]): Demand {
   const d: Demand = {};
@@ -221,7 +241,7 @@ function rampExerciseFor(lift: Lift): ApproachExercise {
   return lift.id === "souleve-de-terre" ? "souleve-de-terre" : "squat";
 }
 
-function fullRamp(lift: Lift, input: SessionInput): RampLine[] {
+function fullRamp(lift: Lift, input: SessionInput, barWeight = 20): RampLine[] {
   if (lift.loading === "poids-du-corps") {
     return [
       { load: "Amplitude réduite", reps: 5, restSeconds: 45 },
@@ -232,8 +252,8 @@ function fullRamp(lift: Lift, input: SessionInput): RampLine[] {
   const sets = computeApproachSets({
     exercise: rampExerciseFor(lift),
     workWeight: known ? input.workWeight! : 100,
-    workReps: input.workReps,
-    barWeight: 20,
+    workReps: input.workReps ?? 8,
+    barWeight,
   });
   return sets.map((s) => ({
     load: s.emptyBar ? "Barre seule" : known ? formatKg(s.weight) : `${s.percent} %`,
@@ -243,19 +263,14 @@ function fullRamp(lift: Lift, input: SessionInput): RampLine[] {
   }));
 }
 
-function reminderRamp(lift: Lift, patternDone: boolean): RampLine[] {
-  if (lift.loading === "poids-du-corps") return [{ load: "Amplitude réduite", reps: 5, restSeconds: 60 }];
-  return patternDone
-    ? [{ load: "≈ 60 %", reps: 5, restSeconds: 60 }]
-    : [
-        { load: "≈ 50 %", reps: 8, restSeconds: 45 },
-        { load: "≈ 75 %", reps: 3, restSeconds: 60 },
-      ];
-}
 
 export function buildSessionPlan(input: SessionInput): SessionPlan {
+  const zones = (input.zones ?? []).filter((z) => z in ZONE_LIFTS);
+  const byZone = zones.length > 0;
   const lifts = input.lifts.map((id) => LIFTS_BY_ID[id]).filter((l): l is Lift => Boolean(l));
-  const demand = sessionDemand(lifts);
+  // Exercices de référence : ceux de la séance, ou les typiques des zones.
+  const refLifts = byZone ? [...new Set(zones.flatMap((z) => ZONE_LIFTS[z]))].map((id) => LIFTS_BY_ID[id]) : lifts;
+  const demand = byZone ? zonesDemand(zones) : sessionDemand(lifts);
   for (const zone of input.pain) {
     for (const f of PAIN_FOCUS[zone]) demand[f] = (demand[f] ?? 0) + 2;
   }
@@ -272,7 +287,7 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
     const supportsDeclaredPain = (ex.painSupport ?? []).some((z) => input.pain.includes(z));
     if (STATIC_STRETCH.test(ex.id) && !forPain) return false;
     const pattern = NEEDS_PATTERN[ex.id];
-    if (pattern && !lifts.some((l) => l.pattern === pattern)) return false;
+    if (pattern && !refLifts.some((l) => l.pattern === pattern)) return false;
     if ((ex.trainingValue ?? 3) <= 1 && !supportsDeclaredPain) return false;
     if (forPain && !(ex.painSupport ?? []).includes(forPain)) return false;
     return true;
@@ -333,51 +348,16 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
       );
       if (!ex) break;
       take(ex, [phase]);
-      const drivers = liftsDriving(ex, lifts);
-      target.push(toStep(ex, input, drivers.length ? `Pour : ${drivers.join(", ")}` : "Préparation générale"));
+      // Raison exprimée par qualité préparée : en mode zones, citer « Squat »
+      // laisserait croire qu'on présume des exercices de la séance.
+      const drivers = byZone ? [] : liftsDriving(ex, lifts);
+      const foci = (ex.prepFocus ?? []).slice(0, 2).map((f) => FOCUS_LABELS[f]);
+      target.push(toStep(ex, input, drivers.length ? `Pour : ${drivers.join(", ")}` : `Prépare : ${foci.join(", ")}`));
     }
   };
+  // Sans séries d'approche, l'échauffement complet garde trois activations.
   fill(mobility, "mobility", input.short ? 2 : 3);
-  fill(activation, "activation", input.short ? 1 : 2);
-
-  // 3. Séries d'approche.
-  const ramps: RampStep[] = [];
-  const patterns = new Set<string>();
-  let isolationNoted = false;
-  lifts.forEach((lift, i) => {
-    const isolation = lift.pattern.startsWith("iso");
-    if (i === 0) {
-      ramps.push({
-        kind: "ramp",
-        lift,
-        lines: fullRamp(lift, input),
-        full: true,
-        note:
-          input.workWeight && input.workWeight > 0
-            ? undefined
-            : lift.loading === "poids-du-corps"
-            ? undefined
-            : "Pourcentages de ta charge de travail. Indique-la pour obtenir les poids exacts.",
-      });
-      patterns.add(lift.pattern);
-      return;
-    }
-    if (isolation) {
-      if (!isolationNoted) {
-        isolationNoted = true;
-        ramps.push({
-          kind: "ramp",
-          lift,
-          lines: [{ load: "Léger", reps: 12, restSeconds: 45 }],
-          full: false,
-          note: "Pour les exercices d'isolation, une série légère avant la première série de travail suffit.",
-        });
-      }
-      return;
-    }
-    ramps.push({ kind: "ramp", lift, lines: reminderRamp(lift, patterns.has(lift.pattern)), full: false });
-    patterns.add(lift.pattern);
-  });
+  fill(activation, "activation", input.short ? 1 : 3);
 
   const phases: PlanPhase[] = [];
   if (!input.short) {
@@ -415,54 +395,57 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
       steps: activation,
     });
   }
-  if (ramps.length) {
-    phases.push({
-      key: "ramp",
-      title: "Séries d'approche",
-      why: "Répéter le geste exact en montant la charge, pour arriver prêt sur ta première vraie série.",
-      steps: ramps,
-    });
-  }
 
-  // Durée : exercices + ~30 s d'effort par série d'approche, repos compris
-  // uniquement pour la montée du 1er exercice (les rappels se font en séance).
   const prepSeconds = phases
     .flatMap((p) => p.steps)
     .reduce((s, st) => s + (st.kind === "ramp" ? 0 : st.seconds), 0);
-  const first = ramps.find((r) => r.full);
-  const rampSeconds = first ? first.lines.reduce((s, l) => s + 30 + l.restSeconds, 0) : 0;
 
   const warnings: PlanWarning[] = input.pain.flatMap((zone) => {
-    const stressing = lifts.filter((l) => l.stress.includes(zone));
+    const stressing = refLifts.filter((l) => l.stress.includes(zone));
     if (!stressing.length) return [];
-    const guide = stressing.find((l) => l.painGuide?.zone === zone)?.painGuide?.href;
+    const guide = byZone ? undefined : stressing.find((l) => l.painGuide?.zone === zone)?.painGuide?.href;
     return [
       {
         zone,
-        text: `${PAIN_LABELS[zone]} sensible et ${stressing.map((l) => l.name.toLowerCase()).join(", ")} : la douleur doit rester sous 3 sur 10 pendant les séries d'approche. Si elle augmente d'une série à l'autre, arrête la montée et garde la charge où elle était confortable.`,
+        text: `${PAIN_LABELS[zone]} sensible : la gêne doit rester sous 3 sur 10 pendant l'échauffement. Si elle augmente, réduis l'amplitude plutôt que de forcer.`,
         href: guide ?? PROTECTION_HREF[zone] ?? "/douleur",
       },
     ];
   });
 
   return {
+    title: byZone ? zonesLabel(zones) : sessionLabel(lifts.map((l) => l.id)),
     lifts,
     phases,
-    minutes: Math.max(1, Math.round((prepSeconds + rampSeconds) / 60)),
+    minutes: Math.max(1, Math.round(prepSeconds / 60)),
     warnings,
   };
 }
 
+/** Plan réduit à la seule montée en charge d'un exercice : c'est l'outil
+ * séries d'approche, distinct de l'échauffement, qui réutilise le mode guidé. */
+export function buildRampPlan(liftId: string, workWeight: number | undefined, workReps: number, barWeight = 20): SessionPlan {
+  const lift = LIFTS_BY_ID[liftId];
+  const lines = fullRamp(lift, { lifts: [liftId], workWeight, workReps, pain: [], band: false, short: false }, barWeight);
+  return {
+    title: lift.name,
+    lifts: [lift],
+    phases: [{ key: "ramp", title: "Séries d'approche", why: "", steps: [{ kind: "ramp", lift, lines, full: true }] }],
+    minutes: Math.max(1, Math.round(lines.reduce((s, l) => s + 30 + l.restSeconds, 0) / 60)),
+    warnings: [],
+  };
+}
+
 // ── URL ────────────────────────────────────────────────────────────
-// /plan?s=squat,presse&kg=100&r=5&p=genou&e=1&c=1
+// /plan?z=jambes,fessiers&p=genou&e=1&c=1   (zones)
+// /plan?s=squat                               (avant un exercice précis)
 
 const ZONES = Object.keys(PAIN_LABELS) as BodyZone[];
 
 export function serializeSession(input: SessionInput): string {
   const p = new URLSearchParams();
-  p.set("s", input.lifts.join(","));
-  if (input.workWeight && input.workWeight > 0) p.set("kg", String(input.workWeight));
-  p.set("r", String(input.workReps));
+  if (input.zones?.length) p.set("z", input.zones.join(","));
+  else p.set("s", input.lifts.join(","));
   if (input.pain.length) p.set("p", input.pain.join(","));
   if (input.band) p.set("e", "1");
   if (input.short) p.set("c", "1");
@@ -473,9 +456,11 @@ export function serializeSession(input: SessionInput): string {
 export function parseSession(params: Record<string, string | string[] | undefined>): SessionInput {
   const str = (k: string) => (typeof params[k] === "string" ? (params[k] as string) : "");
   const lifts = str("s").split(",").filter((id) => id in LIFTS_BY_ID).slice(0, 8);
+  const zones = str("z").split(",").filter((z): z is MuscleGroup => (ZONE_ORDER as string[]).includes(z));
   const kg = Number(str("kg").replace(",", "."));
   const reps = Number(str("r"));
   return {
+    zones,
     lifts,
     workWeight: kg > 0 && kg < 600 ? kg : undefined,
     workReps: reps >= 1 && reps <= 15 ? reps : 8,

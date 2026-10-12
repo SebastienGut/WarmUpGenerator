@@ -121,8 +121,8 @@ export default function AboutPage() {
             Pourtant, un échauffement ciblé prend 5 minutes et change tout. Le problème, c&apos;est
             que <strong className="text-ink">trouver le bon protocole pour <em>sa</em> séance, <em>son</em> objectif et
             <em> ses</em> zones sensibles</strong> demande des heures de recherche dans des articles génériques
-            ou contradictoires. Cet outil règle ce problème : tu indiques les exercices de ta séance, il construit
-            l&apos;échauffement qui les prépare, séries d&apos;approche comprises. Sans inscription, sans pub.
+            ou contradictoires. Cet outil règle ce problème : tu choisis ce que tu travailles, il construit
+            l&apos;échauffement qui y prépare. Un second outil calcule tes séries d&apos;approche. Sans inscription, sans pub.
           </p>
         </section>
 

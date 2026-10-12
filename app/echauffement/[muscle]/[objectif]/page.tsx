@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SEOPage from "@/components/SEOPage";
-import { MUSCLE_LIFTS, seoPlanFor } from "@/lib/seo-plan";
+import { seoPlanFor } from "@/lib/seo-plan";
 import type { MuscleGroup, Objective } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
 import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS, MUSCLE_HUB } from "@/lib/content/muscle";
@@ -80,7 +80,7 @@ export default async function StaticPlanPage({ params }: PageProps) {
   const muscleTyped = muscle as MuscleGroup;
   const objectiveTyped = objectif as Objective;
 
-  const plan = seoPlanFor(MUSCLE_LIFTS[muscleTyped], objectiveTyped);
+  const plan = seoPlanFor([muscleTyped], objectiveTyped);
 
   const muscleLabel = MUSCLE_LABELS[muscleTyped];
   const objectiveLabel = OBJECTIVE_LABELS[objectiveTyped];

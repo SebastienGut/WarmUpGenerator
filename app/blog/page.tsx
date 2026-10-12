@@ -122,7 +122,7 @@ export default function BlogPage() {
                 Générer ton échauffement sur mesure
               </span>
               <span className="text-[12px] font-medium">
-                À partir des exercices de ta séance · Séries d&apos;approche comprises
+                Par zone ou type de séance · Prêt en un tap
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">

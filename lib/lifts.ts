@@ -2,7 +2,8 @@
 // l'échauffement. C'est l'entrée du moteur : on prépare le corps aux
 // exigences réelles de ces mouvements, pas à des groupes musculaires abstraits.
 
-import type { BodyZone, PrepFocus } from "@/lib/warmup-data";
+import type { BodyZone, MuscleGroup, PrepFocus } from "@/lib/warmup-data";
+import { MUSCLE_LABELS } from "@/lib/warmup-data";
 
 export type LiftPattern =
   | "squat"
@@ -430,16 +431,38 @@ export const LIFTS_BY_ID: Record<string, Lift> = Object.fromEntries(LIFTS.map((l
 
 export const LIFT_GROUPS: LiftGroup[] = ["Poussée", "Tirage", "Jambes", "Isolation"];
 
-/** Séances types : un tap pour obtenir le plan. `cover` est l'exercice dont le
- * pictogramme illustre la tuile. */
-export const SESSION_TEMPLATES: { id: string; label: string; cover: string; lifts: string[] }[] = [
-  { id: "push", label: "Push", cover: "developpe-couche", lifts: ["developpe-couche", "developpe-epaules-halteres", "elevations-laterales", "triceps"] },
-  { id: "pull", label: "Pull", cover: "tractions", lifts: ["tractions", "rowing-barre", "tirage-horizontal", "curl-biceps"] },
-  { id: "legs", label: "Jambes", cover: "squat", lifts: ["squat", "souleve-roumain", "presse", "leg-curl"] },
-  { id: "haut", label: "Haut du corps", cover: "developpe-militaire", lifts: ["developpe-couche", "rowing-barre", "developpe-militaire", "tractions"] },
-  { id: "bas", label: "Bas du corps", cover: "souleve-de-terre", lifts: ["squat", "souleve-roumain", "fentes", "hip-thrust"] },
-  { id: "full", label: "Full body", cover: "kettlebell-swing", lifts: ["squat", "developpe-couche", "rowing-barre"] },
+/** Exercices typiques de chaque zone : ils servent seulement à estimer ce que
+ * la zone exige (mobilité de cheville pour les jambes…), jamais à présumer de
+ * ce que la personne fera en séance. */
+export const ZONE_LIFTS: Record<MuscleGroup, string[]> = {
+  pecs: ["developpe-couche", "developpe-incline", "ecartes"],
+  dos: ["tractions", "rowing-barre", "tirage-horizontal"],
+  epaules: ["developpe-militaire", "elevations-laterales"],
+  jambes: ["squat", "presse", "fentes", "leg-curl"],
+  fessiers: ["hip-thrust", "souleve-roumain", "fentes"],
+  bras: ["curl-biceps", "triceps"],
+  core: ["souleve-de-terre", "squat"],
+};
+
+export const ZONE_ORDER: MuscleGroup[] = ["pecs", "dos", "epaules", "bras", "jambes", "fessiers", "core"];
+
+/** Séances types : un tap pour obtenir l'échauffement. `cover` est l'exercice
+ * dont le pictogramme illustre la tuile. */
+export const SESSION_TEMPLATES: { id: string; label: string; cover: string; zones: MuscleGroup[]; hint: string }[] = [
+  { id: "push", label: "Push", cover: "developpe-couche", zones: ["pecs", "epaules", "bras"], hint: "Pecs · épaules · triceps" },
+  { id: "pull", label: "Pull", cover: "tractions", zones: ["dos", "bras"], hint: "Dos · biceps" },
+  { id: "legs", label: "Jambes", cover: "squat", zones: ["jambes", "fessiers"], hint: "Quadriceps · ischios · fessiers" },
+  { id: "haut", label: "Haut du corps", cover: "developpe-militaire", zones: ["pecs", "dos", "epaules"], hint: "Pecs · dos · épaules" },
+  { id: "bas", label: "Bas du corps", cover: "souleve-de-terre", zones: ["jambes", "fessiers", "core"], hint: "Jambes · fessiers · gainage" },
+  { id: "full", label: "Full body", cover: "kettlebell-swing", zones: ["pecs", "dos", "jambes", "fessiers"], hint: "Tout le corps" },
 ];
+
+/** Nom court d'un échauffement par zones : la séance type si elle correspond. */
+export function zonesLabel(zones: MuscleGroup[]) {
+  const key = [...zones].sort().join(",");
+  const template = SESSION_TEMPLATES.find((t) => [...t.zones].sort().join(",") === key);
+  return template ? template.label : zones.map((z) => MUSCLE_LABELS[z]).join(" + ");
+}
 
 export function normalize(s: string) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
@@ -451,10 +474,8 @@ export function searchLifts(query: string): Lift[] {
   return LIFTS.filter((l) => normalize(l.name).includes(q) || l.aliases.some((a) => a.includes(q)));
 }
 
-/** Nom court d'une séance : le modèle s'il correspond, sinon les exercices. */
+/** Nom court d'un échauffement préparé pour des exercices précis. */
 export function sessionLabel(ids: string[]) {
-  const template = SESSION_TEMPLATES.find((t) => t.lifts.join(",") === ids.join(","));
-  if (template) return template.label;
   const names = ids.map((id) => LIFTS_BY_ID[id]?.name).filter(Boolean);
   return names.slice(0, 2).join(" + ") + (names.length > 2 ? ` +${names.length - 2}` : "");
 }

@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     template: "%s · Warmup Generator",
   },
   description:
-    "Un échauffement musculation construit sur les exercices de ta séance : mobilité, activation et séries d'approche calculées. Gratuit, sans compte, hors ligne.",
+    "Un échauffement musculation en un tap, selon ce que tu travailles : mobilité et activation ciblées, mode guidé. Plus un calculateur de séries d'approche. Gratuit, hors ligne.",
   applicationName: "Warmup Generator",
   authors: [{ name: "Warmup Generator" }],
   openGraph: {
     title: "Warmup Generator — Échauffement musculation personnalisé",
     description:
-      "Un échauffement construit sur les exercices de ta séance, séries d'approche comprises. Gratuit, sans compte.",
+      "Ton échauffement musculation en un tap, selon ce que tu travailles. Gratuit, sans compte.",
     type: "website",
     locale: "fr_FR",
     url: SITE_URL,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Warmup Generator — Échauffement musculation personnalisé",
     description:
-      "Un échauffement construit sur les exercices de ta séance, séries d'approche comprises.",
+      "Ton échauffement musculation en un tap, selon ce que tu travailles.",
     // twitter:image auto-généré par app/twitter-image.tsx
   },
   robots: {

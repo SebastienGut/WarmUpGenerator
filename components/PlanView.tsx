@@ -6,9 +6,8 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
 import GuidedMode from "@/components/GuidedMode";
-import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
-import { LIFTS_BY_ID, sessionLabel } from "@/lib/lifts";
+import { ZONE_ORDER } from "@/lib/lifts";
 import { saveSession } from "@/lib/saved-sessions";
 import {
   PAIN_LABELS,
@@ -20,10 +19,9 @@ import {
   type RampStep,
   type SessionInput,
 } from "@/lib/session-engine";
-import type { BodyZone } from "@/lib/warmup-data";
+import { MUSCLE_LABELS, type BodyZone, type MuscleGroup } from "@/lib/warmup-data";
 
 const ZONES = Object.keys(PAIN_LABELS) as BodyZone[];
-const REPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 15];
 
 function phaseSeconds(phase: PlanPhase) {
   return phase.steps.reduce((s, st) => {
@@ -108,36 +106,6 @@ function StepRow({ step }: { step: Exclude<PlanStep, RampStep> }) {
   );
 }
 
-function RampCard({ step }: { step: RampStep }) {
-  return (
-    <li className="rounded-2xl border border-line bg-card p-2 pr-4">
-      <div className="flex items-center gap-3">
-        <ExerciseFigure id={step.lift.id} label={step.lift.name} className="h-[60px] w-[66px] shrink-0 rounded-xl bg-ink/[0.03]" />
-        <span className="min-w-0 flex-1">
-          <span className="block font-display text-[19px] font-extrabold uppercase leading-none tracking-tight text-ink">{step.lift.name}</span>
-          <span className="text-[12px] text-subtle">{step.full ? "Montée complète" : "Rappel avant l'exercice"}</span>
-        </span>
-      </div>
-      <table className="mt-2 w-full">
-        <tbody>
-          {step.lines.map((l, i) => (
-            <tr key={i} className="border-t border-line">
-              <td className="w-8 py-2 pl-2 font-display text-[14px] font-bold text-subtle tabular">{i + 1}</td>
-              <td className="py-2">
-                <span className="font-display text-[21px] font-bold leading-none text-ink tabular">{l.load}</span>
-                <span className="ml-1.5 font-display text-[17px] font-semibold text-muted">× {l.reps}</span>
-              </td>
-              <td className="py-2 text-right">{l.plates && <Plates plates={l.plates} size={22} showLabel={false} />}</td>
-              {step.full && <td className="w-12 py-2 text-right text-[11px] text-subtle tabular">{l.restSeconds} s</td>}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {step.note && <p className="mt-1 pl-2 text-[12px] leading-snug text-subtle">{step.note}</p>}
-    </li>
-  );
-}
-
 function Chip({ children, onClick, tone = "default" }: { children: React.ReactNode; onClick: () => void; tone?: "default" | "warn" | "on" }) {
   const cls =
     tone === "warn"
@@ -166,14 +134,12 @@ function Toggle({ on, onChange, title }: { on: boolean; onChange: (v: boolean) =
 function PlanContent({ initial }: { initial: SessionInput }) {
   const router = useRouter();
   const [input, setInput] = useState(initial);
-  const [weight, setWeight] = useState(initial.workWeight ? String(initial.workWeight) : "");
   const [adjusting, setAdjusting] = useState(false);
   const [guided, setGuided] = useState(false);
   const [copied, setCopied] = useState(false);
   const plan = useMemo(() => buildSessionPlan(input), [input]);
-  const first = LIFTS_BY_ID[input.lifts[0]];
-  const loaded = first.loading !== "poids-du-corps";
-  const label = sessionLabel(input.lifts);
+  const label = plan.title;
+  const zones = input.zones ?? [];
 
   // Chaque réglage réécrit l'URL (partage, retour arrière) et la séance récente.
   const update = useCallback(
@@ -182,7 +148,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       const q = serializeSession(next);
       setInput(next);
       router.replace(`/plan?${q}`, { scroll: false });
-      saveSession({ query: q, label: sessionLabel(next.lifts) });
+      saveSession({ query: q, label: buildSessionPlan(next).title });
     },
     [input, router],
   );
@@ -238,11 +204,6 @@ function PlanContent({ initial }: { initial: SessionInput }) {
         <Timeline phases={plan.phases} />
 
         <div className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-          {loaded && (
-            <Chip onClick={() => setAdjusting(true)} tone={input.workWeight ? "on" : "default"}>
-              {input.workWeight ? `${String(input.workWeight).replace(".", ",")} kg × ${input.workReps}` : "+ Ma charge"}
-            </Chip>
-          )}
           <Chip onClick={() => setAdjusting(true)} tone={input.pain.length ? "warn" : "default"}>
             {input.pain.length ? input.pain.map((z) => PAIN_LABELS[z]).join(", ") : "Ça coince ?"}
           </Chip>
@@ -275,10 +236,20 @@ function PlanContent({ initial }: { initial: SessionInput }) {
               <span className="ml-auto text-[12px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h2>
             <ol className="flex flex-col gap-2">
-              {phase.steps.map((s, j) => (s.kind === "ramp" ? <RampCard key={j} step={s} /> : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} />))}
+              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} />))}
             </ol>
           </section>
         ))}
+        <Link
+          href={plan.lifts[0] ? `/series-approche?ex=${plan.lifts[0].id}` : "/series-approche"}
+          className="mb-8 flex items-center justify-between gap-4 rounded-2xl border border-line bg-card px-5 py-4 transition-colors hover:border-ink"
+        >
+          <span>
+            <span className="block font-display text-[19px] font-extrabold uppercase leading-none tracking-tight text-ink">Ensuite : tes séries d&apos;approche</span>
+            <span className="mt-1 block text-[13px] text-subtle">Sur ton premier exercice lourd, à partir de ta charge du jour.</span>
+          </span>
+          <span aria-hidden="true" className="font-display text-[22px] font-extrabold text-ink">→</span>
+        </Link>
         <p className="text-[12px] leading-relaxed text-subtle">
           Ne remplace pas l&apos;avis d&apos;un kiné en cas de douleur installée.{" "}
           <Link href="/methodologie" className="underline underline-offset-2 hover:text-ink">
@@ -292,65 +263,26 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       </div>
 
       <Sheet open={adjusting} onClose={() => setAdjusting(false)} title="Ajuster" footer={<button type="button" onClick={() => setAdjusting(false)} className="w-full rounded-xl bg-ink py-4 font-display text-[20px] font-extrabold uppercase tracking-wide text-paper">Voir le plan</button>}>
-        <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">Exercices</p>
-        <ol className="mb-6 divide-y divide-line rounded-xl border border-line bg-card">
-          {input.lifts.map((id, i) => (
-            <li key={id} className="flex items-center gap-2 py-1 pl-1 pr-2">
-              <ExerciseFigure id={id} label={LIFTS_BY_ID[id].name} animate={false} className="h-11 w-12 shrink-0" />
-              <span className="flex-1 text-[14px] font-semibold text-ink">{LIFTS_BY_ID[id].name}</span>
-              {i > 0 && (
-                <button type="button" onClick={() => update({ lifts: [id, ...input.lifts.filter((x) => x !== id)] })} aria-label={`Mettre ${LIFTS_BY_ID[id].name} en premier`} className="rounded-md px-2 py-1 text-[16px] text-subtle hover:text-ink">
-                  ↑
-                </button>
-              )}
-              {input.lifts.length > 1 && (
-                <button type="button" onClick={() => update({ lifts: input.lifts.filter((x) => x !== id) })} aria-label={`Retirer ${LIFTS_BY_ID[id].name}`} className="rounded-md px-2 py-1 text-[18px] text-subtle hover:text-ink">
-                  ×
-                </button>
-              )}
-            </li>
-          ))}
-        </ol>
-
-        {loaded && (
-          <>
-            <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">1re série · {first.name}</p>
-            <div className="mb-6 flex items-end gap-3">
-              <label className="flex flex-1 items-baseline border-b-2 border-line-strong pb-1 focus-within:border-accent">
-                <input
-                  inputMode="decimal"
-                  value={weight}
-                  onChange={(e) => {
-                    const v = e.target.value.replace(/[^\d.,]/g, "");
-                    setWeight(v);
-                    const kg = Number(v.replace(",", "."));
-                    update({ workWeight: kg > 0 && kg < 600 ? kg : undefined });
-                  }}
-                  placeholder="—"
-                  aria-label="Charge de ta première série, en kilos"
-                  className="w-full min-w-0 bg-transparent font-display text-[44px] font-extrabold leading-none text-ink outline-none tabular placeholder:text-faint"
-                />
-                <span className="font-display text-[20px] font-bold text-subtle">kg</span>
-              </label>
-              <span className="pb-2 font-display text-[26px] font-bold text-subtle">×</span>
-              <label className="flex items-baseline border-b-2 border-line-strong pb-1 focus-within:border-accent">
-                <select
-                  value={input.workReps}
-                  onChange={(e) => update({ workReps: Number(e.target.value) })}
-                  aria-label="Répétitions"
-                  className="appearance-none bg-transparent font-display text-[44px] font-extrabold leading-none text-ink outline-none tabular"
-                >
-                  {REPS.map((r) => (
-                    <option key={r} value={r} className="bg-card text-[16px]">
-                      {r}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          </>
-        )}
-
+        <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">Zones</p>
+        <div className="mb-6 flex flex-wrap gap-2">
+          {ZONE_ORDER.map((z: MuscleGroup) => {
+            const on = zones.includes(z);
+            return (
+              <Chip
+                key={z}
+                tone={on ? "on" : "default"}
+                onClick={() => {
+                  // Passer par les zones abandonne l'éventuel exercice précis.
+                  const base = zones.length ? zones : [];
+                  const next = on ? base.filter((x) => x !== z) : [...base, z];
+                  if (next.length) update({ zones: next, lifts: [] });
+                }}
+              >
+                {MUSCLE_LABELS[z]}
+              </Chip>
+            );
+          })}
+        </div>
         <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">Ça coince ?</p>
         <div className="mb-5 flex flex-wrap gap-2">
           {ZONES.map((z) => {
@@ -380,7 +312,7 @@ export default function PlanView() {
   // Le plan ne dépend que de l'URL : calculé sur l'appareil, hors ligne.
   useEffect(() => {
     const input = parseSession(Object.fromEntries(new URLSearchParams(window.location.search)));
-    if (!input.lifts.length) {
+    if (!input.lifts.length && !input.zones?.length) {
       router.replace("/");
       return;
     }

@@ -122,9 +122,9 @@ export default function HomepageSEO() {
               Un bon échauffement musculation suit une logique simple :{" "}
               <strong className="text-ink">élever la température, mobiliser les articulations
               ciblées, activer les muscles que tu vas solliciter</strong>. Cinq minutes bien dosées
-              valent mieux que quinze minutes mal pensées. Ce générateur part des exercices de ta séance : un squat
+              valent mieux que quinze minutes mal pensées. Ce générateur part de ce que tu travailles : des jambes
               demande des chevilles et des hanches mobiles, un développé couché des épaules stables. Il
-              prépare ce dont tes exercices ont besoin, puis calcule tes séries d&apos;approche sur le
+              prépare exactement ces zones. Pour ta première série lourde, le calculateur de séries d&apos;approche donne la montée en charge sur le
               premier.
             </p>
             <p>

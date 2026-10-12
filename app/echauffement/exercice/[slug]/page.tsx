@@ -10,12 +10,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 // Deep-link vers le moteur par séance : le slug de page est un identifiant
 // d'exercice du catalogue (lib/lifts.ts).
 const PLAN_PARAMS: Record<string, string> = {
-  "developpe-couche": "s=developpe-couche&r=5",
-  squat: "s=squat&r=5",
-  "souleve-de-terre": "s=souleve-de-terre&r=5",
-  tractions: "s=tractions&r=5",
-  "rowing-barre": "s=rowing-barre&r=8",
-  "developpe-militaire": "s=developpe-militaire&r=5",
+  "developpe-couche": "s=developpe-couche",
+  squat: "s=squat",
+  "souleve-de-terre": "s=souleve-de-terre",
+  tractions: "s=tractions",
+  "rowing-barre": "s=rowing-barre",
+  "developpe-militaire": "s=developpe-militaire",
 };
 
 // Exemples de montée en charge, à des charges de travail courantes en salle.

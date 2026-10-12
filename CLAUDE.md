@@ -40,12 +40,12 @@ components/
 ```
 
 ## Fonctionnalités
-1. Choix des exercices de la séance (catalogue + séances types Push, Pull, Jambes…)
-2. Charge et répétitions de la première série (facultatif)
-3. Zones qui coincent (épaule, coude, poignet, bas du dos, hanche, genou, cheville)
-4. Options : élastique disponible, version courte
-5. Plan RAMP : mise en route → mobilité → activation → séries d'approche
-6. Mode guidé plein écran (repos décomptés, écran maintenu allumé), séances récentes
+Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et montée en charge) :
+1. **Générateur d'échauffement** — séance type (Push, Pull, Jambes, Haut, Bas, Full body) ou zones au choix ;
+   zones qui coincent ; élastique ; version courte. Plan : mise en route → mobilité → activation.
+   Ne présume jamais des exercices de la séance. Mode guidé, variantes (↻ Varier), séances récentes.
+2. **Calculateur de séries d'approche** (/series-approche) — exercice + charge de travail du jour + reps
+   → montée en charge avec disques, déroulable avec minuteur de repos.
 
 ## Philosophie produit
 - **100% gratuit**, aucune monétisation, aucun affiliation, aucun emailing

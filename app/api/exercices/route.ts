@@ -68,7 +68,7 @@ export function GET() {
       equipment: "Matériel requis (voir vocabularies.equipment)",
       description: "Consigne d'exécution en français (tutoiement)",
       fallback: "Version sans matériel, quand l'exercice demande un élastique ou une barre",
-      prepFocus: "Qualités physiques préparées (voir vocabularies.prepFocus) : c'est le champ que croise le générateur avec les exigences des exercices de la séance",
+      prepFocus: "Qualités physiques préparées (voir vocabularies.prepFocus) : c'est le champ que croise le générateur avec les exigences des zones à échauffer",
       prepRoles: "Phases de l'échauffement où l'exercice peut servir (voir vocabularies.prepRoles)",
       prepIntensity: "Intensité : soft, moderate ou neural",
       trainingValue: "Intérêt de l'exercice en préparation, de 1 (faible) à 5 (fort)",

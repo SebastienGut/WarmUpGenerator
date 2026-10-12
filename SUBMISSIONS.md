@@ -44,33 +44,26 @@ similaire existe, ta fiche apparaîtra alors dans ses alternatives.
 **Description courte**
 
 ```
-Free warm-up builder for strength training. Enter the exercises of today's session
-(squat, bench, pull-ups…) and get a warm-up built for them: targeted mobility,
-activation, and calculated warm-up sets with plates per side. Runs in the browser,
-works offline, no account or ads.
+Free warm-up app for strength training. Pick what you're training (push, pull,
+legs, upper or lower body) and get a targeted warm-up in one tap, each drill shown
+as an animated pictogram. A separate calculator turns today's working weight into
+warm-up sets, plates per side. Runs in the browser, works offline, no account or ads.
 ```
 
 **Description longue**
 
 ```
-Warmup Generator builds the warm-up for the session you are actually doing, not a
-generic routine.
+Warmup Generator is two tools that stay separate on purpose.
 
-You list today's exercises in order, optionally your first working set (e.g.
-100 kg × 5) and any joint that is bothering you. Each exercise declares what it
-demands — a squat needs mobile ankles and hips, controlled knees, active glutes; a
-bench press needs stable shoulder blades and a ready rotator cuff — and the
-algorithm picks the preparation drills that cover those demands best, without
-duplicates. The warm-up follows the RAMP structure: a short raise, mobility,
-activation, then warm-up sets on your first lift, rounded to real plates.
+The warm-up generator: tap a session type (Push, Pull, Legs, Upper, Lower, Full
+body) or pick muscle groups, flag a joint that bothers you, and get a short warm-up:
+a raise, targeted mobility, then activation. It doesn't guess which exercises you'll
+do — it prepares the area. Every drill has an animated pictogram, and a guided
+full-screen mode runs it in the gym with the screen kept awake.
 
-A guided full-screen mode walks you through it in the gym: one movement per screen,
-rest timers between warm-up sets, screen kept awake. Recent sessions are saved on
-the device, so "my Monday push day" is one tap away.
-
-Declaring a sensitive joint does not just remove exercises: contraindicated drills
-are excluded, a dedicated preparation is added, and you get a self-regulation cue
-for the warm-up sets.
+The warm-up set calculator: choose the lift, enter today's working weight and reps,
+and get the ramp-up, rounded to real plates and drawn in competition colours, with
+rest timers.
 
 Everything runs client-side, so it works offline. No account, no ads, no cookies.
 The exercise dataset is open under CC BY 4.0 and the code is AGPL-3.0.
@@ -95,7 +88,7 @@ Angle choisi : **le problème algorithmique et le jeu de données ouvert**, pas
 - **Title** (80 caractères max)
 
 ```
-Show HN: A warm-up builder that reads your workout, not your muscle groups
+Show HN: Gym warm-ups as animated pictograms, generated from joint angles
 ```
 
 - **URL** : `https://warmup-generator.com`
@@ -103,35 +96,30 @@ Show HN: A warm-up builder that reads your workout, not your muscle groups
 - **Premier commentaire, à poster immédiatement après**
 
 ```
-I kept skipping warm-ups because deciding what to do took longer than the warm-up
-itself. My first version asked for muscle groups and a goal, like every other
-generator. Nobody thinks like that in a gym — you think "today is squat, RDL, leg
-press". So I rebuilt it around the session.
+Two small tools for lifters, kept separate on purpose.
 
-Each lift in the catalogue (37 of them) declares weighted demands: squat needs
-ankle and hip mobility, knee control, glutes and bracing; bench needs scapular
-stability and a ready rotator cuff. Demands are summed across the session,
-weighted by position (first lift counts most, isolation half). Then a greedy pass
-picks, for mobility and then activation, the drill from an 80-exercise dataset that
-covers the most remaining demand, and discounts what it just covered. Mobility and
-activation get separate demand maps — otherwise mobilising the shoulder blades
-"uses up" the need to activate them before pull-ups, which was my first bug.
+The warm-up generator: tap what you're training (push, pull, legs…) and get a
+six-minute warm-up — a raise, targeted mobility, activation. Each zone is described
+by what its typical lifts demand (legs: ankle and hip mobility, knee control, glutes,
+bracing), weighted 1 to 3. A greedy pass then picks, from an 80-drill dataset, the
+drill covering the most remaining demand and discounts what it covered, with
+separate maps for mobility and activation. Declared painful joints exclude
+contraindicated drills and pull in dedicated ones; I check every zone × pain ×
+option combination for violations (zero).
 
-Guard-rails: contraindications per declared painful joint, no static stretching
-unless it targets that joint, a relevance threshold so a drill doesn't sneak in on
-quality alone, and bodyweight fallbacks when you have no band. I check it against
-every lift × pain × option combination: zero contraindication violations.
+My first version tried to be clever: it asked for your exact exercises and folded
+warm-up sets into the warm-up. A lifter's feedback was blunt — don't guess my
+session, and don't mix the general warm-up with ramping up on the bar. So the ramp
+is now a second tool: lift, today's working weight and reps in, warm-up sets out,
+rounded to real plates and drawn in competition colours, with rest timers.
 
-Then the part lifters actually do: warm-up sets on the first lift, computed from
-your working set (heavier sets get more steps with fewer reps), rounded to real
-plates and drawn in competition colours.
+The pictograms aren't drawn: a 2D articulated skeleton is defined by joint angles,
+each drill has two poses, and the component interpolates between them. 117 drills,
+a few hundred bytes each, consistent style, works offline.
 
-Everything is static and client-side — no API, no database, no server cost, works
-offline in a gym basement. No account, no ads, no cookies (analytics is
-GoatCounter, cookieless). Dataset is CC BY 4.0 at /api/exercices, code is AGPL-3.0.
-
-Content is in French — I'm aware that limits the audience here, but the approach
-should translate.
+Everything is static and client-side — no API, no database, no server cost. No
+account, no ads, no cookies (analytics is GoatCounter, cookieless). Dataset CC BY
+4.0 at /api/exercices, code AGPL-3.0. Content is in French.
 ```
 
 ---
@@ -150,30 +138,24 @@ I built a free warm-up generator with zero server cost and no monetization plan
 - **Body**
 
 ```
-Warmup Generator (warmup-generator.com) builds a warm-up from the exercises you
-are about to do: targeted mobility and activation, then warm-up sets calculated on
-your first lift, with plates per side.
+Warmup Generator (warmup-generator.com) is two free tools for lifters: a warm-up
+generator (pick what you're training, get a targeted six-minute warm-up with
+animated pictograms) and a warm-up set calculator (today's working weight in,
+ramp-up with plates out).
 
 Three constraints shaped every technical decision:
 
-Zero server cost. No API, no database, no AI calls. The plan is computed by a
-deterministic algorithm in the browser. My hosting bill is nothing and will stay
-nothing, which is what makes "free forever" credible rather than a promise I'd
-eventually break.
+Zero server cost. No API, no database, no AI calls. Everything is computed in the
+browser by a deterministic algorithm. My hosting bill is nothing and will stay
+nothing, which is what makes "free forever" credible.
 
-Works offline. The actual usage context is a gym basement with no reception. It's
-a PWA, fully static, the tool pages are cached.
+Works offline. The real context is a gym basement with no reception.
 
 No monetization. No ads, no email capture, no premium tier, no affiliate links.
 
-The first version asked for muscle groups and a goal. Almost nobody used it. The
-rebuild starts from the session instead ("squat, RDL, leg press"), because that is
-how people think in a gym — and it can then do the one thing lifters really do
-before a heavy set: warm-up sets.
-
-The exercise dataset is open under CC BY 4.0 — partly because it's useful to
-others, partly because being the thing people cite is the only link-building
-strategy available when you refuse to do outreach.
+The most useful lesson came from user feedback: my second version asked for your
+exact exercises and mixed the warm-up with the ramp-up sets. Too clever. Splitting
+it into two simple tools made both better.
 ```
 
 ---
@@ -189,7 +171,7 @@ sub, et n'y va que si tu es prêt à répondre aux commentaires.
 - **Titre**
 
 ```
-J'ai fait un outil gratuit qui construit ton échauffement à partir de ta séance (séries d'approche comprises)
+J'ai fait un outil gratuit : ton échauffement muscu en un tap, et un calculateur de séries d'approche
 ```
 
 - **Corps**
@@ -198,31 +180,24 @@ J'ai fait un outil gratuit qui construit ton échauffement à partir de ta séan
 Salut,
 
 Je zappais systématiquement l'échauffement — décider quoi faire me prenait plus de
-temps que l'échauffement lui-même. Du coup j'ai fait un petit outil.
+temps que l'échauffement lui-même. Du coup j'ai fait deux petits outils.
 
-Tu indiques les exercices de ta séance (par ex. squat, SDT roumain, presse), et si
-tu veux ta charge de première série. Il te sort :
-- 2 min de cardio léger
-- la mobilité dont tes exercices ont besoin (cheville et hanche pour le squat,
-  charnière de hanche pour le SDT…)
-- l'activation des stabilisateurs (fessiers, coiffe, omoplates selon la séance)
-- tes séries d'approche calculées sur le premier exercice, avec les disques à
-  mettre de chaque côté, puis un rappel court avant les suivants
+1. L'échauffement : tu touches ce que tu fais aujourd'hui (push, pull, jambes, haut
+   ou bas du corps…) et tu as en 6 minutes une mise en route, de la mobilité et de
+   l'activation ciblées. Chaque exercice est illustré par une petite animation, et il
+   y a un mode guidé pour la salle (un exercice par écran, écran qui reste allumé).
+   Si une articulation coince, ça retire ce qui est contre-indiqué et ajoute une
+   préparation dédiée.
 
-Il y a un mode guidé pour la salle : un exercice par écran, repos décomptés entre
-les séries d'approche, écran qui reste allumé. Tes séances sont gardées sur le
-téléphone, tu relances ton push du lundi en un tap.
-
-Si une articulation coince, ça retire ce qui est contre-indiqué, ajoute une
-préparation dédiée et te rappelle de garder la douleur sous 3/10 pendant la montée.
-Ça ne remplace pas un kiné, les pages douleur disent quand il faut consulter.
+2. Les séries d'approche : tu choisis l'exercice, ta charge de travail du jour et tes
+   reps, il te donne la montée en charge avec les disques à mettre de chaque côté,
+   et peut la dérouler avec les minuteurs de repos.
 
 Gratuit, sans pub, sans compte, sans mail, ça marche hors ligne. Je ne monétise pas.
 
 warmup-generator.com
 
-Je prends tous les retours, surtout si un choix d'exercice vous paraît absurde pour
-votre séance — c'est exactement ce que je cherche à corriger.
+Je prends tous les retours, surtout si un exercice proposé vous paraît absurde.
 ```
 
 ### r/datasets — pour le jeu de données uniquement
@@ -283,7 +258,7 @@ strictes et une PR mal formatée est fermée sans discussion.
 - **Ligne à ajouter, format habituel**
 
 ```markdown
-- [Warmup Generator](https://warmup-generator.com) - Échauffement musculation construit sur les exercices de la séance, séries d'approche comprises, avec jeu de données d'exercices ouvert (CC BY 4.0). Sans publicité ni inscription, fonctionne hors ligne.
+- [Warmup Generator](https://warmup-generator.com) - Échauffement musculation en un tap par zone, calculateur de séries d'approche, avec jeu de données d'exercices ouvert (CC BY 4.0). Sans publicité ni inscription, fonctionne hors ligne.
 ```
 
 - **Titre de la PR**

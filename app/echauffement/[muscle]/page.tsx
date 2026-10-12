@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SEOPage from "@/components/SEOPage";
-import { MUSCLE_LIFTS, seoPlanFor } from "@/lib/seo-plan";
+import { seoPlanFor } from "@/lib/seo-plan";
 import type { MuscleGroup } from "@/lib/warmup-data";
 import { MUSCLE_LABELS, OBJECTIVE_LABELS } from "@/lib/warmup-data";
 import { MUSCLE_INSIGHTS, MUSCLE_CROSS_LINKS, MUSCLE_HUB } from "@/lib/content/muscle";
@@ -63,7 +63,7 @@ export default async function MuscleHubPage({ params }: PageProps) {
 
   // Plan de référence du hub : séance type du muscle en hypertrophie
   // (objectif le plus courant en salle), calculé par le moteur du générateur.
-  const plan = seoPlanFor(MUSCLE_LIFTS[muscleTyped], "hypertrophie");
+  const plan = seoPlanFor([muscleTyped], "hypertrophie");
   const allExercises = plan.exercises;
   const totalSeconds = allExercises.reduce((s, e) => s + e.durationSeconds, 0);
   const totalMinutes = Math.max(1, Math.round(totalSeconds / 60));
@@ -86,7 +86,7 @@ export default async function MuscleHubPage({ params }: PageProps) {
   const faqs = [
     {
       q: `Quel échauffement avant une séance ${muscleLow} ?`,
-      a: `Deux phases en ${totalMinutes} à 8 minutes : mobilisation des articulations sollicitées (lubrification, amplitude), puis activation ciblée des ${muscleLow} (connexion neuro-musculaire, pré-fatigue zéro). Le plan ci-dessus enchaîne les ${allExercises.length} mouvements dans le bon ordre — suis-le tel quel ou lance-le en mode guidé, séries d'approche comprises.`,
+      a: `Deux phases en ${totalMinutes} à 8 minutes : mobilisation des articulations sollicitées (lubrification, amplitude), puis activation ciblée des ${muscleLow} (connexion neuro-musculaire, pré-fatigue zéro). Le plan ci-dessus enchaîne les ${allExercises.length} mouvements dans le bon ordre — suis-le tel quel ou lance-le en mode guidé.`,
     },
     {
       q: "Faut-il un échauffement différent selon l'objectif de la séance ?",
@@ -94,7 +94,7 @@ export default async function MuscleHubPage({ params }: PageProps) {
     },
     {
       q: `Ce plan prépare-t-il tous les exercices ${muscleLow} ?`,
-      a: `Il prépare les structures communes à toute la séance : ${hub.sessionExamples}. Pour le premier exercice lourd de ta séance, ajoute 2-3 séries de chauffe progressives avec la barre — c'est le complément indispensable de cet échauffement général.`,
+      a: `Il prépare les structures communes à toute la séance : ${hub.sessionExamples}. Pour le premier exercice lourd de ta séance, ajoute ensuite tes séries d'approche : le calculateur du site les donne à partir de ta charge du jour.`,
     },
     {
       q: `Et si j'ai une douleur à ${hub.zone.label} ?`,

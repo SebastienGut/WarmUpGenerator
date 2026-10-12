@@ -1,10 +1,13 @@
 # Warmup Generator
 
-Générateur d'échauffements pour la musculation, construit sur la séance réelle.
-L'utilisateur indique les exercices qu'il va faire (squat, développé couché,
-tractions…), la charge de sa première série et ce qui le gêne ; un algorithme
-déterministe compose un échauffement en quatre temps, inspiré du protocole RAMP :
-mise en route, mobilité, activation, puis séries d'approche calculées.
+Deux outils d'échauffement pour la musculation, volontairement séparés :
+
+- **Le générateur** : on choisit une séance type (Push, Pull, Jambes…) ou ses zones,
+  et ce qui coince ; un algorithme déterministe compose un échauffement inspiré du
+  protocole RAMP (mise en route, mobilité, activation), avec un pictogramme animé
+  par exercice et un mode guidé pour la salle.
+- **Le calculateur de séries d'approche** : à partir de la charge de travail du jour
+  sur un exercice, il donne la montée en charge, disques par côté, avec minuteur.
 
 **[warmup-generator.com](https://warmup-generator.com)** · Gratuit, sans publicité,
 sans inscription, sans collecte de données.
@@ -27,24 +30,28 @@ Elles sont volontaires et structurent toutes les décisions techniques :
 
 ## Le cœur du projet : l'algorithme de sélection
 
-Le moteur est dans [`lib/session-engine.ts`](lib/session-engine.ts). Il part des
-exercices de la séance, décrits dans [`lib/lifts.ts`](lib/lifts.ts) : chacun déclare ses
-**exigences** (`demands`, notées de 1 à 3) — un squat exige des chevilles et des hanches
-mobiles, des genoux contrôlés, des fessiers et un gainage actifs.
+Le moteur est dans [`lib/session-engine.ts`](lib/session-engine.ts).
 
-1. **Carte des besoins.** Les exigences des exercices sont additionnées, pondérées par la
-   position dans la séance (le premier exercice pèse le plus, l'isolation moitié moins).
-   Une zone déclarée douloureuse renforce les besoins correspondants.
+1. **Carte des besoins.** Chaque zone est décrite par ce qu'exigent ses exercices
+   typiques ([`lib/lifts.ts`](lib/lifts.ts), champ `demands` noté de 1 à 3) : les
+   jambes exigent chevilles et hanches mobiles, genoux contrôlés, fessiers et gainage
+   actifs. Ces exercices typiques ne servent qu'à estimer la demande : l'outil ne
+   présume pas de ce que la personne fera. Une zone douloureuse renforce les besoins
+   correspondants.
 2. **Sélection gloutonne, une carte par phase.** Pour la mobilité puis l'activation, on
    retient à chaque tour l'exercice de préparation qui couvre le mieux les besoins
-   restants, puis on réduit ceux qu'il couvre. Les phases ont chacune leur carte : mobiliser
-   les omoplates ne doit pas épuiser le besoin de les activer avant des tractions.
+   restants, puis on réduit ceux qu'il couvre. Une variante (paramètre `v`) fait
+   tourner les exercices presque aussi pertinents que le meilleur.
 3. **Garde-fous.** Contre-indications exclues, étirements statiques réservés aux zones
    douloureuses, seuil de pertinence, versions sans matériel si pas d'élastique, pas de
    doublon d'un même geste.
-4. **Séries d'approche.** Montée complète sur le premier exercice
-   ([`lib/approach-sets.ts`](lib/approach-sets.ts) : paliers selon les reps de travail,
-   arrondis aux disques réels), rappel court sur les suivants.
+
+Les séries d'approche sont calculées à part ([`lib/approach-sets.ts`](lib/approach-sets.ts),
+`buildRampPlan`) : paliers selon les répétitions de travail, arrondis aux disques réels.
+
+Les pictogrammes sont générés, pas dessinés : un squelette 2D articulé
+([`lib/figure.ts`](lib/figure.ts)) et deux postures par exercice
+([`lib/figures.ts`](lib/figures.ts)), interpolées à l'affichage.
 
 Chaque exercice de [`lib/warmup-data.ts`](lib/warmup-data.ts) est annoté avec :
 

@@ -6,13 +6,12 @@ import { DOULEUR_PAGES, DOULEUR_SLUGS } from "@/lib/content/douleur";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
-// Deep-link générateur : la séance où la zone est la plus sollicitée, avec la
-// douleur déclarée.
+// Deep-link générateur : les zones concernées, avec la douleur déclarée.
 const PLAN_PARAMS: Record<string, string> = {
-  "epaule-douleur": "s=developpe-couche&r=8&p=epaule",
-  genou: "s=squat&r=8&p=genou",
-  lombaires: "s=souleve-de-terre&r=8&p=bas-du-dos",
-  poignets: "s=pompes&r=8&p=poignets",
+  "epaule-douleur": "z=epaules,pecs&p=epaule",
+  genou: "z=jambes&p=genou",
+  lombaires: "z=core,fessiers&p=bas-du-dos",
+  poignets: "z=pecs,bras&p=poignets",
 };
 
 interface PageProps {

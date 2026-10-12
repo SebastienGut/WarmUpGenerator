@@ -6,7 +6,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   title: "Méthodologie & sources — Comment l'algorithme construit ton plan",
   description:
-    "Comment Warmup construit ton échauffement à partir des exercices de ta séance : mobilité, activation, séries d'approche. Principes, sources scientifiques et limites.",
+    "Comment Warmup construit ton échauffement selon les zones travaillées : mise en route, mobilité, activation. Et comment il calcule les séries d'approche. Principes, sources et limites.",
   alternates: { canonical: "/methodologie", languages: { "fr-FR": "/methodologie" } },
   openGraph: {
     title: "Méthodologie & sources — Warmup Generator",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 const PRINCIPLES = [
   {
     n: "01",
-    title: "Partir des exercices de la séance",
-    body: "Tu indiques ce que tu vas faire (squat, développé couché, tractions…), pas des groupes musculaires. Chaque exercice du catalogue déclare ses exigences, notées de 1 à 3 : le squat demande des chevilles et des hanches mobiles, des genoux contrôlés, des fessiers et un gainage actifs ; le développé couché demande des omoplates stables et une coiffe des rotateurs prête. Le premier exercice pèse le plus, les suivants un peu moins, l'isolation moitié moins.",
+    title: "Partir de ce que la zone exige",
+    body: "Tu choisis ce que tu travailles (une séance type comme Jambes ou Push, ou tes zones). Chaque zone est décrite par ce qu'exigent ses exercices typiques, notés de 1 à 3 : les jambes demandent des chevilles et des hanches mobiles, des genoux contrôlés, des fessiers et un gainage actifs ; les pecs demandent des omoplates stables et une coiffe des rotateurs prête. L'outil n'en déduit pas tes exercices : il prépare la zone.",
   },
   {
     n: "02",
@@ -33,8 +33,8 @@ const PRINCIPLES = [
   },
   {
     n: "03",
-    title: "Les séries d'approche sur le geste réel",
-    body: "Le premier exercice reçoit une montée en charge complète, calculée à partir de ta charge et de tes répétitions de travail : plus la série est lourde, plus il y a de paliers et moins chaque palier compte de répétitions (pour 5 reps : barre × 10, 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1). Les exercices suivants ont un simple rappel, plus court si le même schéma a déjà été chauffé.",
+    title: "Les séries d'approche, un outil à part",
+    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : plus la série est lourde, plus il y a de paliers et moins chaque palier compte de répétitions (pour 5 reps : barre × 10, 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1), arrondis aux disques réels.",
   },
   {
     n: "04",
@@ -206,7 +206,7 @@ export default function MethodologyPage() {
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             <p>
-              Chaque plan suit le protocole <strong className="text-ink">RAMP</strong>, en quatre temps :
+              L&apos;échauffement suit le protocole <strong className="text-ink">RAMP</strong> : les deux premiers temps dans le générateur, le dernier dans le calculateur.
             </p>
             <ol className="flex flex-col gap-3 pl-4">
               <li>
@@ -215,21 +215,21 @@ export default function MethodologyPage() {
               </li>
               <li>
                 <strong className="text-ink">2. Mobilité</strong> — 2 à 3 mouvements sur les amplitudes que
-                tes exercices exigent.
+                la zone exige.
               </li>
               <li>
-                <strong className="text-ink">3. Activation</strong> — 1 à 2 exercices légers sur les muscles
-                stabilisateurs de tes mouvements, plus une préparation dédiée par zone qui coince.
+                <strong className="text-ink">3. Activation</strong> — 1 à 3 exercices légers sur les muscles
+                stabilisateurs, plus une préparation dédiée par zone qui coince.
               </li>
               <li>
-                <strong className="text-ink">4. Séries d&apos;approche</strong> — la montée en charge sur ton
-                premier exercice, puis un rappel avant chacun des suivants.
+                <strong className="text-ink">4. Séries d&apos;approche</strong> — dans le calculateur, sur ton
+                premier exercice lourd, à partir de ta charge du jour.
               </li>
             </ol>
             <p>
-              Compte 5 minutes en version courte, 10 à 13 minutes en version complète avec une montée en
-              charge lourde : l&apos;essentiel du temps va aux séries d&apos;approche, qui sont la partie la plus
-              utile d&apos;un échauffement de musculation.
+              Compte 4 minutes en version courte, 6 à 7 minutes en version complète, puis 4 à 8 minutes
+              de séries d&apos;approche selon la charge : c&apos;est la partie la plus spécifique d&apos;un
+              échauffement de musculation, d&apos;où un outil dédié.
             </p>
           </div>
         </section>

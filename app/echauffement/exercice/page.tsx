@@ -63,7 +63,7 @@ export default function ExerciseHubPage() {
       ]}
       relatedTitle="Explorer les autres familles"
       relatedLinks={[
-        { href: "/echauffement/combo", label: "Échauffements par groupes musculaires" },
+        { href: "/echauffement/haut-du-corps", label: "Échauffement haut du corps" },
         { href: "/echauffement/protection", label: "Protocoles pour zones sensibles" },
         { href: "/douleur", label: "Douleurs par exercice" },
         { href: "/methodologie", label: "Méthodologie de l'algorithme" },

@@ -233,7 +233,10 @@ export function placed(fig: Figure, pl: Placement, pose: Pose) {
   const s = skeleton(fig.view, pose);
   const ox = pl.dx - anchorX(fig, s);
   const oy = offsetY(fig, s, pose.lift ?? 0);
-  const m = (p: Pt): Pt => [p[0] + ox, p[1] + oy];
+  // Arrondi au centième : Node et les navigateurs n'ont pas les mêmes dernières
+  // décimales en trigonométrie, ce qui faisait diverger le HTML serveur et client.
+  const r2 = (v: number) => Math.round(v * 100) / 100;
+  const m = (p: Pt): Pt => [r2(p[0] + ox), r2(p[1] + oy)];
   const out = Object.fromEntries(Object.entries(s).filter(([, p]) => p).map(([k, p]) => [k, m(p as Pt)])) as unknown as Skeleton;
   return { s: out, ox, oy };
 }

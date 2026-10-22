@@ -1,14 +1,15 @@
 import Link from "next/link";
 
+// Pages d'atterrissage calquées sur les recherches les plus fréquentes.
 const POPULAR_PLANS: { href: string; label: string }[] = [
-  { href: "/echauffement/exercice/developpe-couche", label: "Développé couché" },
-  { href: "/echauffement/exercice/squat", label: "Squat" },
-  { href: "/echauffement/exercice/souleve-de-terre", label: "Soulevé de terre" },
-  { href: "/echauffement/exercice/tractions", label: "Tractions" },
-  { href: "/echauffement/combo/haut-du-corps", label: "Haut du corps" },
-  { href: "/echauffement/combo/bas-du-corps", label: "Bas du corps" },
-  { href: "/echauffement/combo/full-body", label: "Full body" },
-  { href: "/echauffement/protection/epaule-douleur", label: "Épaule sensible" },
+  { href: "/echauffement/haut-du-corps", label: "Haut du corps" },
+  { href: "/echauffement/bas-du-corps", label: "Bas du corps" },
+  { href: "/echauffement/full-body", label: "Full body" },
+  { href: "/echauffement/push", label: "Push day" },
+  { href: "/echauffement/pull", label: "Pull day" },
+  { href: "/echauffement/sans-materiel", label: "Sans matériel" },
+  { href: "/echauffement/exercice/squat", label: "Avant le squat" },
+  { href: "/echauffement/exercice/developpe-couche", label: "Avant le développé couché" },
 ];
 
 // Pages hub par groupe musculaire (cibles SEO principales)
@@ -19,7 +20,7 @@ const MUSCLE_GUIDES: { href: string; label: string }[] = [
   { href: "/echauffement/jambes", label: "Jambes" },
   { href: "/echauffement/fessiers", label: "Fessiers" },
   { href: "/echauffement/bras", label: "Bras" },
-  { href: "/echauffement/core", label: "Core" },
+  { href: "/echauffement/core", label: "Gainage" },
 ];
 
 const PROTECTION_LINKS: { href: string; label: string }[] = [

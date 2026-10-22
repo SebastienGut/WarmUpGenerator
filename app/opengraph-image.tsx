@@ -8,6 +8,6 @@ export default async function OG() {
   return createOgCard({
     eyebrow: "Échauffement musculation",
     title: "Tu entraînes quoi ? Échauffé en un tap.",
-    subtitle: "Mobilité, activation et séries d'approche calculées pour les exercices du jour.",
+    subtitle: "Push, pull, jambes, haut ou bas du corps : la routine prête à suivre, avec mode guidé.",
   });
 }

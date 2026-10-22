@@ -4,7 +4,7 @@ import Link from "next/link";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
 export const metadata: Metadata = {
-  title: "Méthodologie & sources — Comment l'algorithme construit ton plan",
+  title: "Méthodologie et sources : comment ton plan est construit",
   description:
     "Comment Warmup construit ton échauffement selon les zones travaillées : mise en route, mobilité, activation. Et comment il calcule les séries d'approche. Principes, sources et limites.",
   alternates: { canonical: "/methodologie", languages: { "fr-FR": "/methodologie" } },

@@ -65,7 +65,7 @@ export default function ProtectionHubPage() {
       relatedLinks={[
         { href: "/douleur", label: "Douleurs par exercice" },
         { href: "/echauffement/exercice", label: "Guides par exercice principal" },
-        { href: "/echauffement/combo", label: "Guides par groupe musculaire" },
+        { href: "/echauffement/haut-du-corps", label: "Échauffement haut du corps" },
         { href: "/", label: "Générateur avec zones sensibles" },
       ]}
       siteUrl={SITE_URL}

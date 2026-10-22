@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SEOHubPage from "@/components/SEOHubPage";
+import { LANDINGS, LANDING_SLUGS } from "@/lib/content/landings";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 const PATH = "/echauffement";
@@ -7,7 +8,7 @@ const PATH = "/echauffement";
 export const metadata: Metadata = {
   title: "Échauffement musculation — Tous les plans gratuits",
   description:
-    "Tous les échauffements musculation Warmup Generator : plans par exercice, par groupe musculaire et par zone sensible. Gratuit, sans inscription.",
+    "Tous les échauffements musculation prêts à suivre : haut du corps, bas du corps, full body, push, pull, pecs, dos, épaules, jambes… Avec mode guidé, gratuit.",
   alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
     title: "Échauffement musculation — Warmup Generator",
@@ -36,41 +37,37 @@ export default function WarmupHubPage() {
         "Cette page regroupe tous les guides Warmup Generator : protocoles par exercice, plans par groupe musculaire et échauffements adaptés aux zones sensibles. Chaque plan reste court, concret et utilisable directement en salle.",
       ]}
       breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Échauffements" }]}
-      itemsTitle="Choisir une famille"
+      itemsTitle="Choisir un échauffement"
       items={[
+        ...LANDING_SLUGS.map((slug) => ({
+          href: `/echauffement/${slug}`,
+          title: LANDINGS[slug].h1,
+          description: LANDINGS[slug].metaDescription,
+          kicker: LANDINGS[slug].kicker,
+        })),
         {
           href: "/echauffement/exercice",
-          title: "Par exercice",
-          description:
-            "Squat, développé couché, soulevé de terre, tractions, rowing ou développé militaire : prépare le mouvement principal de ta séance.",
-          kicker: "Long-tail exercice",
-        },
-        {
-          href: "/echauffement/combo",
-          title: "Par groupe musculaire",
-          description:
-            "Haut du corps, bas du corps, full body, push ou pull : échauffe toute la chaîne musculaire utile.",
-          kicker: "Structure séance",
+          title: "Avant un exercice précis",
+          description: "Squat, développé couché, soulevé de terre, tractions, rowing, développé militaire : la préparation du mouvement principal.",
+          kicker: "Par exercice",
         },
         {
           href: "/echauffement/protection",
           title: "Zones sensibles",
-          description:
-            "Épaule, genou, lombaires ou poignets : ajoute une logique de protection avant tes séries de travail.",
+          description: "Épaule, genou, lombaires ou poignets : une préparation adaptée avant les séries de travail.",
           kicker: "Confort articulaire",
         },
         {
           href: "/douleur",
           title: "Douleurs par exercice",
-          description:
-            "Mal à l'épaule au développé couché, au genou pendant le squat : le diagnostic du mécanisme avant le protocole.",
+          description: "Mal à l'épaule au développé couché, au genou pendant le squat : d'où ça vient et que faire.",
           kicker: "Diagnostic",
         },
       ]}
       faqs={[
         {
           q: "Quel échauffement choisir avant une séance de musculation ?",
-          a: "Pars de ton intention principale. Si ta séance tourne autour d'un mouvement lourd, choisis un échauffement par exercice. Si tu fais une séance complète haut du corps, jambes, push ou pull, choisis un combo. Si une articulation est sensible, commence par les protocoles de protection.",
+          a: "Pars de ton intention principale. Si ta séance tourne autour d'un mouvement lourd, choisis un échauffement par exercice. Si tu fais une séance haut du corps, jambes, push ou pull, choisis l'échauffement correspondant. Si une articulation est sensible, commence par les protocoles de protection.",
         },
         {
           q: "Combien de temps doit durer un échauffement musculation ?",
@@ -85,7 +82,7 @@ export default function WarmupHubPage() {
       relatedLinks={[
         { href: "/echauffement/exercice/developpe-couche", label: "Échauffement développé couché" },
         { href: "/echauffement/exercice/squat", label: "Échauffement squat" },
-        { href: "/echauffement/combo/haut-du-corps", label: "Échauffement haut du corps" },
+        { href: "/echauffement/haut-du-corps", label: "Échauffement haut du corps" },
         { href: "/echauffement/protection/epaule-douleur", label: "Échauffement épaule sensible" },
       ]}
       siteUrl={SITE_URL}

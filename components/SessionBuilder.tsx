@@ -45,8 +45,12 @@ export default function SessionBuilder() {
         </Link>
       </header>
 
-      <h1 className="font-display text-[42px] font-extrabold uppercase leading-[0.9] tracking-tight text-ink sm:text-[64px]">
-        Tu entraînes <span className="text-accent">quoi&nbsp;?</span>
+      {/* Le mot-clé principal ouvre le H1 ; la question reste le message visible. */}
+      <h1 className="font-display font-extrabold uppercase leading-[0.9] tracking-tight text-ink">
+        <span className="mb-2 block text-[17px] tracking-wide text-subtle sm:text-[20px]">Échauffement musculation</span>
+        <span className="block text-[42px] sm:text-[64px]">
+          Tu entraînes <span className="text-accent">quoi&nbsp;?</span>
+        </span>
       </h1>
       <p className="mt-3 text-[16px] text-muted">Un tap, ton échauffement est prêt.</p>
 

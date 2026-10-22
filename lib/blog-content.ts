@@ -141,7 +141,7 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
       { href: "/blog/echauffement-dynamique-ou-statique", label: "Dynamique ou statique ?" },
-      { href: "/echauffement/combo/full-body", label: "Plan full body 5 min" },
+      { href: "/echauffement/full-body", label: "Plan full body 5 min" },
       { href: "/echauffement/protection/lombaires", label: "Échauffement lombaires sensibles" },
     ],
   },
@@ -206,7 +206,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
       { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps s'échauffer ?" },
       { href: "/echauffement/exercice/souleve-de-terre", label: "Échauffement soulevé de terre" },
-      { href: "/echauffement/combo/haut-du-corps", label: "Plan haut du corps" },
+      { href: "/echauffement/haut-du-corps", label: "Plan haut du corps" },
     ],
   },
   {
@@ -316,7 +316,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { href: "/blog/echauffement-dynamique-ou-statique", label: "Dynamique ou statique ?" },
       { href: "/echauffement/exercice/squat", label: "Échauffement squat" },
       { href: "/echauffement/exercice/developpe-couche", label: "Échauffement développé couché" },
-      { href: "/echauffement/combo/full-body", label: "Plan full body" },
+      { href: "/echauffement/full-body", label: "Plan full body" },
     ],
   },
 
@@ -388,8 +388,8 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
       { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps ?" },
-      { href: "/echauffement/combo/full-body", label: "Plan full body 5 min" },
-      { href: "/echauffement/combo/haut-du-corps", label: "Plan haut du corps" },
+      { href: "/echauffement/full-body", label: "Plan full body 5 min" },
+      { href: "/echauffement/haut-du-corps", label: "Plan haut du corps" },
     ],
   },
 

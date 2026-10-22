@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Échauffement musculation gratuit & personnalisé",
-    template: "%s · Warmup Generator",
+    template: "%s · Warmup",
   },
   description:
     "Un échauffement musculation en un tap, selon ce que tu travailles : mobilité et activation ciblées, mode guidé. Plus un calculateur de séries d'approche. Gratuit, hors ligne.",

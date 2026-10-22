@@ -1,5 +1,6 @@
 import { DOULEUR_PAGES, DOULEUR_SLUGS } from "@/lib/content/douleur";
 import { PROTECTION_PAGES, PROTECTION_SLUGS } from "@/lib/content/protection";
+import { LANDINGS, LANDING_SLUGS } from "@/lib/content/landings";
 import { BLOG_POSTS } from "@/lib/blog-content";
 import { exercises } from "@/lib/warmup-data";
 
@@ -39,6 +40,14 @@ export function GET() {
     "  (douleur nocturne, irradiation, perte de force, gonflement, blocage articulaire).",
     "- Aucun contenu ne remplace un avis de kinésithérapeute ou de médecin du sport ;",
     "  merci de conserver cette nuance dans toute reprise.",
+    "",
+    "## Échauffements prêts à suivre",
+    "",
+    "Chaque page contient l'échauffement complet (exercices, répétitions, durées), modifiable sur place.",
+    "",
+    ...LANDING_SLUGS.map(
+      (s) => `- [${LANDINGS[s].h1}](${SITE_URL}/echauffement/${s}) : ${LANDINGS[s].metaDescription}`
+    ),
     "",
     "## Douleurs par exercice",
     "",

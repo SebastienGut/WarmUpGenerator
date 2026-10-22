@@ -24,6 +24,7 @@ app/
   plan/page.tsx           # Plan, calculé dans le navigateur à partir de l'URL (PlanView)
   series-approche/        # Calculateur de séries d'approche
   result/page.tsx         # Ancienne URL, redirige vers /plan
+  echauffement/[slug]/    # Pages d'atterrissage (haut-du-corps, jambes, push…) : l'outil EST le contenu
   echauffement/, douleur/, blog/   # Pages SEO statiques
 lib/
   lifts.ts                # Exercices de séance et leurs exigences (entrée du moteur)
@@ -31,10 +32,12 @@ lib/
   session-engine.ts       # Moteur : mise en route → mobilité → activation → séries d'approche
   approach-sets.ts        # Paliers de montée en charge et disques par côté
   seo-plan.ts             # Plans des pages SEO, produits par le moteur
+  content/landings.ts     # Pages d'atterrissage : zones, réponse « En bref », FAQ, liens
   saved-sessions.ts       # Séances récentes (localStorage, sur l'appareil)
   figure.ts, figures.ts   # Moteur de pictogrammes animés + postures de chaque exercice
 components/
   SessionBuilder.tsx, PlanView.tsx, GuidedMode.tsx, Plates.tsx, ApproachCalculator.tsx
+  PlanParts.tsx, InlinePlan.tsx, LandingPage.tsx  # Briques de plan partagées, plan intégré aux landings
   ExerciseFigure.tsx, Sheet.tsx                  # Pictogramme animé, panneau coulissant
   SEOPage.tsx, SEOHubPage.tsx, BlogArticle.tsx   # Gabarits éditoriaux
 ```
@@ -59,7 +62,7 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
 - SSG partout, métadonnées complètes, og:image par section
 - JSON-LD : BreadcrumbList, Article, WebApplication, Dataset (HowTo et FAQPage retirés : plus de rich results)
 - GEO : blocs « En bref » autoportants, `/llms.txt`, open data `/api/exercices` (CC BY 4.0), IndexNow pour Bing
-- Ne pas générer de pages sans demande de recherche réelle (leçon de la matrice muscle × objectif)
+- Ne pas générer de pages sans demande de recherche réelle (matrice muscle × objectif et combos retirés en oct. 2026, redirigés en 301)
 
 ## Conventions
 - Composants en PascalCase

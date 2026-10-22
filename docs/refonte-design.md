@@ -37,7 +37,7 @@
   Montrer 3 exercices en maquette avant de migrer les 117.
 - Option B : Rive. Seb a créé un compte rive.app. Intégration via `@rive-app/react-canvas` :
   un fichier .riv, un artboard par exercice nommé comme l'id du code, une state machine en boucle ;
-  fallback sur les pictogrammes procéduraux. Les .riv ne peuvent être créés que dans l'éditeur Rive.
+  fallback sur les pictogrammes procéduraux. Les .riv ne peuvent être créés que dans l'éditeur Rive. Marketplace Rive vérifié (oct. 2026) : aucun personnage fitness réutilisable, il faudrait tout animer.
 
 ## Fichiers clés
 app/globals.css (tokens), components/SessionBuilder.tsx, PlanView.tsx, PlanParts.tsx, InlinePlan.tsx,

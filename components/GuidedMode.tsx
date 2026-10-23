@@ -193,7 +193,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
               </div>
             ) : item.type === "set" ? (
               <div className="flex flex-col">
-                <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(26vh,200px)] w-full max-w-[280px]" />
+                <ExerciseFigure id={item.fig} label={item.title} large className="mx-auto h-[min(26vh,200px)] w-full max-w-[280px]" />
                 <p className="mt-2 text-[15px] font-medium text-muted">
                   {item.title}, approche {item.index} sur {item.total}
                 </p>
@@ -223,7 +223,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
                 {item.countdown && remaining !== null ? (
                   <Ring remaining={remaining} total={duration} label="Cardio léger" />
                 ) : item.fig ? (
-                  <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(32vh,240px)] w-full max-w-[300px]" />
+                  <ExerciseFigure id={item.fig} label={item.title} large className="mx-auto h-[min(32vh,240px)] w-full max-w-[300px]" />
                 ) : (
                   <span className="mx-auto font-display text-[96px] font-extrabold text-accent" aria-hidden="true">
                     ♥

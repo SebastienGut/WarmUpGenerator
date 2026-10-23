@@ -57,3 +57,4 @@ prototypes-svg/
 # du dépôt en public (bruit dans la vitrine + redistribution d'un package tiers).
 .claude/skills/
 .agents/
+scripts/exercise-3d/poses.json

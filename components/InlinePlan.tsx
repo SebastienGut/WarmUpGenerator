@@ -58,18 +58,18 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
         ))}
       </div>
 
-      <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="flex flex-col gap-2">
         <button
           type="button"
           onClick={() => setGuided(true)}
-          className="flex flex-1 items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
+          className="flex items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
         >
           <span className="font-display text-[22px] font-extrabold">Démarrer</span>
           <span className="font-display text-[18px] font-bold tabular">{plan.minutes} min ▶</span>
         </button>
         <Link
           href={`/plan?${serializeSession(input)}`}
-          className="flex items-center justify-center rounded-2xl border border-line-strong px-5 py-4 text-[15px] font-semibold text-ink hover:border-ink"
+          className="flex items-center justify-center rounded-2xl px-5 py-3 text-[15px] font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
         >
           Adapter (douleur, zones)
         </Link>

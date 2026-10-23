@@ -111,7 +111,7 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="px-4 pb-4">
-              <ExerciseFigure id={id} label={name} className="mx-auto mb-3 h-40 w-full max-w-[260px]" />
+              <ExerciseFigure id={id} label={name} large className="mx-auto mb-3 h-40 w-full max-w-[260px]" />
               <p className="text-[14px] leading-relaxed text-muted">{step.instructions}</p>
               {step.kind === "prep" && (
                 <p className="mt-2 text-[12px] text-subtle">

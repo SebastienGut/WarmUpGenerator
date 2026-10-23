@@ -73,7 +73,7 @@ export default function LandingPage({ landing }: { landing: Landing }) {
           <section className="order-1 lg:col-start-1 lg:row-start-1">
             <h1 className="font-display text-[34px] font-extrabold leading-[1] tracking-tight text-ink hyphens-auto sm:text-[48px]">{landing.h1}</h1>
             <p className="mt-2 text-[14px] font-semibold text-subtle">{landing.kicker}</p>
-            <ExerciseFigure id={landing.cover} label={landing.h1} className="mt-6 hidden h-48 w-full max-w-[320px] lg:block" />
+            <ExerciseFigure id={landing.cover} label={landing.h1} large className="mt-6 hidden h-48 w-full max-w-[320px] lg:block" />
           </section>
           <p className="order-3 mt-6 self-start text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
           <div className="order-2 mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">

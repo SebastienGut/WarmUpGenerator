@@ -1,4 +1,4 @@
-const CACHE = 'warmup-v6';
+const CACHE = 'warmup-v7';
 
 // Pages-outils : statiques, elles calculent tout dans le navigateur à partir
 // de l'URL. En cache, elles fonctionnent sans réseau.
@@ -70,7 +70,7 @@ self.addEventListener('fetch', (event) => {
   // pages après un déploiement.
   const immutable =
     url.pathname.startsWith('/_next/static/') ||
-    /\.(png|svg|ico|woff2?|ttf|txt)$/.test(url.pathname);
+    /\.(png|webp|svg|ico|woff2?|ttf|txt)$/.test(url.pathname);
 
   const store = (response) => {
     if (response.ok) {

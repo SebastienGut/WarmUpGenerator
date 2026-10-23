@@ -153,6 +153,12 @@ function Body({ fig, k }: { fig: Figure; k: number }) {
 }
 
 /**
+ * Animations 3D en pause (oct. 2026) : l'essai montrait des distorsions de
+ * membres et des gestes infidèles. Voir docs/animations-3d.md avant de rallumer.
+ */
+const SHOW_3D = false;
+
+/**
  * Animation 3D pré-rendue (WebP animé transparent, scripts/exercise-3d). Image
  * fixe quand l'animation est coupée ou que le mouvement réduit est demandé.
  */
@@ -190,7 +196,7 @@ export default function ExerciseFigure({
   /** Grand affichage (mode guidé, consigne ouverte) : version 480 px. */
   large?: boolean;
 }) {
-  if (EXERCISE_3D.has(id)) return <Exercise3D id={id} label={label} className={className} animate={animate} large={large} />;
+  if (SHOW_3D && EXERCISE_3D.has(id)) return <Exercise3D id={id} label={label} className={className} animate={animate} large={large} />;
   return <ExerciseSvg id={id} label={label} className={className} animate={animate} />;
 }
 

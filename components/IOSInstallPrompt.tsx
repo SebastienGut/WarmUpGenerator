@@ -45,7 +45,7 @@ export default function IOSInstallPrompt() {
         <div className="flex items-center gap-1">
           <button
             onClick={() => setExpanded(true)}
-            className="flex items-center gap-2 rounded-full border border-line-strong bg-card/95 px-4 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.12)] backdrop-blur-md transition-colors hover:border-accent/40 active:scale-95"
+            className="flex items-center gap-2 rounded-full border border-line-strong bg-card/95 px-4 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.12)] backdrop-blur-md transition-colors hover:border-ink active:scale-95"
           >
             <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
               <path d="M6 0v8M3 3L6 0l3 3M1 6v7h10V6" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -83,26 +83,26 @@ export default function IOSInstallPrompt() {
 
           <div className="flex flex-col gap-3 px-4 py-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] font-bold text-accent-ink">1</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink/[0.06] text-[11px] font-bold text-ink">1</span>
               <div className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted">
                 <span>Appuie sur</span>
                 <span className="inline-flex items-center gap-1 rounded-md border border-line-strong bg-ink/[0.07] px-2 py-0.5">
                   <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
                     <path d="M5.5 0v8M2 2.5L5.5 0 9 2.5M1 6v6h9V6" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span className="font-mono text-[10px] text-ink">Partager</span>
+                  <span className=" text-[10px] text-ink">Partager</span>
                 </span>
                 <span>en bas de Safari</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] font-bold text-accent-ink">2</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink/[0.06] text-[11px] font-bold text-ink">2</span>
               <p className="text-[13px] text-muted">Choisis <strong className="text-ink">&ldquo;Sur l&apos;écran d&apos;accueil&rdquo;</strong></p>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] font-bold text-accent-ink">3</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink/[0.06] text-[11px] font-bold text-ink">3</span>
               <p className="text-[13px] text-muted">Appuie sur <strong className="text-ink">&ldquo;Ajouter&rdquo;</strong> — c&apos;est tout</p>
             </div>
           </div>

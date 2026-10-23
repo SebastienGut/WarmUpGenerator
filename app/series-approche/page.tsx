@@ -76,7 +76,7 @@ function ExampleTable({ exercise, weight, reps }: (typeof EXAMPLES)[number]) {
       </figcaption>
       <div className="overflow-x-auto rounded-xl border border-line">
         <table className="w-full text-left text-[13px]">
-          <thead className="bg-card font-display text-[14px] font-semibold uppercase tracking-wide text-subtle">
+          <thead className="bg-card font-display text-[14px] font-semibold text-subtle">
             <tr>
               <th className="px-3 py-2.5">Série</th>
               <th className="px-3 py-2.5">Charge</th>
@@ -87,7 +87,7 @@ function ExampleTable({ exercise, weight, reps }: (typeof EXAMPLES)[number]) {
           <tbody className="text-muted">
             {sets.map((s, i) => (
               <tr key={i} className="border-t border-line">
-                <td className="px-3 py-2.5 font-mono">{i + 1}</td>
+                <td className="px-3 py-2.5">{i + 1}</td>
                 <td className="px-3 py-2.5 font-bold text-ink">
                   {formatKg(s.weight)} <span className="font-normal text-subtle">({s.percent} %)</span>
                 </td>
@@ -95,11 +95,11 @@ function ExampleTable({ exercise, weight, reps }: (typeof EXAMPLES)[number]) {
                 <td className="px-3 py-2.5">{s.emptyBar ? "barre seule" : formatPlates(s.platesPerSide)}</td>
               </tr>
             ))}
-            <tr className="border-t border-accent/30 bg-accent/[0.05]">
-              <td className="px-3 py-2.5 font-mono text-accent-ink">→</td>
+            <tr className="border-t border-line bg-ink/[0.035]">
+              <td className="px-3 py-2.5 text-ink">→</td>
               <td className="px-3 py-2.5 font-black text-ink">{formatKg(weight)}</td>
               <td className="px-3 py-2.5 text-ink">{reps}</td>
-              <td className="px-3 py-2.5 text-accent-ink">série de travail</td>
+              <td className="px-3 py-2.5 text-ink">série de travail</td>
             </tr>
           </tbody>
         </table>
@@ -131,7 +131,7 @@ export default function SeriesApprochePage() {
     },
   ];
 
-  const h2 = "mb-4 border-b border-line pb-3 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]";
+  const h2 = "mb-4 border-b border-line pb-3 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]";
   const body = "flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]";
 
   return (
@@ -140,10 +140,10 @@ export default function SeriesApprochePage() {
 
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
-          <Link href="/" className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink">
-            Warmup<span className="text-accent">.</span>
+          <Link href="/" className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4">
+            Warmup
           </Link>
-          <Link href="/" className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink hover:opacity-80">
+          <Link href="/" className="ml-auto text-[14px] font-semibold text-ink hover:opacity-80">
             ← Générateur
           </Link>
         </div>
@@ -151,16 +151,13 @@ export default function SeriesApprochePage() {
 
       <div className="mx-auto w-full max-w-[720px] px-4 py-10 sm:px-6 md:py-14">
         <nav aria-label="Fil d'Ariane" className="mb-6 flex items-center gap-1.5 text-[11px] text-subtle">
-          <Link href="/" className="hover:text-accent-ink">Accueil</Link>
+          <Link href="/" className="hover:underline underline-offset-4">Accueil</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <span className="font-display font-semibold uppercase tracking-wide text-ink">Séries d&apos;approche</span>
+          <span className="font-display font-semibold text-ink">Séries d&apos;approche</span>
         </nav>
 
         <section className="mb-6 flex flex-col gap-4">
-          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-            Calculateur · Montée en charge · Disques par côté
-          </p>
-          <h1 className="font-display text-[39px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             Calculateur de séries d&apos;approche
           </h1>
         </section>
@@ -172,8 +169,8 @@ export default function SeriesApprochePage() {
             Les paramètres sont dans l&apos;adresse de la page : ajoute-la à ton écran d&apos;accueil pour
             la retrouver en salle.
           </p>
-          <div className="mt-6 rounded-2xl border border-accent/25 bg-accent/[0.04] px-5 py-4">
-            <p className="mb-2 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">En bref</p>
+          <div className="mt-6 rounded-2xl border border-line bg-ink/[0.035] px-5 py-4">
+            <p className="mb-2 text-[14px] font-semibold text-ink">En bref</p>
             <p className="text-[15px] font-medium leading-[1.65] text-ink md:text-[16px]">
               Les séries d&apos;approche sont des séries légères et courtes, faites à charge croissante
               avant la première série de travail d&apos;un exercice. Pour une série de 5 répétitions, la
@@ -206,7 +203,7 @@ export default function SeriesApprochePage() {
           <h2 className={h2}>Les paliers selon tes répétitions de travail</h2>
           <div className="overflow-x-auto rounded-xl border border-line">
             <table className="w-full text-left text-[13px]">
-              <thead className="bg-card font-display text-[14px] font-semibold uppercase tracking-wide text-subtle">
+              <thead className="bg-card font-display text-[14px] font-semibold text-subtle">
                 <tr>
                   <th className="px-3 py-2.5">Série de travail</th>
                   <th className="px-3 py-2.5">Montée en charge</th>
@@ -237,8 +234,8 @@ export default function SeriesApprochePage() {
           </div>
         </section>
 
-        <section className="mb-14 border-l-2 border-accent/40 pl-6">
-          <h2 className="mb-4 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+        <section className="mb-14 border-l-2 border-line pl-6">
+          <h2 className="mb-4 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Avant les séries d&apos;approche
           </h2>
           <div className={body}>
@@ -251,25 +248,24 @@ export default function SeriesApprochePage() {
               href="/"
               className="flex items-center justify-between gap-4 rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
             >
-              <span className="font-display text-[20px] font-extrabold uppercase leading-tight tracking-tight">
+              <span className="font-display text-[20px] font-extrabold leading-tight tracking-tight">
                 Générer mon échauffement général
               </span>
-              <span aria-hidden="true" className="font-mono text-[18px] font-black">→</span>
             </Link>
           </div>
         </section>
 
         <section className="mb-14">
           <h2 className={h2}>Questions fréquentes</h2>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col border-t border-line">
             {FAQS.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-line bg-card px-5 py-4 [&_summary::-webkit-details-marker]:hidden"
+                className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-ink">
                   <span>{f.q}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-accent-ink">+</span>
+                  <span aria-hidden="true" className="shrink-0 text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-ink">+</span>
                 </summary>
                 <p className="mt-3 border-t border-line pt-3 text-[13px] leading-relaxed text-muted">{f.a}</p>
               </details>
@@ -278,7 +274,7 @@ export default function SeriesApprochePage() {
         </section>
 
         <section className="mb-14">
-          <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">Aller plus loin</p>
+          <p className="mb-4 text-[14px] font-semibold text-subtle">Aller plus loin</p>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {[
               { href: "/echauffement/exercice", label: "Échauffement par exercice" },
@@ -289,10 +285,9 @@ export default function SeriesApprochePage() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                className="flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
               >
                 <span className="truncate">{l.label}</span>
-                <span aria-hidden="true" className="font-mono text-subtle">→</span>
               </Link>
             ))}
           </div>

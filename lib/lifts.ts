@@ -449,11 +449,11 @@ export const ZONE_ORDER: MuscleGroup[] = ["pecs", "dos", "epaules", "bras", "jam
 /** Séances types : un tap pour obtenir l'échauffement. `cover` est l'exercice
  * dont le pictogramme illustre la tuile. */
 export const SESSION_TEMPLATES: { id: string; label: string; cover: string; zones: MuscleGroup[]; hint: string }[] = [
-  { id: "push", label: "Push", cover: "developpe-couche", zones: ["pecs", "epaules", "bras"], hint: "Pecs · épaules · triceps" },
-  { id: "pull", label: "Pull", cover: "tractions", zones: ["dos", "bras"], hint: "Dos · biceps" },
-  { id: "legs", label: "Jambes", cover: "squat", zones: ["jambes", "fessiers"], hint: "Quadriceps · ischios · fessiers" },
-  { id: "haut", label: "Haut du corps", cover: "developpe-militaire", zones: ["pecs", "dos", "epaules"], hint: "Pecs · dos · épaules" },
-  { id: "bas", label: "Bas du corps", cover: "souleve-de-terre", zones: ["jambes", "fessiers", "core"], hint: "Jambes · fessiers · gainage" },
+  { id: "push", label: "Push", cover: "developpe-couche", zones: ["pecs", "epaules", "bras"], hint: "Pecs, épaules, triceps" },
+  { id: "pull", label: "Pull", cover: "tractions", zones: ["dos", "bras"], hint: "Dos, biceps" },
+  { id: "legs", label: "Jambes", cover: "squat", zones: ["jambes", "fessiers"], hint: "Quadriceps, ischios, fessiers" },
+  { id: "haut", label: "Haut du corps", cover: "developpe-militaire", zones: ["pecs", "dos", "epaules"], hint: "Pecs, dos, épaules" },
+  { id: "bas", label: "Bas du corps", cover: "souleve-de-terre", zones: ["jambes", "fessiers", "core"], hint: "Jambes, fessiers, gainage" },
   { id: "full", label: "Full body", cover: "kettlebell-swing", zones: ["pecs", "dos", "jambes", "fessiers"], hint: "Tout le corps" },
 ];
 

@@ -31,7 +31,7 @@ export default function DouleurHubPage() {
   return (
     <SEOHubPage
       title="Douleurs en musculation"
-      subtitle="Diagnostic par exercice · Correction technique · Protocoles"
+      subtitle="Diagnostic par exercice, correction technique, protocoles"
       intro={[
         "Une douleur en musculation se comprend rarement en isolant l'articulation qui fait mal. Elle se comprend en regardant le mouvement qui la déclenche : le genou qui souffre au squat vient presque toujours de la cheville ou de la hanche, et le bas du dos qui chauffe au soulevé de terre vient d'une charnière de hanche que le corps ne sait pas produire.",
         "Chaque guide part donc de l'exercice. Il t'explique le mécanisme réel de la douleur, les corrections techniques qui la font disparaître, les alternatives qui te permettent de continuer à progresser en attendant, et le protocole de préparation à faire avant la séance.",

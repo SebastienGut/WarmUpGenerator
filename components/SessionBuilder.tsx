@@ -36,30 +36,26 @@ export default function SessionBuilder() {
 
   return (
     <main className="mx-auto w-full max-w-[1080px] px-5 pb-16 pt-5 sm:px-8">
-      <header className="mb-8 flex items-baseline justify-between sm:mb-12">
-        <span className="font-display text-[24px] font-extrabold uppercase leading-none tracking-tight text-ink">
-          Warmup<span className="text-accent">.</span>
-        </span>
+      <header className="mb-10 flex items-baseline justify-between sm:mb-14">
+        <span className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink">Warmup</span>
         <Link href="/series-approche" className="text-[14px] font-medium text-muted hover:text-ink">
           Séries d&apos;approche
         </Link>
       </header>
 
       {/* Le mot-clé principal ouvre le H1 ; la question reste le message visible. */}
-      <h1 className="font-display font-extrabold uppercase leading-[0.9] tracking-tight text-ink">
-        <span className="mb-2 block text-[17px] tracking-wide text-subtle sm:text-[20px]">Échauffement musculation</span>
-        <span className="block text-[42px] sm:text-[64px]">
-          Tu entraînes <span className="text-accent">quoi&nbsp;?</span>
-        </span>
+      <h1 className="text-ink">
+        <span className="block text-[15px] font-semibold text-subtle">Échauffement musculation</span>
+        <span className="mt-1 block font-display text-[40px] font-extrabold leading-[0.95] tracking-tight sm:text-[60px]">Tu entraînes quoi&nbsp;?</span>
       </h1>
-      <p className="mt-3 text-[16px] text-muted">Un tap, ton échauffement est prêt.</p>
+      <p className="mt-3 max-w-[34ch] text-[16px] text-muted">Touche ta séance, ton échauffement de 6 minutes est prêt.</p>
 
       {saved.length > 0 && (
-        <div className="-mx-5 mt-7 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+        <div className="-mx-5 mt-6 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
           {saved.map((s) => (
-            <span key={s.query} className="flex shrink-0 items-center rounded-full border border-line-strong bg-card">
+            <span key={s.query} className="flex shrink-0 items-center rounded-full bg-ink/[0.06]">
               <Link href={`/plan?${s.query}`} className="flex items-center gap-2 py-2 pl-4 pr-2 text-[14px] font-semibold text-ink">
-                <span aria-hidden="true" className="text-accent-ink">↻</span>
+                <span aria-hidden="true" className="text-subtle">↻</span>
                 {s.label}
               </Link>
               <button
@@ -78,50 +74,54 @@ export default function SessionBuilder() {
         </div>
       )}
 
-      <section aria-label="Séances types" className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
-        {SESSION_TEMPLATES.map((t, i) => (
+      {/* Les séances types : de grandes lignes à toucher du pouce, pas une grille de cartes. */}
+      <section aria-label="Séances types" className="mt-7 border-t border-line lg:grid lg:grid-cols-3 lg:gap-x-8">
+        {SESSION_TEMPLATES.map((t) => (
           <button
             key={t.id}
             type="button"
             onClick={() => go(t.zones)}
-            style={{ "--d": `${i * 50}ms` } as React.CSSProperties}
-            className="anim-rise group flex flex-col overflow-hidden rounded-2xl border border-line bg-card text-left transition-[border-color,transform] duration-150 hover:border-ink active:scale-[0.97]"
+            className="group flex w-full items-center gap-4 border-b border-line py-2 text-left transition-colors active:bg-ink/[0.04]"
           >
-            <ExerciseFigure id={t.cover} label={LIFTS_BY_ID[t.cover].name} className="aspect-[12/10] w-full bg-ink/[0.025]" />
-            <span className="flex flex-col gap-1 px-4 pb-4 pt-3">
-              <span className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink sm:text-[24px] lg:text-[20px]">{t.label}</span>
-              <span className="truncate text-[12px] text-subtle">{t.hint}</span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-display text-[28px] font-extrabold leading-none tracking-tight text-ink transition-transform duration-200 group-hover:translate-x-1 sm:text-[32px] lg:text-[26px]">
+                {t.label}
+              </span>
+              <span className="mt-1.5 block truncate text-[13px] text-subtle">{t.hint}</span>
             </span>
+            <ExerciseFigure id={t.cover} label={LIFTS_BY_ID[t.cover].name} animate={false} className="h-[72px] w-[84px] shrink-0" />
           </button>
         ))}
+        <button
+          type="button"
+          onClick={() => setPicking(true)}
+          className="group flex w-full items-center gap-4 border-b border-line py-5 text-left transition-colors active:bg-ink/[0.04]"
+        >
+          <span className="min-w-0 flex-1">
+            <span className="block font-display text-[28px] font-extrabold leading-none tracking-tight text-subtle transition-colors group-hover:text-ink sm:text-[32px] lg:text-[26px]">
+              Mes zones
+            </span>
+            <span className="mt-1.5 block text-[13px] text-subtle">Choisis exactement ce que tu travailles</span>
+          </span>
+          <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line-strong text-[22px] text-ink">
+            +
+          </span>
+        </button>
       </section>
-
-      <button
-        type="button"
-        onClick={() => setPicking(true)}
-        className="mt-4 flex w-full items-center justify-between rounded-2xl border-2 border-dashed border-line-strong px-5 py-4 text-left transition-colors hover:border-ink"
-      >
-        <span>
-          <span className="block font-display text-[20px] font-extrabold uppercase leading-none tracking-tight text-ink">Mes zones</span>
-          <span className="mt-1 block text-[13px] text-subtle">Choisis précisément ce que tu travailles</span>
-        </span>
-        <span aria-hidden="true" className="font-display text-[26px] font-extrabold text-ink">+</span>
-      </button>
 
       {/* Second outil, distinct : la montée en charge sur un exercice précis. */}
       <Link
         href="/series-approche"
-        className="mt-10 flex items-center gap-4 rounded-2xl bg-ink px-5 py-5 text-paper transition-transform active:scale-[0.99] sm:px-7"
+        className="mt-12 flex items-center gap-5 rounded-3xl bg-ink px-6 py-6 text-paper transition-transform active:scale-[0.99] sm:px-8"
       >
         <span className="min-w-0 flex-1">
-          <span className="block font-display text-[13px] font-bold uppercase tracking-wide text-paper/70">Deuxième outil</span>
-          <span className="mt-1 block font-display text-[26px] font-extrabold uppercase leading-none tracking-tight">Séries d&apos;approche</span>
-          <span className="mt-2 block text-[14px] text-paper/80">Ta charge de travail du jour → ta montée en charge, disques compris.</span>
+          <span className="block text-[13px] font-semibold text-paper/70">L&apos;autre outil</span>
+          <span className="mt-1 block font-display text-[26px] font-extrabold leading-none tracking-tight">Séries d&apos;approche</span>
+          <span className="mt-2 block max-w-[40ch] text-[14px] text-paper/80">Ta charge de travail du jour, et la montée en charge disque par disque pour y arriver.</span>
         </span>
-        <span className="hidden shrink-0 sm:block" aria-hidden="true">
-          <Plates plates={[25, 20, 5, 2.5]} size={56} showLabel={false} />
+        <span className="shrink-0" aria-hidden="true">
+          <Plates plates={[25, 20, 5, 2.5]} size={52} showLabel={false} />
         </span>
-        <span aria-hidden="true" className="font-display text-[26px] font-extrabold">→</span>
       </Link>
 
       <Sheet
@@ -137,10 +137,8 @@ export default function SessionBuilder() {
               zones.length ? "bg-accent text-on-accent" : "bg-ink/[0.07] text-subtle"
             }`}
           >
-            <span className="font-display text-[20px] font-extrabold uppercase tracking-wide">
-              {zones.length ? `Échauffer · ${zonesLabel(zones)}` : "Touche tes zones"}
-            </span>
-            <span aria-hidden="true" className="font-display text-[22px] font-extrabold">→</span>
+            <span className="font-display text-[19px] font-extrabold tracking-tight">{zones.length ? "Voir mon échauffement" : "Touche tes zones"}</span>
+            {zones.length > 0 && <span className="truncate pl-3 text-[13px] font-semibold">{zonesLabel(zones)}</span>}
           </button>
         }
       >
@@ -155,12 +153,12 @@ export default function SessionBuilder() {
                 aria-pressed={on}
                 onClick={() => toggle(z)}
                 className={`flex items-center gap-2 overflow-hidden rounded-xl border-2 pr-3 text-left transition-colors ${
-                  on ? "border-accent bg-accent/[0.06]" : "border-line bg-card hover:border-line-strong"
+                  on ? "border-ink bg-card" : "border-transparent bg-ink/[0.045] hover:border-line-strong"
                 }`}
               >
                 <ExerciseFigure id={cover} label={MUSCLE_LABELS[z]} animate={on} className="h-14 w-16 shrink-0" />
-                <span className="flex-1 font-display text-[18px] font-extrabold uppercase leading-none tracking-tight text-ink">{MUSCLE_LABELS[z]}</span>
-                {on && <span aria-hidden="true" className="font-display text-[18px] font-extrabold text-accent">✓</span>}
+                <span className="min-w-0 flex-1 truncate font-display text-[16px] font-extrabold leading-none tracking-tight text-ink">{MUSCLE_LABELS[z]}</span>
+                {on && <span aria-hidden="true" className="text-[16px] font-bold text-ink">✓</span>}
               </button>
             );
           })}

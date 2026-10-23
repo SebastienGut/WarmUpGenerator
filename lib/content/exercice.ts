@@ -21,7 +21,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement développé couché complet : coiffe, grand dentelé, pec mineur, thoracique. 6 mouvements en 5 minutes pour DC sain et performant. Gratuit.",
     h1: "Échauffement avant le développé couché",
-    subtitle: "Coiffe · Grand dentelé · Cage thoracique · 5 minutes",
+    subtitle: "Coiffe, grand dentelé, cage thoracique, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>développé couché</strong> est l'exercice le plus pratiqué en salle, et celui qui blesse le plus d'épaules. La cause n'est pas le DC en soi — c'est le DC fait à froid, sans activation préalable de la coiffe des rotateurs et du grand dentelé. Avec ce protocole spécifique, tu prépares les structures qui stabilisent l'épaule sous une charge axiale lourde.",
       "À pratiquer juste avant tes premières séries de chauffe avec barre. Compte 4 à 5 minutes. Le résultat : omoplates qui se rétractent et glissent librement, cage thoracique mobile (clé d'une bonne arche), coiffe activée, grand dentelé prêt à protéger l'articulation. Tu gagnes en stabilité, donc en puissance disponible — souvent 5 à 10 % sur la première série de travail.",
@@ -105,7 +105,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement squat complet : mobilité hanche, dorsiflexion cheville, activation fessière. 6 mouvements en 5 min pour squat lourd et profond. Gratuit.",
     h1: "Échauffement avant le squat",
-    subtitle: "Hanche · Cheville · Fessiers · Pattern · 5 minutes",
+    subtitle: "Hanche, cheville, fessiers, pattern, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>squat</strong> est le roi des exercices de jambes mais aussi le plus exigeant en mobilité et en coordination. Trois facteurs déterminent un squat propre et lourd : <strong class='text-ink'>la dorsiflexion de cheville</strong>, <strong class='text-ink'>la rotation et flexion de hanche</strong>, et <strong class='text-ink'>l'activation fessière</strong>. Ce protocole spécifique adresse les trois.",
       "À pratiquer juste avant tes séries de chauffe à la barre. Compte 5 minutes. Le résultat : amplitude complète accessible (descente sous la parallèle sans compenser), pattern moteur amorcé, fessiers actifs (et pas un \"squat quadriceps\" qui charge le genou), gainage prêt. Tu peux ajouter 5-10 kg sur ta première série de travail rien qu'avec un échauffement bien fait.",
@@ -189,7 +189,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement soulevé de terre complet : charnière de hanche, mobilité thoracique, gainage anti-extension. 6 mouvements en 5 min pour SDT lourd. Gratuit.",
     h1: "Échauffement avant le soulevé de terre",
-    subtitle: "Hanches · Chaîne postérieure · Gainage · 5 minutes",
+    subtitle: "Hanches, chaîne postérieure, gainage, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>soulevé de terre</strong> (SDT) est l'exercice qui sollicite le plus de masse musculaire en une seule répétition. C'est aussi celui qui blesse le plus de bas du dos — quand il est fait à froid, sans charnière de hanche maîtrisée, avec un gainage absent. Ce protocole prépare les trois piliers du SDT : <strong class='text-ink'>mobilité de hanche</strong>, <strong class='text-ink'>activation chaîne postérieure</strong>, et <strong class='text-ink'>gainage anti-extension</strong>.",
       "À pratiquer juste avant tes séries de chauffe avec barre. Compte 5 minutes. Le résultat : pattern de hip hinge programmé, fessiers et ischios actifs, gainage solide pour transférer la force du sol jusqu'aux épaules sans que la colonne ne fléchisse. Sur le SDT, c'est exactement ce qui sépare une PR propre d'une blessure du dos.",
@@ -273,7 +273,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement rowing barre complet : mobilisation thoracique, scapulaires, hip hinge. 6 mouvements en 5 min pour rowing puissant et sûr. Gratuit.",
     h1: "Échauffement avant le rowing barre",
-    subtitle: "Thoracique · Scapulaires · Hip hinge · 5 minutes",
+    subtitle: "Thoracique, scapulaires, hip hinge, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>rowing barre</strong> est probablement l'exercice le plus rentable pour développer un dos épais et puissant. C'est aussi un des plus techniques : il combine un <em>hip hinge</em> tenu (comme un demi-SDT statique), une rétraction scapulaire, et une flexion de coude — le tout sous charge. Ce protocole prépare ces trois éléments en 5 minutes.",
       "À pratiquer avant ta série de chauffe à la barre. Le résultat : cage thoracique mobile (clé d'une bonne extension de buste), omoplates qui glissent et se rétractent librement, chaîne postérieure stable pour tenir le hip hinge sous la charge. Tu cesseras de \"tirer avec les biceps\" — le dos prend enfin la moitié du travail qui lui revient.",
@@ -357,7 +357,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement tractions complet : scapulaires, mobilité thoracique, grip. 6 mouvements en 5 min pour tractions strictes ou lestées. Gratuit.",
     h1: "Échauffement avant les tractions",
-    subtitle: "Pull-ups · Scapulae · Thoracique · Grip · 5 minutes",
+    subtitle: "Pull-ups, scapulae, thoracique, grip, 5 minutes",
     intro: [
       "Les <strong class='text-ink'>tractions</strong> (pull-ups) sont l'exercice de tirage de référence — et l'un des plus exigeants pour les épaules quand elles sont mal préparées. Sous une charge égale à ton poids du corps (et plus si tu lestes), la coiffe des rotateurs et les fixateurs scapulaires doivent être <em>déjà actifs</em> avant la première répétition. Ce protocole les active spécifiquement.",
       "À pratiquer juste avant tes premières tractions de la séance. Compte 4 à 5 minutes. Le résultat : omoplates qui glissent et se rétractent librement (la base d'une traction propre), grip prêt, coiffe activée, mobilité thoracique disponible pour amener la poitrine vers la barre. Tu enchaîneras 1 à 2 répétitions de plus dès la première série juste grâce à un échauffement bien fait.",
@@ -441,7 +441,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement développé militaire complet : coiffe, thoracique, grand dentelé. 6 mouvements en 5 min pour OHP, push press, push jerk. Gratuit.",
     h1: "Échauffement avant le développé militaire",
-    subtitle: "OHP · Coiffe · Thoracique · Grand dentelé · 5 minutes",
+    subtitle: "OHP, coiffe, thoracique, grand dentelé, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>développé militaire</strong> (OHP — overhead press) est l'exercice qui exige le plus de mobilité et de stabilité d'épaule. Pour pousser une charge au-dessus de la tête sans douleur, tu as besoin d'une <strong class='text-ink'>flexion gléno-humérale complète</strong>, d'un <strong class='text-ink'>thoracique mobile</strong> en extension, et d'un <strong class='text-ink'>grand dentelé actif</strong> qui fait basculer correctement les omoplates en haut du mouvement.",
       "À pratiquer juste avant tes séries de chauffe. Compte 5 minutes. Le résultat : l'épaule passe \"librement\" en flexion totale, la cage thoracique reste ouverte, le grand dentelé active la rotation supérieure de l'omoplate (rythme scapulo-huméral). Tu pousses 5-10 kg de plus avec moins de stress articulaire — et surtout, tu protèges ta coiffe contre l'usure répétée du push lourd.",

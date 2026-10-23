@@ -4,12 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
 import Plates from "@/components/Plates";
-import type { SessionPlan } from "@/lib/session-engine";
+import { Barbell, PHASE_STYLE } from "@/components/PlanParts";
+import type { PlanPhase, SessionPlan } from "@/lib/session-engine";
+
+type PK = PlanPhase["key"];
 
 type GuidedItem =
-  | { type: "do"; phase: string; fig?: string; title: string; target: string; instructions: string; countdown?: number }
-  | { type: "set"; phase: string; fig: string; title: string; load: string; reps: number; plates?: number[]; rest: number; index: number; total: number }
-  | { type: "info"; phase: string; title: string; lines: string[] };
+  | { type: "do"; pk: PK; phase: string; fig?: string; title: string; target: string; instructions: string; countdown?: number }
+  | { type: "set"; pk: PK; phase: string; fig: string; title: string; load: string; reps: number; plates?: number[]; rest: number; index: number; total: number }
+  | { type: "info"; pk: PK; phase: string; title: string; lines: string[] };
 
 function flatten(plan: SessionPlan): GuidedItem[] {
   const items: GuidedItem[] = [];
@@ -17,13 +20,14 @@ function flatten(plan: SessionPlan): GuidedItem[] {
   for (const phase of plan.phases) {
     for (const step of phase.steps) {
       if (step.kind === "raise") {
-        items.push({ type: "do", phase: phase.title, fig: "raise", title: step.name, target: step.reps, instructions: step.instructions, countdown: step.seconds });
+        items.push({ type: "do", pk: phase.key, phase: phase.title, fig: "raise", title: step.name, target: step.reps, instructions: step.instructions, countdown: step.seconds });
       } else if (step.kind === "prep") {
-        items.push({ type: "do", phase: phase.title, fig: step.exercise.id, title: step.exercise.name, target: step.reps, instructions: step.instructions });
+        items.push({ type: "do", pk: phase.key, phase: phase.title, fig: step.exercise.id, title: step.exercise.name, target: step.reps, instructions: step.instructions });
       } else if (step.full) {
         step.lines.forEach((line, i) =>
           items.push({
             type: "set",
+            pk: phase.key,
             phase: phase.title,
             fig: step.lift.id,
             title: step.lift.name,
@@ -40,7 +44,7 @@ function flatten(plan: SessionPlan): GuidedItem[] {
       }
     }
   }
-  if (reminders.length) items.push({ type: "info", phase: "Pour la suite", title: "Avant chaque exercice suivant", lines: reminders });
+  if (reminders.length) items.push({ type: "info", pk: "ramp", phase: "Pour la suite", title: "Avant chaque exercice suivant", lines: reminders });
   return items;
 }
 
@@ -69,13 +73,13 @@ function Ring({ remaining, total, label }: { remaining: number; total: number; l
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="font-display text-[64px] font-extrabold leading-none text-ink tabular">{fmt(remaining)}</span>
-        <span className="mt-1 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">{label}</span>
+        <span className="mt-1 text-[14px] font-semibold text-subtle">{label}</span>
       </div>
     </div>
   );
 }
 
-const primary = "flex-1 rounded-2xl bg-accent py-4 font-display text-[22px] font-extrabold uppercase tracking-wide text-on-accent active:scale-[0.98]";
+const primary = "flex-1 rounded-2xl bg-accent py-4 font-display text-[22px] font-extrabold text-on-accent active:scale-[0.98]";
 const secondary = "rounded-2xl border border-line-strong px-5 py-4 text-[17px] font-semibold text-ink active:scale-[0.98]";
 
 export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClose: () => void }) {
@@ -133,19 +137,25 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
     startTimer(rest);
   };
   const next = items[index + 1];
+  // Un disque par exercice : la barre se charge au fil de l'échauffement.
+  const oneItemPerStep = items.length === plan.phases.reduce((n, p) => n + p.steps.length, 0);
   const key = done ? "done" : resting ? `rest${index}` : `i${index}`;
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-paper" role="dialog" aria-modal="true" aria-label="Échauffement guidé">
       <div className="mx-auto w-full max-w-[560px] px-5 pt-[max(14px,env(safe-area-inset-top))]">
-        <div className="flex gap-1" aria-hidden="true">
-          {items.map((_, i) => (
-            <span key={i} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${i < index ? "bg-ink" : i === index ? "bg-accent" : "bg-line"}`} />
-          ))}
-        </div>
+        {oneItemPerStep ? (
+          <Barbell phases={plan.phases} loaded={index} className="[&_.plate-load]:![animation:none]" />
+        ) : (
+          <div className="flex gap-1" aria-hidden="true">
+            {items.map((_, i) => (
+              <span key={i} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${i < index ? "bg-ink" : i === index ? "bg-accent" : "bg-line"}`} />
+            ))}
+          </div>
+        )}
         <div className="mt-3 flex items-center justify-between">
-          <span className="font-display text-[15px] font-bold uppercase tracking-wide text-subtle">
-            {done ? "Terminé" : `${item.phase} · ${index + 1}/${items.length}`}
+          <span className="text-[14px] font-semibold text-subtle tabular">
+            {done ? "Terminé" : `${item.phase}, ${index + 1} sur ${items.length}`}
           </span>
           <button type="button" onClick={onClose} className="-mr-2 rounded-full px-3 py-2 text-[15px] font-semibold text-muted hover:bg-ink/[0.06] hover:text-ink">
             Fermer
@@ -169,12 +179,8 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
           >
             {done ? (
               <div className="flex flex-col gap-4">
-                <p className="font-display text-[60px] font-extrabold uppercase leading-[0.88] text-ink">
-                  Échauffé.
-                  <br />
-                  <span className="text-accent">À toi.</span>
-                </p>
-                <p className="text-[16px] text-muted">Ta prochaine série est ta première série de travail.</p>
+                <p className="font-display text-[52px] font-extrabold leading-[0.92] tracking-tight text-ink">Barre chargée.</p>
+                <p className="text-[16px] text-muted">Tu es échauffé : ta prochaine série est ta première série de travail.</p>
               </div>
             ) : resting ? (
               <div className="flex flex-col items-center gap-6">
@@ -189,9 +195,9 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
               <div className="flex flex-col">
                 <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(26vh,200px)] w-full max-w-[280px]" />
                 <p className="mt-2 text-[15px] font-medium text-muted">
-                  {item.title} · approche {item.index}/{item.total}
+                  {item.title}, approche {item.index} sur {item.total}
                 </p>
-                <p className="font-display font-extrabold uppercase leading-[0.85] text-ink">
+                <p className="font-display font-extrabold leading-[0.85] text-ink">
                   <span className={`block tabular ${item.load.length > 7 ? "text-[52px]" : "text-[80px]"}`}>{item.load}</span>
                   <span className="block text-[52px] text-accent">× {item.reps}</span>
                 </p>
@@ -203,7 +209,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
               </div>
             ) : item.type === "info" ? (
               <div className="flex flex-col gap-5">
-                <p className="font-display text-[38px] font-extrabold uppercase leading-[0.95] text-ink">{item.title}</p>
+                <p className="font-display text-[38px] font-extrabold leading-[0.95] text-ink">{item.title}</p>
                 <ul className="divide-y divide-line border-y border-line">
                   {item.lines.map((l) => (
                     <li key={l} className="py-3 text-[16px] text-muted">
@@ -223,8 +229,8 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
                     ♥
                   </span>
                 )}
-                <p className="mt-4 font-display text-[38px] font-extrabold uppercase leading-[0.92] tracking-tight text-ink">{item.title}</p>
-                <p className="mt-1 font-display text-[30px] font-bold leading-none text-accent tabular">{item.target}</p>
+                <p className="mt-4 font-display text-[32px] font-extrabold leading-[0.98] tracking-tight text-ink">{item.title}</p>
+                <p className={`mt-2 font-display text-[28px] font-extrabold leading-none tracking-tight tabular ${PHASE_STYLE[item.pk].ink}`}>{item.target}</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{item.instructions}</p>
               </div>
             )}
@@ -258,7 +264,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
               </button>
             ) : item.type === "do" && item.countdown && remaining === null ? (
               <button type="button" onClick={() => startTimer(item.countdown!)} className={primary}>
-                Lancer · {fmt(item.countdown)}
+                Lancer {fmt(item.countdown)}
               </button>
             ) : (
               <button type="button" onClick={() => go(1)} className={primary}>

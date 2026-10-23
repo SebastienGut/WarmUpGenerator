@@ -99,13 +99,13 @@ export default function SEOHubPage({
         <div className="mx-auto flex max-w-[900px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -117,11 +117,11 @@ export default function SEOHubPage({
           {breadcrumbs.map((b, i) => (
             <span key={b.label} className="flex items-center gap-1.5">
               {b.href ? (
-                <Link href={b.href} className="transition-colors hover:text-accent-ink">
+                <Link href={b.href} className="transition-colors hover:underline underline-offset-4">
                   {b.label}
                 </Link>
               ) : (
-                <span className="font-display font-semibold uppercase tracking-wide text-ink">{b.label}</span>
+                <span className="font-display font-semibold text-ink">{b.label}</span>
               )}
               {i < breadcrumbs.length - 1 && <span aria-hidden="true" className="text-faint">/</span>}
             </span>
@@ -129,12 +129,10 @@ export default function SEOHubPage({
         </nav>
 
         <section className="mb-14 flex max-w-[720px] flex-col gap-4">
-          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-            {subtitle}
-          </p>
-          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             {title}
           </h1>
+          <p className="-mt-2 text-[14px] font-semibold text-subtle">{subtitle}</p>
           <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             {intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -143,40 +141,26 @@ export default function SEOHubPage({
         </section>
 
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
-            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+          <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
               {itemsTitle}
             </h2>
-            <span className="shrink-0 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
+            <span className="shrink-0 text-[14px] font-semibold text-ink">
               {items.length} guides
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            {items.map((item, i) => (
+          <div className="grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
+            {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex min-h-[170px] flex-col justify-between rounded-xl border border-line bg-card p-4 transition-colors hover:border-accent/40"
+                className="group flex flex-col border-b border-line pb-4"
               >
-                <div>
-                  <div className="mb-3 flex items-center justify-between gap-3">
-                    <span className="font-display text-[14px] font-extrabold tabular text-accent-ink">
-                      {(i + 1).toString().padStart(2, "0")}
-                    </span>
-                    {item.kicker && (
-                      <span className="truncate text-right font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-                        {item.kicker}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-[17px] font-black uppercase leading-tight tracking-tight text-ink transition-colors group-hover:text-accent">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-[13px] leading-relaxed text-muted">{item.description}</p>
-                </div>
-                <span className="mt-5 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
-                  Voir le protocole
-                </span>
+                <h3 className="font-display text-[19px] font-extrabold leading-tight tracking-tight text-ink group-hover:underline group-hover:underline-offset-4">
+                  {item.title}
+                </h3>
+                {item.kicker && <span className="mt-1 text-[13px] font-semibold text-subtle">{item.kicker}</span>}
+                <p className="mt-2 text-[14px] leading-relaxed text-muted">{item.description}</p>
               </Link>
             ))}
           </div>
@@ -184,23 +168,23 @@ export default function SEOHubPage({
 
         {faqs.length > 0 && (
           <section className="mb-14">
-            <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
-              <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+            <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink pb-2">
+              <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
                 Questions frequentes
               </h2>
-              <span className="shrink-0 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+              <span className="shrink-0 text-[14px] font-semibold text-subtle">
                 FAQ - {faqs.length}
               </span>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col border-t border-line">
               {faqs.map((faq) => (
                 <details
                   key={faq.q}
-                  className="group rounded-xl border border-line bg-card px-5 py-4 transition-colors hover:border-line-strong [&_summary::-webkit-details-marker]:hidden"
+                  className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden"
                 >
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-ink">
                     <span>{faq.q}</span>
-                    <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-accent-ink">
+                    <span aria-hidden="true" className="shrink-0 text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-ink">
                       +
                     </span>
                   </summary>
@@ -213,8 +197,8 @@ export default function SEOHubPage({
           </section>
         )}
 
-        <section className="mb-14 border-l-2 border-accent/40 pl-6">
-          <h2 className="mb-4 font-display text-[26px] font-extrabold uppercase tracking-tight text-ink">
+        <section className="mb-14 border-l-2 border-line pl-6">
+          <h2 className="mb-4 font-display text-[26px] font-extrabold tracking-tight text-ink">
             {relatedTitle}
           </h2>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -222,10 +206,10 @@ export default function SEOHubPage({
               <Link
                 key={link.href}
                 href={link.href}
-                className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
               >
                 <span className="truncate">{link.label}</span>
-                <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">
+                <span aria-hidden="true" className="shrink-0 text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-ink">
                   -&gt;
                 </span>
               </Link>

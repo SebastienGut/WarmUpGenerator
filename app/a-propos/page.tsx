@@ -75,13 +75,13 @@ export default function AboutPage() {
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -92,17 +92,14 @@ export default function AboutPage() {
 
         {/* BREADCRUMB */}
         <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
-          <Link href="/" className="transition-colors hover:text-accent-ink">Accueil</Link>
+          <Link href="/" className="transition-colors hover:underline underline-offset-4">Accueil</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <span className="font-display font-semibold uppercase tracking-wide text-ink">À propos</span>
+          <span className="font-display font-semibold text-ink">À propos</span>
         </nav>
 
         {/* HERO */}
         <section className="mb-14 flex flex-col gap-4">
-          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-            Le projet · La philosophie
-          </p>
-          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             Un outil simple, par un sportif, pour les sportifs.
           </h1>
         </section>
@@ -128,14 +125,14 @@ export default function AboutPage() {
 
         {/* AUTEUR */}
         <section className="mb-14 flex items-stretch overflow-hidden rounded-xl border border-line bg-card">
-          <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-line bg-accent/[0.03]">
+          <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-line bg-ink/[0.035]">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
           </div>
           <div className="flex flex-1 flex-col gap-1 px-4 py-4">
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="text-[14px] font-semibold text-subtle">
               Qui est derrière l&apos;outil
             </p>
             <h2 className="text-[16px] font-bold leading-tight text-ink">Sébastien Gutierrez</h2>
@@ -151,10 +148,10 @@ export default function AboutPage() {
         {/* VALEURS */}
         <section className="mb-14">
           <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-line pb-3">
-            <h2 className="font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+            <h2 className="font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
               Nos engagements
             </h2>
-            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
+            <span className="text-[14px] font-semibold text-ink">
               5 promesses
             </span>
           </div>
@@ -180,16 +177,11 @@ export default function AboutPage() {
                 title: "Conçu par un pratiquant.",
                 body: "Le générateur n'est pas un produit marketing. Il est conçu par un sportif qui connaît la salle, les exercices, et les pièges classiques. Chaque protocole est pensé pour être réellement utilisé entre deux séries.",
               },
-            ].map((v, i) => (
+            ].map((v) => (
               <li
-                key={i}
+                key={v.title}
                 className="flex items-stretch overflow-hidden rounded-xl border border-line bg-card"
               >
-                <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-line bg-accent/[0.03]">
-                  <span className="font-display text-[23px] font-extrabold tabular text-accent">
-                    {(i + 1).toString().padStart(2, "0")}
-                  </span>
-                </div>
                 <div className="flex flex-1 flex-col gap-1 px-4 py-3.5">
                   <h3 className="text-[15px] font-bold leading-tight text-ink">{v.title}</h3>
                   <p className="text-[13px] leading-relaxed text-muted">{v.body}</p>
@@ -200,8 +192,8 @@ export default function AboutPage() {
         </section>
 
         {/* CE QUE L'OUTIL N'EST PAS */}
-        <section className="mb-14 border-l-2 border-accent/40 pl-6">
-          <h2 className="mb-4 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+        <section className="mb-14 border-l-2 border-line pl-6">
+          <h2 className="mb-4 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Ce que cet outil n&apos;est pas
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -232,10 +224,10 @@ export default function AboutPage() {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
-                → Essai
+              <span className="text-[14px] font-semibold">
+                Essai
               </span>
-              <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
+              <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight md:text-[20px]">
                 Construire mon échauffement
               </span>
               <span className="text-[12px] font-medium">
@@ -252,23 +244,21 @@ export default function AboutPage() {
 
         {/* RELATED */}
         <section className="mb-14">
-          <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+          <p className="mb-4 text-[14px] font-semibold text-subtle">
             Pour aller plus loin
           </p>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Link
               href="/methodologie"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
             >
               <span className="truncate">Méthodologie & sources</span>
-              <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">→</span>
             </Link>
             <Link
               href="/"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
             >
               <span className="truncate">Générateur d&apos;échauffement</span>
-              <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">→</span>
             </Link>
           </div>
         </section>

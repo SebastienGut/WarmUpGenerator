@@ -40,13 +40,13 @@ export default function BlogPage() {
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -57,17 +57,17 @@ export default function BlogPage() {
 
         {/* BREADCRUMB */}
         <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
-          <Link href="/" className="transition-colors hover:text-accent-ink">Accueil</Link>
+          <Link href="/" className="transition-colors hover:underline underline-offset-4">Accueil</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <span className="font-display font-semibold uppercase tracking-wide text-ink">Blog</span>
+          <span className="font-display font-semibold text-ink">Blog</span>
         </nav>
 
         {/* HERO */}
         <section className="mb-12">
-          <p className="mb-3 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+          <p className="mb-3 text-[14px] font-semibold text-subtle">
             Guides & conseils
           </p>
-          <h1 className="mb-4 font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="mb-4 font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             Échauffement musculation
           </h1>
           <p className="text-[16px] leading-[1.7] text-muted">
@@ -83,14 +83,14 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col gap-3 rounded-2xl border border-line bg-card p-6 transition-colors hover:border-accent/30"
+                className="group flex flex-col gap-3 rounded-2xl border border-line bg-card p-6 transition-colors hover:border-line"
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+                  <span className="text-[14px] font-semibold text-subtle">
                     {post.publishDate}
                   </span>
                   <span className="text-faint">·</span>
-                  <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+                  <span className="text-[14px] font-semibold text-subtle">
                     {post.readingTime}
                   </span>
                 </div>
@@ -100,8 +100,8 @@ export default function BlogPage() {
                 <p className="text-[14px] leading-relaxed text-muted">
                   {post.intro.slice(0, 160)}…
                 </p>
-                <span className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-all group-hover:translate-x-1">
-                  Lire l&apos;article →
+                <span className="text-[14px] font-semibold text-ink transition-all group-hover:translate-x-1">
+                  Lire l&apos;article
                 </span>
               </Link>
             ))}
@@ -115,10 +115,10 @@ export default function BlogPage() {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
-                → Plan personnalisé
+              <span className="text-[14px] font-semibold">
+                Plan personnalisé
               </span>
-              <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
+              <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight md:text-[20px]">
                 Générer ton échauffement sur mesure
               </span>
               <span className="text-[12px] font-medium">

@@ -31,7 +31,7 @@ export default function ProtectionHubPage() {
   return (
     <SEOHubPage
       title="Échauffements zones sensibles"
-      subtitle="Épaule · Genou · Lombaires · Poignets"
+      subtitle="Épaule, genou, lombaires, poignets"
       intro={[
         "Une zone sensible change la logique de l'échauffement. Il ne suffit plus de bouger un peu avant la charge : il faut réveiller les muscles stabilisateurs, réduire les compensations et choisir des amplitudes qui restent confortables.",
         "Ces protocoles ne remplacent pas un avis médical. Ils servent à préparer une séance de musculation quand une gêne légère ou récurrente demande plus d'attention avant les séries de travail.",

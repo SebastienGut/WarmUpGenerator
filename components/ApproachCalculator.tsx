@@ -55,7 +55,7 @@ export default function ApproachCalculator() {
     window.history.replaceState(null, "", `?${p.toString()}`);
   }, [liftId, workWeight, reps, bar, barbell]);
 
-  const label = "mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle";
+  const label = "mb-2 text-[14px] font-semibold text-subtle";
 
   return (
     <div className="flex flex-col gap-6">
@@ -68,8 +68,8 @@ export default function ApproachCalculator() {
           className="flex w-full items-center gap-3 rounded-2xl border border-line bg-card p-2 pr-4 text-left transition-colors hover:border-ink"
         >
           <ExerciseFigure id={liftId} label={lift.name} className="h-16 w-[72px] shrink-0 rounded-xl bg-ink/[0.03]" />
-          <span className="flex-1 font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink">{lift.name}</span>
-          <span className="text-[13px] font-semibold text-accent-ink">Changer</span>
+          <span className="flex-1 font-display text-[22px] font-extrabold leading-none tracking-tight text-ink">{lift.name}</span>
+          <span className="text-[13px] font-semibold text-ink">Changer</span>
         </button>
       </div>
 
@@ -129,25 +129,27 @@ export default function ApproachCalculator() {
         <p className={label}>Ta montée en charge</p>
         <ol className="overflow-hidden rounded-2xl border border-line bg-card">
           {lines.map((l, i) => (
-            <li key={i} className="anim-rise flex items-center gap-3 border-b border-line px-4 py-3" style={{ "--d": `${i * 50}ms` } as React.CSSProperties}>
-              <span className="w-5 font-display text-[15px] font-bold text-subtle tabular">{i + 1}</span>
+            <li key={i} className="flex items-center gap-3 border-b border-line px-4 py-3">
+              <span className="w-5 text-[14px] font-semibold text-subtle tabular">{i + 1}</span>
               <span className="flex-1">
-                <span className="font-display text-[26px] font-bold leading-none text-ink tabular">{l.load}</span>
-                <span className="ml-1.5 font-display text-[20px] font-semibold text-muted">× {l.reps}</span>
+                <span className="font-display text-[24px] font-extrabold leading-none tracking-tight text-ink tabular">{l.load}</span>
+                <span className="ml-1.5 text-[18px] font-semibold text-muted tabular">× {l.reps}</span>
                 <span className="mt-1 block text-[11px] text-subtle tabular">repos {l.restSeconds} s</span>
               </span>
-              {l.plates && <Plates plates={l.plates} size={26} />}
+              {l.plates && <Plates plates={l.plates} size={34} />}
             </li>
           ))}
-          <li className="flex items-center gap-3 bg-accent/[0.07] px-4 py-3">
-            <span className="w-5 font-display text-[17px] font-extrabold text-accent">→</span>
+          <li className="flex items-center gap-3 bg-ink/[0.035] px-4 py-3.5">
+            <span className="flex w-5 justify-center" aria-hidden="true">
+              <span className="h-6 w-[7px] rounded-[2px] bg-accent" />
+            </span>
             <span className="flex-1">
-              <span className="font-display text-[26px] font-extrabold leading-none text-ink tabular">
+              <span className="font-display text-[24px] font-extrabold leading-none tracking-tight text-ink tabular">
                 {workWeight ? `${String(workWeight).replace(".", ",")} kg` : "100 %"}
               </span>
-              <span className="ml-1.5 font-display text-[20px] font-bold text-muted">× {reps}</span>
+              <span className="ml-1.5 text-[18px] font-semibold text-muted tabular">× {reps}</span>
             </span>
-            <span className="text-[13px] font-semibold text-accent-ink">série de travail</span>
+            <span className="text-[13px] font-semibold text-accent-ink">Série de travail</span>
           </li>
         </ol>
         {!workWeight && <p className="mt-2 text-[13px] text-subtle">Indique ta charge pour obtenir les poids et les disques.</p>}
@@ -158,8 +160,11 @@ export default function ApproachCalculator() {
         onClick={() => setGuided(true)}
         className="flex w-full items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
       >
-        <span className="font-display text-[22px] font-extrabold uppercase tracking-wide">Démarrer la montée</span>
-        <span className="text-[14px] font-semibold">avec minuteur de repos</span>
+        <span className="font-display text-[20px] font-extrabold tracking-tight">Démarrer la montée</span>
+        <span className="hidden text-[14px] font-semibold sm:inline">Repos chronométrés</span>
+        <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true" className="sm:hidden">
+          <path d="M0 0 L14 8 L0 16 Z" />
+        </svg>
       </button>
 
       <Sheet open={picking} onClose={() => setPicking(false)} title="Exercice" tall>
@@ -168,7 +173,7 @@ export default function ApproachCalculator() {
           if (!items.length) return null;
           return (
             <div key={g} className="mb-5">
-              <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">{g}</p>
+              <p className="mb-2 text-[14px] font-semibold text-subtle">{g}</p>
               <div className="grid grid-cols-3 gap-2">
                 {items.map((l) => (
                   <button
@@ -180,7 +185,7 @@ export default function ApproachCalculator() {
                       setPicking(false);
                     }}
                     className={`flex flex-col overflow-hidden rounded-xl border-2 text-left transition-colors ${
-                      l.id === liftId ? "border-accent bg-accent/[0.06]" : "border-line bg-card hover:border-line-strong"
+                      l.id === liftId ? "border-ink bg-card" : "border-line bg-card hover:border-line-strong"
                     }`}
                   >
                     <ExerciseFigure id={l.id} label={l.name} animate={false} className="aspect-[12/10] w-full" />

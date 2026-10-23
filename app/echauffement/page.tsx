@@ -31,7 +31,7 @@ export default function WarmupHubPage() {
   return (
     <SEOHubPage
       title="Échauffement musculation"
-      subtitle="Plans gratuits · Exercices · Groupes · Zones sensibles"
+      subtitle="Plans gratuits, exercices, groupes, zones sensibles"
       intro={[
         "Un bon échauffement n'est pas une routine générique. Il dépend de ce que tu vas travailler, de l'exercice principal, de ton objectif et des zones qui demandent plus d'attention.",
         "Cette page regroupe tous les guides Warmup Generator : protocoles par exercice, plans par groupe musculaire et échauffements adaptés aux zones sensibles. Chaque plan reste court, concret et utilisable directement en salle.",

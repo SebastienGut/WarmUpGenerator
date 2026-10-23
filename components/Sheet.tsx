@@ -75,7 +75,7 @@ export default function Sheet({
             <div className="flex shrink-0 flex-col items-center px-5 pt-3">
               <span className="h-1.5 w-10 rounded-full bg-line-strong sm:hidden" aria-hidden="true" />
               <div className="mt-3 flex w-full items-center justify-between">
-                <h2 className="font-display text-[24px] font-extrabold uppercase leading-none tracking-tight text-ink">{title}</h2>
+                <h2 className="font-display text-[24px] font-extrabold leading-none tracking-tight text-ink">{title}</h2>
                 <button
                   type="button"
                   onClick={onClose}

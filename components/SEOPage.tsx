@@ -142,10 +142,10 @@ export default function SEOPage(props: SEOPageProps) {
         className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
       >
         <div className="flex flex-col gap-1">
-          <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
-            {planHref ? "→ Mode guidé" : "→ Plan personnalisé"}
+          <span className="text-[14px] font-semibold">
+            {planHref ? "Mode guidé" : "Plan personnalisé"}
           </span>
-          <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight ">
+          <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight ">
             {planHref ? "Lancer ce plan, étape par étape" : "Construire ton échauffement"}
           </span>
           <span className="text-[12px] font-medium">
@@ -163,9 +163,9 @@ export default function SEOPage(props: SEOPageProps) {
       {planHref && (
         <Link
           href="/"
-          className="self-start text-[12px] font-medium text-subtle underline decoration-faint underline-offset-4 transition-colors hover:text-accent-ink"
+          className="self-start text-[12px] font-medium text-subtle underline decoration-faint underline-offset-4 transition-colors hover:underline underline-offset-4"
         >
-          Besoin d&apos;adapter ? Personnalise ton plan : muscles, zones sensibles, durée →
+          Besoin d&apos;adapter ? Personnalise ton plan : muscles, zones sensibles, durée
         </Link>
       )}
     </div>
@@ -180,13 +180,13 @@ export default function SEOPage(props: SEOPageProps) {
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -200,11 +200,11 @@ export default function SEOPage(props: SEOPageProps) {
           {breadcrumbs.map((b, i) => (
             <span key={i} className="flex items-center gap-1.5">
               {b.href ? (
-                <Link href={b.href} className="transition-colors hover:text-accent-ink">
+                <Link href={b.href} className="transition-colors hover:underline underline-offset-4">
                   {b.label}
                 </Link>
               ) : (
-                <span className="font-display font-semibold uppercase tracking-wide text-ink">{b.label}</span>
+                <span className="font-display font-semibold text-ink">{b.label}</span>
               )}
               {i < breadcrumbs.length - 1 && <span aria-hidden="true" className="text-faint">/</span>}
             </span>
@@ -213,17 +213,13 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* HERO */}
         <section className="mb-14 flex flex-col gap-4">
-          {subtitle && (
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-              {subtitle}
-            </p>
-          )}
-          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             {h1}
           </h1>
+          {subtitle && <p className="-mt-2 text-[14px] font-semibold text-subtle">{subtitle}</p>}
           {keyAnswer && (
-            <div className="mt-4 rounded-2xl border border-accent/25 bg-accent/[0.04] px-5 py-4">
-              <p className="mb-2 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
+            <div className="mt-4 rounded-2xl border border-line bg-ink/[0.035] px-5 py-4">
+              <p className="mb-2 text-[14px] font-semibold text-ink">
                 En bref
               </p>
               <p
@@ -242,7 +238,7 @@ export default function SEOPage(props: SEOPageProps) {
         {/* SECTIONS RÉDACTIONNELLES (diagnostic) — avant le protocole */}
         {sections?.map((s) => (
           <section key={s.title} className="mb-14">
-            <h2 className="mb-4 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold uppercase tracking-tight text-ink">
+            <h2 className="mb-4 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold tracking-tight text-ink">
               {s.title}
             </h2>
             <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -255,24 +251,22 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* EXERCISES */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
-            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+          <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
               {exerciseSectionTitle}
             </h2>
-            <span className="shrink-0 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
-              {formatDuration(totalSeconds)} · {exercises.length} mvts
+            <span className="text-[14px] font-semibold text-subtle">
+              {formatDuration(totalSeconds)}, {exercises.length} mouvements
             </span>
           </div>
           <ol className="divide-y divide-line">
             {exercises.map((ex, i) => (
               <li key={i} className="flex gap-4 py-4">
-                <span className="w-8 shrink-0 font-display text-[24px] font-extrabold leading-none text-accent tabular">
-                  {(i + 1).toString().padStart(2, "0")}
-                </span>
+                <span className="w-6 shrink-0 font-display text-[18px] font-extrabold leading-snug text-subtle tabular">{i + 1}</span>
                 <div className="flex flex-1 flex-col gap-1.5">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="text-[16px] font-semibold leading-snug text-ink">{ex.name}</h3>
-                    <span className="shrink-0 font-display text-[16px] font-bold text-accent-ink tabular">
+                    <span className="shrink-0 font-display text-[16px] font-bold text-ink tabular">
                       {ex.reps ?? `${ex.durationSeconds} s`}
                     </span>
                   </div>
@@ -285,7 +279,7 @@ export default function SEOPage(props: SEOPageProps) {
 
         {ramp && (
           <section className="mb-14">
-            <h2 className="mb-2 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+            <h2 className="mb-2 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
               {ramp.title}
             </h2>
             <p className="mb-2 text-[15px] leading-[1.7] text-muted" dangerouslySetInnerHTML={{ __html: ramp.intro }} />
@@ -304,16 +298,16 @@ export default function SEOPage(props: SEOPageProps) {
                     <td className="py-3 text-right">{r.plates && r.plates.length > 0 && <Plates plates={r.plates} size={22} />}</td>
                   </tr>
                 ))}
-                <tr className="bg-accent/[0.07]">
+                <tr className="bg-ink/[0.035]">
                   <td className="py-3 pl-1 font-display text-[18px] font-extrabold text-accent">→</td>
                   <td className="py-3" colSpan={2}>
                     <span className="font-display text-[22px] font-extrabold text-ink tabular">{ramp.work}</span>
-                    <span className="ml-2 text-[13px] font-semibold text-accent-ink">série de travail</span>
+                    <span className="ml-2 text-[13px] font-semibold text-ink">série de travail</span>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <Link href={ramp.calculatorHref} className="mt-3 inline-block text-[14px] font-semibold text-accent-ink underline underline-offset-4">
+            <Link href={ramp.calculatorHref} className="mt-3 inline-block text-[14px] font-semibold text-ink underline underline-offset-4">
               Calculer avec ta propre charge
             </Link>
           </section>
@@ -326,8 +320,8 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* ADVICE — accent lime à gauche */}
         {advice && (
-          <section className="mb-14 border-l-2 border-accent/40 pl-6">
-            <h2 className="mb-4 font-display text-[26px] font-extrabold uppercase tracking-tight text-ink">
+          <section className="mb-14 border-l-2 border-line pl-6">
+            <h2 className="mb-4 font-display text-[26px] font-extrabold tracking-tight text-ink">
               {advice.title}
             </h2>
             <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -340,23 +334,20 @@ export default function SEOPage(props: SEOPageProps) {
 
         {/* FAQ */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
-            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+          <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
               Questions fréquentes
             </h2>
-            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-              FAQ · {faqs.length}
-            </span>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col border-t border-line">
             {faqs.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-line bg-card px-5 py-4 transition-colors hover:border-line-strong [&_summary::-webkit-details-marker]:hidden"
+                className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-ink">
                   <span>{f.q}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-accent-ink">
+                  <span aria-hidden="true" className="shrink-0 text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-ink">
                     +
                   </span>
                 </summary>
@@ -371,7 +362,7 @@ export default function SEOPage(props: SEOPageProps) {
         {/* RELATED */}
         {related && related.links.length > 0 && (
           <section className="mb-14">
-            <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="mb-4 text-[14px] font-semibold text-subtle">
               {related.title}
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -379,12 +370,9 @@ export default function SEOPage(props: SEOPageProps) {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                  className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
                 >
                   <span className="truncate">{l.label}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">
-                    →
-                  </span>
                 </Link>
               ))}
             </div>
@@ -410,7 +398,7 @@ export default function SEOPage(props: SEOPageProps) {
           href={planHref ?? "/"}
           className="flex items-center justify-between gap-3 rounded-xl bg-accent px-5 py-3 text-on-accent active:scale-[0.98] transition-transform"
         >
-          <span className="font-display text-[17px] font-extrabold uppercase tracking-tight">
+          <span className="font-display text-[17px] font-extrabold tracking-tight">
             {planHref ? "Lancer ce plan" : "Générer mon plan"}
           </span>
           <svg width="12" height="14" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">

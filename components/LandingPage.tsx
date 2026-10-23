@@ -41,7 +41,7 @@ export default function LandingPage({ landing }: { landing: Landing }) {
     },
   ];
 
-  const h2 = "mb-4 font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink";
+  const h2 = "mb-4 font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink";
 
   return (
     <main className="min-h-screen">
@@ -49,8 +49,8 @@ export default function LandingPage({ landing }: { landing: Landing }) {
 
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1080px] items-center px-5 py-3 sm:px-8">
-          <Link href="/" className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink">
-            Warmup<span className="text-accent">.</span>
+          <Link href="/" className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink">
+            Warmup
           </Link>
           <Link href="/series-approche" className="ml-auto text-[14px] font-medium text-muted hover:text-ink">
             Séries d&apos;approche
@@ -67,28 +67,26 @@ export default function LandingPage({ landing }: { landing: Landing }) {
           <span className="text-ink">{landing.h1}</span>
         </nav>
 
-        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12">
-          <section className="lg:sticky lg:top-24 lg:self-start">
-            <p className="font-display text-[15px] font-bold uppercase tracking-wide text-subtle">{landing.kicker}</p>
-            <h1 className="mt-1 font-display text-[44px] font-extrabold uppercase leading-[0.9] tracking-tight text-ink sm:text-[56px]">
-              {landing.h1}
-            </h1>
-            <ExerciseFigure id={landing.cover} label={landing.h1} className="mt-4 hidden h-48 w-full max-w-[320px] lg:block" />
-            <p className="mt-4 text-[16px] leading-relaxed text-muted">{landing.keyAnswer}</p>
+        {/* Sur téléphone, le plan passe juste sous le titre ; la réponse « En bref »
+            reste tôt dans le HTML et s'affiche après le plan. */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12">
+          <section className="order-1 lg:col-start-1 lg:row-start-1">
+            <h1 className="font-display text-[34px] font-extrabold leading-[1] tracking-tight text-ink hyphens-auto sm:text-[48px]">{landing.h1}</h1>
+            <p className="mt-2 text-[14px] font-semibold text-subtle">{landing.kicker}</p>
+            <ExerciseFigure id={landing.cover} label={landing.h1} className="mt-6 hidden h-48 w-full max-w-[320px] lg:block" />
           </section>
-
-          <div className="mt-6 lg:mt-0">
+          <p className="order-3 mt-6 self-start text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
+          <div className="order-2 mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
             <InlinePlan zones={landing.zones} defaultBand={!!landing.band} />
           </div>
         </div>
 
         <section className="mt-14">
           <h2 className={h2}>Ce que ta séance demande</h2>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {landing.needs.map((n, i) => (
-              <div key={n.title} className="rounded-2xl border border-line bg-card p-5">
-                <span className="font-display text-[22px] font-extrabold text-accent tabular">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-1 text-[16px] font-semibold leading-snug text-ink">{n.title}</h3>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {landing.needs.map((n) => (
+              <div key={n.title} className="border-t-2 border-ink pt-3">
+                <h3 className="text-[16px] font-semibold leading-snug text-ink">{n.title}</h3>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-muted">{n.body}</p>
               </div>
             ))}
@@ -111,10 +109,9 @@ export default function LandingPage({ landing }: { landing: Landing }) {
           className="mt-12 flex items-center justify-between gap-4 rounded-2xl bg-ink px-6 py-5 text-paper transition-transform active:scale-[0.99]"
         >
           <span>
-            <span className="block font-display text-[22px] font-extrabold uppercase leading-none tracking-tight">Ensuite : tes séries d&apos;approche</span>
-            <span className="mt-1.5 block text-[14px] text-paper/80">Ta charge du jour → ta montée en charge, disques compris.</span>
+            <span className="block font-display text-[22px] font-extrabold leading-none tracking-tight">Ensuite : tes séries d&apos;approche</span>
+            <span className="mt-1.5 block text-[14px] text-paper/80">Ta charge du jour, et la montée en charge disque par disque pour y arriver.</span>
           </span>
-          <span aria-hidden="true" className="font-display text-[24px] font-extrabold">→</span>
         </Link>
 
         <section className="mt-12 max-w-[760px]">
@@ -133,7 +130,7 @@ export default function LandingPage({ landing }: { landing: Landing }) {
         </section>
 
         <section className="mt-12">
-          <p className="mb-3 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">Autres échauffements</p>
+          <p className="mb-3 text-[14px] font-semibold text-subtle">Autres échauffements</p>
           <div className="flex flex-wrap gap-2">
             {landing.related.map((slug) => (
               <Link

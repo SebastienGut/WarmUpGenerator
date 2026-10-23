@@ -67,10 +67,16 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
 ## Conventions
 - Composants en PascalCase
 - Pas de `any` TypeScript
-- Design « fiche de séance du coach » : papier/encre + accent vermillon, tokens dans `app/globals.css` (`bg-paper`, `text-ink`, `text-muted`, `text-subtle`, `border-line`, `bg-accent`, `text-accent-ink`…). Jamais de couleur hex en dur dans les composants.
-- Typo : `font-display` (Barlow Condensed) pour titres et chiffres, Geist pour le texte. Petit texte d'accent en `text-accent-ink` (contraste AA).
+- Design « l'échauffement charge la barre » (brief et plan : docs/refonte-design.md, skill frontend-design) :
+  fond magnésie, encre fonte, couleurs des disques comme seule source de couleur. Phases = disques :
+  mise en route vert (`ph-raise`), mobilité jaune (`ph-mobility`), activation bleu (`ph-activation`),
+  travail/action rouge (`accent`). Signature : `Barbell` (PlanParts) — un disque par exercice, frise du plan
+  et jauge du mode guidé. Tokens dans `app/globals.css`. Jamais de couleur hex en dur dans les composants.
+- Typo : une seule famille, Archivo variable. `font-display` = largeur étendue (titres, chiffres), en casse
+  de phrase. Proscrits : capitales pour les libellés, surtitres, méta jointes par « · », « → » décoratifs,
+  numérotation 01/02/03 hors vraie séquence, grilles de cartes identiques.
 - Disques de charge : composant `Plates` aux couleurs de compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
-- Animations d'entrée en CSS (`anim-rise`, `anim-slide`, `anim-grow`) : jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
+- Mouvement : un seul moment non déclenché (le chargement des disques, `plate-load`) ; le reste répond aux actions. Animations d'entrée en CSS, jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
 - Tout nouvel exercice (lib/warmup-data.ts ou lib/lifts.ts) doit avoir sa posture dans lib/figures.ts.
 - Aucun tracking, aucun cookie, aucune dépendance externe payante

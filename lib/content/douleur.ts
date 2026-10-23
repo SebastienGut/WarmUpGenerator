@@ -52,7 +52,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     metaDescription:
       "Pourquoi ton épaule fait mal au développé couché : les 4 causes réelles, comment corriger ta technique et le protocole d'échauffement en 6 mouvements. Gratuit.",
     h1: "Douleur à l'épaule au développé couché",
-    subtitle: "Diagnostic · Correction technique · Protocole d'échauffement",
+    subtitle: "Diagnostic, correction technique, protocole d'échauffement",
     keyAnswer:
       "Une douleur à l'épaule au développé couché vient le plus souvent d'un <strong class='text-ink'>conflit sous-acromial</strong> : la tête de l'humérus remonte et pince les tendons de la coiffe des rotateurs. Les trois causes principales sont des omoplates non verrouillées pendant la poussée, des coudes ouverts à 90° du tronc au lieu de 45-60°, et un volume de tirages inférieur au volume de poussées.",
     intro: [
@@ -152,7 +152,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     metaDescription:
       "Mal aux genoux au squat ? Les vraies causes (cheville, hanche, valgus) rarement le genou lui-même. Diagnostic, correction technique et échauffement en 6 mouvements.",
     h1: "Douleur au genou pendant le squat",
-    subtitle: "Diagnostic · Cheville & hanche · Protocole d'échauffement",
+    subtitle: "Diagnostic, cheville & hanche, protocole d'échauffement",
     keyAnswer:
       "Une douleur au genou pendant le squat vient rarement du genou lui-même : le genou est une charnière coincée entre la hanche et la cheville, et il subit ce que ces deux articulations n'absorbent pas. Les causes dominantes sont un <strong class='text-ink'>manque de dorsiflexion de cheville</strong>, un valgus dynamique lié à un moyen fessier faible, et une progression de charge plus rapide que l'adaptation du tendon rotulien.",
     intro: [
@@ -252,7 +252,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     metaDescription:
       "Douleur lombaire au soulevé de terre : distinguer la courbature normale du signal d'alerte, corriger la charnière de hanche, et le protocole d'échauffement complet.",
     h1: "Mal au bas du dos au soulevé de terre",
-    subtitle: "Diagnostic · Charnière de hanche · Protocole d'échauffement",
+    subtitle: "Diagnostic, charnière de hanche, protocole d'échauffement",
     keyAnswer:
       "Une sensation de travail dans les lombaires après un soulevé de terre est normale : les érecteurs du rachis travaillent en isométrie et peuvent être courbaturés. Une <strong class='text-ink'>douleur vive et localisée pendant le mouvement</strong> ne l'est pas. Elle signale presque toujours une charnière de hanche que le corps ne produit pas, et que la colonne lombaire produit à sa place en fléchissant sous charge.",
     intro: [
@@ -352,7 +352,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     metaDescription:
       "Douleur au poignet en pompe : pourquoi l'extension à 90° fait mal, les alternatives immédiates (poignées, poings) et le protocole de mobilité en 6 mouvements.",
     h1: "Mal aux poignets pendant les pompes",
-    subtitle: "Diagnostic · Alternatives immédiates · Mobilité du poignet",
+    subtitle: "Diagnostic, alternatives immédiates, mobilité du poignet",
     keyAnswer:
       "En position de pompe, le poignet est en extension proche de 90° tout en supportant environ deux tiers du poids du corps. La douleur vient dans la majorité des cas d'un simple <strong class='text-ink'>déficit de mobilité en extension</strong>, pas d'une tendinite. La solution immédiate est de passer en prise neutre — poignées de pompes, haltères ou poings — ce qui supprime l'extension et la douleur.",
     intro: [
@@ -452,7 +452,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     metaDescription:
       "Mal à l'épaule en traction : prise, amplitude, contrôle scapulaire. Le diagnostic complet, les corrections techniques et le protocole d'échauffement adapté.",
     h1: "Douleur à l'épaule pendant les tractions",
-    subtitle: "Diagnostic · Prise & amplitude · Protocole d'échauffement",
+    subtitle: "Diagnostic, prise & amplitude, protocole d'échauffement",
     keyAnswer:
       "Une douleur à l'épaule en traction apparaît généralement en bas du mouvement, dans la phase de suspension. La cause dominante est la <strong class='text-ink'>suspension passive</strong> : bras relâchés et épaules remontées, ce sont la capsule et les ligaments qui supportent le poids du corps. Une traction saine commence par une dépression scapulaire active — abaisser les épaules avant de plier les coudes.",
     intro: [
@@ -552,7 +552,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     metaDescription:
       "Mal au coude pendant les curls : distinguer tendinite du biceps et épicondylite, corriger la prise et la charge, et le protocole de préparation en 6 mouvements.",
     h1: "Douleur au coude au curl biceps",
-    subtitle: "Diagnostic · Tendinopathie · Protocole d'échauffement",
+    subtitle: "Diagnostic, tendinopathie, protocole d'échauffement",
     keyAnswer:
       "La localisation distingue les deux causes. Une douleur <strong class='text-ink'>au pli du coude</strong> évoque une tendinopathie distale du biceps, liée à une charge trop vite augmentée ou à la barre droite qui impose une supination complète. Une douleur sur la <strong class='text-ink'>face externe du coude</strong> est une épicondylite, causée moins par les curls que par le volume de préhension des tractions et rowings.",
     intro: [

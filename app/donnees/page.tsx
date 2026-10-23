@@ -78,13 +78,13 @@ export default function DonneesPage() {
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -93,16 +93,13 @@ export default function DonneesPage() {
 
       <div className="mx-auto w-full max-w-[720px] px-6 py-10 md:py-14">
         <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
-          <Link href="/" className="transition-colors hover:text-accent-ink">Accueil</Link>
+          <Link href="/" className="transition-colors hover:underline underline-offset-4">Accueil</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <span className="font-display font-semibold uppercase tracking-wide text-ink">Données ouvertes</span>
+          <span className="font-display font-semibold text-ink">Données ouvertes</span>
         </nav>
 
         <section className="mb-14 flex flex-col gap-4">
-          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-            Open data · CC BY 4.0 · JSON
-          </p>
-          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             Base de données des exercices
           </h1>
           <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -127,7 +124,7 @@ export default function DonneesPage() {
         </section>
 
         <section className="mb-14">
-          <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+          <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Accès
           </h2>
           <a
@@ -135,10 +132,10 @@ export default function DonneesPage() {
             className="group mb-6 flex items-center justify-between gap-4 rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
-                → Endpoint JSON
+              <span className="text-[14px] font-semibold">
+                Endpoint JSON
               </span>
-              <span className="font-mono text-[15px] font-black tracking-tight md:text-[17px]">
+              <span className=" text-[15px] font-black tracking-tight md:text-[17px]">
                 /api/exercices
               </span>
               <span className="text-[12px] font-medium">
@@ -151,7 +148,7 @@ export default function DonneesPage() {
               </svg>
             </div>
           </a>
-          <pre className="overflow-x-auto rounded-xl border border-line bg-card p-5 font-mono text-[12px] leading-relaxed text-muted">
+          <pre className="overflow-x-auto rounded-xl border border-line bg-card p-5 text-[12px] leading-relaxed text-muted">
 {`curl ${SITE_URL}/api/exercices
 
 # Exercices sans matériel, sûrs pour une épaule sensible
@@ -164,15 +161,15 @@ curl -s ${SITE_URL}/api/exercices \\
         </section>
 
         <section className="mb-14">
-          <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+          <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Structure
           </h2>
           <div className="overflow-x-auto rounded-xl border border-line">
             <table className="w-full border-collapse text-left text-[13px]">
               <thead>
                 <tr className="border-b border-line bg-card">
-                  <th className="px-4 py-3 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">Champ</th>
-                  <th className="px-4 py-3 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">Contenu</th>
+                  <th className="px-4 py-3 text-[14px] font-semibold text-ink">Champ</th>
+                  <th className="px-4 py-3 text-[14px] font-semibold text-subtle">Contenu</th>
                 </tr>
               </thead>
               <tbody className="text-muted">
@@ -191,7 +188,7 @@ curl -s ${SITE_URL}/api/exercices \\
                   ["description", "Consigne d'exécution rédigée en français"],
                 ].map(([field, desc]) => (
                   <tr key={field} className="border-b border-line last:border-0">
-                    <td className="whitespace-nowrap px-4 py-3 font-mono text-[12px] text-ink">{field}</td>
+                    <td className="whitespace-nowrap px-4 py-3 text-[12px] text-ink">{field}</td>
                     <td className="px-4 py-3">{desc}</td>
                   </tr>
                 ))}
@@ -200,14 +197,14 @@ curl -s ${SITE_URL}/api/exercices \\
           </div>
           <p className="mt-4 text-[13px] leading-relaxed text-subtle">
             La réponse embarque ses propres référentiels de libellés
-            (<span className="font-mono text-[12px]">vocabularies</span>) et la définition de
-            chaque champ (<span className="font-mono text-[12px]">fieldDefinitions</span>) :
+            (<span className=" text-[12px]">vocabularies</span>) et la définition de
+            chaque champ (<span className=" text-[12px]">fieldDefinitions</span>) :
             le jeu de données est lisible sans consulter cette page.
           </p>
         </section>
 
-        <section className="mb-14 border-l-2 border-accent/40 pl-6">
-          <h2 className="mb-4 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+        <section className="mb-14 border-l-2 border-line pl-6">
+          <h2 className="mb-4 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Licence et attribution
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -215,7 +212,7 @@ curl -s ${SITE_URL}/api/exercices \\
               Publié sous{" "}
               <a
                 href="https://creativecommons.org/licenses/by/4.0/deed.fr"
-                className="text-accent-ink underline underline-offset-4"
+                className="text-ink underline underline-offset-4"
                 rel="license noopener"
                 target="_blank"
               >
@@ -225,13 +222,13 @@ curl -s ${SITE_URL}/api/exercices \\
               données, y compris dans un produit fermé. La seule obligation est de citer
               la source.
             </p>
-            <p className="rounded-xl border border-line bg-card p-4 font-mono text-[12px] leading-relaxed text-muted">
+            <p className="rounded-xl border border-line bg-card p-4 text-[12px] leading-relaxed text-muted">
               Données : Warmup Generator ({SITE_URL}) — CC BY 4.0
             </p>
             <p>
               Ces données décrivent des exercices de préparation physique à visée
               informative. Elles ne constituent pas un avis médical et le champ{" "}
-              <span className="font-mono text-[13px] text-ink">contraindications</span>{" "}
+              <span className=" text-[13px] text-ink">contraindications</span>{" "}
               ne remplace pas l&apos;évaluation d&apos;un professionnel de santé. Si tu les
               intègres dans un produit destiné au public, conserve cet avertissement.
             </p>
@@ -239,7 +236,7 @@ curl -s ${SITE_URL}/api/exercices \\
         </section>
 
         <section className="mb-14">
-          <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+          <p className="mb-4 text-[14px] font-semibold text-subtle">
             Voir aussi
           </p>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -252,12 +249,9 @@ curl -s ${SITE_URL}/api/exercices \\
               <Link
                 key={l.href}
                 href={l.href}
-                className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
               >
                 <span className="truncate">{l.label}</span>
-                <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">
-                  →
-                </span>
               </Link>
             ))}
           </div>

@@ -19,7 +19,7 @@ export default function Icon() {
             justifyContent: "center",
           }}
         >
-          <div style={{ width: 18, height: 18, borderRadius: 9, background: "#f3f0e8", border: "4px solid #17150f" }} />
+          <div style={{ width: 18, height: 18, borderRadius: 9, background: "#f4f5f2", border: "4px solid #1d2125" }} />
         </div>
       </div>
     ),

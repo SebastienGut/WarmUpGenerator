@@ -48,13 +48,13 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -65,11 +65,11 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
 
         {/* BREADCRUMB */}
         <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
-          <Link href="/" className="transition-colors hover:text-accent-ink">Accueil</Link>
+          <Link href="/" className="transition-colors hover:underline underline-offset-4">Accueil</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <Link href="/blog" className="transition-colors hover:text-accent-ink">Blog</Link>
+          <Link href="/blog" className="transition-colors hover:underline underline-offset-4">Blog</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <span className="font-display font-semibold uppercase tracking-wide text-ink">{post.h1}</span>
+          <span className="font-display font-semibold text-ink">{post.h1}</span>
         </nav>
 
         {/* HERO */}
@@ -77,20 +77,20 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/a-propos"
-              className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+              className="text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
             >
               Par Sébastien Gutierrez
             </Link>
             <span className="text-faint">·</span>
-            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <span className="text-[14px] font-semibold text-subtle">
               {post.publishDate}
             </span>
             <span className="text-faint">·</span>
-            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <span className="text-[14px] font-semibold text-subtle">
               {post.readingTime} de lecture
             </span>
           </div>
-          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             {post.h1}
           </h1>
           <p className="text-[16px] leading-[1.7] text-muted">{post.intro}</p>
@@ -100,7 +100,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
         <article className="mb-14 flex flex-col gap-12">
           {post.sections.map((section, i) => (
             <section key={i} className="flex flex-col gap-4">
-              <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+              <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
                 {section.heading}
               </h2>
               <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -119,10 +119,10 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
-                → Plan personnalisé
+              <span className="text-[14px] font-semibold">
+                Plan personnalisé
               </span>
-              <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
+              <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight md:text-[20px]">
                 Générer ton échauffement sur mesure
               </span>
               <span className="text-[12px] font-medium">
@@ -139,23 +139,20 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
 
         {/* FAQ */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-ink pb-2">
-            <h2 className="font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+          <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink pb-2">
+            <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
               Questions fréquentes
             </h2>
-            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-              FAQ · {post.faqs.length}
-            </span>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col border-t border-line">
             {post.faqs.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-line bg-card px-5 py-4 transition-colors hover:border-line-strong [&_summary::-webkit-details-marker]:hidden"
+                className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[14px] font-bold leading-snug text-ink">
                   <span>{f.q}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-accent-ink">
+                  <span aria-hidden="true" className="shrink-0 text-[16px] text-subtle transition-transform group-open:rotate-45 group-open:text-ink">
                     +
                   </span>
                 </summary>
@@ -170,7 +167,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
         {/* RELATED */}
         {post.relatedLinks.length > 0 && (
           <section className="mb-14">
-            <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="mb-4 text-[14px] font-semibold text-subtle">
               À lire aussi
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -178,12 +175,9 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                  className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
                 >
                   <span className="truncate">{l.label}</span>
-                  <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">
-                    →
-                  </span>
                 </Link>
               ))}
             </div>

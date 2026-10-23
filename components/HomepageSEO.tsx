@@ -106,7 +106,7 @@ export default function HomepageSEO() {
           <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4">
             <h2
               id="seo-heading"
-              className="font-display text-[26px] font-extrabold uppercase leading-tight tracking-tight text-ink"
+              className="font-display text-[26px] font-extrabold leading-tight tracking-tight text-ink"
             >
               Pourquoi s&apos;échauffer avant la musculation ?
             </h2>
@@ -140,7 +140,7 @@ export default function HomepageSEO() {
         {/* ÉCHAUFFEMENTS POPULAIRES */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="text-[14px] font-semibold text-subtle">
               Plans prêts à l&apos;emploi
             </p>
             <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
@@ -152,20 +152,14 @@ export default function HomepageSEO() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
               >
                 <span className="truncate">{label}</span>
-                <span
-                  aria-hidden="true"
-                  className="font-mono text-subtle transition-colors group-hover:text-accent-ink"
-                >
-                  →
-                </span>
               </Link>
             ))}
           </div>
           <div className="flex flex-col gap-2 pt-1">
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="text-[14px] font-semibold text-subtle">
               Guides par muscle
             </p>
             <div className="flex flex-wrap gap-2">
@@ -173,7 +167,7 @@ export default function HomepageSEO() {
                 <Link
                   key={href}
                   href={href}
-                  className="rounded-full border border-line bg-card px-3.5 py-1.5 text-[12px] font-bold text-muted transition-colors hover:border-accent/40 hover:text-accent-ink"
+                  className="rounded-full border border-line bg-card px-3.5 py-1.5 text-[12px] font-bold text-muted transition-colors hover:border-ink hover:underline underline-offset-4"
                 >
                   {label}
                 </Link>
@@ -185,11 +179,11 @@ export default function HomepageSEO() {
         {/* SÉRIES D'APPROCHE — l'étape spécifique, après l'échauffement général */}
         <Link
           href="/series-approche"
-          className="group flex items-center justify-between gap-4 rounded-2xl border border-accent/25 bg-accent/[0.04] px-5 py-4 transition-colors hover:border-accent/50"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-line bg-ink/[0.035] px-5 py-4 transition-colors hover:border-line"
         >
           <span className="flex flex-col gap-1">
-            <span className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
-              Nouveau · Calculateur
+            <span className="text-[14px] font-semibold text-ink">
+              L&apos;autre outil
             </span>
             <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight text-ink">
               Séries d&apos;approche : quelle charge, combien de reps
@@ -198,15 +192,11 @@ export default function HomepageSEO() {
               Entre ta charge de travail, obtiens ta montée en charge et les disques par côté.
             </span>
           </span>
-          <span aria-hidden="true" className="font-mono text-[18px] text-accent transition-transform group-hover:translate-x-0.5">→</span>
         </Link>
 
         {/* PROTECTION — zones sensibles */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-              Tu as une douleur ?
-            </p>
             <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
               Échauffements pour zones sensibles
             </h2>
@@ -220,15 +210,9 @@ export default function HomepageSEO() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-accent/15 bg-accent/[0.03] px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-ink/[0.035] px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
               >
                 <span className="truncate">{label}</span>
-                <span
-                  aria-hidden="true"
-                  className="font-mono text-accent/60 transition-colors group-hover:text-accent-ink"
-                >
-                  →
-                </span>
               </Link>
             ))}
           </div>
@@ -237,7 +221,7 @@ export default function HomepageSEO() {
         {/* DOULEUR — diagnostic par exercice */}
         <article className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="text-[14px] font-semibold text-subtle">
               La douleur vient d&apos;un exercice précis ?
             </p>
             <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
@@ -254,15 +238,9 @@ export default function HomepageSEO() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
               >
                 <span className="truncate">{label}</span>
-                <span
-                  aria-hidden="true"
-                  className="font-mono text-subtle transition-colors group-hover:text-accent-ink"
-                >
-                  →
-                </span>
               </Link>
             ))}
           </div>
@@ -271,24 +249,24 @@ export default function HomepageSEO() {
         {/* FAQ */}
         <article className="flex flex-col gap-4 lg:col-span-2">
           <div className="flex flex-col gap-1">
-            <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+            <p className="text-[14px] font-semibold text-subtle">
               FAQ
             </p>
             <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
               Questions fréquentes
             </h2>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col border-t border-line">
             {FAQS.map((f) => (
               <details
                 key={f.q}
-                className="group rounded-xl border border-line bg-card px-4 py-3 [&_summary::-webkit-details-marker]:hidden"
+                className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-bold text-ink">
                   <span>{f.q}</span>
                   <span
                     aria-hidden="true"
-                    className="font-mono text-subtle transition-transform group-open:rotate-180"
+                    className=" text-subtle transition-transform group-open:rotate-180"
                   >
                     ▾
                   </span>
@@ -301,37 +279,37 @@ export default function HomepageSEO() {
 
         {/* GUIDES — liens discrets */}
         <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-6 lg:col-span-2">
-          <span className="w-full font-display text-[14px] font-bold uppercase tracking-wide text-subtle">Guides</span>
-          <Link href="/blog/guide-complet-echauffement-musculation" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Guide complet</Link>
-          <Link href="/blog/pourquoi-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Pourquoi s&apos;échauffer</Link>
-          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Combien de temps</Link>
-          <Link href="/blog/echauffement-dynamique-ou-statique" className="text-[13px] text-muted transition-colors hover:text-accent-ink">Dynamique ou statique</Link>
+          <span className="w-full text-[14px] font-semibold text-subtle">Guides</span>
+          <Link href="/blog/guide-complet-echauffement-musculation" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Guide complet</Link>
+          <Link href="/blog/pourquoi-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Pourquoi s&apos;échauffer</Link>
+          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Combien de temps</Link>
+          <Link href="/blog/echauffement-dynamique-ou-statique" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Dynamique ou statique</Link>
         </nav>
 
         {/* FOOTER */}
         <footer className="flex flex-col gap-4 border-t border-line pt-8 text-[12px] text-subtle lg:col-span-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="font-display text-[18px] font-extrabold uppercase text-ink">
-              Warmup<span className="text-accent">.</span>
+            <p className="font-display text-[18px] font-extrabold text-ink">
+              Warmup
             </p>
             <p>
               Gratuit · Sans inscription · Fonctionne hors ligne
             </p>
           </div>
           <nav aria-label="Liens secondaires" className="flex flex-wrap gap-x-4 gap-y-2">
-            <Link href="/blog" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
+            <Link href="/blog" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
               Blog
             </Link>
-            <Link href="/a-propos" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
+            <Link href="/a-propos" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
               À propos
             </Link>
-            <Link href="/methodologie" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
+            <Link href="/methodologie" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
               Méthodologie
             </Link>
-            <Link href="/echauffement/exercice" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
+            <Link href="/echauffement/exercice" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
               Exercices
             </Link>
-            <Link href="/echauffement/protection" className="font-display font-semibold uppercase tracking-wide transition-colors hover:text-accent-ink">
+            <Link href="/echauffement/protection" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
               Zones sensibles
             </Link>
           </nav>

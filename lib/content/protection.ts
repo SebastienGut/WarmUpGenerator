@@ -23,7 +23,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     metaDescription:
       "Plan d'échauffement épaule complet pour les pratiquants avec douleur ou gêne articulaire. 6 mouvements doux ciblés coiffe des rotateurs, omoplate et thoracique. Gratuit.",
     h1: "Échauffement épaule pour douleur ou gêne",
-    subtitle: "Protocole musculation · Coiffe des rotateurs · Mobilité scapulaire",
+    subtitle: "Protocole musculation, coiffe des rotateurs, mobilité scapulaire",
     keyAnswer:
       "Échauffer une épaule sensible avant la musculation demande 5 à 6 minutes et trois cibles : la <strong class='text-ink'>mobilité thoracique</strong>, car une cage rigide reporte le stress sur l'épaule ; le <strong class='text-ink'>contrôle de l'omoplate</strong>, qui stabilise la base du mouvement ; et l'activation de la <strong class='text-ink'>coiffe des rotateurs</strong>, qui centre la tête humérale sous charge. Aucun matériel nécessaire, un élastique léger est un plus.",
     intro: [
@@ -110,7 +110,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     metaDescription:
       "Plan d'échauffement genou complet pour les pratiquants avec gêne articulaire. 6 mouvements pour mobiliser hanche, genou et cheville avant squat ou jambes. Gratuit.",
     h1: "Échauffement genou pour la musculation",
-    subtitle: "Protocole bas du corps · Hanche · Cheville · VMO",
+    subtitle: "Protocole bas du corps, hanche, cheville, VMO",
     keyAnswer:
       "Un échauffement du genou efficace ne cible pas le genou : il cible la <strong class='text-ink'>cheville</strong> et la <strong class='text-ink'>hanche</strong>, dont les limitations reportent la contrainte sur l'articulation intermédiaire. Le protocole demande 5 minutes avant toute séance de jambes et travaille la dorsiflexion de cheville, la rotation de hanche, l'activation fessière et le vaste médial, stabilisateur du suivi rotulien.",
     intro: [
@@ -197,7 +197,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     metaDescription:
       "Échauffement complet pour le bas du dos avant musculation. Mobilisation lombaire, gainage, activation fessière. 6 exercices sécurisés. Gratuit, sans inscription.",
     h1: "Échauffement bas du dos / lombaires",
-    subtitle: "Protocole musculation · Mobilisation rachis · Activation fessière",
+    subtitle: "Protocole musculation, mobilisation rachis, activation fessière",
     keyAnswer:
       "Le bas du dos est la zone la plus blessée en musculation, et la cause est rarement un dos faible. C'est un <strong class='text-ink'>manque de mobilité de hanche</strong> qui force les lombaires à compenser, ou un <strong class='text-ink'>gainage inactif</strong> qui laisse la colonne fléchir sous charge. Le protocole traite les deux en 5 à 6 minutes : mobilisation du rachis, gainage anti-extension, activation fessière.",
     intro: [
@@ -284,7 +284,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     metaDescription:
       "Échauffement poignets complet pour la musculation. Mobilisation, renforcement et activation avant développé couché, dips, pompes ou exercices au sol. Gratuit.",
     h1: "Échauffement poignets pour la musculation",
-    subtitle: "Protocole · Mobilité · Renforcement extrinsèque · Préhension",
+    subtitle: "Protocole, mobilité, renforcement extrinsèque, préhension",
     keyAnswer:
       "Le poignet est sollicité dès qu'il y a charge sur les bras : développé couché, dips, tractions, pompes, calisthénie. La douleur vient le plus souvent d'un <strong class='text-ink'>manque de mobilité</strong> qui impose des angles défavorables sous charge, d'avant-bras insuffisamment renforcés, ou d'une mauvaise prise de barre. Le protocole prend 4 minutes : mobilisation, étirements actifs, activation des stabilisateurs.",
     intro: [

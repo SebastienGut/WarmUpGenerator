@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import ClientScripts from "@/components/ClientScripts";
-import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Barlow_Condensed } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 
-// Condensé sportif pour titres et chiffres : se lit de loin, téléphone au sol.
-// Auto-hébergé par next/font, aucune requête vers Google côté visiteur.
-const barlow = Barlow_Condensed({
+// Une seule famille variable : largeur étendue pour les titres et les chiffres
+// (lisibles de loin, téléphone posé au sol), normale pour le texte.
+// Auto-hébergée par next/font, aucune requête vers Google côté visiteur.
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-barlow",
+  axes: ["wdth"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -60,8 +60,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f0e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#131210" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f5f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#121417" },
   ],
   colorScheme: "light dark",
   width: "device-width",
@@ -71,7 +71,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${GeistSans.variable} ${GeistMono.variable} ${barlow.variable}`}>
+    <html lang="fr" className={`${archivo.variable} ${GeistMono.variable}`}>
       <head>
         <link rel="apple-touch-icon" href="/icons/logo-apple-touch.png" />
       </head>

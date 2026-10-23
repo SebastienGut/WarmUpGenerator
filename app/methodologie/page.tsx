@@ -123,13 +123,13 @@ export default function MethodologyPage() {
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link
             href="/"
-            className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink transition-colors hover:text-accent-ink"
+            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
           >
-            Warmup<span className="text-accent">.</span>
+            Warmup
           </Link>
           <Link
             href="/"
-            className="ml-auto font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80"
+            className="ml-auto text-[14px] font-semibold text-ink transition-opacity hover:opacity-80"
           >
             ← Générateur
           </Link>
@@ -139,17 +139,14 @@ export default function MethodologyPage() {
       <div className="mx-auto w-full max-w-[720px] px-6 py-10 md:py-14">
 
         <nav aria-label="Fil d'Ariane" className="mb-6 flex flex-wrap items-center gap-1.5 text-[11px] text-subtle">
-          <Link href="/" className="transition-colors hover:text-accent-ink">Accueil</Link>
+          <Link href="/" className="transition-colors hover:underline underline-offset-4">Accueil</Link>
           <span aria-hidden="true" className="text-faint">/</span>
-          <span className="font-display font-semibold uppercase tracking-wide text-ink">Méthodologie</span>
+          <span className="font-display font-semibold text-ink">Méthodologie</span>
         </nav>
 
         {/* HERO */}
         <section className="mb-14 flex flex-col gap-4">
-          <p className="font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
-            Algorithme · Sources · Transparence
-          </p>
-          <h1 className="font-display text-[41px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink md:text-[48px]">
+          <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             Comment l&apos;outil construit ton plan.
           </h1>
           <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -170,10 +167,10 @@ export default function MethodologyPage() {
         {/* PRINCIPES */}
         <section className="mb-14">
           <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-line pb-3">
-            <h2 className="font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+            <h2 className="font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
               Les 5 principes de l&apos;algorithme
             </h2>
-            <span className="shrink-0 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
+            <span className="shrink-0 text-[14px] font-semibold text-ink">
               Logique de sélection
             </span>
           </div>
@@ -184,7 +181,7 @@ export default function MethodologyPage() {
                 className="overflow-hidden rounded-xl border border-line bg-card"
               >
                 <div className="flex items-stretch">
-                  <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-line bg-accent/[0.03]">
+                  <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-line bg-ink/[0.035]">
                     <span className="font-display text-[23px] font-extrabold tabular text-accent">
                       {p.n}
                     </span>
@@ -201,7 +198,7 @@ export default function MethodologyPage() {
 
         {/* STRUCTURE DU PLAN */}
         <section className="mb-14 border-l-[3px] border-accent pl-6">
-          <h2 className="mb-4 font-display text-[26px] font-extrabold uppercase leading-[0.95] tracking-tight text-ink">
+          <h2 className="mb-4 font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
             Structure d&apos;un plan
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -237,10 +234,10 @@ export default function MethodologyPage() {
         {/* SOURCES */}
         <section className="mb-14">
           <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-line pb-3">
-            <h2 className="font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+            <h2 className="font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
               Sources & références
             </h2>
-            <span className="shrink-0 font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
+            <span className="shrink-0 text-[14px] font-semibold text-ink">
               Scientifique
             </span>
           </div>
@@ -251,7 +248,7 @@ export default function MethodologyPage() {
                 className="rounded-xl border border-line bg-card px-4 py-3.5"
               >
                 <div className="mb-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <span className="font-display text-[14px] font-bold uppercase tracking-wide text-accent-ink">
+                  <span className="text-[14px] font-semibold text-ink">
                     {s.label}
                   </span>
                   <span className="text-[13px] font-bold text-ink">{s.full}</span>
@@ -264,7 +261,7 @@ export default function MethodologyPage() {
 
         {/* LIMITES */}
         <section className="mb-14">
-          <h2 className="mb-4 font-display text-[25px] font-extrabold uppercase tracking-tight text-ink md:text-[24px]">
+          <h2 className="mb-4 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Limites & honnêteté
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
@@ -295,10 +292,10 @@ export default function MethodologyPage() {
             className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-2xl bg-accent px-6 py-5 text-on-accent transition-transform active:scale-[0.98]"
           >
             <div className="flex flex-col gap-1">
-              <span className="font-display text-[14px] font-bold uppercase tracking-wide opacity-85">
-                → Essai
+              <span className="text-[14px] font-semibold">
+                Essai
               </span>
-              <span className="font-display text-[21px] font-extrabold uppercase leading-tight tracking-tight md:text-[20px]">
+              <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight md:text-[20px]">
                 Construire mon échauffement
               </span>
               <span className="text-[12px] font-medium">
@@ -315,23 +312,21 @@ export default function MethodologyPage() {
 
         {/* RELATED */}
         <section className="mb-14">
-          <p className="mb-4 font-display text-[14px] font-bold uppercase tracking-wide text-subtle">
+          <p className="mb-4 text-[14px] font-semibold text-subtle">
             Pour aller plus loin
           </p>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Link
               href="/a-propos"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
             >
               <span className="truncate">À propos du projet</span>
-              <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">→</span>
             </Link>
             <Link
               href="/echauffement/exercice/squat"
-              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-card px-4 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
             >
               <span className="truncate">Exemple : échauffement squat</span>
-              <span aria-hidden="true" className="shrink-0 font-mono text-subtle transition-all group-hover:translate-x-0.5 group-hover:text-accent-ink">→</span>
             </Link>
           </div>
         </section>

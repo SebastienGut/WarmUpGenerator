@@ -31,7 +31,7 @@ export default function ExerciseHubPage() {
   return (
     <SEOHubPage
       title="Échauffements par exercice"
-      subtitle="Squat · Développé couché · Tractions · Deadlift"
+      subtitle="Squat, Développé couché, tractions, deadlift"
       intro={[
         "Chaque exercice lourd impose ses propres contraintes : stabiliser les épaules au développé couché, ouvrir les hanches au squat, verrouiller le gainage avant le soulevé de terre, préparer le grip et les omoplates avant les tractions.",
         "Ces guides regroupent les protocoles les plus utiles avant les mouvements de musculation courants. Choisis ton exercice principal, suis la séquence en 5 minutes, puis ajoute tes séries de chauffe progressives avec la barre ou les haltères.",

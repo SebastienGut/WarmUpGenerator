@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Chip, StepRow, Timeline, Toggle, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { Chip, PhaseMark, StepRow, Timeline, Toggle, fmtMin, phaseSeconds } from "@/components/PlanParts";
 import GuidedMode from "@/components/GuidedMode";
 import Sheet from "@/components/Sheet";
 import { ZONE_ORDER } from "@/lib/lifts";
@@ -63,7 +63,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       onClick={() => setGuided(true)}
       className="flex w-full items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
     >
-      <span className="font-display text-[22px] font-extrabold uppercase tracking-wide">Démarrer</span>
+      <span className="font-display text-[22px] font-extrabold">Démarrer</span>
       <span className="flex items-center gap-3">
         <span className="font-display text-[18px] font-bold opacity-90 tabular">{plan.minutes} min</span>
         <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
@@ -85,9 +85,9 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           </button>
         </nav>
 
-        <h1 className="mt-3 font-display text-[46px] font-extrabold uppercase leading-[0.88] tracking-tight text-ink">{label}</h1>
+        <h1 className="mt-3 font-display text-[38px] font-extrabold leading-[0.95] tracking-tight text-ink sm:text-[44px]">{label}</h1>
         <p className="mt-2 text-[14px] text-subtle">
-          {plan.minutes} min · {steps} étapes
+          {plan.minutes} minutes, {steps} exercices
         </p>
         <Timeline phases={plan.phases} />
 
@@ -112,31 +112,27 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       </aside>
 
       <div className="mt-8 lg:mt-14">
-        {plan.phases.map((phase, i) => (
-          <section
-            key={phase.key + (input.variant ?? 0)}
-            className="anim-rise mb-7"
-            style={{ "--d": `${i * 60}ms` } as React.CSSProperties}
-          >
-            <h2 className="mb-3 flex items-baseline gap-2.5">
-              <span className="font-display text-[22px] font-extrabold leading-none text-accent tabular">{String(i + 1).padStart(2, "0")}</span>
-              <span className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink">{phase.title}</span>
-              <span className="ml-auto text-[12px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
+        {plan.phases.map((phase) => (
+          <section key={phase.key + (input.variant ?? 0)} className="mb-8">
+            <h2 className="mb-2 flex items-center gap-3">
+              <PhaseMark phase={phase.key} />
+              <span className="font-display text-[20px] font-extrabold leading-none tracking-tight text-ink">{phase.title}</span>
+              <span className="ml-auto text-[13px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h2>
-            <ol className="flex flex-col gap-2">
-              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} />))}
+            <ol className="flex flex-col gap-1">
+              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} />))}
             </ol>
           </section>
         ))}
         <Link
           href={plan.lifts[0] ? `/series-approche?ex=${plan.lifts[0].id}` : "/series-approche"}
-          className="mb-8 flex items-center justify-between gap-4 rounded-2xl border border-line bg-card px-5 py-4 transition-colors hover:border-ink"
+          className="mb-8 flex items-center gap-4 rounded-2xl border border-line bg-card px-5 py-4 transition-colors hover:border-ink"
         >
+          <PhaseMark phase="ramp" />
           <span>
-            <span className="block font-display text-[19px] font-extrabold uppercase leading-none tracking-tight text-ink">Ensuite : tes séries d&apos;approche</span>
+            <span className="block font-display text-[19px] font-extrabold leading-none tracking-tight text-ink">Ensuite : tes séries d&apos;approche</span>
             <span className="mt-1 block text-[13px] text-subtle">Sur ton premier exercice lourd, à partir de ta charge du jour.</span>
           </span>
-          <span aria-hidden="true" className="font-display text-[22px] font-extrabold text-ink">→</span>
         </Link>
         <p className="text-[12px] leading-relaxed text-subtle">
           Ne remplace pas l&apos;avis d&apos;un kiné en cas de douleur installée.{" "}
@@ -150,8 +146,8 @@ function PlanContent({ initial }: { initial: SessionInput }) {
         <div className="mx-auto max-w-[560px]">{startButton}</div>
       </div>
 
-      <Sheet open={adjusting} onClose={() => setAdjusting(false)} title="Ajuster" footer={<button type="button" onClick={() => setAdjusting(false)} className="w-full rounded-xl bg-ink py-4 font-display text-[20px] font-extrabold uppercase tracking-wide text-paper">Voir le plan</button>}>
-        <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">Zones</p>
+      <Sheet open={adjusting} onClose={() => setAdjusting(false)} title="Ajuster" footer={<button type="button" onClick={() => setAdjusting(false)} className="w-full rounded-xl bg-ink py-4 font-display text-[20px] font-extrabold text-paper">Voir le plan</button>}>
+        <p className="mb-2 text-[14px] font-semibold text-subtle">Zones</p>
         <div className="mb-6 flex flex-wrap gap-2">
           {ZONE_ORDER.map((z: MuscleGroup) => {
             const on = zones.includes(z);
@@ -171,7 +167,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
             );
           })}
         </div>
-        <p className="mb-2 font-display text-[15px] font-bold uppercase tracking-wide text-subtle">Ça coince ?</p>
+        <p className="mb-2 text-[14px] font-semibold text-subtle">Ça coince ?</p>
         <div className="mb-5 flex flex-wrap gap-2">
           {ZONES.map((z) => {
             const on = input.pain.includes(z);

@@ -43,3 +43,26 @@
 app/globals.css (tokens), components/SessionBuilder.tsx, PlanView.tsx, PlanParts.tsx, InlinePlan.tsx,
 LandingPage.tsx, GuidedMode.tsx, ApproachCalculator.tsx, ExerciseFigure.tsx, lib/figure.ts, lib/figures.ts.
 Vérif : `npm run build`, serveur « prod » (.claude/launch.json, port 3100), puis crawl + contraste.
+
+## Plan retenu (23 oct. 2026)
+
+**Idée centrale : l'échauffement charge la barre.** Les trois phases prennent les couleurs des disques
+de compétition, du plus léger au plus lourd : mise en route = vert (10), mobilité = jaune (15),
+activation = bleu (20) ; le travail / les séries d'approche = rouge (25). La couleur est une information
+(la phase), jamais une décoration. Élément signature unique : la **barre chargée** — la frise du plan
+est une barre vue de profil où chaque phase est un disque (largeur ∝ durée) ; en mode guidé, les disques
+se chargent au fil de la progression. C'est le seul moment de mouvement non déclenché (chargement à l'ouverture du plan).
+
+Couleurs (clair) : magnésie #F4F5F2 (fond, blanc froid et non crème), fonte #1D2125 (encre),
+acier #5F666D (texte secondaire), caoutchouc #E4E6E1 (surfaces), + 4 disques.
+Sombre : sol caoutchouc #121417, surfaces #1B1F23, encre #ECEEEA.
+
+Typo : une seule famille, **Archivo** variable. Titres en largeur étendue (wdth 125, graisse 800),
+en casse de phrase. Texte en largeur normale. Chiffres tabulaires. Fini Barlow condensé en capitales.
+
+Mise en page : aligné à gauche, listes plutôt que grilles de cartes identiques ; l'action principale
+en fonte (encre pleine) ; pas de surtitres en capitales, pas de « · » entre méta, pas de « → » décoratifs,
+pas de 01/02/03 (remplacés par la pastille-disque de la phase).
+
+Révision contre les défauts : vermillon + crème (défaut n°1) abandonnés ; noir + accent unique (n°2)
+évité en mode sombre grâce aux 4 couleurs fonctionnelles ; condensé capitales (n°5) remplacé par l'étendu.

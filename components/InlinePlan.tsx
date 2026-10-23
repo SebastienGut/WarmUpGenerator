@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import GuidedMode from "@/components/GuidedMode";
-import { Chip, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { Chip, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
 import { buildSessionPlan, serializeSession, type SessionInput } from "@/lib/session-engine";
 import type { MuscleGroup } from "@/lib/warmup-data";
 
@@ -24,12 +24,12 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
   const plan = buildSessionPlan(input);
 
   return (
-    <div className="rounded-3xl border border-line bg-card/60 p-4 sm:p-6">
-      <div className="flex items-baseline justify-between gap-3">
-        <p className="font-display text-[22px] font-extrabold uppercase leading-none tracking-tight text-ink">
-          Ton échauffement · {plan.minutes} min
-        </p>
-        <span className="text-[12px] text-subtle">{plan.phases.reduce((n, p) => n + p.steps.length, 0)} étapes</span>
+    <div className="rounded-3xl bg-ink/[0.035] p-4 sm:p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <p className="font-display text-[20px] font-extrabold leading-none tracking-tight text-ink">Ton échauffement</p>
+        <span className="whitespace-nowrap text-[13px] text-subtle tabular">
+          {plan.minutes} min, {plan.phases.reduce((n, p) => n + p.steps.length, 0)} exercices
+        </span>
       </div>
       <Timeline phases={plan.phases} />
 
@@ -44,15 +44,15 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
       </div>
 
       <div className="mt-6">
-        {plan.phases.map((phase, i) => (
-          <section key={phase.key + variant} className="anim-rise mb-6" style={{ "--d": `${i * 60}ms` } as React.CSSProperties}>
-            <h3 className="mb-3 flex items-baseline gap-2.5">
-              <span className="font-display text-[20px] font-extrabold leading-none text-accent tabular">{String(i + 1).padStart(2, "0")}</span>
-              <span className="font-display text-[20px] font-extrabold uppercase leading-none tracking-tight text-ink">{phase.title}</span>
-              <span className="ml-auto text-[12px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
+        {plan.phases.map((phase) => (
+          <section key={phase.key + variant} className="mb-6">
+            <h3 className="mb-2 flex items-center gap-3">
+              <PhaseMark phase={phase.key} />
+              <span className="font-display text-[18px] font-extrabold leading-none tracking-tight text-ink">{phase.title}</span>
+              <span className="ml-auto text-[13px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h3>
-            <ol className="flex flex-col gap-2">
-              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} />))}
+            <ol className="flex flex-col gap-1">
+              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} />))}
             </ol>
           </section>
         ))}
@@ -64,7 +64,7 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
           onClick={() => setGuided(true)}
           className="flex flex-1 items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
         >
-          <span className="font-display text-[22px] font-extrabold uppercase tracking-wide">Démarrer</span>
+          <span className="font-display text-[22px] font-extrabold">Démarrer</span>
           <span className="font-display text-[18px] font-bold tabular">{plan.minutes} min ▶</span>
         </button>
         <Link

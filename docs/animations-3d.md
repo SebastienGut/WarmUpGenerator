@@ -2,7 +2,22 @@
 
 > À lancer avec : « Lis docs/animations-3d.md et reprends les animations 3D. »
 
-## Où on en est (23 oct. 2026)
+## Reprise du 24 oct. 2026 : nouveau moteur anatomique
+
+- `rig3d.py` : postures décrites articulation par articulation (flexion, abduction, rotation…),
+  converties en rotations d'os sans roulis parasite ; rythme scapulo-huméral, doigts, peau en
+  « preserve volume ». Calibrage vérifié (neutre, croix, bras au ciel, squat, rotation).
+- `poses3d.py` : postures 3D écrites d'après les consignes, plusieurs images clés, boucle
+  aller-retour ou cyclique. Les 7 exercices du plan haut du corps sont écrits et relus sous
+  4 angles (`VIEWS=1`, `sheet.py`).
+- L'ancien chemin (postures 2D → 3D, `export-poses.mjs`) est supprimé.
+- Pièges rencontrés : basculer le bassin recule les cuisses (hanche = cuisse + bassin) ;
+  l'élévation de clavicule rapproche les mains au-dessus de la tête (compenser par l'abduction
+  quand les mains sont fixes) ; une clé latérale absente doit reprendre la clé commune.
+- Prochaine étape : validation par Seb sur téléphone, puis les exercices des autres séances
+  types, par lots relus.
+
+## Où on en était (23 oct. 2026)
 - Le pipeline existe et marche de bout en bout (`scripts/exercise-3d/`) :
   `export-poses.mjs` (postures de lib/figures.ts → JSON) → `render.py` (Blender + mannequin MPFB,
   rendu EEVEE transparent) → `build-webp.py` (WebP animés 480 px, 200 px, image fixe `-p`,

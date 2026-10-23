@@ -156,7 +156,7 @@ function Body({ fig, k }: { fig: Figure; k: number }) {
  * Animations 3D en pause (oct. 2026) : l'essai montrait des distorsions de
  * membres et des gestes infidèles. Voir docs/animations-3d.md avant de rallumer.
  */
-const SHOW_3D = false;
+const SHOW_3D = true;
 
 /**
  * Animation 3D pré-rendue (WebP animé transparent, scripts/exercise-3d). Image

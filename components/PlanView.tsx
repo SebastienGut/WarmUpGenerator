@@ -61,11 +61,11 @@ function PlanContent({ initial }: { initial: SessionInput }) {
     <button
       type="button"
       onClick={() => setGuided(true)}
-      className="flex w-full items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
+      className="flex w-full items-center justify-between rounded-full bg-black px-7 py-4 text-white transition-transform active:scale-[0.98]"
     >
-      <span className="font-display text-[22px] font-extrabold">Démarrer</span>
+      <span className="font-display text-[26px] leading-none">C&apos;est parti</span>
       <span className="flex items-center gap-3">
-        <span className="font-display text-[18px] font-bold opacity-90 tabular">{plan.minutes} min</span>
+        <span className="font-display text-[20px] leading-none tabular">{plan.minutes} min</span>
         <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
           <path d="M0 0 L14 8 L0 16 Z" />
         </svg>
@@ -74,21 +74,29 @@ function PlanContent({ initial }: { initial: SessionInput }) {
   );
 
   return (
-    <main className="mx-auto w-full max-w-[1080px] px-5 pb-32 pt-4 sm:px-8 lg:grid lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-12 lg:pb-16">
-      <aside className="lg:sticky lg:top-6 lg:self-start">
+    <>
+    {/* Bandeau d'affiche : la séance, en grand, avec l'essentiel. */}
+    <header className="bg-accent px-5 pb-7 pt-3 text-white sm:px-8">
+      <div className="mx-auto max-w-[1080px]">
         <nav className="flex items-center justify-between">
-          <Link href="/" aria-label="Autre séance" className="-ml-2 flex h-11 w-11 items-center justify-center rounded-full text-[22px] text-ink hover:bg-ink/[0.06]">
+          <Link href="/" aria-label="Autre séance" className="-ml-2 flex h-11 w-11 items-center justify-center rounded-full text-[22px] hover:bg-white/15">
             ←
           </Link>
-          <button type="button" onClick={share} className="rounded-full px-3 py-2 text-[14px] font-semibold text-muted hover:bg-ink/[0.06] hover:text-ink">
+          <button type="button" onClick={share} className="rounded-full px-3 py-2 text-[14px] font-semibold text-white/90 hover:bg-white/15 hover:text-white">
             {copied ? "Lien copié" : "Partager"}
           </button>
         </nav>
-
-        <h1 className="mt-3 font-display text-[38px] font-extrabold leading-[0.95] tracking-tight text-ink sm:text-[44px]">{label}</h1>
-        <p className="mt-2 text-[14px] text-subtle">
-          {plan.minutes} minutes, {steps} exercices
-        </p>
+        <p className="mt-2 text-[12px] font-bold tracking-[0.08em] text-white">TON ÉCHAUFFEMENT</p>
+        <h1 className="poster mt-1 font-display text-[54px] leading-[0.92] sm:text-[72px]">{label}</h1>
+        <div className="mt-4 flex flex-wrap gap-2 text-[12px] font-bold">
+          <span className="rounded-full bg-white/[0.18] px-3 py-1.5 tabular">{plan.minutes} min</span>
+          <span className="rounded-full bg-white/[0.18] px-3 py-1.5 tabular">{steps} exercices</span>
+          <span className="rounded-full bg-white/[0.18] px-3 py-1.5">{input.band ? "Avec élastique" : "Sans matériel"}</span>
+        </div>
+      </div>
+    </header>
+    <main className="mx-auto w-full max-w-[1080px] px-5 pb-32 pt-2 sm:px-8 lg:grid lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-12 lg:pb-16">
+      <aside className="lg:sticky lg:top-6 lg:self-start">
         <Timeline phases={plan.phases} />
 
         <div className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
@@ -116,10 +124,10 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           <section key={phase.key + (input.variant ?? 0)} className="mb-8">
             <h2 className="mb-2 flex items-center gap-3">
               <PhaseMark phase={phase.key} />
-              <span className="font-display text-[20px] font-extrabold leading-none tracking-tight text-ink">{phase.title}</span>
+              <span className="poster font-display text-[26px] leading-none text-ink">{phase.title}</span>
               <span className="ml-auto text-[13px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h2>
-            <ol className="flex flex-col gap-1">
+            <ol className="flex flex-col gap-2">
               {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} />))}
             </ol>
           </section>
@@ -186,6 +194,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
 
       {guided && <GuidedMode plan={plan} onClose={() => setGuided(false)} />}
     </main>
+    </>
   );
 }
 

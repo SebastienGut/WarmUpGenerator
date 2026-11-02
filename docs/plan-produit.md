@@ -135,3 +135,5 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - 2 nov. 2026 : plan créé à partir du verdict de Seb et de l'audit ChatGPT. Anomalies du lot 0
   vérifiées dans le code : séances récentes (confirmé), durée sans transitions (confirmé),
   message de fin (confirmé).
+
+- 2 nov. 2026 : direction B choisie par Seb, implémentation en cours sur la branche bloc/direction-b (tokens, Anton + .poster, accueil, plan, mode guidé, landings). Reste : contrôle contraste clair/sombre, pages de contenu, OG images, build + crawl, puis merge en main.

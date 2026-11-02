@@ -67,14 +67,16 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
 ## Conventions
 - Composants en PascalCase
 - Pas de `any` TypeScript
-- Design « l'échauffement charge la barre » (brief et plan : docs/refonte-design.md, skill frontend-design) :
-  fond magnésie, encre fonte, couleurs des disques comme seule source de couleur. Phases = disques :
-  mise en route vert (`ph-raise`), mobilité jaune (`ph-mobility`), activation bleu (`ph-activation`),
-  travail/action rouge (`accent`). Signature : `Barbell` (PlanParts) — un disque par exercice, frise du plan
-  et jauge du mode guidé. Tokens dans `app/globals.css`. Jamais de couleur hex en dur dans les composants.
-- Typo : une seule famille, Archivo variable. `font-display` = largeur étendue (titres, chiffres), en casse
-  de phrase. Proscrits : capitales pour les libellés, surtitres, méta jointes par « · », « → » décoratifs,
-  numérotation 01/02/03 hors vraie séquence, grilles de cartes identiques.
+- Design « affiche de compétition » (direction B, choisie par Seb le 2 nov. 2026 ; maquettes :
+  docs/maquettes/directions.html) : papier clair, grands aplats aux couleurs des disques (`bg-blue`,
+  `bg-green`, `bg-yellow`, `bg-black`, `bg-accent` rouge), bandeaux d'affiche en tête des écrans clés.
+  Phases = disques : mise en route vert (`ph-raise`), mobilité jaune (`ph-mobility`), activation bleu
+  (`ph-activation`), action rouge (`accent`). `Barbell` (PlanParts) reste la frise du plan et la jauge du
+  mode guidé. Tokens dans `app/globals.css`. Jamais de couleur hex en dur dans les composants (exception :
+  variables locales de couleur des pictogrammes posés sur un aplat).
+- Typo : Anton (`font-display`, une seule graisse) pour titres et chiffres, classe `.poster` pour
+  l'inclinaison des grands titres ; Archivo pour le texte. Pas de texte transparent sur les aplats
+  (contraste AA). Boutons d'action : pilule noire.
 - Disques de charge : composant `Plates` aux couleurs de compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
 - Mouvement : un seul moment non déclenché (le chargement des disques, `plate-load`) ; le reste répond aux actions. Animations d'entrée en CSS, jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.

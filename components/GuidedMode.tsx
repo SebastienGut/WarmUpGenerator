@@ -105,8 +105,16 @@ function Ring({ remaining, total, label }: { remaining: number; total: number; l
   );
 }
 
-const primary = "flex-1 rounded-2xl bg-accent py-4 font-display text-[22px] font-extrabold text-on-accent active:scale-[0.98]";
-const secondary = "rounded-2xl border border-line-strong px-5 py-4 text-[17px] font-semibold text-ink active:scale-[0.98]";
+const primary = "flex-1 rounded-full bg-black py-4 font-display text-[26px] leading-none text-white active:scale-[0.98]";
+const secondary = "rounded-full border-2 border-line-strong px-5 py-3.5 text-[16px] font-semibold text-ink active:scale-[0.98]";
+
+// Aplat de la phase derrière le pictogramme, et couleurs du dessin lisibles dessus.
+const FIG_VARS: Record<PK, React.CSSProperties> = {
+  raise: { "--ink": "#fff", "--accent": "#141414", "--faint": "rgba(255,255,255,.45)", "--line": "rgba(255,255,255,.3)", "--subtle": "#fff" } as React.CSSProperties,
+  mobility: { "--ink": "#141414", "--accent": "#c8202a", "--faint": "rgba(0,0,0,.25)", "--line": "rgba(0,0,0,.2)", "--subtle": "#141414" } as React.CSSProperties,
+  activation: { "--ink": "#fff", "--accent": "#141414", "--faint": "rgba(255,255,255,.45)", "--line": "rgba(255,255,255,.3)", "--subtle": "#fff" } as React.CSSProperties,
+  ramp: {},
+};
 
 export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClose: () => void }) {
   const items = useMemo(() => flatten(plan), [plan]);
@@ -285,14 +293,16 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
                     }
                   />
                 ) : item.fig ? (
-                  <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(32vh,240px)] w-full max-w-[300px]" />
+                  <div className={`rounded-3xl ${PHASE_STYLE[item.pk].bg} px-4 pt-4`} style={FIG_VARS[item.pk]}>
+                    <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(30vh,230px)] w-full max-w-[300px]" />
+                  </div>
                 ) : (
                   <span className="mx-auto font-display text-[96px] font-extrabold text-accent" aria-hidden="true">
                     ♥
                   </span>
                 )}
-                <p className="mt-4 font-display text-[32px] font-extrabold leading-[0.98] tracking-tight text-ink">{item.title}</p>
-                <p className={`mt-2 font-display text-[28px] font-extrabold leading-none tracking-tight tabular ${PHASE_STYLE[item.pk].ink}`}>{item.target}</p>
+                <p className="poster mt-5 font-display text-[40px] leading-[0.95] text-ink">{item.title}</p>
+                <p className="mt-2 font-display text-[30px] leading-none text-accent-ink tabular">{item.target}</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{item.instructions}</p>
                 {item.why && <p className="mt-3 border-l-2 border-line-strong pl-3 text-[14px] leading-relaxed text-subtle">{item.why}</p>}
               </div>

@@ -1,34 +1,39 @@
 @import "tailwindcss";
 
 /*
- * Direction : l'échauffement charge la barre.
- * Fond magnésie (blanc froid), encre couleur fonte, et les couleurs des disques
- * de compétition comme seule source de couleur : chaque phase prend le disque
- * qui lui correspond, du plus léger au plus lourd (mise en route = 10 vert,
- * mobilité = 15 jaune, activation = 20 bleu, travail = 25 rouge). La couleur
- * dit toujours où l'on en est, elle ne décore jamais.
+ * Direction B : l'affiche de compétition.
+ * Fond papier clair, grands aplats aux couleurs des disques de compétition,
+ * titres en typo d'affiche haute et légèrement penchée (la vitesse). Les
+ * couleurs gardent leur sens : chaque phase a son disque (mise en route vert,
+ * mobilité jaune, activation bleu) et le rouge du 25 porte l'action.
  *
- * Le thème suit le réglage du téléphone : clair par défaut (salles éclairées),
- * sombre façon sol caoutchouc si le système l'est.
+ * Le thème suit le réglage du téléphone ; en sombre, les aplats restent, le
+ * papier devient noir.
  */
 :root {
   color-scheme: light dark;
 
-  --paper: #f4f5f2; /* magnésie */
+  --paper: #f7f6f2;
   --card: #ffffff;
-  --ink: #1d2125; /* fonte */
-  --muted: #4a5056;
-  --subtle: #565d64; /* acier, 6,3:1 sur magnésie */
-  --faint: #c3c8cc;
-  --line: #e1e4e0;
-  --line-strong: #c4c9c6;
-  /* Action principale : le rouge du disque de 25, le plus lourd. */
+  --ink: #141414;
+  --muted: #45474b;
+  --subtle: #5c5f63; /* 6:1 sur le papier */
+  --faint: #c8c6c0;
+  --line: #e6e3dc;
+  --line-strong: #cbc8c0;
+  /* Action principale : le rouge du disque de 25. */
   --accent: #c8202a;
   --accent-ink: #a8161f;
   --on-accent: #ffffff;
   --warn: #8f460a;
   --warn-bg: #f7e9d6;
   --warn-ink: #5c2f08;
+
+  /* Aplats d'affiche (fonds pleins, texte blanc sauf le jaune). */
+  --blue: #1f5fbf;
+  --green: #1e7a37;
+  --yellow: #e8b417;
+  --black: #141414;
 
   /* Phases = disques. --ph-*-ink : variante lisible en petit texte. */
   --ph-raise: #2f9a48;
@@ -50,20 +55,24 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #121417; /* sol caoutchouc */
-    --card: #1b1f23;
-    --ink: #eceeea;
-    --muted: #b3b9be;
-    --subtle: #8e959b;
-    --faint: #3a4046;
-    --line: #2a2f34;
-    --line-strong: #434a51;
-    --accent: #f0464c;
+    --paper: #121212;
+    --card: #1d1d1d;
+    --ink: #f2f1ed;
+    --muted: #b9b8b3;
+    --subtle: #9a9994;
+    --faint: #3d3d3b;
+    --line: #2b2b29;
+    --line-strong: #454543;
+    --accent: #c8202a;
     --accent-ink: #ff7b7f;
-    --on-accent: #1a0507;
+    --on-accent: #ffffff;
     --warn: #f0a35e;
     --warn-bg: #2b1f14;
     --warn-ink: #f6d2ae;
+    --blue: #2563c9;
+    --green: #1e7a37;
+    --yellow: #e8b417;
+    --black: #000000;
     --ph-raise: #3fb75c;
     --ph-raise-ink: #6fd487;
     --ph-mobility: #f2c230;
@@ -89,6 +98,10 @@
   --color-warn: var(--warn);
   --color-warn-bg: var(--warn-bg);
   --color-warn-ink: var(--warn-ink);
+  --color-blue: var(--blue);
+  --color-green: var(--green);
+  --color-yellow: var(--yellow);
+  --color-black: var(--black);
   --color-ph-raise: var(--ph-raise);
   --color-ph-raise-ink: var(--ph-raise-ink);
   --color-ph-mobility: var(--ph-mobility);
@@ -98,7 +111,7 @@
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anton), var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -130,10 +143,19 @@ body {
   border-radius: 6px;
 }
 
-/* Une seule famille (Archivo) : les titres et les chiffres passent en largeur
-   étendue, le texte reste en largeur normale. */
+/* Titres et chiffres en typo d'affiche (Anton, une seule graisse) : on
+   neutralise les graisses demandées par les classes pour éviter le faux gras. */
 .font-display {
-  font-stretch: 125%;
+  font-weight: 400 !important;
+  font-synthesis: none;
+  letter-spacing: 0.005em;
+}
+
+/* Inclinaison d'affiche, réservée aux grands titres. */
+.poster {
+  display: inline-block;
+  transform: skewX(-7deg);
+  transform-origin: left bottom;
 }
 
 /* Chiffres alignés partout où l'on compare des charges. */

@@ -41,41 +41,56 @@ export default function LandingPage({ landing }: { landing: Landing }) {
     },
   ];
 
-  const h2 = "mb-4 font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink";
+  const h2 = "poster mb-4 font-display text-[30px] leading-[0.95] text-ink";
+  // Aplat d'affiche selon la séance : poussée en rouge, tirage en bleu, jambes en vert…
+  const band =
+    {
+      push: "bg-accent text-white",
+      pecs: "bg-accent text-white",
+      "haut-du-corps": "bg-accent text-white",
+      pull: "bg-blue text-white",
+      dos: "bg-blue text-white",
+      jambes: "bg-green text-white",
+      fessiers: "bg-green text-white",
+      "bas-du-corps": "bg-green text-white",
+      epaules: "bg-yellow text-[#141414]",
+      bras: "bg-yellow text-[#141414]",
+    }[landing.slug] ?? "bg-black text-white";
 
   return (
     <main className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1080px] items-center px-5 py-3 sm:px-8">
-          <Link href="/" className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink">
-            Warmup
-          </Link>
-          <Link href="/series-approche" className="ml-auto text-[14px] font-medium text-muted hover:text-ink">
-            Séries d&apos;approche
-          </Link>
+      {/* Bandeau d'affiche : le titre de la recherche, en grand. */}
+      <header className={`${band} px-5 pb-8 pt-3 sm:px-8`}>
+        <div className="mx-auto max-w-[1080px]">
+          <div className="flex items-center py-1">
+            <Link href="/" className="font-display text-[24px] leading-none">
+              Warmup
+            </Link>
+            <Link href="/series-approche" className="ml-auto text-[14px] font-semibold hover:underline">
+              Séries d&apos;approche
+            </Link>
+          </div>
+          <nav aria-label="Fil d'Ariane" className="mt-5 flex flex-wrap items-center gap-1.5 text-[12px] font-semibold">
+            <Link href="/" className="hover:underline">Accueil</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/echauffement" className="hover:underline">Échauffements</Link>
+          </nav>
+          <h1 className="poster mt-2 font-display text-[48px] leading-[0.95] hyphens-auto sm:text-[72px]">{landing.h1}</h1>
+          <p className="mt-3 text-[14px] font-semibold">{landing.kicker}</p>
         </div>
       </header>
 
       <div className="mx-auto w-full max-w-[1080px] px-5 pb-16 pt-6 sm:px-8">
-        <nav aria-label="Fil d'Ariane" className="mb-5 flex flex-wrap items-center gap-1.5 text-[12px] text-subtle">
-          <Link href="/" className="hover:text-ink">Accueil</Link>
-          <span aria-hidden="true" className="text-faint">/</span>
-          <Link href="/echauffement" className="hover:text-ink">Échauffements</Link>
-          <span aria-hidden="true" className="text-faint">/</span>
-          <span className="text-ink">{landing.h1}</span>
-        </nav>
 
         {/* Sur téléphone, le plan passe juste sous le titre ; la réponse « En bref »
             reste tôt dans le HTML et s'affiche après le plan. */}
         <div className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12">
           <section className="order-1 lg:col-start-1 lg:row-start-1">
-            <h1 className="font-display text-[34px] font-extrabold leading-[1] tracking-tight text-ink hyphens-auto sm:text-[48px]">{landing.h1}</h1>
-            <p className="mt-2 text-[14px] font-semibold text-subtle">{landing.kicker}</p>
-            <ExerciseFigure id={landing.cover} label={landing.h1} className="mt-6 hidden h-48 w-full max-w-[320px] lg:block" />
+            <ExerciseFigure id={landing.cover} label={landing.h1} className="hidden h-48 w-full max-w-[320px] lg:block" />
           </section>
-          <p className="order-3 mt-6 self-start text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
+          <p className="order-3 mt-6 self-start lg:mt-4 text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
           <div className="order-2 mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
             <InlinePlan zones={landing.zones} defaultBand={!!landing.band} />
           </div>

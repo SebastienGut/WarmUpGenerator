@@ -47,7 +47,7 @@ const DOULEUR_LINKS: { href: string; label: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Combien de temps doit durer un échauffement ?",
-    a: "Pour la plupart des séances, 5 à 10 minutes suffisent : quelques minutes de mise en route, puis de la mobilité et de l'activation ciblées sur les muscles du jour. Le plan affiche sa durée réelle, transitions comprises. Viennent ensuite les séries d'approche sur ton premier exercice lourd.",
+    a: "Quatre à sept minutes de préparation suffisent pour la plupart des séances : de la mobilité, puis de l'activation ciblée sur les muscles du jour. Le plan affiche sa durée réelle, transitions comprises. Viennent ensuite les séries d'approche sur ton premier exercice, qui font monter la température sur le geste lui-même.",
   },
   {
     q: "Faut-il s'étirer avant la musculation ?",

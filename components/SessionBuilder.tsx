@@ -7,7 +7,8 @@ import ExerciseFigure from "@/components/ExerciseFigure";
 import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
 import { LIFTS_BY_ID, SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel } from "@/lib/lifts";
-import { buildSessionPlan, serializeSession } from "@/lib/session-engine";
+import { buildSessionPlan, parseSession, serializeSession } from "@/lib/session-engine";
+import { loadEquipment } from "@/lib/equipment-pref";
 import { compositionOf, loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
 import { MUSCLE_LABELS, type MuscleGroup } from "@/lib/warmup-data";
 
@@ -26,10 +27,13 @@ export default function SessionBuilder() {
   // Routine stable : la même séance redonne le même plan. Si elle a déjà été
   // faite sur cet appareil, on rouvre sa dernière version (réglages compris) ;
   // la variation reste un choix (↻ Varier sur le plan).
-  const go = (z: MuscleGroup[]) => {
-    const fresh = serializeSession({ zones: z, lifts: [], pain: [], band: false, short: false, variant: 0 });
-    const q = loadSessions().find((s) => compositionOf(s.query) === compositionOf(fresh))?.query ?? fresh;
-    saveSession({ query: q, label: zonesLabel(z) });
+  // Le matériel est un réglage de l'appareil : il prime sur celui de la séance rouverte.
+  const go = (z: MuscleGroup[], template?: string, label = zonesLabel(z)) => {
+    const equipment = loadEquipment();
+    const fresh = serializeSession({ zones: z, template, lifts: [], pain: [], band: false, equipment, short: false, variant: 0 });
+    const prev = loadSessions().find((s) => compositionOf(s.query) === compositionOf(fresh))?.query;
+    const q = prev ? serializeSession({ ...parseSession(Object.fromEntries(new URLSearchParams(prev))), equipment }) : fresh;
+    saveSession({ query: q, label });
     router.push(`/plan?${q}`);
   };
   const toggle = (z: MuscleGroup) => setZones((s) => (s.includes(z) ? s.filter((x) => x !== z) : [...s, z]));
@@ -64,7 +68,10 @@ export default function SessionBuilder() {
               quoi&nbsp;?
             </span>
           </h1>
-          <p className="mt-4 max-w-[34ch] text-[16px] text-white/90">Touche ta séance, ton échauffement est prêt.</p>
+          <p className="mt-4 max-w-[40ch] text-[16px] text-white">
+            <strong className="block text-[17px] font-bold sm:text-[19px]">La longévité du sportif commence ici.</strong>
+            Touche ta séance, ta préparation est prête.
+          </p>
         </div>
       </section>
 
@@ -96,12 +103,12 @@ export default function SessionBuilder() {
         <section aria-label="Séances types" className="mt-3 grid grid-cols-2 gap-2.5 sm:mt-5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
           {SESSION_TEMPLATES.map((t) => {
             const c = CARD[t.id] ?? CARD.full;
-            const minutes = buildSessionPlan({ zones: t.zones, lifts: [], pain: [], band: false, short: false, variant: 0 }).minutes;
+            const minutes = buildSessionPlan({ zones: t.zones, template: t.id, lifts: [], pain: [], band: false, short: false, variant: 0 }).minutes;
             return (
               <button
                 key={t.id}
                 type="button"
-                onClick={() => go(t.zones)}
+                onClick={() => go(t.zones, t.id, t.label)}
                 className={`relative flex min-h-[132px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${c.bg} ${c.fg}`}
               >
                 <span className="text-[12px] font-bold">{minutes} min</span>

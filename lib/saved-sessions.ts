@@ -14,6 +14,8 @@ const MAX = 6;
 /** Ce qui identifie une routine : ses zones (ou ses exercices), dans n'importe quel ordre. */
 export function compositionOf(query: string): string {
   const p = new URLSearchParams(query);
+  const t = p.get("t");
+  if (t) return `t:${t}`;
   const zones = p.get("z");
   const ids = (zones ?? p.get("s") ?? "").split(",").filter(Boolean).sort();
   return `${zones ? "z" : "s"}:${ids.join(",")}`;

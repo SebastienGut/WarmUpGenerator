@@ -1,5 +1,22 @@
+import type { PrepFocus } from "@/lib/warmup-data";
 import { exercises, MUSCLE_LABELS, OBJECTIVE_LABELS, ZONE_LABELS, EQUIPMENT_LABELS } from "@/lib/warmup-data";
-import { FOCUS_LABELS } from "@/lib/session-engine";
+
+// Libellés des qualités préparées (champ prepFocus du jeu de données ouvert).
+const FOCUS_LABELS: Record<PrepFocus, string> = {
+  scapula: "omoplates",
+  "rotator-cuff": "coiffe des rotateurs",
+  thoracic: "haut du dos",
+  lumbar: "bas du dos",
+  hip: "hanches",
+  "knee-control": "genoux",
+  ankle: "chevilles",
+  "wrist-forearm": "poignets",
+  "elbow-tendon": "coudes",
+  glutes: "fessiers",
+  core: "gainage",
+  hamstrings: "ischio-jambiers",
+  overhead: "épaules en hauteur",
+};
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 

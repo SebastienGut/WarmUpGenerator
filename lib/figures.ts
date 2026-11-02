@@ -39,6 +39,10 @@ export const FIGURES: Record<string, Figure> = {
     { t: 12, ua: 72, fa: 72, th: 46, sh: -28, th2: -24, sh2: -24 },
     { anchor: "foot1", props: [{ kind: "wall", x: 186 }], hi: ["sh"] },
   ),
+  // Squat profond assisté : mains sur un montant, descente à profondeur confortable, petits déplacements.
+  "prep-squat-profond-assiste": f("side", { ...SQUAT_LOW, t: 30, ua: 78, fa: 78, th: 104, sh: -32 }, { ...SQUAT_LOW, t: 24, ua: 82, fa: 82, th: 112, sh: -36 }, { props: [{ kind: "wall", x: 206 }], hi: ["th", "sh"], dur: 3.2 }),
+  // Rotation thoracique à quatre pattes, main derrière la tête : le coude rentre puis s'ouvre vers le plafond.
+  "prep-rotation-thoracique-qp": f("side", { ...QUAD, ua: 25, fa: 140, ua2: 0, fa2: 0 }, { ...QUAD, ua: 175, fa: 100, ua2: 0, fa2: 0 }, { anchor: "hip", hi: ["torso", "ua"], dur: 3.2 }),
   "art-squat-profond-rebond": f("side", { ...SQUAT_LOW, th: 92, sh: -30 }, { ...SQUAT_LOW, t: 42, th: 108, sh: -38 }, { hi: ["th", "sh"], dur: 1.8 }),
   "art-genoux-cercles": f("side", { t: 42, ua: 35, fa: 20, th: 30, sh: -18 }, { t: 42, ua: 35, fa: 20, th: 42, sh: -30 }, { hi: ["sh"] }),
   "art-chevilles": f("side", { ...STAND, th: 55, sh: 10, ft: 50 }, { ...STAND, th: 55, sh: 10, ft: 140, th2: 0, sh2: 0 }, { anchor: "foot2", hi: ["sh"] }),

@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import GuidedMode from "@/components/GuidedMode";
-import { Chip, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import type { Equipment } from "@/lib/bank";
+import { loadEquipment, saveEquipment } from "@/lib/equipment-pref";
 import { buildSessionPlan, serializeSession, type SessionInput } from "@/lib/session-engine";
 import type { MuscleGroup } from "@/lib/warmup-data";
 
@@ -13,13 +15,19 @@ import type { MuscleGroup } from "@/lib/warmup-data";
  * l'adapter sur place et le lancer en mode guidé. Rendu côté serveur dans son
  * état par défaut, pour que la liste d'exercices soit lisible par les moteurs.
  */
-export default function InlinePlan({ zones, defaultBand = false }: { zones: MuscleGroup[]; defaultBand?: boolean }) {
-  const [band, setBand] = useState(defaultBand);
+export default function InlinePlan({ zones, template, fixedEquipment }: { zones: MuscleGroup[]; template?: string; fixedEquipment?: Equipment }) {
+  const [equipment, setEquipment] = useState<Equipment>(fixedEquipment ?? "gym");
   const [short, setShort] = useState(false);
   const [variant, setVariant] = useState(0);
   const [guided, setGuided] = useState(false);
 
-  const input: SessionInput = { zones, lifts: [], pain: [], band, short, variant };
+  useEffect(() => {
+    // La page impose parfois son matériel (« sans matériel ») ; sinon, celui réglé sur l'appareil.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- le réglage n'existe qu'au client
+    if (!fixedEquipment) setEquipment(loadEquipment());
+  }, [fixedEquipment]);
+
+  const input: SessionInput = { zones, template, lifts: [], pain: [], band: equipment === "band", equipment, short, variant };
   // Calcul instantané (quelques dizaines d'exercices) : pas besoin de mémoïser.
   const plan = buildSessionPlan(input);
 
@@ -32,11 +40,17 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
         </span>
       </div>
       <Timeline phases={plan.phases} />
+      <div className="mt-4">
+        <EquipmentPicker
+          value={equipment}
+          onChange={(v) => {
+            setEquipment(v);
+            saveEquipment(v);
+          }}
+        />
+      </div>
 
       <div className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-        <Chip onClick={() => setBand(!band)} tone={band ? "on" : "default"}>
-          {band ? "✓ Avec élastique" : "Sans matériel"}
-        </Chip>
         <Chip onClick={() => setShort(!short)} tone={short ? "on" : "default"}>
           {short ? "✓ Version courte" : "Version courte"}
         </Chip>

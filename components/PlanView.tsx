@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Chip, PhaseMark, StepRow, Timeline, Toggle, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, Toggle, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { EQUIPMENT_LABELS } from "@/lib/bank";
+import { saveEquipment } from "@/lib/equipment-pref";
 import GuidedMode from "@/components/GuidedMode";
 import Sheet from "@/components/Sheet";
 import { ZONE_ORDER } from "@/lib/lifts";
@@ -91,7 +93,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
         <div className="mt-4 flex flex-wrap gap-2 text-[12px] font-bold">
           <span className="rounded-full bg-white/[0.18] px-3 py-1.5 tabular">{plan.minutes} min</span>
           <span className="rounded-full bg-white/[0.18] px-3 py-1.5 tabular">{steps} exercices</span>
-          <span className="rounded-full bg-white/[0.18] px-3 py-1.5">{input.band ? "Avec élastique" : "Sans matériel"}</span>
+          <span className="rounded-full bg-white/[0.18] px-3 py-1.5">{EQUIPMENT_LABELS[plan.equipment]}</span>
         </div>
       </div>
     </header>
@@ -103,6 +105,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           <Chip onClick={() => setAdjusting(true)} tone={input.pain.length ? "warn" : "default"}>
             {input.pain.length ? input.pain.map((z) => PAIN_LABELS[z]).join(", ") : "Ça coince ?"}
           </Chip>
+          <Chip onClick={() => setAdjusting(true)}>{EQUIPMENT_LABELS[plan.equipment]}</Chip>
           <Chip onClick={() => setAdjusting(true)}>{input.short ? "Version courte" : "Complet"}</Chip>
           <Chip onClick={() => update({ variant: ((input.variant ?? 0) + 1) % 997 })}>↻ Varier</Chip>
         </div>
@@ -164,10 +167,11 @@ function PlanContent({ initial }: { initial: SessionInput }) {
                 key={z}
                 tone={on ? "on" : "default"}
                 onClick={() => {
-                  // Passer par les zones abandonne l'éventuel exercice précis.
+                  // Toucher aux zones quitte la routine de référence (et l'éventuel exercice précis) :
+                  // le plan devient une composition des zones choisies.
                   const base = zones.length ? zones : [];
                   const next = on ? base.filter((x) => x !== z) : [...base, z];
-                  if (next.length) update({ zones: next, lifts: [] });
+                  if (next.length) update({ zones: next, lifts: [], template: undefined });
                 }}
               >
                 {MUSCLE_LABELS[z]}
@@ -186,8 +190,17 @@ function PlanContent({ initial }: { initial: SessionInput }) {
             );
           })}
         </div>
+        <p className="mb-2 text-[14px] font-semibold text-subtle">Matériel</p>
+        <div className="mb-5">
+          <EquipmentPicker
+            value={plan.equipment}
+            onChange={(v) => {
+              saveEquipment(v);
+              update({ equipment: v, band: v === "band" });
+            }}
+          />
+        </div>
         <div className="divide-y divide-line border-y border-line">
-          <Toggle on={input.band} onChange={(v) => update({ band: v })} title="J'ai un élastique" />
           <Toggle on={input.short} onChange={(v) => update({ short: v })} title={`Version courte (${buildSessionPlan({ ...input, short: true }).minutes} min)`} />
         </div>
       </Sheet>

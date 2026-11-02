@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import InlinePlan from "@/components/InlinePlan";
 import ExerciseFigure from "@/components/ExerciseFigure";
 import { LANDINGS, type Landing } from "@/lib/content/landings";
@@ -65,8 +66,8 @@ export default function LandingPage({ landing }: { landing: Landing }) {
       <header className={`${band} px-5 pb-8 pt-3 sm:px-8`}>
         <div className="mx-auto max-w-[1080px]">
           <div className="flex items-center py-1">
-            <Link href="/" className="font-display text-[24px] leading-none">
-              Warmup
+            <Link href="/" aria-label="Warmup Generator, accueil">
+              <Logo />
             </Link>
             <Link href="/series-approche" className="ml-auto text-[14px] font-semibold hover:underline">
               Séries d&apos;approche

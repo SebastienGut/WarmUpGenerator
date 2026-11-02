@@ -5,7 +5,7 @@
 const BASE = process.argv[2] ?? "http://localhost:3100";
 const xml = await (await fetch(`${BASE}/sitemap.xml`)).text();
 const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace("https://warmup-generator.com", BASE));
-const extra = ["/plan", "/llms.txt", "/api/exercices", "/robots.txt", "/manifest.webmanifest", "/opengraph-image", "/icon", "/echauffement/epaules/opengraph-image"].map((p) => BASE + p);
+const extra = ["/plan", "/llms.txt", "/api/exercices", "/robots.txt", "/manifest.webmanifest", "/opengraph-image", "/icon.png", "/favicon.ico", "/echauffement/epaules/opengraph-image"].map((p) => BASE + p);
 
 const decode = (s) => s.replace(/&#x27;/g, "'").replace(/&amp;/g, "&").replace(/&quot;/g, '"');
 const problems = [];

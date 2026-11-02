@@ -126,7 +126,10 @@ export default function ApproachCalculator() {
 
       {/* Montée en charge */}
       <div aria-live="polite">
-        <p className={label}>Ta montée en charge</p>
+        <p className={`${label} flex justify-between`}>
+          <span>Ta montée en charge</span>
+          <span>Disques par côté</span>
+        </p>
         <ol className="overflow-hidden rounded-2xl border border-line bg-card">
           {lines.map((l, i) => (
             <li key={i} className="flex items-center gap-3 border-b border-line px-4 py-3">

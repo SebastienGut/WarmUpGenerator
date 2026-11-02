@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
-import ExerciseFigure from "@/components/ExerciseFigure";
+import ExerciseFigure, { FigureStill } from "@/components/ExerciseFigure";
 import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
-import { LIFTS_BY_ID, SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel } from "@/lib/lifts";
+import { SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel } from "@/lib/lifts";
 import { buildSessionPlan, parseSession, serializeSession } from "@/lib/session-engine";
 import { loadEquipment } from "@/lib/equipment-pref";
 import { compositionOf, loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
@@ -38,6 +39,19 @@ export default function SessionBuilder() {
   };
   const toggle = (z: MuscleGroup) => setZones((s) => (s.includes(z) ? s.filter((x) => x !== z) : [...s, z]));
 
+  // Pictogramme de chaque carte : l'exercice phare de la séance, figé à l'instant
+  // où il se reconnaît le mieux (squat en bas, traction en haut…).
+  const COVER: Record<string, { id: string; k: number }> = {
+    push: { id: "developpe-couche", k: 0 },
+    pull: { id: "tractions", k: 1 },
+    legs: { id: "squat", k: 1 },
+    haut: { id: "developpe-militaire", k: 1 },
+    full: { id: "souleve-de-terre", k: 0.45 },
+  };
+  // « Bas du corps » doublonnait « Jambes » sur l'accueil : la séance reste servie
+  // par sa page /echauffement/bas-du-corps et par ses anciens liens.
+  const templates = SESSION_TEMPLATES.filter((t) => t.id !== "bas");
+
   // Couleur de chaque séance type : un aplat de disque par carte, texte lisible dessus.
   const CARD: Record<string, { bg: string; fg: string; vars: Record<string, string> }> = {
     push: { bg: "bg-accent", fg: "text-white", vars: { "--ink": "#fff", "--accent": "#141414", "--faint": "rgba(255,255,255,.45)", "--line": "rgba(255,255,255,.3)", "--subtle": "#fff" } },
@@ -54,23 +68,20 @@ export default function SessionBuilder() {
       <section className="relative overflow-hidden bg-blue px-5 pb-9 pt-5 text-white sm:px-8 sm:pb-12">
         <span aria-hidden="true" className="pointer-events-none absolute -right-20 -top-16 h-72 w-72 rounded-full border-[34px] border-white/[0.12]" />
         <div className="relative mx-auto max-w-[1080px]">
-          <header className="mb-9 flex items-baseline justify-between sm:mb-12">
-            <span className="font-display text-[24px] leading-none">Warmup</span>
-            <Link href="/series-approche" className="text-[14px] font-semibold text-white/90 hover:text-white">
+          <header className="mb-7 flex items-center justify-between sm:mb-10">
+            <Logo />
+            <Link href="/series-approche" className="text-[14px] font-semibold text-white hover:underline">
               Séries d&apos;approche
             </Link>
           </header>
-          <h1>
-            <span className="block text-[13px] font-bold tracking-[0.08em] text-white/85">ÉCHAUFFEMENT MUSCULATION</span>
-            <span className="poster mt-2 font-display text-[64px] leading-[0.92] sm:text-[96px]">
-              Tu entraînes
-              <br />
-              quoi&nbsp;?
-            </span>
+          <h1 className="poster font-display text-[64px] leading-[0.92] sm:text-[96px]">
+            Tu entraînes
+            <br />
+            quoi&nbsp;?
           </h1>
-          <p className="mt-4 max-w-[40ch] text-[16px] text-white">
-            <strong className="block text-[17px] font-bold sm:text-[19px]">La longévité du sportif commence ici.</strong>
-            Touche ta séance, ta préparation est prête.
+          <p className="mt-4 max-w-[40ch] text-white">
+            <strong className="block text-[19px] font-bold leading-snug sm:text-[22px]">La longévité du sportif commence ici.</strong>
+            <span className="mt-1 block text-[16px]">Choisis ta séance, obtiens ton échauffement sur mesure.</span>
           </p>
         </div>
       </section>
@@ -101,7 +112,7 @@ export default function SessionBuilder() {
         )}
 
         <section aria-label="Séances types" className="mt-3 grid grid-cols-2 gap-2.5 sm:mt-5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
-          {SESSION_TEMPLATES.map((t) => {
+          {templates.map((t) => {
             const c = CARD[t.id] ?? CARD.full;
             const minutes = buildSessionPlan({ zones: t.zones, template: t.id, lifts: [], pain: [], band: false, short: false, variant: 0 }).minutes;
             return (
@@ -113,7 +124,7 @@ export default function SessionBuilder() {
               >
                 <span className="text-[12px] font-bold">{minutes} min</span>
                 <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
-                  <ExerciseFigure id={t.cover} label={LIFTS_BY_ID[t.cover].name} animate={false} className="h-[64px] w-[74px]" />
+                  <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
                 </span>
                 <span className="relative">
                   <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">{t.label}</span>
@@ -129,7 +140,7 @@ export default function SessionBuilder() {
           >
             <span className="text-[12px] font-bold text-subtle">Au choix</span>
             <span>
-              <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">Mes zones +</span>
+              <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">Mes zones</span>
               <span className="mt-1 block text-[12px] font-medium text-subtle">Choisis exactement ce que tu travailles</span>
             </span>
           </button>
@@ -146,7 +157,7 @@ export default function SessionBuilder() {
             <span className="mt-2 block max-w-[40ch] text-[14px] text-white/80">Ta charge de travail du jour, et la montée en charge disque par disque pour y arriver.</span>
           </span>
           <span className="shrink-0" aria-hidden="true">
-            <Plates plates={[25, 20, 5, 2.5]} size={52} showLabel={false} />
+            <Plates plates={[25, 20, 5, 2.5]} size={52} />
           </span>
         </Link>
       </div>

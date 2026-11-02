@@ -104,13 +104,13 @@ export default function SessionBuilder() {
                 onClick={() => go(t.zones)}
                 className={`relative flex min-h-[132px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${c.bg} ${c.fg}`}
               >
-                <span className="text-[12px] font-bold opacity-90">{minutes} min</span>
+                <span className="text-[12px] font-bold">{minutes} min</span>
                 <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
                   <ExerciseFigure id={t.cover} label={LIFTS_BY_ID[t.cover].name} animate={false} className="h-[64px] w-[74px]" />
                 </span>
                 <span className="relative">
                   <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">{t.label}</span>
-                  <span className="mt-1 block truncate text-[12px] font-medium opacity-85">{t.hint}</span>
+                  <span className="mt-1 block truncate text-[12px] font-medium">{t.hint}</span>
                 </span>
               </button>
             );

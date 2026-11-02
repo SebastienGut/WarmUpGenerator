@@ -31,7 +31,7 @@
 
   /* Aplats d'affiche (fonds pleins, texte blanc sauf le jaune). */
   --blue: #1f5fbf;
-  --green: #23843c;
+  --green: #1e7a37;
   --yellow: #e8b417;
   --black: #141414;
 
@@ -63,14 +63,14 @@
     --faint: #3d3d3b;
     --line: #2b2b29;
     --line-strong: #454543;
-    --accent: #e0333d;
+    --accent: #c8202a;
     --accent-ink: #ff7b7f;
     --on-accent: #ffffff;
     --warn: #f0a35e;
     --warn-bg: #2b1f14;
     --warn-ink: #f6d2ae;
     --blue: #2563c9;
-    --green: #23843c;
+    --green: #1e7a37;
     --yellow: #e8b417;
     --black: #000000;
     --ph-raise: #3fb75c;

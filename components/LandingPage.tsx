@@ -68,17 +68,17 @@ export default function LandingPage({ landing }: { landing: Landing }) {
             <Link href="/" className="font-display text-[24px] leading-none">
               Warmup
             </Link>
-            <Link href="/series-approche" className="ml-auto text-[14px] font-semibold opacity-90 hover:opacity-100">
+            <Link href="/series-approche" className="ml-auto text-[14px] font-semibold hover:underline">
               Séries d&apos;approche
             </Link>
           </div>
-          <nav aria-label="Fil d'Ariane" className="mt-5 flex flex-wrap items-center gap-1.5 text-[12px] opacity-85">
+          <nav aria-label="Fil d'Ariane" className="mt-5 flex flex-wrap items-center gap-1.5 text-[12px] font-semibold">
             <Link href="/" className="hover:underline">Accueil</Link>
             <span aria-hidden="true">/</span>
             <Link href="/echauffement" className="hover:underline">Échauffements</Link>
           </nav>
           <h1 className="poster mt-2 font-display text-[48px] leading-[0.95] hyphens-auto sm:text-[72px]">{landing.h1}</h1>
-          <p className="mt-3 text-[14px] font-semibold opacity-90">{landing.kicker}</p>
+          <p className="mt-3 text-[14px] font-semibold">{landing.kicker}</p>
         </div>
       </header>
 

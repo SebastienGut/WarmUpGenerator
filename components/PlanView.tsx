@@ -86,7 +86,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
             {copied ? "Lien copié" : "Partager"}
           </button>
         </nav>
-        <p className="mt-2 text-[12px] font-bold tracking-[0.08em] text-white/85">TON ÉCHAUFFEMENT</p>
+        <p className="mt-2 text-[12px] font-bold tracking-[0.08em] text-white">TON ÉCHAUFFEMENT</p>
         <h1 className="poster mt-1 font-display text-[54px] leading-[0.92] sm:text-[72px]">{label}</h1>
         <div className="mt-4 flex flex-wrap gap-2 text-[12px] font-bold">
           <span className="rounded-full bg-white/[0.18] px-3 py-1.5 tabular">{plan.minutes} min</span>

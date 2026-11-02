@@ -228,17 +228,17 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
             {done ? (
               <div className="flex flex-col gap-4">
                 <p className="font-display text-[46px] font-extrabold leading-[0.95] tracking-tight text-ink">
-                  {isRamp ? "Montée terminée." : "Échauffement terminé."}
+                  {isRamp ? "Montée terminée." : "Préparation terminée."}
                 </p>
                 <p className="text-[16px] text-muted tabular">
-                  {doneCount} {isRamp ? "séries" : "exercices"} sur {items.length}
+                  {doneCount} {isRamp ? "séries" : doneCount > 1 ? "exercices" : "exercice"} sur {items.length}
                   {skipped.length > 0 ? `, ${skipped.length} passé${skipped.length > 1 ? "s" : ""}` : ""}.
                 </p>
-                <p className="text-[16px] text-muted">
-                  {isRamp
-                    ? "Place à ta première série de travail."
-                    : "Avant ta première série lourde, fais quelques séries d'approche sur ton premier exercice."}
-                </p>
+                {isRamp ? (
+                  <p className="text-[16px] text-muted">Place à ta première série de travail.</p>
+                ) : (
+                  <p className="text-[18px] font-semibold text-ink">Passe maintenant aux séries d&apos;approche de ton premier exercice.</p>
+                )}
               </div>
             ) : resting ? (
               <div className="flex flex-col items-center gap-6">

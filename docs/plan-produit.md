@@ -38,7 +38,7 @@
       et les affirmations trop absolues (douleurs, prévention des blessures, étirements, durées).
 - Vérif : tests de comportement (pas des tests qui recopient l'implémentation).
 
-## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur) — fait, en attente de validation
+## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur) — remplacé par le lot 1 bis (moteur v3)
 Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement ce que je ferais ».
 1. **Audit de la base** (`lib/warmup-data.ts`, 80 exercices de préparation) : pour chacun,
    rôle (mise en route / mobilité / activation), zones, matériel, position (debout, sol,
@@ -78,7 +78,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 6. Vérif : parcours complet sur mobile et desktop, clavier, contrastes, mouvement réduit,
    hors ligne.
 
-## Lot 3 — Direction artistique — maquettes prêtes, choix de Seb en attente
+## Lot 3 — Direction artistique — B choisie et en ligne
 - Retour de Seb et de l'audit : visuel « froid, robotique, peu sportif », personnages
   approximatifs. Il faut une vraie direction artistique, pas des couleurs changées.
 - Méthode (skill frontend-design + design-critique) : comparer deux directions concrètes en
@@ -109,7 +109,18 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Pas de compte obligatoire, de chatbot, de gamification, d'IA en ligne pour choisir les exercices.
 - Ne pas affirmer de meilleure rétention sans données.
 
+## Lot 1 bis — Moteur v3 (brief de Seb, docs/brief-moteur-v3.md) — fait, en attente de validation
+- Banque `lib/bank.ts` : vrais noms, variante par matériel (salle / élastique / sans), remplacement
+  honnête ou retrait. Routines `lib/routines.ts` : une par séance type, bases par zone pour « Mes zones ».
+- Pas de cardio ; mobilité puis activation ; message de fin imposé ; accroche sur l'accueil.
+- Réglage matériel mémorisé sur l'appareil (`lib/equipment-pref.ts`), URL `m=n|e|s`, séance `t=`.
+- Reste : validation des routines (docs/decisions-a-prendre.md), complément lombaire (plus tard).
+
 ## Journal
+- 2 nov. 2026 : lot 1 bis, moteur v3 (branche bloc/moteur-v3). Routines du brief, variantes par
+  matériel, « Mes zones » par tours (chaque zone servie, exercice partagé d'abord, bras = biceps +
+  triceps), remplacements signalés (« Remplace : … »). Contrôles : 7 980 routines, 0 écart.
+  Landings (13 « En bref », FAQ), /methodologie, llms.txt et FAQ réécrits sans cardio. Crawl 54 URL OK.
 - 2 nov. 2026 : bloc lots 0-1-2 + audit pictogrammes fusionné en main et en ligne (crawl 54 URL OK,
   contraste clair/sombre OK, IndexNow 46 URL). Lot 3 : docs/maquettes/directions.html, deux
   directions (A « chrono de salle », B « affiche de compétition ») sur accueil, plan, mode guidé.

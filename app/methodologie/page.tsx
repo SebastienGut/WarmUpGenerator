@@ -6,7 +6,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   title: "Méthodologie et sources : comment ton plan est construit",
   description:
-    "Comment Warmup construit ton échauffement selon les zones travaillées : mise en route, mobilité, activation. Et comment il calcule les séries d'approche. Principes, sources et limites.",
+    "Comment Warmup construit ta préparation : des routines de référence par séance, mobilité puis activation, adaptées à ton matériel. Et comment il calcule les séries d'approche. Principes, sources et limites.",
   alternates: { canonical: "/methodologie", languages: { "fr-FR": "/methodologie" } },
   openGraph: {
     title: "Méthodologie & sources — Warmup Generator",
@@ -23,28 +23,28 @@ export const metadata: Metadata = {
 const PRINCIPLES = [
   {
     n: "01",
-    title: "Partir des besoins de chaque zone",
-    body: "Tu choisis ce que tu travailles (une séance type comme Jambes ou Push, ou tes zones). Chaque zone est décrite par ses besoins, notés de 1 à 3 : les pecs demandent un haut du dos mobile, une épaule ouverte, une coiffe des rotateurs et un dentelé réveillés, puis de répéter la poussée ; les jambes, des chevilles et des hanches mobiles, des quadriceps et des fessiers actifs, puis de répéter le squat. L'outil ne présume pas de tes exercices : il prépare la zone.",
+    title: "Une routine de référence par séance",
+     body: "Chaque séance type (Push, Pull, Jambes, Haut du corps, Bas du corps, Full body) a sa routine, écrite d'un bloc comme un préparateur physique la composerait : par exemple, pour Push, cat-cow, pompes scapulaires, rotation externe et face pull. La même séance redonne toujours la même routine : on l'apprend, on la refait. Ce sont des propositions de programmation, pas une séquence dont l'optimalité serait démontrée.",
   },
   {
     n: "02",
-    title: "Mettre en commun, sans doublon",
-    body: "Les besoins de plusieurs zones s'additionnent : le haut du dos, utile aux pecs comme aux épaules, passe devant. Le besoin principal de chaque zone est servi en premier, pour qu'un full body prépare aussi le haut du corps. Chaque besoin est couvert une seule fois, par l'exercice le plus pertinent de sa liste, en préférant celui qui en couvre plusieurs. Bras et gainage, déjà sollicités par les mouvements composés, passent au second plan quand ils accompagnent une autre zone.",
+    title: "Mes zones : des bases mises en commun",
+    body: "Quand tu choisis tes zones, chacune apporte sa base de deux à quatre exercices. Un exercice partagé par plusieurs zones (le cat-cow pour les pecs, le dos et le gainage) n'apparaît qu'une fois et passe devant ; ensuite chaque zone reçoit à tour de rôle son exercice suivant, jusqu'à sept au plus. Les bras suivent la séance : triceps en Push, biceps en Pull, les deux quand tu choisis Bras toi-même.",
   },
   {
     n: "03",
     title: "Un ordre qui évite les allers-retours",
-    body: "Mise en route, mobilité, puis activation et répétition du geste à vide, comme dans le protocole RAMP. À l'intérieur, la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout : deux passages au sol au plus. Six à sept exercices pour une séance complète, quatre en version courte : de quoi préparer sans fatiguer.",
+    body: "Mobilité, puis activation, puis les séries d'approche sur ton premier exercice. Pas de cardio : la montée en température se fait sur l'exercice lui-même, avec des charges progressives. Dans « Mes zones », la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout. Trois à sept exercices, quatre au plus en version courte : de quoi préparer sans fatiguer.",
   },
   {
     n: "04",
-    title: "Rien d'inutile",
-    body: "Pas d'étirement tenu longtemps avant l'effort, pas de rotation de nuque ou de genou sans intérêt pour la séance, pas de matériel à aller chercher (haltères, poulie). Sans élastique, un exercice qui en demande un n'est choisi qu'en dernier recours, avec sa version sans matériel. La même séance redonne toujours le même plan ; ↻ Varier propose le deuxième meilleur choix besoin par besoin.",
+    title: "Ton matériel, des remplacements honnêtes",
+    body: "Tu indiques une fois ton matériel (sans matériel, élastique ou salle) ; chaque exercice prend la variante correspondante : rotation externe à la poulie, à l'élastique, ou allongé sur le côté. Quand il n'existe pas d'équivalent fiable, l'outil le dit : sans matériel, le face pull devient un W allongé, qui travaille les mêmes muscles, et les exercices de bras disparaissent plutôt que d'être remplacés par un geste qui n'a rien à voir. Pas d'étirement tenu longtemps avant l'effort.",
   },
   {
     n: "05",
     title: "Les zones qui coincent",
-    body: "Une zone déclarée sensible exclut les exercices contre-indiqués, fait passer en premier un exercice adapté (par exemple le coquillage et la fente tenue pour le genou) et rappelle de garder la gêne sous 3 sur 10. Ce sont des aides pour des gênes légères et connues, pas des traitements : une douleur vive ou qui dure relève d'un kiné ou d'un médecin.",
+    body: "Une zone déclarée sensible retire les exercices déconseillés (le squat profond pour un genou sensible, les pompes scapulaires pour un poignet), oriente vers le guide de la zone et rappelle de garder la gêne sous 3 sur 10. Ce sont des aides pour des gênes légères et connues, pas des traitements : une douleur vive ou qui dure relève d'un kiné ou d'un médecin.",
   },
   {
     n: "06",
@@ -84,7 +84,7 @@ const SOURCES = [
   {
     label: "Jeffreys (2007)",
     full: "Warm-up revisited: the RAMP method of optimising warm-ups",
-    desc: "Le cadre en trois temps repris par l'outil : élever la température (Raise), activer et mobiliser (Activate & Mobilise), puis préparer le geste de la séance (Potentiate).",
+    desc: "Le cadre de référence : élever la température (Raise), activer et mobiliser (Activate & Mobilise), puis préparer le geste (Potentiate). L'outil reprend l'activation et la mobilisation ; les séries d'approche assurent la montée en température et la préparation du geste.",
   },
   {
     label: "Fradkin et al. (2010)",
@@ -237,31 +237,25 @@ export default function MethodologyPage() {
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             <p>
-              L&apos;échauffement suit le protocole <strong className="text-ink">RAMP</strong> : les trois premiers temps dans le générateur, la montée en charge dans le calculateur.
+              La préparation reprend deux temps du protocole <strong className="text-ink">RAMP</strong> dans le générateur ; la montée en charge se fait dans le calculateur.
             </p>
             <ol className="flex flex-col gap-3 pl-4">
               <li>
-                <strong className="text-ink">1. Mise en route</strong> : 2 minutes de cardio léger (rameur,
-                vélo, corde) pour élever la température. Supprimée en version courte.
+                <strong className="text-ink">1. Mobilité</strong> : un à quatre mouvements sur les amplitudes que
+                la séance demande (cat-cow, rotation thoracique, cheville au mur, squat profond assisté…).
               </li>
               <li>
-                <strong className="text-ink">2. Mobilité</strong> : 2 à 3 mouvements sur les amplitudes que
-                les zones demandent.
+                <strong className="text-ink">2. Activation</strong> : deux à quatre exercices légers sur les
+                stabilisateurs (pompes scapulaires, rotation externe, face pull, glute bridge, dead bug…), sans fatigue.
               </li>
               <li>
-                <strong className="text-ink">3. Activation et répétition du geste</strong> : 1 à 3 exercices
-                légers sur les stabilisateurs, puis le geste de la séance au poids du corps (pompes lentes,
-                squats, charnière de hanche, tractions scapulaires).
-              </li>
-              <li>
-                <strong className="text-ink">4. Séries d&apos;approche</strong> : dans le calculateur, sur ton
-                premier exercice lourd, à partir de ta charge du jour.
+                <strong className="text-ink">3. Séries d&apos;approche</strong> : dans le calculateur, sur ton
+                premier exercice, à partir de ta charge du jour. C&apos;est là que le corps monte vraiment en température.
               </li>
             </ol>
             <p>
-              Le plan affiche sa durée réelle, transitions comprises : 3 à 4 minutes en version courte,
-              5 à 8 minutes en version complète selon les zones, puis quelques minutes de séries
-              d&apos;approche selon la charge.
+              Le plan affiche sa durée réelle, transitions comprises : 2 à 7 minutes selon la séance,
+              puis quelques minutes de séries d&apos;approche selon la charge.
             </p>
           </div>
         </section>

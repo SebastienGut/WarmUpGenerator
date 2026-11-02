@@ -71,7 +71,7 @@ export default function WarmupHubPage() {
         },
         {
           q: "Combien de temps doit durer un échauffement musculation ?",
-          a: "Pour la plupart des séances, 5 à 8 minutes suffisent avant les séries de chauffe spécifiques. L'objectif est d'élever la température, mobiliser les articulations utiles et activer les muscles ciblés sans fatiguer avant le travail principal.",
+          a: "Pour la plupart des séances, 4 à 7 minutes de préparation suffisent avant les séries d'approche : mobiliser les articulations utiles et activer les muscles qui les stabilisent, sans fatiguer avant le travail principal.",
         },
         {
           q: "Ces plans remplacent-ils les séries de chauffe avec barre ?",

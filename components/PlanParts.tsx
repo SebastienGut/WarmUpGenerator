@@ -6,6 +6,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
+import { EQUIPMENT_LABELS, type Equipment } from "@/lib/bank";
 import type { PlanPhase, PlanStep, RampStep } from "@/lib/session-engine";
 
 export function phaseSeconds(phase: PlanPhase) {
@@ -116,7 +117,7 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
               {step.kind === "prep" && (
                 <p className="mt-2 text-[12px] text-subtle">
                   {step.reason}
-                  {step.substituted ? " Version sans élastique." : ""}
+                  {step.replaces ? ` Remplace : ${step.replaces}, sans équivalent avec ton matériel.` : ""}
                 </p>
               )}
             </div>
@@ -138,6 +139,26 @@ export function Chip({ children, onClick, tone = "default" }: { children: React.
     <button type="button" onClick={onClick} className={`shrink-0 rounded-full border px-3.5 py-2 text-[13px] font-semibold transition-colors ${cls}`}>
       {children}
     </button>
+  );
+}
+
+/** Matériel disponible : trois choix exclusifs, le moteur prend la variante correspondante. */
+export function EquipmentPicker({ value, onChange }: { value: Equipment; onChange: (v: Equipment) => void }) {
+  return (
+    <div role="radiogroup" aria-label="Matériel disponible" className="grid grid-cols-3 gap-1 rounded-full bg-ink/[0.07] p-1">
+      {(Object.keys(EQUIPMENT_LABELS) as Equipment[]).map((eq) => (
+        <button
+          key={eq}
+          type="button"
+          role="radio"
+          aria-checked={value === eq}
+          onClick={() => onChange(eq)}
+          className={`rounded-full px-2 py-2 text-[13px] font-semibold transition-colors ${value === eq ? "bg-ink text-paper" : "text-subtle hover:text-ink"}`}
+        >
+          {EQUIPMENT_LABELS[eq]}
+        </button>
+      ))}
+    </div>
   );
 }
 

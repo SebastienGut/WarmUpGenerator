@@ -14,7 +14,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export default function LandingPage({ landing }: { landing: Landing }) {
   const path = `/echauffement/${landing.slug}`;
   // Plan de référence (variante 0) pour les données structurées.
-  const plan = buildSessionPlan({ zones: landing.zones, lifts: [], pain: [], band: !!landing.band, short: false });
+  const plan = buildSessionPlan({ zones: landing.zones, template: landing.template, lifts: [], pain: [], band: false, equipment: landing.equipment ?? "gym", short: false });
   const prep = plan.phases.flatMap((p) => p.steps).filter((s): s is PrepStep => s.kind === "prep");
 
   const jsonLd = [
@@ -92,7 +92,7 @@ export default function LandingPage({ landing }: { landing: Landing }) {
           </section>
           <p className="order-3 mt-6 self-start lg:mt-4 text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
           <div className="order-2 mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
-            <InlinePlan zones={landing.zones} defaultBand={!!landing.band} />
+            <InlinePlan zones={landing.zones} template={landing.template} fixedEquipment={landing.equipment} />
           </div>
         </div>
 

@@ -46,47 +46,47 @@ const DOULEUR_LINKS: { href: string; label: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Pourquoi s'échauffer avant une séance de musculation ?",
-    a: "Un échauffement musculation augmente la température corporelle, lubrifie les articulations, active le système nerveux et prépare les muscles à des charges lourdes. Résultat : moins de blessures, plus de force disponible et une meilleure connexion neuro-musculaire dès la première série de travail.",
+    a: "L'échauffement élève la température des muscles, mobilise les articulations que la séance va solliciter et prépare le système nerveux. Les études montrent surtout un gain de performance sur les premières séries ; un échauffement structuré est aussi associé à moins de blessures dans plusieurs sports, sans que cela soit une garantie.",
   },
   {
     q: "Combien de temps doit durer un échauffement ?",
-    a: "Cinq à huit minutes suffisent pour la majorité des séances. Compte 2 à 3 minutes de mobilisation articulaire générale, puis 2 à 5 minutes d'activation musculaire ciblée sur les muscles que tu vas travailler. Au-delà de 10 minutes, tu fatigues sans bénéfice supplémentaire.",
+    a: "Pour la plupart des séances, 5 à 10 minutes suffisent : quelques minutes de mise en route, puis de la mobilité et de l'activation ciblées sur les muscles du jour. Le plan affiche sa durée réelle, transitions comprises. Viennent ensuite les séries d'approche sur ton premier exercice lourd.",
   },
   {
     q: "Faut-il s'étirer avant la musculation ?",
-    a: "Non, pas en statique. Les étirements statiques avant l'effort réduisent la force et la puissance de 5 à 10 % pendant 30 à 60 minutes. Privilégie la mobilité dynamique (cercles d'épaules, fentes marchées, swings de hanches) et l'activation musculaire. Garde les étirements statiques pour la fin de séance ou les jours de repos.",
+    a: "Les étirements statiques longs (plus de 60 secondes par muscle) juste avant l'effort peuvent réduire un peu la force et la puissance ; des étirements courts ont un effet négligeable. On privilégie donc la mobilité dynamique et l'activation avant la séance, et on garde les étirements tenus pour après ou pour un autre moment.",
   },
   {
     q: "Cet échauffement remplace-t-il les séries de chauffe avec barre ?",
-    a: "Non. L'échauffement général prépare le corps. Sur les exercices polyarticulaires lourds (squat, développé couché, soulevé de terre), ajoute toujours 2 à 5 séries d'approche à charge croissante avant tes séries de travail : le calculateur de séries d'approche du site te donne les charges exactes.",
+    a: "Non. L'échauffement prépare les zones que tu vas travailler ; les séries d'approche préparent le geste et la charge. Sur un exercice lourd (squat, développé couché, soulevé de terre), fais ensuite quelques séries à charge croissante : le calculateur de séries d'approche donne les charges et les disques.",
   },
   {
     q: "L'application est-elle vraiment gratuite ?",
-    a: "Oui — 100 % gratuite, sans inscription, sans publicité, sans email demandé. Le générateur tourne entièrement dans ton navigateur, fonctionne hors ligne après la première visite, et ne collecte aucune donnée personnelle.",
+    a: "Oui : gratuite, sans inscription, sans publicité, sans email demandé. Elle tourne dans ton navigateur, fonctionne hors ligne après la première visite, et la seule mesure d'audience (GoatCounter) ne dépose aucun cookie.",
   },
   {
     q: "Quelle différence entre un échauffement pour la force et pour l'hypertrophie ?",
-    a: "Pour la force (charges maximales), l'activation neuro-musculaire est prioritaire : il faut que le système nerveux soit prêt à recruter un maximum d'unités motrices dès la première série. Pour l'hypertrophie, la connexion mind-muscle prime — tu dois sentir le muscle travailler. Le générateur en tient compte à travers tes répétitions de travail : plus elles sont basses, plus la montée en charge est longue et ses répétitions courtes.",
+    a: "La préparation des zones est la même. Ce qui change, c'est la montée en charge : avant des séries lourdes et courtes, elle compte plus de paliers et des répétitions plus courtes. C'est ce que calcule le calculateur de séries d'approche à partir de tes répétitions de travail.",
   },
   {
     q: "Peut-on s'échauffer avec une douleur à l'épaule ou au genou ?",
-    a: "Oui, à condition d'adapter le protocole. Un échauffement spécifique « zone sensible » utilise des mouvements thérapeutiques à faible charge qui préparent l'articulation fragilisée sans l'aggraver. Le générateur intègre cette logique : indique la zone qui coince, il exclut les exercices contre-indiqués, ajoute une préparation dédiée et te rappelle le seuil de douleur à ne pas dépasser pendant les séries d'approche.",
+    a: "Une gêne légère et connue peut se préparer en douceur : indique la zone qui coince, le plan évite les exercices qui la sollicitent fortement et rappelle de garder la gêne faible (sous 3 sur 10). Ce n'est ni un diagnostic ni un soin : une douleur vive, qui augmente ou qui dure demande l'avis d'un kiné ou d'un médecin.",
   },
   {
     q: "Peut-on s'échauffer efficacement en 3 minutes ?",
-    a: "En 3 minutes, on peut faire un échauffement minimal suffisant pour une séance légère ou de reprise. Pour des charges lourdes (squat lourd, développé couché à 80 %+), 5 à 8 minutes sont nécessaires. La version courte du générateur supprime le cardio et ne garde que l'essentiel : deux mobilités, une activation et tes séries d'approche.",
+    a: "Pour une séance légère, un échauffement très court vaut mieux que rien. Avant des charges lourdes, garde la version complète puis tes séries d'approche. La version courte du plan retire la mise en route et ne garde que l'essentiel de la mobilité et de l'activation.",
   },
   {
     q: "Quel échauffement avant les squats ?",
-    a: "Le squat sollicite chevilles, genoux, hanches, lombaires et thoracique simultanément. L'échauffement idéal comprend : rotations de cheville, mobilité thoracique en rotation, hip circles, fentes marchées et activation des fessiers. Choisis « Squat » dans le générateur : il sélectionne la mobilité de cheville et de hanche, active les fessiers et calcule ta montée en charge jusqu'à ta charge de travail.",
+    a: "Le squat demande de la mobilité de cheville et de hanche, un buste solide et des fessiers actifs. Choisis « Jambes » ou « Bas du corps » : le plan cible chevilles, hanches et fessiers. Puis fais tes séries d'approche au squat avec le calculateur.",
   },
   {
-    q: "Faut-il faire du cardio avant de faire de la musculation ?",
-    a: "Non, ce n'est pas nécessaire ni optimal. Un cardio prolongé (10-15 min de tapis) avant la musculation fatigue le système énergétique et peut réduire ta force disponible. Un échauffement spécifique articulaire + activation musculaire est bien plus efficace pour préparer une séance de force ou d'hypertrophie.",
+    q: "Faut-il faire du cardio avant la musculation ?",
+    a: "Quelques minutes de cardio léger, oui : c'est la mise en route de nos plans, pour élever la température. Un long cardio intense (15 minutes ou plus) juste avant n'apporte rien de plus et peut entamer ta force disponible.",
   },
   {
     q: "Le générateur fonctionne-t-il hors connexion en salle ?",
-    a: "Oui. Après la première visite, l'application est mise en cache et fonctionne sans réseau. Tu peux construire ton échauffement et le suivre étape par étape même en sous-sol sans Wi-Fi. Aucune donnée n'est envoyée à un serveur — tout tourne localement dans ton navigateur.",
+    a: "Oui. Après la première visite, l'outil est mis en cache et fonctionne sans réseau : tu peux générer ton échauffement et le suivre étape par étape même sans Wi-Fi. Tout est calculé sur ton téléphone.",
   },
 ];
 

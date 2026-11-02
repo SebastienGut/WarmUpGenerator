@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
 import Plates from "@/components/Plates";
@@ -90,6 +91,8 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
   const [remaining, setRemaining] = useState<number | null>(null);
   const [duration, setDuration] = useState(1);
   const [resting, setResting] = useState(false);
+  // Étapes passées sans les faire (cardio déjà fait…) : la fin dit ce qui a vraiment été fait.
+  const [skipped, setSkipped] = useState<number[]>([]);
   const item = items[index];
   const done = index >= items.length;
 
@@ -137,6 +140,8 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
     startTimer(rest);
   };
   const next = items[index + 1];
+  const isRamp = items.some((it) => it.type === "set");
+  const doneCount = items.length - skipped.length;
   // Un disque par exercice : la barre se charge au fil de l'échauffement.
   const oneItemPerStep = items.length === plan.phases.reduce((n, p) => n + p.steps.length, 0);
   const key = done ? "done" : resting ? `rest${index}` : `i${index}`;
@@ -179,8 +184,18 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
           >
             {done ? (
               <div className="flex flex-col gap-4">
-                <p className="font-display text-[52px] font-extrabold leading-[0.92] tracking-tight text-ink">Barre chargée.</p>
-                <p className="text-[16px] text-muted">Tu es échauffé : ta prochaine série est ta première série de travail.</p>
+                <p className="font-display text-[46px] font-extrabold leading-[0.95] tracking-tight text-ink">
+                  {isRamp ? "Montée terminée." : "Échauffement terminé."}
+                </p>
+                <p className="text-[16px] text-muted tabular">
+                  {doneCount} {isRamp ? "séries" : "exercices"} sur {items.length}
+                  {skipped.length > 0 ? `, ${skipped.length} passé${skipped.length > 1 ? "s" : ""}` : ""}.
+                </p>
+                <p className="text-[16px] text-muted">
+                  {isRamp
+                    ? "Place à ta première série de travail."
+                    : "Avant ta première série lourde, fais quelques séries d'approche sur ton premier exercice."}
+                </p>
               </div>
             ) : resting ? (
               <div className="flex flex-col items-center gap-6">
@@ -239,14 +254,28 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
 
       <div className="mx-auto flex w-full max-w-[560px] gap-3 px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-4">
         {done ? (
-          <button type="button" onClick={onClose} className={primary}>
-            Retour au plan
-          </button>
+          <>
+            {!isRamp && (
+              <Link href="/series-approche" className={`${secondary} flex items-center`}>
+                Séries d&apos;approche
+              </Link>
+            )}
+            <button type="button" onClick={onClose} className={primary}>
+              Retour au plan
+            </button>
+          </>
         ) : (
           <>
             {item.type === "do" && item.countdown && remaining === null ? (
               // Étape chronométrée pas encore lancée : on peut la sauter (cardio déjà fait).
-              <button type="button" onClick={() => go(1)} className={secondary}>
+              <button
+                type="button"
+                onClick={() => {
+                  setSkipped((sk) => (sk.includes(index) ? sk : [...sk, index]));
+                  go(1);
+                }}
+                className={secondary}
+              >
                 Passer
               </button>
             ) : (

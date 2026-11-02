@@ -25,16 +25,16 @@
 ---
 
 ## Lot 0 — Bugs et incohérences (rapide, à faire en premier)
-- [ ] **Séances récentes** : la déduplication se fait sur le paramètre `s` (exercices) ; les
+- [x] **Séances récentes** : la déduplication se fait sur le paramètre `s` (exercices) ; les
       routines par zones (`z`) ont toutes `s` vide → chaque routine écrase la précédente
       (`lib/saved-sessions.ts`). Dédupliquer sur la combinaison réelle (zones + options).
-- [ ] **Variante du jour automatique** (`dayVariant` dans SessionBuilder) : empêche de retrouver
+- [x] **Variante du jour automatique** (`dayVariant` dans SessionBuilder) : empêche de retrouver
       la même routine. Routine stable par défaut ; la variation reste un choix (↻ Varier).
-- [ ] **Message de fin** « Barre chargée / première série de travail » faux après un simple
+- [x] **Message de fin** « Barre chargée / première série de travail » faux après un simple
       échauffement : adapter au contenu réalisé (et proposer les séries d'approche).
-- [ ] **Durée estimée** : ajouter les transitions entre exercices (changement de position,
+- [x] **Durée estimée** : ajouter les transitions entre exercices (changement de position,
       prise de matériel), arrondir honnêtement.
-- [ ] **FAQ et textes** : traquer les contradictions avec les capacités réelles du générateur
+- [x] **FAQ et textes** : traquer les contradictions avec les capacités réelles du générateur
       et les affirmations trop absolues (douleurs, prévention des blessures, étirements, durées).
 - Vérif : tests de comportement (pas des tests qui recopient l'implémentation).
 
@@ -110,6 +110,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Ne pas affirmer de meilleure rétention sans données.
 
 ## Journal
+- 2 nov. 2026 : lot 0 fait (branche bloc/produit-v1). Séances récentes dédupliquées par composition ; routine stable, la séance déjà faite se rouvre avec ses réglages ; fin de mode guidé adaptée (échauffement ou montée, exercices passés comptés) ; durée avec transitions (10 s, +15 s au changement de matériel) ; durées des landings et de la version courte calculées par le moteur ({min}, {court}) ; FAQ de l'accueil réécrites (cardio, étirements, douleurs, squat). Constats pour le lot 1 : version courte à 2 min, plan « bras » à 3 exercices, durées de 3 à 8 min selon les zones.
 - 2 nov. 2026 : 3D retirée à 100 % (code, animations, scripts, brief).
 - 2 nov. 2026 : plan créé à partir du verdict de Seb et de l'audit ChatGPT. Anomalies du lot 0
   vérifiées dans le code : séances récentes (confirmé), durée sans transitions (confirmé),

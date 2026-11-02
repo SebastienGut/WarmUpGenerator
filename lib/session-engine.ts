@@ -396,9 +396,15 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
     });
   }
 
-  const prepSeconds = phases
-    .flatMap((p) => p.steps)
-    .reduce((s, st) => s + (st.kind === "ramp" ? 0 : st.seconds), 0);
+  const prepSteps = phases.flatMap((p) => p.steps).filter((st) => st.kind !== "ramp");
+  // Durée honnête : le temps des exercices, plus ~10 s pour enchaîner chaque
+  // exercice et 15 s de plus quand il faut prendre ou poser du matériel.
+  const equipmentOf = (st: (typeof prepSteps)[number]) => (st.kind === "prep" ? st.exercise.equipment : "aucun");
+  const transitions = prepSteps.reduce(
+    (s, st, i) => (i === 0 ? s : s + 10 + (equipmentOf(st) !== equipmentOf(prepSteps[i - 1]) ? 15 : 0)),
+    0,
+  );
+  const prepSeconds = prepSteps.reduce((s, st) => s + st.seconds, 0) + transitions;
 
   const warnings: PlanWarning[] = input.pain.flatMap((zone) => {
     const stressing = refLifts.filter((l) => l.stress.includes(zone));

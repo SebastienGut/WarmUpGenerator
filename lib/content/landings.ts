@@ -2,6 +2,7 @@
 // réellement tapée (suggestions Google, octobre 2026) et place l'outil, prêt à
 // l'emploi, au-dessus de l'explication.
 
+import { buildSessionPlan } from "@/lib/session-engine";
 import type { MuscleGroup } from "@/lib/warmup-data";
 
 export interface Landing {
@@ -26,25 +27,25 @@ export interface Landing {
 
 const ETIREMENTS = {
   q: "Faut-il s'étirer avant la musculation ?",
-  a: "Pas en étirement statique long. Tenir une position d'étirement 30 secondes ou plus juste avant l'effort peut réduire temporairement la force. Avant la séance, on privilégie la mobilité dynamique (des mouvements contrôlés dans toute l'amplitude) et l'activation ; les étirements longs se font après la séance ou un autre jour.",
+  a: "Pas en étirement statique long. Tenir un étirement plus de 60 secondes juste avant l'effort peut réduire un peu la force ; des étirements courts ont un effet négligeable. Avant la séance, on privilégie la mobilité dynamique (des mouvements contrôlés dans toute l'amplitude) et l'activation ; les étirements longs se font après la séance ou un autre jour.",
 };
 const DUREE = {
   q: "Combien de temps doit durer l'échauffement ?",
   a: "Cinq à dix minutes suffisent avant une séance de musculation : deux minutes pour faire monter la température, puis quelques mouvements de mobilité et d'activation ciblés. Avant un exercice lourd, ajoute ensuite des séries d'approche sur l'exercice lui-même, en montant progressivement la charge.",
 };
 
-export const LANDINGS: Record<string, Landing> = {
+const RAW: Record<string, Landing> = {
   "haut-du-corps": {
     slug: "haut-du-corps",
     zones: ["pecs", "dos", "epaules"],
     cover: "developpe-militaire",
-    metaTitle: "Échauffement haut du corps (muscu) : la routine en 6 min",
+    metaTitle: "Échauffement haut du corps (muscu) : la routine en {min} min",
     metaDescription:
-      "L'échauffement haut du corps prêt à suivre : épaules, haut du dos et omoplates en 6 minutes, avec ou sans élastique. Animations et mode guidé, gratuit.",
+      "L'échauffement haut du corps prêt à suivre : épaules, haut du dos et omoplates en {min} minutes, avec ou sans élastique. Animations et mode guidé, gratuit.",
     h1: "Échauffement haut du corps",
-    kicker: "Pecs, dos, épaules, 6 minutes",
+    kicker: "Pecs, dos, épaules, {min} minutes",
     keyAnswer:
-      "Un bon échauffement du haut du corps en musculation dure environ six minutes : deux minutes de cardio léger, puis de la mobilité pour les épaules et le haut du dos (glissés au mur, rotation thoracique), et enfin l'activation des omoplates et de la coiffe des rotateurs, qui stabilisent l'épaule pendant les développés et les tirages.",
+      "Un bon échauffement du haut du corps en musculation dure environ {min} minutes : deux minutes de cardio léger, puis de la mobilité pour les épaules et le haut du dos (glissés au mur, rotation thoracique), et enfin l'activation des omoplates et de la coiffe des rotateurs, qui stabilisent l'épaule pendant les développés et les tirages.",
     needs: [
       { title: "Des épaules qui montent librement", body: "Développés et tirages verticaux demandent de passer les bras au-dessus de la tête sans cambrer le bas du dos." },
       { title: "Un haut du dos mobile", body: "La rotation et l'extension du haut du dos donnent de la place à l'épaule ; un dos raide, c'est l'épaule qui compense." },
@@ -69,13 +70,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "bas-du-corps",
     zones: ["jambes", "fessiers", "core"],
     cover: "souleve-de-terre",
-    metaTitle: "Échauffement bas du corps (muscu) : la routine en 6 min",
+    metaTitle: "Échauffement bas du corps (muscu) : la routine en {min} min",
     metaDescription:
-      "L'échauffement bas du corps prêt à suivre : chevilles, hanches, fessiers et gainage en 6 minutes avant squat ou soulevé de terre. Animations et mode guidé.",
+      "L'échauffement bas du corps prêt à suivre : chevilles, hanches, fessiers et gainage en {min} minutes avant squat ou soulevé de terre. Animations et mode guidé.",
     h1: "Échauffement bas du corps",
-    kicker: "Jambes, fessiers, gainage, 6 minutes",
+    kicker: "Jambes, fessiers, gainage, {min} minutes",
     keyAnswer:
-      "Un échauffement du bas du corps en musculation dure environ six minutes : deux minutes de cardio léger, de la mobilité de cheville et de hanche (squat profond, charnière de hanche, squat cosaque), puis l'activation des fessiers et du gainage, qui protègent les genoux et le bas du dos pendant le squat et le soulevé de terre.",
+      "Un échauffement du bas du corps en musculation dure environ {min} minutes : deux minutes de cardio léger, de la mobilité de cheville et de hanche (squat profond, charnière de hanche, squat cosaque), puis l'activation des fessiers et du gainage, qui protègent les genoux et le bas du dos pendant le squat et le soulevé de terre.",
     needs: [
       { title: "Des chevilles qui laissent passer le genou", body: "Une cheville raide oblige à pencher le buste ou à décoller les talons au squat." },
       { title: "Des hanches mobiles dans tous les sens", body: "Flexion profonde pour le squat, charnière pour le soulevé de terre, rotation pour garder les genoux dans l'axe." },
@@ -84,7 +85,7 @@ export const LANDINGS: Record<string, Landing> = {
     section: {
       title: "Avant le squat ou le soulevé de terre",
       paragraphs: [
-        "L'échauffement prépare la zone ; la montée en charge prépare le geste. Après ces six minutes, fais tes séries d'approche sur ton premier exercice : la barre seule, puis trois à cinq paliers jusqu'à ta charge de travail.",
+        "L'échauffement prépare la zone ; la montée en charge prépare le geste. Après ces {min} minutes, fais tes séries d'approche sur ton premier exercice : la barre seule, puis trois à cinq paliers jusqu'à ta charge de travail.",
       ],
     },
     faqs: [
@@ -99,13 +100,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "full-body",
     zones: ["pecs", "dos", "jambes", "fessiers"],
     cover: "kettlebell-swing",
-    metaTitle: "Échauffement full body : la routine complète en 6 min",
+    metaTitle: "Échauffement full body : la routine complète en {min} min",
     metaDescription:
-      "L'échauffement full body prêt à suivre : épaules, hanches, chevilles, fessiers en 6 minutes avant une séance complète. Version courte 4 min, mode guidé.",
+      "L'échauffement full body prêt à suivre : épaules, hanches, chevilles, fessiers en {min} minutes avant une séance complète. Version courte {court} min, mode guidé.",
     h1: "Échauffement full body",
-    kicker: "Tout le corps, 6 minutes",
+    kicker: "Tout le corps, {min} minutes",
     keyAnswer:
-      "Un échauffement full body efficace dure cinq à six minutes : deux minutes de cardio léger, trois mouvements de mobilité qui couvrent à la fois hanches, chevilles et épaules, puis trois exercices d'activation pour les fessiers, le gainage et les omoplates. Il prépare une séance complète sans fatiguer avant les séries de travail.",
+      "Un échauffement full body efficace dure {min} minutes : deux minutes de cardio léger, trois mouvements de mobilité qui couvrent à la fois hanches, chevilles et épaules, puis trois exercices d'activation pour les fessiers, le gainage et les omoplates. Il prépare une séance complète sans fatiguer avant les séries de travail.",
     needs: [
       { title: "Peu d'exercices, mais qui couvrent large", body: "Les meilleurs mouvements full body travaillent plusieurs articulations à la fois, comme le squat profond ou la marche en chenille." },
       { title: "Le haut et le bas préparés", body: "Épaules et haut du dos pour les poussées et tirages, hanches et chevilles pour les squats et les charnières." },
@@ -113,7 +114,7 @@ export const LANDINGS: Record<string, Landing> = {
     ],
     faqs: [
       { q: "Comment s'échauffer avant une séance full body ?", a: "Deux minutes de cardio léger, puis des mouvements qui préparent plusieurs zones à la fois : squat profond, glissés au mur, charnière de hanche, et l'activation des fessiers et des omoplates. Le générateur construit cette routine en un tap et la varie d'une séance à l'autre." },
-      { q: "Existe-t-il un échauffement full body en 5 minutes ?", a: "Oui : active « Version courte » au-dessus. Elle retire le cardio et garde l'essentiel, deux mouvements de mobilité et une activation, pour environ quatre minutes." },
+      { q: "Existe-t-il un échauffement full body en 5 minutes ?", a: "Oui : active « Version courte » au-dessus. Elle retire le cardio et garde l'essentiel, deux mouvements de mobilité et une activation, pour environ {court} minutes." },
       DUREE,
       ETIREMENTS,
     ],
@@ -123,13 +124,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "push",
     zones: ["pecs", "epaules", "bras"],
     cover: "developpe-couche",
-    metaTitle: "Échauffement push day : pecs, épaules, triceps en 6 min",
+    metaTitle: "Échauffement push day : pecs, épaules, triceps en {min} min",
     metaDescription:
-      "L'échauffement push day prêt à suivre avant développé couché et développé militaire : épaules, omoplates, coudes en 6 minutes. Animations, mode guidé.",
+      "L'échauffement push day prêt à suivre avant développé couché et développé militaire : épaules, omoplates, coudes en {min} minutes. Animations, mode guidé.",
     h1: "Échauffement push day",
-    kicker: "Pecs, épaules, triceps, 6 minutes",
+    kicker: "Pecs, épaules, triceps, {min} minutes",
     keyAnswer:
-      "Avant une séance push (développé couché, développé militaire, dips), l'échauffement doit préparer l'épaule avant tout : mobilité du haut du dos et des bras au-dessus de la tête, puis activation de la coiffe des rotateurs et des omoplates, qui stabilisent l'épaule sous la barre. Comptez six minutes, cardio léger compris.",
+      "Avant une séance push (développé couché, développé militaire, dips), l'échauffement doit préparer l'épaule avant tout : mobilité du haut du dos et des bras au-dessus de la tête, puis activation de la coiffe des rotateurs et des omoplates, qui stabilisent l'épaule sous la barre. Comptez {min} minutes, cardio léger compris.",
     needs: [
       { title: "Une épaule stable sous la charge", body: "La coiffe des rotateurs et les muscles des omoplates gardent l'épaule centrée pendant les développés." },
       { title: "Un haut du dos qui s'ouvre", body: "Une bonne extension thoracique permet de garder les omoplates serrées sur le banc et de pousser au-dessus de la tête sans cambrer." },
@@ -147,13 +148,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "pull",
     zones: ["dos", "bras"],
     cover: "tractions",
-    metaTitle: "Échauffement pull day : dos et biceps en 6 min",
+    metaTitle: "Échauffement pull day : dos et biceps en {min} min",
     metaDescription:
-      "L'échauffement pull day prêt à suivre avant tractions et rowing : omoplates, haut du dos, coudes en 6 minutes. Pictogrammes animés et mode guidé.",
+      "L'échauffement pull day prêt à suivre avant tractions et rowing : omoplates, haut du dos, coudes en {min} minutes. Pictogrammes animés et mode guidé.",
     h1: "Échauffement pull day",
-    kicker: "Dos, biceps, 6 minutes",
+    kicker: "Dos, biceps, {min} minutes",
     keyAnswer:
-      "Avant une séance pull (tractions, rowing, tirages), l'échauffement doit apprendre au dos à démarrer par les omoplates : mobilité des épaules au-dessus de la tête, puis tractions scapulaires ou serrage des omoplates, et quelques répétitions légères pour les coudes. Comptez environ six minutes, cardio léger compris.",
+      "Avant une séance pull (tractions, rowing, tirages), l'échauffement doit apprendre au dos à démarrer par les omoplates : mobilité des épaules au-dessus de la tête, puis tractions scapulaires ou serrage des omoplates, et quelques répétitions légères pour les coudes. Comptez environ {min} minutes, cardio léger compris.",
     needs: [
       { title: "Des omoplates qui démarrent le mouvement", body: "Une traction ou un rowing commence par abaisser et rapprocher les omoplates, avant de plier les coudes." },
       { title: "Des épaules libres au-dessus de la tête", body: "Les tractions et tirages verticaux partent bras tendus au-dessus de la tête." },
@@ -171,13 +172,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "sans-materiel",
     zones: ["pecs", "dos", "jambes", "fessiers"],
     cover: "art-squat-profond-rebond",
-    metaTitle: "Échauffement musculation sans matériel : 6 min, tout le corps",
+    metaTitle: "Échauffement musculation sans matériel : {min} min, tout le corps",
     metaDescription:
-      "Un échauffement musculation sans aucun matériel, au poids du corps : mobilité et activation de tout le corps en 6 minutes. Animations, mode guidé, gratuit.",
+      "Un échauffement musculation sans aucun matériel, au poids du corps : mobilité et activation de tout le corps en {min} minutes. Animations, mode guidé, gratuit.",
     h1: "Échauffement musculation sans matériel",
-    kicker: "Poids du corps, tout le corps, 6 minutes",
+    kicker: "Poids du corps, tout le corps, {min} minutes",
     keyAnswer:
-      "Un échauffement musculation sans matériel se fait entièrement au poids du corps : deux minutes de cardio sur place, des mouvements de mobilité comme le squat profond, la charnière de hanche et les glissés au mur, puis de l'activation comme le pont fessier ou les W allongé. Six minutes suffisent, à la salle comme à la maison.",
+      "Un échauffement musculation sans matériel se fait entièrement au poids du corps : deux minutes de cardio sur place, des mouvements de mobilité comme le squat profond, la charnière de hanche et les glissés au mur, puis de l'activation comme le pont fessier ou les W allongé. {min} minutes suffisent, à la salle comme à la maison.",
     needs: [
       { title: "Le poids du corps suffit", body: "La mobilité et l'activation n'ont pas besoin de charge : l'objectif est de préparer, pas de fatiguer." },
       { title: "Un mur et un bout de sol", body: "C'est tout ce qu'il faut pour les glissés au mur, les ponts et les exercices à quatre pattes." },
@@ -195,13 +196,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "pecs",
     zones: ["pecs"],
     cover: "developpe-couche",
-    metaTitle: "Échauffement pectoraux : la routine avant les pecs (6 min)",
+    metaTitle: "Échauffement pectoraux : la routine avant les pecs ({min} min)",
     metaDescription:
-      "L'échauffement pectoraux prêt à suivre avant développé couché ou incliné : épaules, omoplates, haut du dos en 6 minutes, avec ou sans élastique.",
+      "L'échauffement pectoraux prêt à suivre avant développé couché ou incliné : épaules, omoplates, haut du dos en {min} minutes, avec ou sans élastique.",
     h1: "Échauffement pectoraux",
     kicker: "Avant développé couché, incliné, écartés",
     keyAnswer:
-      "Avant une séance pectoraux, on échauffe surtout l'épaule : mobilité du haut du dos et de l'épaule (rotation thoracique, glissés au mur), puis activation des omoplates et de la coiffe des rotateurs pour stabiliser l'épaule sous la barre. Six minutes suffisent, avant les séries d'approche sur le développé couché.",
+      "Avant une séance pectoraux, on échauffe surtout l'épaule : mobilité du haut du dos et de l'épaule (rotation thoracique, glissés au mur), puis activation des omoplates et de la coiffe des rotateurs pour stabiliser l'épaule sous la barre. {min} minutes suffisent, avant les séries d'approche sur le développé couché.",
     needs: [
       { title: "L'épaule avant le muscle", body: "Les pecs se chauffent tout seuls pendant les premières séries ; l'épaule, elle, a besoin d'être préparée." },
       { title: "Des omoplates serrées et stables", body: "Sur le banc, les omoplates rapprochées protègent l'épaule et donnent une base solide." },
@@ -219,9 +220,9 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "dos",
     zones: ["dos"],
     cover: "rowing-barre",
-    metaTitle: "Échauffement dos (musculation) : la routine en 6 min",
+    metaTitle: "Échauffement dos (musculation) : la routine en {min} min",
     metaDescription:
-      "L'échauffement dos prêt à suivre avant tractions, rowing et tirages : omoplates, haut du dos, charnière de hanche en 6 minutes. Animations et mode guidé.",
+      "L'échauffement dos prêt à suivre avant tractions, rowing et tirages : omoplates, haut du dos, charnière de hanche en {min} minutes. Animations et mode guidé.",
     h1: "Échauffement dos",
     kicker: "Avant tractions, rowing, tirages",
     keyAnswer:
@@ -244,9 +245,9 @@ export const LANDINGS: Record<string, Landing> = {
     zones: ["epaules"],
     cover: "developpe-militaire",
     band: true,
-    metaTitle: "Échauffement épaules (élastique ou sans) : routine 6 min",
+    metaTitle: "Échauffement épaules (élastique ou sans) : routine {min} min",
     metaDescription:
-      "L'échauffement épaules prêt à suivre, avec élastique ou sans matériel : mobilité, coiffe des rotateurs et omoplates en 6 minutes. Animations et mode guidé.",
+      "L'échauffement épaules prêt à suivre, avec élastique ou sans matériel : mobilité, coiffe des rotateurs et omoplates en {min} minutes. Animations et mode guidé.",
     h1: "Échauffement épaules",
     kicker: "Avec élastique ou sans matériel",
     keyAnswer:
@@ -274,7 +275,7 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "bras",
     zones: ["bras"],
     cover: "curl-biceps",
-    metaTitle: "Échauffement bras : biceps, triceps, coudes en 5 min",
+    metaTitle: "Échauffement bras : biceps, triceps, coudes en {min} min",
     metaDescription:
       "L'échauffement bras prêt à suivre avant biceps et triceps : coudes, poignets et épaules en quelques minutes. Pictogrammes animés et mode guidé, gratuit.",
     h1: "Échauffement bras",
@@ -298,13 +299,13 @@ export const LANDINGS: Record<string, Landing> = {
     slug: "jambes",
     zones: ["jambes", "fessiers"],
     cover: "squat",
-    metaTitle: "Échauffement jambes (leg day) : la routine en 6 min",
+    metaTitle: "Échauffement jambes (leg day) : la routine en {min} min",
     metaDescription:
-      "L'échauffement jambes prêt à suivre avant squat, presse et fentes : chevilles, hanches, genoux, fessiers en 6 minutes. Pictogrammes animés et mode guidé.",
+      "L'échauffement jambes prêt à suivre avant squat, presse et fentes : chevilles, hanches, genoux, fessiers en {min} minutes. Pictogrammes animés et mode guidé.",
     h1: "Échauffement jambes",
     kicker: "Leg day, avant squat, presse, fentes",
     keyAnswer:
-      "Avant une séance jambes, l'échauffement prépare les chevilles, les hanches et les genoux : squat profond contrôlé, mobilité de cheville au mur et charnière de hanche, puis activation des fessiers et du gainage. Six minutes suffisent avant de passer aux séries d'approche sur le squat ou la presse.",
+      "Avant une séance jambes, l'échauffement prépare les chevilles, les hanches et les genoux : squat profond contrôlé, mobilité de cheville au mur et charnière de hanche, puis activation des fessiers et du gainage. {min} minutes suffisent avant de passer aux séries d'approche sur le squat ou la presse.",
     needs: [
       { title: "Des chevilles mobiles", body: "Au squat, le genou doit pouvoir avancer au-dessus du pied sans que le talon décolle." },
       { title: "Des hanches qui descendent", body: "La flexion profonde de hanche permet de squatter bas en gardant le dos neutre." },
@@ -324,7 +325,7 @@ export const LANDINGS: Record<string, Landing> = {
     cover: "hip-thrust",
     metaTitle: "Échauffement fessiers : activation avant hip thrust et squat",
     metaDescription:
-      "L'échauffement fessiers prêt à suivre : hanches et activation des fessiers en 6 minutes avant hip thrust, soulevé de terre roumain et fentes. Mode guidé.",
+      "L'échauffement fessiers prêt à suivre : hanches et activation des fessiers en {min} minutes avant hip thrust, soulevé de terre roumain et fentes. Mode guidé.",
     h1: "Échauffement fessiers",
     kicker: "Avant hip thrust, soulevé roumain, fentes",
     keyAnswer:
@@ -348,7 +349,7 @@ export const LANDINGS: Record<string, Landing> = {
     cover: "souleve-de-terre",
     metaTitle: "Échauffement gainage (core) avant squat et soulevé de terre",
     metaDescription:
-      "L'échauffement du gainage prêt à suivre avant squat et soulevé de terre : bas du dos, abdominaux profonds et hanches en 6 minutes. Mode guidé, gratuit.",
+      "L'échauffement du gainage prêt à suivre avant squat et soulevé de terre : bas du dos, abdominaux profonds et hanches en {min} minutes. Mode guidé, gratuit.",
     h1: "Échauffement gainage (core)",
     kicker: "Avant squat et soulevé de terre",
     keyAnswer:
@@ -367,5 +368,24 @@ export const LANDINGS: Record<string, Landing> = {
     related: ["bas-du-corps", "dos", "full-body"],
   },
 };
+
+/** Durée réelle du plan affiché sur la page (moteur, version complète). */
+export function landingMinutes(l: Pick<Landing, "zones" | "band">, short = false) {
+  return buildSessionPlan({ zones: l.zones, lifts: [], pain: [], band: !!l.band, short, variant: 0 }).minutes;
+}
+
+// Les textes écrivent « {min} » (version complète) et « {court} » (version
+// courte) : la durée annoncée est toujours celle du plan réellement affiché,
+// même quand le moteur évolue.
+function fill<T>(v: T, min: number, court: number): T {
+  if (typeof v === "string") return v.replaceAll("{min}", String(min)).replaceAll("{court}", String(court)) as T;
+  if (Array.isArray(v)) return v.map((x) => fill(x, min, court)) as T;
+  if (v && typeof v === "object") return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fill(x, min, court)])) as T;
+  return v;
+}
+
+export const LANDINGS: Record<string, Landing> = Object.fromEntries(
+  Object.entries(RAW).map(([slug, l]) => [slug, fill(l, landingMinutes(l), landingMinutes(l, true))]),
+);
 
 export const LANDING_SLUGS = Object.keys(LANDINGS);

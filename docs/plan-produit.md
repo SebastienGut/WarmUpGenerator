@@ -38,7 +38,7 @@
       et les affirmations trop absolues (douleurs, prévention des blessures, étirements, durées).
 - Vérif : tests de comportement (pas des tests qui recopient l'implémentation).
 
-## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur)
+## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur) — fait, en attente de validation
 Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement ce que je ferais ».
 1. **Audit de la base** (`lib/warmup-data.ts`, 80 exercices de préparation) : pour chacun,
    rôle (mise en route / mobilité / activation), zones, matériel, position (debout, sol,
@@ -110,6 +110,14 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Ne pas affirmer de meilleure rétention sans données.
 
 ## Journal
+- 2 nov. 2026 : lot 1. Nouveau moteur fondé sur des besoins de coach (lib/prep-catalog.ts : 26 besoins,
+  leur liste d'exercices et leur raison ; besoins par zone ; position de chaque exercice). Besoins
+  additionnés entre zones, besoin principal de chaque zone servi d'abord, couverture unique, bras et
+  gainage secondaires avec d'autres zones, biceps/triceps selon tirage/poussée, répétition du geste
+  au poids du corps, ordre debout → sol → debout. Contrôles : scripts/bench/engine-checks.ts
+  (5 080 routines, 0 écart). Résumés « En bref » des 13 landings réécrits selon les nouveaux plans,
+  /methodologie réécrite (principes, prouvé / choisi / à valider, sources corrigées).
+  Reste : validation de Seb (docs/decisions-a-prendre.md).
 - 2 nov. 2026 : lot 0 fait (branche bloc/produit-v1). Séances récentes dédupliquées par composition ; routine stable, la séance déjà faite se rouvre avec ses réglages ; fin de mode guidé adaptée (échauffement ou montée, exercices passés comptés) ; durée avec transitions (10 s, +15 s au changement de matériel) ; durées des landings et de la version courte calculées par le moteur ({min}, {court}) ; FAQ de l'accueil réécrites (cardio, étirements, douleurs, squat). Constats pour le lot 1 : version courte à 2 min, plan « bras » à 3 exercices, durées de 3 à 8 min selon les zones.
 - 2 nov. 2026 : 3D retirée à 100 % (code, animations, scripts, brief).
 - 2 nov. 2026 : plan créé à partir du verdict de Seb et de l'audit ChatGPT. Anomalies du lot 0

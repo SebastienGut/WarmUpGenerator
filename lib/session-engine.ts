@@ -1,21 +1,23 @@
-// Moteur d'échauffement par séance.
+// Moteur d'échauffement.
 //
-// Entrée : les exercices que la personne va faire aujourd'hui, dans l'ordre.
-// Sortie : un échauffement en quatre temps, inspiré du protocole RAMP
-// (Raise, Activate & Mobilise, Potentiate) :
-//   1. Mise en route   — 2 min de cardio léger (sauf version courte)
-//   2. Mobilité        — les articulations que CES exercices exigent
-//   3. Activation      — les stabilisateurs que CES exercices sollicitent
-//   4. Séries d'approche — montée en charge complète sur le 1er exercice,
-//                          rappel court sur les suivants
-//
-// Le choix des exercices de préparation est un glouton sur une carte
-// d'exigences (PrepFocus → poids) : chaque exercice retenu « consomme » une
-// part des exigences qu'il couvre, ce qui force la diversité sans règle ad hoc.
+// Entrée : les zones travaillées aujourd'hui (séance type ou choix libre), les
+// zones sensibles, le matériel. Sortie : un échauffement inspiré du protocole
+// RAMP (Raise, Activate & Mobilise, Potentiate) :
+//   1. Mise en route — 2 min de cardio léger (sauf version courte)
+//   2. Mobilité      — les amplitudes que les zones demandent
+//   3. Activation    — les stabilisateurs à réveiller, puis la répétition du
+//                      geste au poids du corps
+// La connaissance de coach (besoins de chaque zone, exercices qui y répondent,
+// raisons) est dans lib/prep-catalog.ts. Le moteur additionne les besoins des
+// zones (un besoin partagé passe devant), sert d'abord le besoin principal de
+// chaque zone, couvre chaque besoin une seule fois en préférant les exercices
+// qui en couvrent plusieurs, puis ordonne pour limiter les passages au sol.
+// Les séries d'approche sont un outil à part (buildRampPlan, /series-approche).
 
 import { exercises, type BodyZone, type Exercise, type MuscleGroup, type PrepFocus } from "@/lib/warmup-data";
 import { LIFTS_BY_ID, ZONE_LIFTS, ZONE_ORDER, zonesLabel, sessionLabel, type Lift, type LiftLoading } from "@/lib/lifts";
 import { computeApproachSets, formatKg, type ApproachExercise } from "@/lib/approach-sets";
+import { COVERS, NEEDS, NEEDS_BAR, PAIN_NEEDS, POSITION, ZONE_NEEDS, type Need, type NeedKey, type NeedPhase, type Position } from "@/lib/prep-catalog";
 
 export interface SessionInput {
   /** Zones à échauffer (cas principal : séance type ou choix libre). */
@@ -123,16 +125,6 @@ export const PAIN_LABELS: Record<BodyZone, string> = {
   chevilles: "Cheville",
 };
 
-const PAIN_FOCUS: Record<BodyZone, PrepFocus[]> = {
-  epaule: ["rotator-cuff", "scapula"],
-  coudes: ["elbow-tendon"],
-  poignets: ["wrist-forearm"],
-  "bas-du-dos": ["lumbar", "core"],
-  hanches: ["hip"],
-  genou: ["knee-control"],
-  chevilles: ["ankle"],
-};
-
 const PROTECTION_HREF: Partial<Record<BodyZone, string>> = {
   epaule: "/echauffement/protection/epaule-douleur",
   genou: "/echauffement/protection/genou",
@@ -149,78 +141,6 @@ const STATIC_STRETCH = /etire|capsule|genoux-poitrine/;
 // Variantes d'un même geste sans movementKey commun dans la base.
 const SAME_MOVEMENT: Record<string, string> = { "cib-epaule-yt-sol": "y-raise", "act-epaules-y-raise": "y-raise" };
 const movementOf = (ex: Exercise) => ex.movementKey ?? SAME_MOVEMENT[ex.id];
-
-const NEEDS_PATTERN: Record<string, string> = { "prep-tractions-scapulaires": "pull-v" };
-
-type Demand = Partial<Record<PrepFocus, number>>;
-
-/** Exigences d'un ensemble de zones : moyenne des exercices typiques de chaque
- * zone, sans en privilégier un (on ne sait pas ce que la personne fera). */
-function zonesDemand(zones: MuscleGroup[]): Demand {
-  const d: Demand = {};
-  for (const zone of zones) {
-    const lifts = ZONE_LIFTS[zone].map((id) => LIFTS_BY_ID[id]);
-    for (const lift of lifts) {
-      const isolation = lift.pattern.startsWith("iso") ? 0.5 : 1;
-      for (const [focus, w] of Object.entries(lift.demands) as [PrepFocus, number][]) {
-        d[focus] = (d[focus] ?? 0) + (w * isolation * 1.4) / lifts.length;
-      }
-    }
-  }
-  return d;
-}
-
-function sessionDemand(lifts: Lift[]): Demand {
-  const d: Demand = {};
-  lifts.forEach((lift, i) => {
-    const position = i === 0 ? 1 : i === 1 ? 0.7 : 0.5;
-    const isolation = lift.pattern.startsWith("iso") ? 0.5 : 1;
-    for (const [focus, w] of Object.entries(lift.demands) as [PrepFocus, number][]) {
-      d[focus] = (d[focus] ?? 0) + w * position * isolation;
-    }
-  });
-  return d;
-}
-
-// Qualités que chaque phase sait préparer. Le gainage ou les fessiers ne se
-// « mobilisent » pas ; la cheville ou les ischios ne s'« activent » pas avant
-// un squat — sans ce filtre, un exercice lombaire passait devant la cheville.
-const PHASE_FOCI: Record<"mobility" | "activation", Set<PrepFocus>> = {
-  mobility: new Set(["ankle", "hip", "thoracic", "hamstrings", "overhead", "lumbar", "wrist-forearm", "scapula", "knee-control"]),
-  activation: new Set(["rotator-cuff", "scapula", "glutes", "core", "knee-control", "lumbar", "elbow-tendon", "wrist-forearm", "overhead"]),
-};
-
-function coverageOf(ex: Exercise, d: Demand, phase: "mobility" | "activation") {
-  const foci = PHASE_FOCI[phase];
-  return (ex.prepFocus ?? []).reduce((s, f) => s + (foci.has(f) ? d[f] ?? 0 : 0), 0);
-}
-
-function scoreOf(ex: Exercise, d: Demand, phase: "mobility" | "activation", input: SessionInput) {
-  const coverage = coverageOf(ex, d, phase);
-  const value = 0.4 * ((ex.trainingValue ?? 3) - 3);
-  // Préférer ce qui se fait vraiment avec le matériel présent.
-  const substitution = ex.equipment === "elastique" && !input.band ? -1 : 0;
-  // Exercice conçu pour une zone déclarée douloureuse : prioritaire.
-  const therapeutic = ex.therapeutic && input.pain.includes(ex.therapeutic) ? 2 : 0;
-  return coverage + value + substitution + therapeutic;
-}
-
-function hasRole(ex: Exercise, phase: "mobility" | "activation") {
-  const roles = ex.prepRoles ?? [];
-  return phase === "mobility"
-    ? roles.includes("mobility")
-    : roles.some((r) => r === "activation" || r === "stability" || r === "core-bracing" || r === "posterior-chain");
-}
-
-function liftsDriving(ex: Exercise, lifts: Lift[]) {
-  const names = lifts
-    .map((l) => ({ l, s: (ex.prepFocus ?? []).reduce((acc, f) => acc + (l.demands[f] ?? 0), 0) }))
-    .filter((x) => x.s > 0)
-    .sort((a, b) => b.s - a.s)
-    .slice(0, 2)
-    .map((x) => x.l.name);
-  return names;
-}
 
 function toStep(ex: Exercise, input: SessionInput, reason: string): PrepStep {
   const substituted = ex.equipment === "elastique" && !input.band;
@@ -264,100 +184,177 @@ function fullRamp(lift: Lift, input: SessionInput, barWeight = 20): RampLine[] {
 }
 
 
-export function buildSessionPlan(input: SessionInput): SessionPlan {
-  const zones = (input.zones ?? []).filter((z) => z in ZONE_LIFTS);
-  const byZone = zones.length > 0;
-  const lifts = input.lifts.map((id) => LIFTS_BY_ID[id]).filter((l): l is Lift => Boolean(l));
-  // Exercices de référence : ceux de la séance, ou les typiques des zones.
-  const refLifts = byZone ? [...new Set(zones.flatMap((z) => ZONE_LIFTS[z]))].map((id) => LIFTS_BY_ID[id]) : lifts;
-  const demand = byZone ? zonesDemand(zones) : sessionDemand(lifts);
-  for (const zone of input.pain) {
-    for (const f of PAIN_FOCUS[zone]) demand[f] = (demand[f] ?? 0) + 2;
-  }
+const NEED_LABELS: Record<NeedKey, string> = {
+  thoracic: "haut du dos",
+  overhead: "épaules au-dessus de la tête",
+  "shoulder-open": "avant de l'épaule",
+  "shoulder-general": "épaules",
+  elbow: "coudes",
+  wrist: "poignets",
+  hip: "hanches",
+  ankle: "chevilles",
+  adductors: "adducteurs",
+  hamstrings: "arrière des cuisses",
+  lumbar: "bas du dos",
+  cuff: "coiffe des rotateurs",
+  "scap-lower": "bas des trapèzes",
+  "scap-retract": "omoplates",
+  "scap-protract": "dentelé",
+  "scap-depress": "omoplates",
+  biceps: "biceps",
+  triceps: "triceps",
+  knee: "quadriceps et genoux",
+  glutes: "fessiers",
+  "glute-med": "moyen fessier",
+  "core-front": "gainage",
+  "core-side": "gainage latéral",
+  "push-pattern": "poussée",
+  "squat-pattern": "squat",
+  "hinge-pattern": "charnière de hanche",
+  "pull-pattern": "tirage",
+};
 
+// Ordre des positions : la mobilité commence debout et descend au sol,
+// l'activation repart du sol pour finir debout — deux passages au sol au plus.
+const POS_RANK: Record<Position, number> = { debout: 0, barre: 1, appui: 2, quadrupedie: 3, sol: 4 };
+const posOf = (ex: Exercise): Position => POSITION[ex.id] ?? "debout";
+
+/** Besoins de la séance, du plus important au moins important. Un besoin
+ * partagé par plusieurs zones s'additionne : il passe devant. */
+function sessionNeeds(zones: MuscleGroup[], pain: BodyZone[]) {
+  // Bras ou gainage avec d'autres zones : les exercices composés les échauffent
+  // déjà, leurs besoins propres passent au second plan.
+  const secondary = (z: MuscleGroup) => (z === "bras" || z === "core") && zones.some((o) => o !== "bras" && o !== "core");
+  const w: Partial<Record<NeedKey, number>> = {};
+  const lead: NeedKey[] = [];
+  for (const z of zones) {
+    const entries = (Object.entries(ZONE_NEEDS[z]) as [NeedKey, number][])
+      // Avec une séance de tirage, le biceps travaille ; avec une poussée, le triceps.
+      .filter(([k]) => !secondary(z) || (k !== "biceps" || zones.includes("dos")) && (k !== "triceps" || zones.some((o) => o === "pecs" || o === "epaules")))
+      .map(([k, v]) => [k, secondary(z) ? v * 0.35 : v] as const);
+    for (const [k, v] of entries) w[k] = (w[k] ?? 0) + v;
+    // Le besoin principal de chaque zone est servi en premier : un full body
+    // prépare aussi le haut du corps, pas seulement les jambes.
+    if (!secondary(z)) {
+      const top = [...entries].filter(([k]) => NEEDS[k].phase === "activation").sort((x, y) => y[1] - x[1])[0];
+      if (top) lead.push(top[0]);
+    }
+  }
+  const painNeed = new Set<NeedKey>();
+  for (const z of pain) {
+    for (const k of PAIN_NEEDS[z]) {
+      w[k] = (w[k] ?? 0) + 4;
+      painNeed.add(k);
+    }
+  }
+  const phaseRank: Record<NeedPhase, number> = { mobility: 0, activation: 1, rehearsal: 2 };
+  const leadBoost = (k: NeedKey) => (lead.includes(k) ? 100 : 0);
+  return (Object.entries(w) as [NeedKey, number][])
+    .map(([key, weight]) => ({ key, weight, pain: painNeed.has(key) }))
+    .sort(
+      (x, y) =>
+        (y.pain ? 1000 : 0) + leadBoost(y.key) + y.weight - ((x.pain ? 1000 : 0) + leadBoost(x.key) + x.weight) ||
+        phaseRank[NEEDS[x.key].phase] - phaseRank[NEEDS[y.key].phase] ||
+        x.key.localeCompare(y.key),
+    );
+}
+
+/** Zones d'un exercice de séance (anciens liens « échauffement avant le squat »). */
+function zonesOfLifts(lifts: Lift[]): MuscleGroup[] {
+  return ZONE_ORDER.filter((z) => lifts.some((l) => ZONE_LIFTS[z].includes(l.id)));
+}
+
+export function buildSessionPlan(input: SessionInput): SessionPlan {
+  const lifts = input.lifts.map((id) => LIFTS_BY_ID[id]).filter((l): l is Lift => Boolean(l));
+  const chosenZones = (input.zones ?? []).filter((z) => z in ZONE_LIFTS);
+  const byZone = chosenZones.length > 0;
+  const zones = byZone ? chosenZones : zonesOfLifts(lifts);
+  const refLifts = byZone ? [...new Set(zones.flatMap((z) => ZONE_LIFTS[z]))].map((id) => LIFTS_BY_ID[id]) : lifts;
+  const needs = sessionNeeds(zones, input.pain);
+  const inPlan = new Set(needs.map((n) => n.key));
+  const weightOf = new Map(needs.map((n) => [n.key, n.weight]));
+
+  // Volume : assez pour préparer sans fatiguer. Plus de zones = un peu plus,
+  // jamais au-delà de sept exercices.
+  const main = zones.filter((z) => z !== "bras" && z !== "core").length || 1;
+  const caps: Record<"total" | NeedPhase, number> = input.short
+    ? { total: 4, mobility: 2, activation: 1, rehearsal: 1 }
+    : { total: main >= 2 ? 7 : 6, mobility: 3, activation: main >= 3 ? 3 : 3, rehearsal: main >= 3 ? 2 : 1 };
+
+  const byId = new Map(exercises.map((e) => [e.id, e]));
   const used = new Set<string>();
   const usedMovement = new Set<string>();
-  const eligible = (ex: Exercise, forPain?: BodyZone) => {
-    if (used.has(ex.id)) return false;
+  const covered = new Set<NeedKey>();
+  const chosen: { ex: Exercise; phase: NeedPhase; reason: string }[] = [];
+  const count = (phase: NeedPhase) => chosen.filter((c) => c.phase === phase).length;
+
+  const eligible = (ex: Exercise | undefined, forPain: boolean): ex is Exercise => {
+    if (!ex || used.has(ex.id)) return false;
     const movement = movementOf(ex);
     if (movement && usedMovement.has(movement)) return false;
     if (ex.contraindications.some((z) => input.pain.includes(z))) return false;
-    if (ex.equipment === "elastique" && !input.band && !ex.fallback) return false;
     if (ex.equipment === "haltere" || ex.equipment === "poulie") return false; // pas de matériel à aller chercher
-    const supportsDeclaredPain = (ex.painSupport ?? []).some((z) => input.pain.includes(z));
+    if (ex.equipment === "elastique" && !input.band && !ex.fallback) return false;
+    if (NEEDS_BAR.has(ex.id) && !zones.includes("dos")) return false;
     if (STATIC_STRETCH.test(ex.id) && !forPain) return false;
-    const pattern = NEEDS_PATTERN[ex.id];
-    if (pattern && !refLifts.some((l) => l.pattern === pattern)) return false;
-    if ((ex.trainingValue ?? 3) <= 1 && !supportsDeclaredPain) return false;
-    if (forPain && !(ex.painSupport ?? []).includes(forPain)) return false;
+    if ((ex.trainingValue ?? 3) <= 1 && !forPain) return false;
     return true;
   };
-  // Une carte d'exigences par phase : la mobilité des omoplates ne doit pas
-  // épuiser le besoin d'activer ces mêmes omoplates avant des tractions.
-  const remaining: Record<"mobility" | "activation", Demand> = { mobility: { ...demand }, activation: { ...demand } };
-  const take = (ex: Exercise, phases: ("mobility" | "activation")[]) => {
+
+  let needIndex = 0;
+  for (const need of needs) {
+    if (covered.has(need.key)) continue;
+    const def: Need = NEEDS[need.key];
+    if (chosen.length >= caps.total || count(def.phase) >= caps[def.phase]) continue;
+    const last = chosen.filter((c) => c.phase === def.phase).at(-1);
+    const candidates = def.pool
+      .map((id, rank) => ({ ex: byId.get(id), rank }))
+      .filter((c): c is { ex: Exercise; rank: number } => eligible(c.ex, need.pain))
+      .map(({ ex, rank }) => {
+        // Un exercice qui répond aussi à d'autres besoins de la séance passe devant.
+        const alsoCovers = (COVERS[ex.id] ?? [])
+          .filter((k) => k !== need.key && inPlan.has(k) && !covered.has(k) && (NEEDS[k].phase === def.phase || NEEDS[k].phase === "rehearsal"))
+          .reduce((s, k) => s + 0.5 * (weightOf.get(k) ?? 0), 0);
+        // Sans élastique, la version de remplacement ne vient qu'en dernier recours.
+        const band = ex.equipment === "elastique" ? (input.band ? 0.5 : -6) : 0;
+        const sameSpot = last && posOf(last.ex) === posOf(ex) ? 0.5 : 0;
+        const pain = (ex.painSupport ?? []).some((z) => input.pain.includes(z)) ? 2 : 0;
+        return { ex, score: def.pool.length - rank + alsoCovers + band + sameSpot + pain };
+      })
+      .sort((x, y) => y.score - x.score || x.ex.id.localeCompare(y.ex.id));
+    if (!candidates.length) continue;
+    // Variante : alterner avec le deuxième meilleur choix, besoin par besoin.
+    const v = input.variant ?? 0;
+    const options = candidates.slice(0, Math.min(2, candidates.length));
+    const ex = options[v === 0 ? 0 : (v + needIndex) % options.length].ex;
+    needIndex++;
     used.add(ex.id);
     const movement = movementOf(ex);
     if (movement) usedMovement.add(movement);
-    for (const phase of phases) {
-      for (const f of ex.prepFocus ?? []) remaining[phase][f] = (remaining[phase][f] ?? 0) * 0.4;
+    for (const k of COVERS[ex.id] ?? []) {
+      const sameFamily = NEEDS[k].phase === def.phase || NEEDS[k].phase === "rehearsal";
+      if (inPlan.has(k) && sameFamily) covered.add(k);
     }
-  };
-  // Variation : les candidats à au moins 80 % du meilleur score sont tous de
-  // bons choix ; la variante désigne lequel. Déterministe, donc un lien
-  // partagé redonne toujours le même plan.
-  let pick = 0;
-  const best = (pool: Exercise[], phase: "mobility" | "activation") => {
-    const scored = pool
-      .map((ex) => ({ ex, score: scoreOf(ex, remaining[phase], phase, input) }))
-      .sort((a, b) => b.score - a.score || a.ex.id.localeCompare(b.ex.id));
-    if (!scored.length) return undefined;
-    const top = scored[0].score;
-    // Écart relatif au meilleur (un score peut être négatif : pénalités).
-    const close = scored.filter((c) => c.score >= top - Math.abs(top) * 0.2);
-    const v = input.variant ?? 0;
-    pick++;
-    return close[v === 0 ? 0 : (v * 7 + pick * 13) % close.length].ex;
-  };
-
-  const mobility: PrepStep[] = [];
-  const activation: PrepStep[] = [];
-
-  // 1. Une préparation dédiée par zone douloureuse (deux zones au plus).
-  for (const zone of input.pain.slice(0, 2)) {
-    const pool = exercises.filter((e) => eligible(e, zone));
-    const phase = PAIN_FOCUS[zone].some((f) => PHASE_FOCI.activation.has(f)) ? "activation" : "mobility";
-    const ex = best(pool, phase);
-    if (!ex) continue;
-    take(ex, ["mobility", "activation"]);
-    const step = toStep(ex, input, `${PAIN_LABELS[zone]} sensible`);
-    (hasRole(ex, "activation") ? activation : mobility).push(step);
+    covered.add(need.key);
+    chosen.push({ ex, phase: def.phase, reason: need.pain ? `Zone sensible. ${def.reason}` : def.reason });
   }
 
-  // 2. Complément selon les exigences de la séance.
-  const fill = (target: PrepStep[], phase: "mobility" | "activation", count: number) => {
-    while (target.length < count) {
-      // Seuil sur la pertinence seule : la qualité intrinsèque d'un exercice ne
-      // doit pas suffire à le faire entrer dans une séance qui n'en a pas
-      // besoin. Le premier de chaque phase passe dès qu'il sert un peu, pour
-      // qu'une séance d'isolation ait quand même sa mobilité et son activation.
-      const threshold = target.length ? 1.5 : 0.1;
-      const ex = best(
-        exercises.filter((e) => eligible(e) && hasRole(e, phase) && coverageOf(e, remaining[phase], phase) >= threshold),
-        phase,
-      );
-      if (!ex) break;
-      take(ex, [phase]);
-      // Raison exprimée par qualité préparée : en mode zones, citer « Squat »
-      // laisserait croire qu'on présume des exercices de la séance.
-      const drivers = byZone ? [] : liftsDriving(ex, lifts);
-      const foci = (ex.prepFocus ?? []).slice(0, 2).map((f) => FOCUS_LABELS[f]);
-      target.push(toStep(ex, input, drivers.length ? `Pour : ${drivers.join(", ")}` : `Prépare : ${foci.join(", ")}`));
-    }
-  };
-  // Sans séries d'approche, l'échauffement complet garde trois activations.
-  fill(mobility, "mobility", input.short ? 2 : 3);
-  fill(activation, "activation", input.short ? 1 : 3);
+  const toSteps = (list: typeof chosen) => list.map((c) => toStep(c.ex, input, c.reason));
+  const mobilityList = chosen
+    .filter((c) => c.phase === "mobility")
+    .sort((x, y) => POS_RANK[posOf(x.ex)] - POS_RANK[posOf(y.ex)]);
+  // L'activation repart du sol pour finir debout ; la répétition du geste se
+  // place avec les exercices de la même position, après eux.
+  const activationList = chosen
+    .filter((c) => c.phase !== "mobility")
+    .sort(
+      (x, y) =>
+        POS_RANK[posOf(y.ex)] - POS_RANK[posOf(x.ex)] ||
+        Number(x.phase === "rehearsal") - Number(y.phase === "rehearsal"),
+    );
+  const rehearsalList = chosen.filter((c) => c.phase === "rehearsal");
+  const mobility = toSteps(mobilityList);
+  const activation = toSteps(activationList);
 
   const phases: PlanPhase[] = [];
   if (!input.short) {
@@ -376,14 +373,13 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
       ],
     });
   }
-
-  const topFoci = (steps: PrepStep[]) =>
-    [...new Set(steps.flatMap((s) => s.exercise.prepFocus ?? []))].slice(0, 3).map((f) => FOCUS_LABELS[f]);
+  const labels = (list: typeof chosen) =>
+    [...new Set(list.flatMap((c) => (COVERS[c.ex.id] ?? []).filter((k) => inPlan.has(k)).map((k) => NEED_LABELS[k])))].slice(0, 3);
   if (mobility.length) {
     phases.push({
       key: "mobility",
       title: "Mobilité",
-      why: `Ouvrir les amplitudes que ta séance va demander : ${topFoci(mobility).join(", ")}.`,
+      why: `Ouvrir les amplitudes que la séance va demander : ${labels(mobilityList).join(", ")}.`,
       steps: mobility,
     });
   }
@@ -391,7 +387,9 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
     phases.push({
       key: "activation",
       title: "Activation",
-      why: `Réveiller les muscles qui stabilisent tes mouvements : ${topFoci(activation).join(", ")}.`,
+      why: rehearsalList.length
+        ? `Réveiller ${labels(activationList.filter((c) => c.phase === "activation")).join(", ") || "les stabilisateurs"} et répéter le geste à vide.`
+        : `Réveiller les muscles qui stabilisent les mouvements : ${labels(activationList).join(", ")}.`,
       steps: activation,
     });
   }

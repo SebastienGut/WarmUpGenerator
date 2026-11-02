@@ -23,28 +23,60 @@ export const metadata: Metadata = {
 const PRINCIPLES = [
   {
     n: "01",
-    title: "Partir de ce que la zone exige",
-    body: "Tu choisis ce que tu travailles (une séance type comme Jambes ou Push, ou tes zones). Chaque zone est décrite par ce qu'exigent ses exercices typiques, notés de 1 à 3 : les jambes demandent des chevilles et des hanches mobiles, des genoux contrôlés, des fessiers et un gainage actifs ; les pecs demandent des omoplates stables et une coiffe des rotateurs prête. L'outil n'en déduit pas tes exercices : il prépare la zone.",
+    title: "Partir des besoins de chaque zone",
+    body: "Tu choisis ce que tu travailles (une séance type comme Jambes ou Push, ou tes zones). Chaque zone est décrite par ses besoins, notés de 1 à 3 : les pecs demandent un haut du dos mobile, une épaule ouverte, une coiffe des rotateurs et un dentelé réveillés, puis de répéter la poussée ; les jambes, des chevilles et des hanches mobiles, des quadriceps et des fessiers actifs, puis de répéter le squat. L'outil ne présume pas de tes exercices : il prépare la zone.",
   },
   {
     n: "02",
-    title: "Mobilité et activation, chacune sa carte",
-    body: "Ces exigences forment deux cartes de besoins, l'une pour la mobilité (chevilles, hanches, haut du dos, ischio-jambiers, épaules en hauteur…), l'autre pour l'activation (coiffe, omoplates, fessiers, gainage…). L'algorithme retient à chaque tour l'exercice de préparation qui couvre le mieux les besoins restants, puis réduit ceux qu'il vient de couvrir. Résultat : pas de doublon, et chaque exercice affiché dit pour quel mouvement il est là.",
+    title: "Mettre en commun, sans doublon",
+    body: "Les besoins de plusieurs zones s'additionnent : le haut du dos, utile aux pecs comme aux épaules, passe devant. Le besoin principal de chaque zone est servi en premier, pour qu'un full body prépare aussi le haut du corps. Chaque besoin est couvert une seule fois, par l'exercice le plus pertinent de sa liste, en préférant celui qui en couvre plusieurs. Bras et gainage, déjà sollicités par les mouvements composés, passent au second plan quand ils accompagnent une autre zone.",
   },
   {
     n: "03",
-    title: "Les séries d'approche, un outil à part",
-    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : plus la série est lourde, plus il y a de paliers et moins chaque palier compte de répétitions (pour 5 reps : barre × 10, 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1), arrondis aux disques réels.",
+    title: "Un ordre qui évite les allers-retours",
+    body: "Mise en route, mobilité, puis activation et répétition du geste à vide, comme dans le protocole RAMP. À l'intérieur, la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout : deux passages au sol au plus. Six à sept exercices pour une séance complète, quatre en version courte : de quoi préparer sans fatiguer.",
   },
   {
     n: "04",
     title: "Rien d'inutile",
-    body: "Pas d'étirement statique avant l'effort (il réduit temporairement la force), pas de rotation de genou ou de nuque sans intérêt pour la séance, et un seuil de pertinence : un exercice n'entre dans le plan que s'il répond à un vrai besoin de tes exercices. Sans élastique, chaque exercice qui en demande un est remplacé par sa version sans matériel.",
+    body: "Pas d'étirement tenu longtemps avant l'effort, pas de rotation de nuque ou de genou sans intérêt pour la séance, pas de matériel à aller chercher (haltères, poulie). Sans élastique, un exercice qui en demande un n'est choisi qu'en dernier recours, avec sa version sans matériel. La même séance redonne toujours le même plan ; ↻ Varier propose le deuxième meilleur choix besoin par besoin.",
   },
   {
     n: "05",
     title: "Les zones qui coincent",
-    body: "Une zone déclarée douloureuse exclut tous les exercices contre-indiqués, ajoute une préparation dédiée (par exemple un step-up contrôlé pour le genou) et affiche un repère d'auto-régulation : la douleur doit rester sous 3 sur 10 pendant la montée en charge, sinon on arrête de monter. Ce sont des aides pour des gênes mineures, pas des traitements.",
+    body: "Une zone déclarée sensible exclut les exercices contre-indiqués, fait passer en premier un exercice adapté (par exemple le coquillage et la fente tenue pour le genou) et rappelle de garder la gêne sous 3 sur 10. Ce sont des aides pour des gênes légères et connues, pas des traitements : une douleur vive ou qui dure relève d'un kiné ou d'un médecin.",
+  },
+  {
+    n: "06",
+    title: "Les séries d'approche, un outil à part",
+    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : plus la série est lourde, plus il y a de paliers et moins chaque palier compte de répétitions (pour 5 reps : barre × 10, 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1), arrondis aux disques réels.",
+  },
+];
+
+// Ce qui relève de la recherche, ce qui relève de nos choix.
+const STATUS = [
+  {
+    title: "Appuyé par la recherche",
+    items: [
+      "Un échauffement structuré améliore la performance sur la majorité des critères étudiés.",
+      "Les étirements statiques longs (plus de 60 secondes par muscle) juste avant l'effort réduisent un peu la force et la puissance ; des durées courtes ont un effet négligeable.",
+      "L'échauffement du haut du corps, dynamique puis spécifique, améliore la performance des membres supérieurs.",
+    ],
+  },
+  {
+    title: "Choix de conception",
+    items: [
+      "La liste des besoins de chaque zone et leur importance.",
+      "Le choix de l'exercice qui répond à chaque besoin, et l'ordre qui limite les passages au sol.",
+      "Les durées et le nombre d'exercices (six à sept, quatre en version courte).",
+    ],
+  },
+  {
+    title: "À faire valider par un professionnel",
+    items: [
+      "Les routines n'ont pas été relues par un coach diplômé : c'est la prochaine étape.",
+      "Les préparations pour zones sensibles restent des aides générales, pas une prise en charge individuelle.",
+    ],
   },
 ];
 
@@ -52,37 +84,37 @@ const SOURCES = [
   {
     label: "Jeffreys (2007)",
     full: "Warm-up revisited: the RAMP method of optimising warm-ups",
-    desc: "Le cadre en trois temps repris par l'outil : élever la température (Raise), activer et mobiliser (Activate & Mobilise), puis potentialiser sur le geste de la séance (Potentiate).",
-  },
-  {
-    label: "ACSM",
-    full: "American College of Sports Medicine",
-    desc: "Standards de la prescription d'exercice — recommandations sur le warm-up dynamique avant entraînement résistance.",
-  },
-  {
-    label: "NSCA",
-    full: "National Strength and Conditioning Association",
-    desc: "Référentiel sur l'échauffement spécifique et la potentialisation post-activation (PAP) en force et puissance.",
-  },
-  {
-    label: "Behm & Chaouachi (2011)",
-    full: "A review of the acute effects of static and dynamic stretching",
-    desc: "Méta-analyse fondatrice : les étirements statiques pré-effort réduisent la force de 5 à 10 %. Les étirements dynamiques préservent voire améliorent les performances.",
-  },
-  {
-    label: "Hartmann et al. (2013)",
-    full: "Analysis of the load on the knee joint and vertebral column with deep squat training",
-    desc: "Étude de référence montrant que le squat profond, bien exécuté, n'augmente pas le risque de blessure et offre un meilleur recrutement musculaire que le squat parallèle.",
+    desc: "Le cadre en trois temps repris par l'outil : élever la température (Raise), activer et mobiliser (Activate & Mobilise), puis préparer le geste de la séance (Potentiate).",
   },
   {
     label: "Fradkin et al. (2010)",
-    full: "Effects of warming-up on physical performance: a systematic review",
-    desc: "Revue systématique de 32 études : un warm-up structuré améliore la performance dans 79 % des cas mesurés.",
+    full: "Effects of warming-up on physical performance: a systematic review with meta-analysis",
+    desc: "Revue systématique : l'échauffement améliore la performance dans 79 % des critères mesurés.",
+  },
+  {
+    label: "McCrary, Ackermann & Halaki (2015)",
+    full: "A systematic review of the effects of upper body warm-up on performance and injury",
+    desc: "Revue sur le haut du corps : échauffements dynamiques et spécifiques améliorent la performance ; peu de données solides sur la prévention des blessures.",
+  },
+  {
+    label: "Behm & Chaouachi (2011)",
+    full: "A review of the acute effects of static and dynamic stretching on performance",
+    desc: "Les étirements statiques prolongés réduisent la force et la puissance ; les étirements dynamiques préservent voire améliorent la performance.",
+  },
+  {
+    label: "Behm et al. (2016)",
+    full: "Acute effects of muscle stretching on physical performance, range of motion, and injury incidence",
+    desc: "Au-dessous de 60 secondes par muscle, l'effet des étirements statiques sur la performance devient faible : c'est la durée qui compte.",
+  },
+  {
+    label: "Hartmann et al. (2013)",
+    full: "Analysis of the load on the knee joint and vertebral column with changes in squatting depth and weight load",
+    desc: "Le squat profond bien exécuté n'est pas plus risqué pour le genou que le squat partiel, à charge adaptée.",
   },
   {
     label: "Page (2012)",
     full: "Current concepts in muscle stretching for exercise and rehabilitation",
-    desc: "Cadre clinique sur la place des étirements en pré- et post-effort, et sur la mobilité dynamique en réhabilitation.",
+    desc: "Cadre clinique sur la place des étirements avant et après l'effort, et sur la mobilité dynamique.",
   },
 ];
 
@@ -166,34 +198,36 @@ export default function MethodologyPage() {
 
         {/* PRINCIPES */}
         <section className="mb-14">
-          <div className="mb-6 flex items-baseline justify-between gap-4 border-b border-line pb-3">
-            <h2 className="font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
-              Les 5 principes de l&apos;algorithme
-            </h2>
-            <span className="shrink-0 text-[14px] font-semibold text-ink">
-              Logique de sélection
-            </span>
-          </div>
-          <ol className="flex flex-col gap-2.5">
+          <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
+            Comment l&apos;outil choisit les exercices
+          </h2>
+          <ul className="flex flex-col divide-y divide-line">
             {PRINCIPLES.map((p) => (
-              <li
-                key={p.n}
-                className="overflow-hidden rounded-xl border border-line bg-card"
-              >
-                <div className="flex items-stretch">
-                  <div className="flex w-[52px] shrink-0 items-center justify-center border-r border-line bg-ink/[0.035]">
-                    <span className="font-display text-[23px] font-extrabold tabular text-accent">
-                      {p.n}
-                    </span>
-                  </div>
-                  <div className="flex flex-1 flex-col gap-1.5 px-4 py-3.5">
-                    <h3 className="text-[15px] font-bold leading-tight text-ink">{p.title}</h3>
-                    <p className="text-[13px] leading-relaxed text-muted">{p.body}</p>
-                  </div>
-                </div>
+              <li key={p.n} className="flex flex-col gap-1.5 py-4">
+                <h3 className="text-[16px] font-bold leading-tight text-ink">{p.title}</h3>
+                <p className="text-[14px] leading-relaxed text-muted">{p.body}</p>
               </li>
             ))}
-          </ol>
+          </ul>
+        </section>
+
+        {/* CE QUI EST PROUVÉ, CE QUI EST CHOISI */}
+        <section className="mb-14">
+          <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
+            Ce qui est prouvé, ce qui est choisi
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {STATUS.map((g) => (
+              <div key={g.title} className="border-t-2 border-ink pt-3">
+                <h3 className="mb-2 text-[15px] font-bold text-ink">{g.title}</h3>
+                <ul className="flex flex-col gap-2 text-[14px] leading-relaxed text-muted">
+                  {g.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* STRUCTURE DU PLAN */}
@@ -203,30 +237,31 @@ export default function MethodologyPage() {
           </h2>
           <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             <p>
-              L&apos;échauffement suit le protocole <strong className="text-ink">RAMP</strong> : les deux premiers temps dans le générateur, le dernier dans le calculateur.
+              L&apos;échauffement suit le protocole <strong className="text-ink">RAMP</strong> : les trois premiers temps dans le générateur, la montée en charge dans le calculateur.
             </p>
             <ol className="flex flex-col gap-3 pl-4">
               <li>
-                <strong className="text-ink">1. Mise en route</strong> — 2 minutes de cardio léger (rameur,
+                <strong className="text-ink">1. Mise en route</strong> : 2 minutes de cardio léger (rameur,
                 vélo, corde) pour élever la température. Supprimée en version courte.
               </li>
               <li>
-                <strong className="text-ink">2. Mobilité</strong> — 2 à 3 mouvements sur les amplitudes que
-                la zone exige.
+                <strong className="text-ink">2. Mobilité</strong> : 2 à 3 mouvements sur les amplitudes que
+                les zones demandent.
               </li>
               <li>
-                <strong className="text-ink">3. Activation</strong> — 1 à 3 exercices légers sur les muscles
-                stabilisateurs, plus une préparation dédiée par zone qui coince.
+                <strong className="text-ink">3. Activation et répétition du geste</strong> : 1 à 3 exercices
+                légers sur les stabilisateurs, puis le geste de la séance au poids du corps (pompes lentes,
+                squats, charnière de hanche, tractions scapulaires).
               </li>
               <li>
-                <strong className="text-ink">4. Séries d&apos;approche</strong> — dans le calculateur, sur ton
+                <strong className="text-ink">4. Séries d&apos;approche</strong> : dans le calculateur, sur ton
                 premier exercice lourd, à partir de ta charge du jour.
               </li>
             </ol>
             <p>
-              Compte 4 minutes en version courte, 6 à 7 minutes en version complète, puis 4 à 8 minutes
-              de séries d&apos;approche selon la charge : c&apos;est la partie la plus spécifique d&apos;un
-              échauffement de musculation, d&apos;où un outil dédié.
+              Le plan affiche sa durée réelle, transitions comprises : 3 à 4 minutes en version courte,
+              5 à 8 minutes en version complète selon les zones, puis quelques minutes de séries
+              d&apos;approche selon la charge.
             </p>
           </div>
         </section>

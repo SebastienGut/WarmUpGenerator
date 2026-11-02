@@ -128,7 +128,6 @@ export default function SessionBuilder() {
                 </span>
                 <span className="relative">
                   <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">{t.label}</span>
-                  <span className="mt-1 block truncate text-[12px] font-medium">{t.hint}</span>
                 </span>
               </button>
             );

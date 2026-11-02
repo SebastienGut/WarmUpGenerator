@@ -1,12 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import ClientScripts from "@/components/ClientScripts";
 import { GeistMono } from "geist/font/mono";
-import { Archivo } from "next/font/google";
+import { Anton, Archivo } from "next/font/google";
 import "./globals.css";
 
 // Une seule famille variable : largeur étendue pour les titres et les chiffres
 // (lisibles de loin, téléphone posé au sol), normale pour le texte.
 // Auto-hébergée par next/font, aucune requête vers Google côté visiteur.
+// Typo d'affiche de compétition pour les titres et les chiffres (direction B).
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton",
+  display: "swap",
+});
+
 const archivo = Archivo({
   subsets: ["latin"],
   axes: ["wdth"],
@@ -60,8 +68,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f5f2" },
-    { media: "(prefers-color-scheme: dark)", color: "#121417" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#121212" },
   ],
   colorScheme: "light dark",
   width: "device-width",
@@ -71,7 +79,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${archivo.variable} ${GeistMono.variable}`}>
+    <html lang="fr" className={`${archivo.variable} ${anton.variable} ${GeistMono.variable}`}>
       <head>
         <link rel="apple-touch-icon" href="/icons/logo-apple-touch.png" />
       </head>

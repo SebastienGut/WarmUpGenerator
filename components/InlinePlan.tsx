@@ -26,7 +26,7 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
   return (
     <div className="rounded-3xl bg-ink/[0.035] p-4 sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <p className="font-display text-[20px] font-extrabold leading-none tracking-tight text-ink">Ton échauffement</p>
+        <p className="poster font-display text-[26px] leading-none text-ink">Ton échauffement</p>
         <span className="whitespace-nowrap text-[13px] text-subtle tabular">
           {plan.minutes} min, {plan.phases.reduce((n, p) => n + p.steps.length, 0)} exercices
         </span>
@@ -48,10 +48,10 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
           <section key={phase.key + variant} className="mb-6">
             <h3 className="mb-2 flex items-center gap-3">
               <PhaseMark phase={phase.key} />
-              <span className="font-display text-[18px] font-extrabold leading-none tracking-tight text-ink">{phase.title}</span>
+              <span className="poster font-display text-[22px] leading-none text-ink">{phase.title}</span>
               <span className="ml-auto text-[13px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h3>
-            <ol className="flex flex-col gap-1">
+            <ol className="flex flex-col gap-2">
               {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} />))}
             </ol>
           </section>
@@ -62,10 +62,10 @@ export default function InlinePlan({ zones, defaultBand = false }: { zones: Musc
         <button
           type="button"
           onClick={() => setGuided(true)}
-          className="flex items-center justify-between rounded-2xl bg-accent px-6 py-4 text-on-accent transition-transform active:scale-[0.98]"
+          className="flex items-center justify-between rounded-full bg-black px-7 py-4 text-white transition-transform active:scale-[0.98]"
         >
-          <span className="font-display text-[22px] font-extrabold">Démarrer</span>
-          <span className="font-display text-[18px] font-bold tabular">{plan.minutes} min ▶</span>
+          <span className="font-display text-[26px] leading-none">C&apos;est parti</span>
+          <span className="font-display text-[20px] leading-none tabular">{plan.minutes} min ▶</span>
         </button>
         <Link
           href={`/plan?${serializeSession(input)}`}

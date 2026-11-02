@@ -91,12 +91,12 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
   const id = step.kind === "prep" ? step.exercise.id : "raise";
   const name = step.kind === "prep" ? step.exercise.name : step.name;
   return (
-    <li className={`overflow-hidden rounded-xl transition-colors ${open ? "bg-card" : ""}`}>
-      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="flex w-full items-center gap-3.5 rounded-xl py-1.5 pl-1 pr-3 text-left hover:bg-card">
-        <ExerciseFigure id={id} label={name} className="h-[58px] w-[64px] shrink-0 rounded-lg bg-card" />
+    <li className="overflow-hidden rounded-2xl bg-card shadow-[0_1px_0_var(--line)] ring-1 ring-line">
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="flex w-full items-center gap-3 p-2 pr-3.5 text-left">
+        <ExerciseFigure id={id} label={name} className="h-[58px] w-[64px] shrink-0 rounded-xl bg-ink/[0.04]" />
         <span className="min-w-0 flex-1">
           <span className="block text-[15px] font-semibold leading-snug text-ink">{name}</span>
-          <span className={`text-[14px] font-semibold tabular ${PHASE_STYLE[phase].ink}`}>{step.reps}</span>
+          <span className={`font-display text-[17px] leading-tight tabular ${PHASE_STYLE[phase].ink}`}>{step.reps}</span>
         </span>
         <motion.span aria-hidden="true" animate={{ rotate: open ? 180 : 0 }} className="text-[14px] text-subtle">
           ▾

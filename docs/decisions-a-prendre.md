@@ -21,6 +21,12 @@
         fente tenue · Y-T · charnière de hanche.
       Questions générales : le cardio de 2 min en tête te convient-il (ou « 1 à 2 min ») ? La
       version courte (4 exercices, ~3 min, sans cardio) est-elle utile ?
+- [ ] **Direction artistique** (décision, lot 3). Ouvre `docs/maquettes/directions.html` dans ton
+      navigateur : deux directions sur l'accueil, le plan et le mode guidé, avec un vrai plan Push.
+      **A — Le chrono de salle** (sombre, chiffres géants façon horloge d'intervalles, rouge + jaune) ou
+      **B — L'affiche de compétition** (clair, aplats aux couleurs des disques, typo d'affiche penchée).
+      On peut mélanger. Dis aussi ce que tu gardes de la version actuelle (la barre chargée ?).
+      En attendant, je n'ai pas touché au design en place.
 - [ ] **Relecture par un coach diplômé** (action, optionnelle) : si tu connais quelqu'un, la page
       /methodologie dit honnêtement que ce n'est pas encore fait.
 

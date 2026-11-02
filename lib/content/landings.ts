@@ -96,7 +96,7 @@ const RAW: Record<string, Landing> = {
     faqs: [
       { q: "Quels exercices pour s'échauffer le bas du corps ?", a: "La mobilisation de cheville au mur, le squat profond assisté et le good morning au poids du corps, puis le glute bridge et le dead bug. Cinq exercices, dans un ordre qui limite les passages au sol." },
       DUREE,
-      { q: "Comment protéger ses genoux à l'échauffement ?", a: "En préparant la cheville et la hanche, souvent responsables de la douleur au genou, et en activant les fessiers qui gardent le genou dans l'axe du pied. Si un genou est sensible, coche « Genou » dans l'outil : il retire le squat profond et t'oriente vers le guide genou." },
+      { q: "Comment protéger ses genoux à l'échauffement ?", a: "En préparant la cheville et la hanche, souvent responsables de la douleur au genou, et en activant les fessiers qui gardent le genou dans l'axe du pied. Si un genou est sensible, suis la routine « Une douleur ? » de l'accueil (zone « Genou ») avant de t'échauffer." },
       ETIREMENTS,
     ],
     related: ["jambes", "fessiers", "full-body", "core"],
@@ -108,7 +108,7 @@ const RAW: Record<string, Landing> = {
     cover: "kettlebell-swing",
     metaTitle: "Échauffement full body : la routine complète en {min} min",
     metaDescription:
-      "L'échauffement full body prêt à suivre : épaules, hanches, chevilles, fessiers en {min} minutes avant une séance complète. Version courte {court} min, mode guidé.",
+      "L'échauffement full body prêt à suivre : épaules, hanches, chevilles, fessiers en {min} minutes avant une séance complète. Mode guidé, gratuit.",
     h1: "Échauffement full body",
     kicker: "Tout le corps, {min} minutes",
     keyAnswer:
@@ -120,7 +120,7 @@ const RAW: Record<string, Landing> = {
     ],
     faqs: [
       { q: "Comment s'échauffer avant une séance full body ?", a: "Commence par le bas du corps debout (cheville au mur, squat profond assisté, good morning), enchaîne avec les épaules (face pull, rotation externe, pompes scapulaires) et termine par un dead bug au sol. Puis passe aux séries d'approche de ton premier exercice." },
-      { q: "Existe-t-il un échauffement full body en 5 minutes ?", a: "Oui : active « Version courte » au-dessus. Elle garde les quatre premiers exercices de la routine, pour environ {court} minutes." },
+      { q: "Existe-t-il un échauffement full body en 5 minutes ?", a: "Presque : la routine complète tient en {min} minutes. Si tu es pressé, fais les quatre premiers exercices et passe aux séries d'approche." },
       DUREE,
       ETIREMENTS,
     ],
@@ -146,7 +146,7 @@ const RAW: Record<string, Landing> = {
     faqs: [
       { q: "Comment s'échauffer avant le développé couché ?", a: "Préparer l'épaule (cat-cow, pompes scapulaires, rotation externe, face pull), puis faire des séries d'approche sur le développé couché lui-même, de la barre seule jusqu'à la charge de travail." },
       DUREE,
-      { q: "Et si j'ai mal à l'épaule au développé couché ?", a: "Coche « Épaule » dans l'outil : il te rappelle de garder la gêne faible et t'oriente vers le guide douleur à l'épaule au développé couché, pour comprendre d'où elle vient." },
+      { q: "Et si j'ai mal à l'épaule au développé couché ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Épaule ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide douleur à l'épaule au développé couché, pour comprendre d'où elle vient." },
       ETIREMENTS,
     ],
     related: ["pull", "haut-du-corps", "pecs", "epaules"],
@@ -244,7 +244,7 @@ const RAW: Record<string, Landing> = {
     ],
     faqs: [
       { q: "Comment s'échauffer le dos avant la musculation ?", a: "Avec des wall slides, un cat-cow et une rotation thoracique pour la mobilité, puis un face pull pour l'activation. Si ta séance contient du rowing penché ou du soulevé de terre, ajoute un good morning au poids du corps." },
-      { q: "Comment s'échauffer avec un mal de dos ?", a: "Coche « Bas du dos » dans l'outil : il te rappelle de garder la gêne faible et t'oriente vers le guide lombaires. Une douleur qui irradie dans la jambe ou qui persiste demande un avis médical." },
+      { q: "Comment s'échauffer avec un mal de dos ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Bas du dos ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide lombaires. Une douleur qui irradie dans la jambe ou qui persiste demande un avis médical." },
       DUREE,
       ETIREMENTS,
     ],
@@ -276,7 +276,7 @@ const RAW: Record<string, Landing> = {
     faqs: [
       { q: "Quel élastique pour s'échauffer les épaules ?", a: "Le plus léger possible : l'échauffement de la coiffe des rotateurs se fait avec une faible résistance et beaucoup de contrôle, sur 12 à 15 répétitions. Un élastique trop dur fait compenser le trapèze." },
       { q: "Comment s'échauffer les épaules sans matériel ?", a: "Wall slides, rotation externe allongé sur le côté et W allongé sur le ventre : ils couvrent la mobilité et l'activation sans élastique. Choisis « Sans matériel » au-dessus de la routine pour les voir." },
-      { q: "Et si j'ai mal à l'épaule ?", a: "Coche « Épaule » dans l'outil : il te rappelle de garder la gêne faible et t'oriente vers le guide épaule. Une douleur la nuit ou une perte de force brutale demandent un avis médical." },
+      { q: "Et si j'ai mal à l'épaule ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Épaule ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide épaule. Une douleur la nuit ou une perte de force brutale demandent un avis médical." },
       DUREE,
     ],
     related: ["haut-du-corps", "push", "pecs"],
@@ -299,7 +299,7 @@ const RAW: Record<string, Landing> = {
     ],
     faqs: [
       { q: "Faut-il s'échauffer avant de faire les bras ?", a: "Oui, surtout pour les coudes : quelques minutes de mobilité des avant-bras et des coudes, puis une série légère de 12 à 15 répétitions avant la première série de travail de chaque exercice." },
-      { q: "Et si j'ai mal au coude au curl ?", a: "Coche « Coude » dans l'outil et consulte le guide douleur au coude au curl biceps. Une douleur persistante au coude demande d'adapter la charge et la prise." },
+      { q: "Et si j'ai mal au coude au curl ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Coude ») et consulte le guide douleur au coude au curl biceps. Une douleur persistante au coude demande d'adapter la charge et la prise." },
       DUREE,
       ETIREMENTS,
     ],
@@ -324,7 +324,7 @@ const RAW: Record<string, Landing> = {
     ],
     faqs: [
       { q: "Comment s'échauffer pour le leg day ?", a: "Mobilisation de cheville au mur, squat profond assisté, good morning au poids du corps, puis glute bridge et élévations de mollets. Termine par des séries d'approche sur ton premier exercice, de la barre seule jusqu'à ta charge." },
-      { q: "Comment s'échauffer les genoux avant le squat ?", a: "En préparant la cheville et la hanche, qui guident le genou, et en activant les fessiers. Si un genou est sensible, coche « Genou » dans l'outil et lis le guide douleur au genou au squat." },
+      { q: "Comment s'échauffer les genoux avant le squat ?", a: "En préparant la cheville et la hanche, qui guident le genou, et en activant les fessiers. Si un genou est sensible, suis la routine « Une douleur ? » de l'accueil (zone « Genou ») et lis le guide douleur au genou au squat." },
       DUREE,
       ETIREMENTS,
     ],
@@ -373,7 +373,7 @@ const RAW: Record<string, Landing> = {
     faqs: [
       { q: "Faut-il faire du gainage avant le squat ?", a: "Un peu, oui : un ou deux exercices de gainage dynamique (dead bug, bird dog) réveillent les muscles profonds sans les fatiguer. Évite les longues planches qui épuisent avant la séance." },
       DUREE,
-      { q: "Et si j'ai mal au bas du dos ?", a: "Coche « Bas du dos » dans l'outil : il te rappelle de garder la gêne faible et t'oriente vers le guide douleur au bas du dos au soulevé de terre." },
+      { q: "Et si j'ai mal au bas du dos ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Bas du dos ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide douleur au bas du dos au soulevé de terre." },
       ETIREMENTS,
     ],
     related: ["bas-du-corps", "dos", "full-body"],

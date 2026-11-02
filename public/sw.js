@@ -1,4 +1,4 @@
-const CACHE = 'warmup-v8';
+const CACHE = 'warmup-v9';
 
 // Pages-outils : statiques, elles calculent tout dans le navigateur à partir
 // de l'URL. En cache, elles fonctionnent sans réseau.
@@ -6,6 +6,7 @@ const PRECACHE = [
   '/',
   '/plan',
   '/series-approche',
+  '/routine-douleur',
 ];
 
 self.addEventListener('install', (event) => {

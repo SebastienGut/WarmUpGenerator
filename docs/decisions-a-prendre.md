@@ -11,11 +11,7 @@
       Points que j'ai repérés et laissés tels quels en attendant ton avis :
       - **Push** : rotation externe puis face pull, deux exercices pour l'arrière de l'épaule.
         Redondant ou voulu ? (Sans matériel, ils deviennent rotation externe allongé + W allongé.)
-      - **Jambes et Bas du corps** : quatre exercices sur cinq en commun (seul mollets / dead bug
-        change). Fusionner les deux séances, ou différencier davantage Bas du corps (charnière) ?
       - **Full body** : 7 exercices, ~6 min. Garder 7 ou viser 5-6 ?
-      - **Version courte** : garde les 4 premiers exercices. En Full body, elle perd les pompes
-        scapulaires, la rotation externe et le dead bug. La garder, la retirer, ou la composer autrement ?
       - **↻ Varier** : il ne reste que 4 permutations (dead bug ↔ bird dog, rotation externe debout ↔
         allongé, 90/90 ↔ squat assisté). Garder le bouton ou le retirer ?
       - **Bras sans matériel** : une seule ligne (pronation-supination), aucun équivalent honnête pour
@@ -24,6 +20,9 @@
 - [ ] **Pictogrammes à regarder** : squat profond assisté (au mur) et rotation thoracique à quatre
       pattes sont nouveaux. Je n'ai pas pu les voir rendus (panneau navigateur masqué) : jette un œil
       sur /plan?t=legs et /plan?t=pull. Pas d'autre travail graphique tant que la banque n'est pas validée.
+- [ ] **Routines « Une douleur ? »** (lib/rehab.ts) : 7 zones, 4 à 7 exercices chacune, 7 à 16 min,
+      pictogrammes existants uniquement. À relire en sportif, idéalement par un kiné : doses, choix
+      (isométrie pour le genou, McGill pour le bas du dos), et la règle des 3/10 à cocher.
 - [ ] **Relecture par un coach diplômé** (action, optionnelle) : si tu connais quelqu'un, la page
       /methodologie dit honnêtement que ce n'est pas encore fait.
 
@@ -34,6 +33,9 @@
 - [ ] **Zip Blender ARM64** dans `Téléchargements` (action) : inutile, à supprimer.
 
 ## Traitées
+
+- [x] **Version courte, « Ça coince ? », « Mes zones » sur l'accueil** : retirés (3 nov. 2026, retour de Seb) ;
+      la douleur a sa routine dédiée. **Jambes / Bas du corps** : Bas retiré de l'accueil, renommage Legs / Upper.
 
 - [x] **Direction artistique** : B, l'affiche de compétition (2 nov. 2026), en ligne.
 - [x] **Routines du lot 1** : remplacées par celles du brief moteur v3 (pas de cardio).

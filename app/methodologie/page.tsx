@@ -25,17 +25,17 @@ const PRINCIPLES = [
   {
     n: "01",
     title: "Une routine de référence par séance",
-     body: "Chaque séance type (Push, Pull, Jambes, Haut du corps, Bas du corps, Full body) a sa routine, écrite d'un bloc comme un préparateur physique la composerait : par exemple, pour Push, cat-cow, pompes scapulaires, rotation externe et face pull. La même séance redonne toujours la même routine : on l'apprend, on la refait. Ce sont des propositions de programmation, pas une séquence dont l'optimalité serait démontrée.",
+     body: "Chaque séance type (Push, Pull, Legs, Upper, Full body) a sa routine, écrite d'un bloc comme un préparateur physique la composerait : par exemple, pour Push, cat-cow, pompes scapulaires, rotation externe et face pull. La même séance redonne toujours la même routine : on l'apprend, on la refait. Ce sont des propositions de programmation, pas une séquence dont l'optimalité serait démontrée.",
   },
   {
     n: "02",
-    title: "Mes zones : des bases mises en commun",
-    body: "Quand tu choisis tes zones, chacune apporte sa base de deux à quatre exercices. Un exercice partagé par plusieurs zones (le cat-cow pour les pecs, le dos et le gainage) n'apparaît qu'une fois et passe devant ; ensuite chaque zone reçoit à tour de rôle son exercice suivant, jusqu'à sept au plus. Les bras suivent la séance : triceps en Push, biceps en Pull, les deux quand tu choisis Bras toi-même.",
+    title: "Les pages par zone : des bases mises en commun",
+    body: "Sur les pages par zone (pecs, dos, épaules, bras…), chaque zone apporte sa base de deux à quatre exercices. Un exercice partagé par plusieurs zones (le cat-cow pour les pecs, le dos et le gainage) n'apparaît qu'une fois et passe devant ; ensuite chaque zone reçoit à tour de rôle son exercice suivant, jusqu'à sept au plus. Les bras suivent la séance : triceps en Push, biceps en Pull, les deux quand tu choisis Bras toi-même.",
   },
   {
     n: "03",
     title: "Un ordre qui évite les allers-retours",
-    body: "Mobilité, puis activation, puis les séries d'approche sur ton premier exercice. Pas de cardio : la montée en température se fait sur l'exercice lui-même, avec des charges progressives. Dans « Mes zones », la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout. Trois à sept exercices, quatre au plus en version courte : de quoi préparer sans fatiguer.",
+    body: "Mobilité, puis activation, puis les séries d'approche sur ton premier exercice. Pas de cardio : la montée en température se fait sur l'exercice lui-même, avec des charges progressives. Dans « Mes zones », la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout. Trois à sept exercices : de quoi préparer sans fatiguer.",
   },
   {
     n: "04",
@@ -44,8 +44,8 @@ const PRINCIPLES = [
   },
   {
     n: "05",
-    title: "Les zones qui coincent",
-    body: "Une zone déclarée sensible retire les exercices déconseillés (le squat profond pour un genou sensible, les pompes scapulaires pour un poignet), oriente vers le guide de la zone et rappelle de garder la gêne sous 3 sur 10. Ce sont des aides pour des gênes légères et connues, pas des traitements : une douleur vive ou qui dure relève d'un kiné ou d'un médecin.",
+    title: "Une douleur : une routine à part",
+    body: "Pour une articulation qui gêne (épaule, coude, poignet, bas du dos, hanche, genou, cheville), « Une douleur ? » propose une routine plus longue et plus lente que l'échauffement : mobilité douce, puis renforcement léger (contrôle, isométrie, comme la fente tenue pour le genou). Elle demande d'accepter une règle avant de commencer : la douleur reste sous 3 sur 10, pendant et après. Ce sont des aides pour des gênes légères et connues, pas des traitements : une douleur vive ou qui dure relève d'un kiné ou d'un médecin.",
   },
   {
     n: "06",
@@ -69,7 +69,7 @@ const STATUS = [
     items: [
       "La liste des besoins de chaque zone et leur importance.",
       "Le choix de l'exercice qui répond à chaque besoin, et l'ordre qui limite les passages au sol.",
-      "Les durées et le nombre d'exercices (six à sept, quatre en version courte).",
+      "Les durées et le nombre d'exercices (trois à sept).",
     ],
   },
   {

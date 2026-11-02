@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import GuidedMode from "@/components/GuidedMode";
 import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
 import type { Equipment } from "@/lib/bank";
 import { loadEquipment, saveEquipment } from "@/lib/equipment-pref";
-import { buildSessionPlan, serializeSession, type SessionInput } from "@/lib/session-engine";
+import { buildSessionPlan, type SessionInput } from "@/lib/session-engine";
 import type { MuscleGroup } from "@/lib/warmup-data";
 
 /**
@@ -17,7 +16,7 @@ import type { MuscleGroup } from "@/lib/warmup-data";
  */
 export default function InlinePlan({ zones, template, fixedEquipment }: { zones: MuscleGroup[]; template?: string; fixedEquipment?: Equipment }) {
   const [equipment, setEquipment] = useState<Equipment>(fixedEquipment ?? "gym");
-  const [short, setShort] = useState(false);
+  const short = false;
   const [variant, setVariant] = useState(0);
   const [guided, setGuided] = useState(false);
 
@@ -51,9 +50,6 @@ export default function InlinePlan({ zones, template, fixedEquipment }: { zones:
       </div>
 
       <div className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-        <Chip onClick={() => setShort(!short)} tone={short ? "on" : "default"}>
-          {short ? "✓ Version courte" : "Version courte"}
-        </Chip>
         <Chip onClick={() => setVariant((v) => (v + 1) % 997)}>↻ Varier</Chip>
       </div>
 
@@ -81,12 +77,6 @@ export default function InlinePlan({ zones, template, fixedEquipment }: { zones:
           <span className="font-display text-[26px] leading-none">C&apos;est parti</span>
           <span className="font-display text-[20px] leading-none tabular">{plan.minutes} min ▶</span>
         </button>
-        <Link
-          href={`/plan?${serializeSession(input)}`}
-          className="flex items-center justify-center rounded-2xl px-5 py-3 text-[15px] font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
-        >
-          Adapter (douleur, zones)
-        </Link>
       </div>
 
       {guided && <GuidedMode plan={plan} onClose={() => setGuided(false)} />}

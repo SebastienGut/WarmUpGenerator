@@ -4,20 +4,22 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
-import ExerciseFigure, { FigureStill } from "@/components/ExerciseFigure";
+import { FigureStill } from "@/components/ExerciseFigure";
 import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
-import { SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel } from "@/lib/lifts";
+import { SESSION_TEMPLATES, zonesLabel } from "@/lib/lifts";
+import { REHAB_ZONES } from "@/lib/rehab";
 import { buildSessionPlan, parseSession, serializeSession } from "@/lib/session-engine";
 import { loadEquipment } from "@/lib/equipment-pref";
 import { compositionOf, loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
-import { MUSCLE_LABELS, type MuscleGroup } from "@/lib/warmup-data";
+import type { BodyZone, MuscleGroup } from "@/lib/warmup-data";
 
 export default function SessionBuilder() {
   const router = useRouter();
   const [saved, setSaved] = useState<SavedSession[]>([]);
   const [picking, setPicking] = useState(false);
-  const [zones, setZones] = useState<MuscleGroup[]>([]);
+  const [pains, setPains] = useState<BodyZone[]>([]);
+  const [agreed, setAgreed] = useState(false);
 
   useEffect(() => {
     // Échauffements récents : stockés sur l'appareil, donc lus après hydratation.
@@ -37,7 +39,8 @@ export default function SessionBuilder() {
     saveSession({ query: q, label });
     router.push(`/plan?${q}`);
   };
-  const toggle = (z: MuscleGroup) => setZones((s) => (s.includes(z) ? s.filter((x) => x !== z) : [...s, z]));
+  const toggle = (z: BodyZone) => setPains((s) => (s.includes(z) ? s.filter((x) => x !== z) : [...s, z]));
+  const canCare = pains.length > 0 && agreed;
 
   // Pictogramme de chaque carte : l'exercice phare de la séance, figé à l'instant
   // où il se reconnaît le mieux (squat en bas, traction en haut…).
@@ -137,11 +140,8 @@ export default function SessionBuilder() {
             onClick={() => setPicking(true)}
             className="flex min-h-[132px] flex-col justify-between rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97] sm:min-h-[150px]"
           >
-            <span className="text-[12px] font-bold text-subtle">Au choix</span>
-            <span>
-              <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">Mes zones</span>
-              <span className="mt-1 block text-[12px] font-medium text-subtle">Choisis exactement ce que tu travailles</span>
-            </span>
+            <span className="text-[12px] font-bold text-subtle">Routine de soin</span>
+            <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">Une douleur&nbsp;?</span>
           </button>
         </section>
 
@@ -164,42 +164,52 @@ export default function SessionBuilder() {
       <Sheet
         open={picking}
         onClose={() => setPicking(false)}
-        title="Mes zones"
+        title="Une douleur ?"
         footer={
           <button
             type="button"
-            onClick={() => zones.length && go(zones)}
-            aria-disabled={!zones.length}
-            className={`flex w-full items-center justify-between rounded-xl px-5 py-4 transition-transform active:scale-[0.98] ${
-              zones.length ? "bg-accent text-on-accent" : "bg-ink/[0.07] text-subtle"
+            onClick={() => canCare && router.push(`/routine-douleur?z=${pains.join(",")}`)}
+            aria-disabled={!canCare}
+            className={`flex w-full items-center justify-between rounded-full px-6 py-4 transition-transform active:scale-[0.98] ${
+              canCare ? "bg-black text-white" : "bg-ink/[0.07] text-subtle"
             }`}
           >
-            <span className="font-display text-[19px] font-extrabold tracking-tight">{zones.length ? "Voir mon échauffement" : "Touche tes zones"}</span>
-            {zones.length > 0 && <span className="truncate pl-3 text-[13px] font-semibold">{zonesLabel(zones)}</span>}
+            <span className="font-display text-[20px] leading-none">{!pains.length ? "Touche la zone qui gêne" : agreed ? "Voir ma routine" : "Coche la règle des 3 sur 10"}</span>
           </button>
         }
       >
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {ZONE_ORDER.map((z) => {
-            const on = zones.includes(z);
-            const cover = ZONE_LIFTS[z][0];
+        <p className="mb-4 text-[15px] leading-relaxed text-muted">
+          Une routine plus longue et plus douce que l&apos;échauffement : mobilité lente et renforcement léger autour de
+          l&apos;articulation qui gêne.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {REHAB_ZONES.map((z) => {
+            const on = pains.includes(z.id);
             return (
               <button
-                key={z}
+                key={z.id}
                 type="button"
                 aria-pressed={on}
-                onClick={() => toggle(z)}
-                className={`flex items-center gap-2 overflow-hidden rounded-xl border-2 pr-3 text-left transition-colors ${
-                  on ? "border-ink bg-card" : "border-transparent bg-ink/[0.045] hover:border-line-strong"
+                onClick={() => toggle(z.id)}
+                className={`rounded-full border-2 px-4 py-2.5 text-[15px] font-semibold transition-colors ${
+                  on ? "border-ink bg-ink text-paper" : "border-line-strong text-ink hover:border-ink"
                 }`}
               >
-                <ExerciseFigure id={cover} label={MUSCLE_LABELS[z]} animate={on} className="h-14 w-16 shrink-0" />
-                <span className="min-w-0 flex-1 truncate font-display text-[16px] font-extrabold leading-none tracking-tight text-ink">{MUSCLE_LABELS[z]}</span>
-                {on && <span aria-hidden="true" className="text-[16px] font-bold text-ink">✓</span>}
+                {z.label}
               </button>
             );
           })}
         </div>
+        <label className="mt-6 flex cursor-pointer items-start gap-3 rounded-2xl bg-warn-bg p-4 text-warn-ink">
+          <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 h-5 w-5 shrink-0 accent-black" />
+          <span className="text-[14px] leading-relaxed">
+            <strong className="block font-bold">Ma douleur reste sous 3 sur 10.</strong>
+            Pendant les exercices aussi. Si elle monte, je réduis l&apos;amplitude ou j&apos;arrête.
+          </span>
+        </label>
+        <p className="mt-4 text-[12px] leading-relaxed text-subtle">
+          Pas un traitement. Douleur vive, nocturne, gonflement, perte de force ou fourmillements : consulte un médecin ou un kiné.
+        </p>
       </Sheet>
     </main>
   );

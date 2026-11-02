@@ -3,12 +3,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, Toggle, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
 import { EQUIPMENT_LABELS } from "@/lib/bank";
 import { saveEquipment } from "@/lib/equipment-pref";
 import GuidedMode from "@/components/GuidedMode";
-import Sheet from "@/components/Sheet";
-import { ZONE_ORDER } from "@/lib/lifts";
 import { saveSession } from "@/lib/saved-sessions";
 import {
   PAIN_LABELS,
@@ -17,19 +15,14 @@ import {
   serializeSession,
   type SessionInput,
 } from "@/lib/session-engine";
-import { MUSCLE_LABELS, type BodyZone, type MuscleGroup } from "@/lib/warmup-data";
-
-const ZONES = Object.keys(PAIN_LABELS) as BodyZone[];
 
 function PlanContent({ initial }: { initial: SessionInput }) {
   const router = useRouter();
   const [input, setInput] = useState(initial);
-  const [adjusting, setAdjusting] = useState(false);
   const [guided, setGuided] = useState(false);
   const [copied, setCopied] = useState(false);
   const plan = useMemo(() => buildSessionPlan(input), [input]);
   const label = plan.title;
-  const zones = input.zones ?? [];
 
   // Chaque réglage réécrit l'URL (partage, retour arrière) et la séance récente.
   const update = useCallback(
@@ -101,12 +94,17 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       <aside className="lg:sticky lg:top-6 lg:self-start">
         <Timeline phases={plan.phases} />
 
-        <div className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-          <Chip onClick={() => setAdjusting(true)} tone={input.pain.length ? "warn" : "default"}>
-            {input.pain.length ? input.pain.map((z) => PAIN_LABELS[z]).join(", ") : "Ça coince ?"}
-          </Chip>
-          <Chip onClick={() => setAdjusting(true)}>{EQUIPMENT_LABELS[plan.equipment]}</Chip>
-          <Chip onClick={() => setAdjusting(true)}>{input.short ? "Version courte" : "Complet"}</Chip>
+        {/* Réglages utiles en salle : le matériel disponible, et une autre version. */}
+        <div className="mt-5 flex flex-col items-start gap-3">
+          <div className="w-full">
+            <EquipmentPicker
+              value={plan.equipment}
+              onChange={(v) => {
+                saveEquipment(v);
+                update({ equipment: v, band: v === "band" });
+              }}
+            />
+          </div>
           <Chip onClick={() => update({ variant: ((input.variant ?? 0) + 1) % 997 })}>↻ Varier</Chip>
         </div>
 
@@ -156,54 +154,6 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-5 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md lg:hidden">
         <div className="mx-auto max-w-[560px]">{startButton}</div>
       </div>
-
-      <Sheet open={adjusting} onClose={() => setAdjusting(false)} title="Ajuster" footer={<button type="button" onClick={() => setAdjusting(false)} className="w-full rounded-xl bg-ink py-4 font-display text-[20px] font-extrabold text-paper">Voir le plan</button>}>
-        <p className="mb-2 text-[14px] font-semibold text-subtle">Zones</p>
-        <div className="mb-6 flex flex-wrap gap-2">
-          {ZONE_ORDER.map((z: MuscleGroup) => {
-            const on = zones.includes(z);
-            return (
-              <Chip
-                key={z}
-                tone={on ? "on" : "default"}
-                onClick={() => {
-                  // Toucher aux zones quitte la routine de référence (et l'éventuel exercice précis) :
-                  // le plan devient une composition des zones choisies.
-                  const base = zones.length ? zones : [];
-                  const next = on ? base.filter((x) => x !== z) : [...base, z];
-                  if (next.length) update({ zones: next, lifts: [], template: undefined });
-                }}
-              >
-                {MUSCLE_LABELS[z]}
-              </Chip>
-            );
-          })}
-        </div>
-        <p className="mb-2 text-[14px] font-semibold text-subtle">Ça coince ?</p>
-        <div className="mb-5 flex flex-wrap gap-2">
-          {ZONES.map((z) => {
-            const on = input.pain.includes(z);
-            return (
-              <Chip key={z} tone={on ? "warn" : "default"} onClick={() => update({ pain: on ? input.pain.filter((p) => p !== z) : [...input.pain, z] })}>
-                {PAIN_LABELS[z]}
-              </Chip>
-            );
-          })}
-        </div>
-        <p className="mb-2 text-[14px] font-semibold text-subtle">Matériel</p>
-        <div className="mb-5">
-          <EquipmentPicker
-            value={plan.equipment}
-            onChange={(v) => {
-              saveEquipment(v);
-              update({ equipment: v, band: v === "band" });
-            }}
-          />
-        </div>
-        <div className="divide-y divide-line border-y border-line">
-          <Toggle on={input.short} onChange={(v) => update({ short: v })} title={`Version courte (${buildSessionPlan({ ...input, short: true }).minutes} min)`} />
-        </div>
-      </Sheet>
 
       {guided && <GuidedMode plan={plan} onClose={() => setGuided(false)} />}
     </main>

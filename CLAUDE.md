@@ -23,6 +23,7 @@ app/
   page.tsx                # Constructeur de séance (SessionBuilder)
   plan/page.tsx           # Plan, calculé dans le navigateur à partir de l'URL (PlanView)
   series-approche/        # Calculateur de séries d'approche
+  routine-douleur/        # Routine de soin « Une douleur ? » (RehabView)
   result/page.tsx         # Ancienne URL, redirige vers /plan
   echauffement/[slug]/    # Pages d'atterrissage (haut-du-corps, jambes, push…) : l'outil EST le contenu
   echauffement/, douleur/, blog/   # Pages SEO statiques
@@ -44,9 +45,11 @@ components/
 
 ## Fonctionnalités
 Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et montée en charge) :
-1. **Générateur d'échauffement** — séance type (Push, Pull, Jambes, Haut, Bas, Full body) ou zones au choix ;
-   zones qui coincent ; élastique ; version courte. Plan : mise en route → mobilité → activation.
-   Ne présume jamais des exercices de la séance. Mode guidé, variantes (↻ Varier), séances récentes.
+1. **Générateur d'échauffement** — séance type (Push, Pull, Legs, Upper, Full body) ; routines de référence
+   (lib/routines.ts, lib/bank.ts), mobilité → activation, sans cardio ; matériel sans / élastique / salle.
+   Pages par zone (landings) composées par le moteur. Mode guidé, ↻ Varier, séances récentes.
+   **Une douleur ?** (/routine-douleur, lib/rehab.ts) — zones douloureuses → routine de soin plus longue
+   (mobilité douce, renforcement léger), règle des 3/10 à cocher, renvoi discret vers un professionnel.
 2. **Calculateur de séries d'approche** (/series-approche) — exercice + charge de travail du jour + reps
    → montée en charge avec disques, déroulable avec minuteur de repos.
 

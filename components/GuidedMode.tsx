@@ -116,7 +116,7 @@ const FIG_VARS: Record<PK, React.CSSProperties> = {
   ramp: {},
 };
 
-export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClose: () => void }) {
+export default function GuidedMode({ plan, onClose, care = false }: { plan: SessionPlan; onClose: () => void; care?: boolean }) {
   const items = useMemo(() => flatten(plan), [plan]);
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
@@ -228,7 +228,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
             {done ? (
               <div className="flex flex-col gap-4">
                 <p className="font-display text-[46px] font-extrabold leading-[0.95] tracking-tight text-ink">
-                  {isRamp ? "Montée terminée." : "Préparation terminée."}
+                  {isRamp ? "Montée terminée." : care ? "Routine terminée." : "Préparation terminée."}
                 </p>
                 <p className="text-[16px] text-muted tabular">
                   {doneCount} {isRamp ? "séries" : doneCount > 1 ? "exercices" : "exercice"} sur {items.length}
@@ -236,6 +236,11 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
                 </p>
                 {isRamp ? (
                   <p className="text-[16px] text-muted">Place à ta première série de travail.</p>
+                ) : care ? (
+                  <p className="text-[16px] text-muted">
+                    Refais-la tous les jours ou presque. Si la douleur a dépassé 3 sur 10, ou si elle ne diminue pas d&apos;ici
+                    deux à trois semaines, montre-la à un kiné ou à un médecin.
+                  </p>
                 ) : (
                   <p className="text-[18px] font-semibold text-ink">Passe maintenant aux séries d&apos;approche de ton premier exercice.</p>
                 )}
@@ -305,6 +310,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
                 <p className="mt-2 font-display text-[30px] leading-none text-accent-ink tabular">{item.target}</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{item.instructions}</p>
                 {item.why && <p className="mt-3 border-l-2 border-line-strong pl-3 text-[14px] leading-relaxed text-subtle">{item.why}</p>}
+                {care && <p className="mt-3 text-[13px] font-semibold text-warn-ink">Douleur au-dessus de 3 sur 10 : réduis l&apos;amplitude ou passe l&apos;exercice.</p>}
               </div>
             )}
           </motion.div>
@@ -313,7 +319,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
       <div className="mx-auto flex w-full max-w-[560px] gap-3 px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-4">
         {done ? (
           <>
-            {!isRamp && (
+            {!isRamp && !care && (
               <Link href="/series-approche" className={`${secondary} flex items-center`}>
                 Séries d&apos;approche
               </Link>

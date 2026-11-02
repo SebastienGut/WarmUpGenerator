@@ -71,13 +71,16 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
   docs/maquettes/directions.html) : papier clair, grands aplats aux couleurs des disques (`bg-blue`,
   `bg-green`, `bg-yellow`, `bg-black`, `bg-accent` rouge), bandeaux d'affiche en tête des écrans clés.
   Phases = disques : mise en route vert (`ph-raise`), mobilité jaune (`ph-mobility`), activation bleu
-  (`ph-activation`), action rouge (`accent`). `Barbell` (PlanParts) reste la frise du plan et la jauge du
-  mode guidé. Tokens dans `app/globals.css`. Jamais de couleur hex en dur dans les composants (exception :
+  (`ph-activation`), action rouge (`accent`). `StepBar` (PlanParts, un segment par exercice) est la frise
+  du plan et la jauge du mode guidé ; plus de barre chargée dessinée (refusée par Seb). Tokens dans `app/globals.css`. Jamais de couleur hex en dur dans les composants (exception :
   variables locales de couleur des pictogrammes posés sur un aplat).
 - Typo : Anton (`font-display`, une seule graisse) pour titres et chiffres, classe `.poster` pour
   l'inclinaison des grands titres ; Archivo pour le texte. Pas de texte transparent sur les aplats
   (contraste AA). Boutons d'action : pilule noire.
-- Disques de charge : composant `Plates` aux couleurs de compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
+- Disques de charge : composant `Plates`, une pastille ronde par disque, poids écrit dessus, aux couleurs de
+  compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
+- Logo : monogramme W d'affiche sur barre jaune (`components/Logo.tsx`), icônes générées par
+  `python scripts/build-logo.py` (mêmes coordonnées).
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
 - Mouvement : un seul moment non déclenché (le chargement des disques, `plate-load`) ; le reste répond aux actions. Animations d'entrée en CSS, jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
 - Tout nouvel exercice (lib/warmup-data.ts ou lib/lifts.ts) doit avoir sa posture dans lib/figures.ts.

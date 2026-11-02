@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 interface Breadcrumb {
   label: string;
@@ -97,11 +98,8 @@ export default function SEOHubPage({
 
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[900px] items-center gap-2.5 px-6 py-3">
-          <Link
-            href="/"
-            className="font-display text-[22px] font-extrabold leading-none tracking-tight text-ink transition-colors hover:underline underline-offset-4"
-          >
-            Warmup
+          <Link href="/" aria-label="Warmup Generator, accueil" className="text-ink">
+            <Logo />
           </Link>
           <Link
             href="/"

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
 import Plates from "@/components/Plates";
-import { Barbell, PHASE_STYLE } from "@/components/PlanParts";
+import { PHASE_STYLE, StepBar } from "@/components/PlanParts";
 import type { PlanPhase, SessionPlan } from "@/lib/session-engine";
 
 type PK = PlanPhase["key"];
@@ -193,7 +193,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
     <div className="fixed inset-0 z-50 flex flex-col bg-paper" role="dialog" aria-modal="true" aria-label="Échauffement guidé">
       <div className="mx-auto w-full max-w-[560px] px-5 pt-[max(14px,env(safe-area-inset-top))]">
         {oneItemPerStep ? (
-          <Barbell phases={plan.phases} loaded={index} className="[&_.plate-load]:![animation:none]" />
+          <StepBar phases={plan.phases} loaded={index} className="flex-1 [&_.plate-load]:![animation:none]" />
         ) : (
           <div className="flex gap-1" aria-hidden="true">
             {items.map((_, i) => (

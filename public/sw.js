@@ -1,4 +1,4 @@
-const CACHE = 'warmup-v7';
+const CACHE = 'warmup-v8';
 
 // Pages-outils : statiques, elles calculent tout dans le navigateur à partir
 // de l'URL. En cache, elles fonctionnent sans réseau.

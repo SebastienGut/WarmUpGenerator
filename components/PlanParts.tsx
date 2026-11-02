@@ -35,34 +35,28 @@ export function PhaseMark({ phase, className = "" }: { phase: PlanPhase["key"]; 
 }
 
 /**
- * La barre chargée : un disque par exercice, aux couleurs de sa phase. C'est la
- * frise du plan et, en mode guidé, la jauge de progression (`loaded` disques
- * pleins, les suivants en creux). Les disques se chargent un à un à l'ouverture,
- * seul mouvement non déclenché de l'écran.
+ * La frise du plan : un segment par exercice, à la couleur de sa phase. En mode
+ * guidé, c'est la jauge de progression (`loaded` segments pleins, les suivants
+ * en creux). Les segments apparaissent un à un à l'ouverture, seul mouvement non
+ * déclenché de l'écran.
  */
-export function Barbell({ phases, loaded, className = "" }: { phases: PlanPhase[]; loaded?: number; className?: string }) {
+export function StepBar({ phases, loaded, className = "" }: { phases: PlanPhase[]; loaded?: number; className?: string }) {
   let n = 0;
   return (
-    <div className={`flex items-center ${className}`} aria-hidden="true">
-      {/* Manchon gauche et butée */}
-      <span className="h-[5px] w-4 shrink-0 rounded-l-full bg-line-strong" />
-      <span className="mr-1 h-6 w-[5px] shrink-0 rounded-[2px] bg-subtle/70" />
-      {phases.map((p) => (
-        <span key={p.key} className="flex items-center gap-[3px] pr-[3px]">
-          {p.steps.map((_, j) => {
-            const i = n++;
-            const full = loaded === undefined || i < loaded;
-            return (
-              <span
-                key={j}
-                className={`plate-load w-[11px] shrink-0 rounded-[3px] transition-colors duration-300 sm:w-[13px] ${full ? PHASE_STYLE[p.key].bg : "bg-line"}`}
-                style={{ height: `${60 * PHASE_STYLE[p.key].h}px`, "--d": `${i * 55}ms` } as React.CSSProperties}
-              />
-            );
-          })}
-        </span>
-      ))}
-      <span className="h-[5px] min-w-6 flex-1 rounded-r-full bg-line-strong" />
+    <div className={`flex items-center gap-1 ${className}`} aria-hidden="true">
+      {phases.flatMap((p) =>
+        p.steps.map((_, j) => {
+          const i = n++;
+          const full = loaded === undefined || i < loaded;
+          return (
+            <span
+              key={`${p.key}${j}`}
+              className={`plate-load h-2 min-w-0 flex-1 rounded-full transition-colors duration-300 ${full ? PHASE_STYLE[p.key].bg : "bg-line"}`}
+              style={{ "--d": `${i * 55}ms` } as React.CSSProperties}
+            />
+          );
+        }),
+      )}
     </div>
   );
 }
@@ -71,7 +65,7 @@ export function Timeline({ phases }: { phases: PlanPhase[] }) {
   const secs = phases.map(phaseSeconds);
   return (
     <div className="mt-5">
-      <Barbell phases={phases} />
+      <StepBar phases={phases} />
       <ol className="mt-3 flex flex-wrap gap-x-5 gap-y-1">
         {phases.map((p, i) => (
           <li key={p.key} className="flex items-center gap-2 text-[13px]">

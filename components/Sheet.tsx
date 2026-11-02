@@ -26,9 +26,16 @@ export default function Sheet({
   const reduce = useReducedMotion();
   const panel = useRef<HTMLDivElement>(null);
 
+  // onClose change à chaque rendu chez l'appelant : on le garde en référence pour
+  // ne pas renvoyer le focus au panneau à chaque interaction.
+  const close = useRef(onClose);
+  useEffect(() => {
+    close.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close.current();
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -37,7 +44,7 @@ export default function Sheet({
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [open, onClose]);
+  }, [open]);
 
   return (
     <AnimatePresence>

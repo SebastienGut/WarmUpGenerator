@@ -1,5 +1,9 @@
 import type { PrepFocus } from "@/lib/warmup-data";
 import { exercises, MUSCLE_LABELS, OBJECTIVE_LABELS, ZONE_LABELS, EQUIPMENT_LABELS } from "@/lib/warmup-data";
+import { EQUIPMENT_LABELS as KIT_LABELS, type Equipment } from "@/lib/bank";
+import { SESSION_TEMPLATES } from "@/lib/lifts";
+import { buildRehabPlan, REHAB_ZONES } from "@/lib/rehab";
+import { buildSessionPlan, type PrepStep, type SessionPlan } from "@/lib/session-engine";
 
 // Libellés des qualités préparées (champ prepFocus du jeu de données ouvert).
 const FOCUS_LABELS: Record<PrepFocus, string> = {
@@ -17,6 +21,37 @@ const FOCUS_LABELS: Record<PrepFocus, string> = {
   hamstrings: "ischio-jambiers",
   overhead: "épaules en hauteur",
 };
+
+// Routines telles que le générateur les affiche : calculées par le moteur au build,
+// elles ne peuvent pas diverger du site.
+function stepsOf(plan: SessionPlan) {
+  return plan.phases.flatMap((ph) =>
+    (ph.steps as PrepStep[]).map((s) => ({
+      phase: ph.title,
+      name: s.exercise.name,
+      dose: s.reps,
+      instructions: s.instructions,
+      why: s.reason,
+      ...(s.replaces ? { replaces: s.replaces } : {}),
+    })),
+  );
+}
+
+const KITS: Equipment[] = ["gym", "band", "none"];
+const sessionRoutines = SESSION_TEMPLATES.filter((t) => t.id !== "bas").map((t) => ({
+  id: t.id,
+  name: t.label,
+  byEquipment: Object.fromEntries(
+    KITS.map((eq) => {
+      const plan = buildSessionPlan({ template: t.id, zones: t.zones, lifts: [], pain: [], band: false, equipment: eq, short: false, variant: 0 });
+      return [eq, { minutes: plan.minutes, steps: stepsOf(plan) }];
+    }),
+  ),
+}));
+const painRoutines = REHAB_ZONES.map((z) => {
+  const plan = buildRehabPlan([z.id]);
+  return { zone: z.id, name: z.label, minutes: plan.minutes, rule: "Douleur sous 3 sur 10 pendant et après chaque exercice.", steps: stepsOf(plan) };
+});
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
 
@@ -39,8 +74,8 @@ export function GET() {
   const payload = {
     $schema: `${SITE_URL}/api/exercices`,
     name: "Référentiel d'exercices d'échauffement pour la musculation",
-    description: `Base de données ouverte de ${exercises.length} exercices d'échauffement en français, annotés par qualité physique préparée, contre-indications par zone sensible, groupe musculaire, articulations mobilisées et matériel requis.`,
-    version: "1.2.0",
+    description: `Base de données ouverte en français : les routines d'échauffement du générateur par séance (Push, Pull, Legs, Upper, Full body) et par matériel (salle, élastique, sans matériel), les routines « Une douleur ? » par articulation, et un référentiel de ${exercises.length} exercices annotés (qualité préparée, contre-indications, muscles, articulations, matériel).`,
+    version: "2.0.0",
     language: "fr",
     license: {
       name: "Creative Commons Attribution 4.0 International",
@@ -56,6 +91,7 @@ export function GET() {
       objectives: OBJECTIVE_LABELS,
       zones: ZONE_LABELS,
       equipment: EQUIPMENT_LABELS,
+      routineEquipment: KIT_LABELS,
       prepFocus: FOCUS_LABELS,
       prepRoles: {
         mobility: "Mobilité",
@@ -72,6 +108,8 @@ export function GET() {
       },
     },
     fieldDefinitions: {
+      sessionRoutines: "Routines du générateur, une par séance type ; byEquipment donne la version pour chaque matériel (voir vocabularies.routineEquipment), dans l'ordre d'exécution, avec dose, consigne, utilité et, le cas échéant, l'exercice remplacé (replaces)",
+      painRoutines: "Routines « Une douleur ? » par articulation : mobilité douce puis renforcement léger, à suivre sous 3 sur 10 ; ne remplacent pas un avis médical",
       id: "Identifiant stable de l'exercice",
       name: "Nom de l'exercice en français",
       category: "Phase de l'échauffement (voir vocabularies.categories)",
@@ -91,6 +129,8 @@ export function GET() {
       trainingValue: "Intérêt de l'exercice en préparation, de 1 (faible) à 5 (fort)",
       therapeutic: "Zone sensible pour laquelle l'exercice a été conçu",
     },
+    sessionRoutines,
+    painRoutines,
     exercises,
   };
 

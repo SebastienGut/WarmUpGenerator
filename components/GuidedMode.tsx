@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
@@ -129,6 +129,20 @@ export default function GuidedMode({ plan, onClose, care = false }: { plan: Sess
   const [skipped, setSkipped] = useState<number[]>([]);
   const item = items[index];
   const done = index >= items.length;
+  const dialog = useRef<HTMLDivElement>(null);
+
+  const close = useRef(onClose);
+  useEffect(() => {
+    close.current = onClose;
+  }, [onClose]);
+
+  // Clavier : le focus entre dans le mode guidé à l'ouverture, Échap le referme.
+  useEffect(() => {
+    dialog.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close.current();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // Écran allumé pendant l'échauffement : le téléphone est posé au sol.
   useEffect(() => {
@@ -190,7 +204,7 @@ export default function GuidedMode({ plan, onClose, care = false }: { plan: Sess
   const key = done ? "done" : resting ? `rest${index}` : `i${index}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-paper" role="dialog" aria-modal="true" aria-label="Échauffement guidé">
+    <div ref={dialog} tabIndex={-1} className="fixed inset-0 z-50 flex flex-col bg-paper outline-none" role="dialog" aria-modal="true" aria-label={care ? "Routine guidée" : "Échauffement guidé"}>
       <div className="mx-auto w-full max-w-[560px] px-5 pt-[max(14px,env(safe-area-inset-top))]">
         {oneItemPerStep ? (
           <StepBar phases={plan.phases} loaded={index} className="flex-1 [&_.plate-load]:![animation:none]" />

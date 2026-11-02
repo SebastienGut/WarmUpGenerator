@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Base de données ouverte des exercices d'échauffement",
     description:
-      "55 exercices annotés en français, JSON libre sous CC BY 4.0. Réutilisable pour vos applications, recherches ou projets.",
+      `Routines d'échauffement et ${exercises.length} exercices annotés en français, JSON libre sous CC BY 4.0.`,
     type: "website",
     locale: "fr_FR",
     url: PATH,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Base de données ouverte des exercices d'échauffement",
-    description: "55 exercices annotés en français, JSON libre sous CC BY 4.0.",
+    description: `${exercises.length} exercices annotés et les routines du générateur, JSON libre sous CC BY 4.0.`,
   },
   robots: { index: true, follow: true },
 };
@@ -39,7 +39,7 @@ export default function DonneesPage() {
     "@context": "https://schema.org",
     "@type": "Dataset",
     name: "Référentiel d'exercices d'échauffement pour la musculation",
-    description: `Jeu de données ouvert de ${exercises.length} exercices d'échauffement en français, annotés par groupe musculaire, objectif d'entraînement, contre-indications par zone sensible, articulations mobilisées et matériel requis. Conçu pour la génération automatisée de protocoles d'échauffement.`,
+    description: `Jeu de données ouvert en français : routines d'échauffement par séance et par matériel, routines douleur par articulation, et ${exercises.length} exercices d'échauffement annotés par groupe musculaire, objectif d'entraînement, contre-indications par zone sensible, articulations mobilisées et matériel requis. Conçu pour la génération automatisée de protocoles d'échauffement.`,
     url: `${SITE_URL}${PATH}`,
     identifier: `${SITE_URL}/api/exercices`,
     keywords: [
@@ -102,7 +102,13 @@ export default function DonneesPage() {
           </h1>
           <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-muted md:text-[16px]">
             <p>
-              Le référentiel qui alimente le générateur est publié en accès libre :{" "}
+              Le jeu de données contient les <strong className="text-ink">routines du générateur</strong>, telles
+              qu&apos;elles s&apos;affichent sur le site : une par séance (Push, Pull, Legs, Upper, Full body) et
+              par matériel (salle, élastique, sans matériel), avec dose, consigne et utilité de chaque exercice,
+              ainsi que les routines « Une douleur ? » par articulation.
+            </p>
+            <p>
+              S&apos;y ajoute un référentiel de{" "}
               <strong className="text-ink">{exercises.length} exercices d&apos;échauffement</strong> en français,
               annotés par groupe musculaire, objectif d&apos;entraînement, contre-indications
               par zone sensible, articulations mobilisées et matériel requis.
@@ -137,7 +143,7 @@ export default function DonneesPage() {
                 /api/exercices
               </span>
               <span className="text-[12px] font-medium">
-                {exercises.length} exercices · Libellés inclus · CORS ouvert
+                Routines, {exercises.length} exercices, libellés inclus, CORS ouvert
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">

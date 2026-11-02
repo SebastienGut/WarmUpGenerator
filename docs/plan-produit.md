@@ -114,9 +114,15 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
   honnête ou retrait. Routines `lib/routines.ts` : une par séance type, bases par zone pour « Mes zones ».
 - Pas de cardio ; mobilité puis activation ; message de fin imposé ; accroche sur l'accueil.
 - Réglage matériel mémorisé sur l'appareil (`lib/equipment-pref.ts`), URL `m=n|e|s`, séance `t=`.
-- Reste : validation des routines (docs/decisions-a-prendre.md), complément lombaire (plus tard).
+- Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 3 nov. 2026 : logo (monogramme W), accueil épuré (Legs, Upper, Bas retiré), disques en pastilles,
+  frise en segments ; routine « Une douleur ? » (lib/rehab.ts) à la place de « Mes zones » ; plan
+  réduit au matériel + ↻ Varier. Vérifs lot 2 : contraste AA clair/sombre sur 8 écrans
+  (scripts/bench/contrast.js), focus visible sur les aplats, Échap et focus dans le mode guidé,
+  focus du panneau stabilisé, mouvement réduit et hors ligne relus. Open data v2 (routines par
+  séance × matériel, routines douleur) et llms.txt à jour. Complément lombaire abandonné.
 - 2 nov. 2026 : lot 1 bis, moteur v3 (branche bloc/moteur-v3). Routines du brief, variantes par
   matériel, « Mes zones » par tours (chaque zone servie, exercice partagé d'abord, bras = biceps +
   triceps), remplacements signalés (« Remplace : … »). Contrôles : 7 980 routines, 0 écart.

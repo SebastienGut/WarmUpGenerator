@@ -142,6 +142,14 @@ body {
   outline-offset: 2px;
   border-radius: 6px;
 }
+/* Dans un aplat coloré (bandeau d'affiche, carte), le contour rouge se perdrait :
+   il passe au blanc, ou à l'encre sur le jaune. Autour de l'aplat lui-même, il reste rouge. */
+:is(.bg-accent, .bg-blue, .bg-green, .bg-black) :focus-visible {
+  outline-color: #fff;
+}
+.bg-yellow :focus-visible {
+  outline-color: var(--black);
+}
 
 /* Titres et chiffres en typo d'affiche (Anton, une seule graisse) : on
    neutralise les graisses demandées par les classes pour éviter le faux gras. */

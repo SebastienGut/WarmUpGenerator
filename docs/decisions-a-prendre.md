@@ -16,7 +16,6 @@
         allongé, 90/90 ↔ squat assisté). Garder le bouton ou le retirer ?
       - **Bras sans matériel** : une seule ligne (pronation-supination), aucun équivalent honnête pour
         biceps et triceps. Acceptable, ou ajouter un message « fais une série légère de ton premier exercice » ?
-      - **Complément lombaire personnel** (prévu « plus tard » par le brief) : pas commencé.
 - [ ] **Pictogrammes à regarder** : squat profond assisté (au mur) et rotation thoracique à quatre
       pattes sont nouveaux. Je n'ai pas pu les voir rendus (panneau navigateur masqué) : jette un œil
       sur /plan?t=legs et /plan?t=pull. Pas d'autre travail graphique tant que la banque n'est pas validée.

@@ -74,12 +74,12 @@ export default function SessionBuilder() {
               Séries d&apos;approche
             </Link>
           </header>
-          <h1 className="poster font-display text-[64px] leading-[0.92] sm:text-[96px]">
+          <h1 className="poster font-display text-[64px] leading-[1.04] sm:text-[96px]">
             Tu entraînes
             <br />
             quoi&nbsp;?
           </h1>
-          <p className="mt-4 max-w-[40ch] text-white">
+          <p className="mt-4 max-w-[34rem] text-balance text-white">
             <strong className="block text-[19px] font-bold leading-snug sm:text-[22px]">La longévité du sportif commence ici.</strong>
             <span className="mt-1 block text-[16px]">Choisis ta séance, obtiens ton échauffement sur mesure.</span>
           </p>

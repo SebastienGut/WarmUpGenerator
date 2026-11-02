@@ -193,7 +193,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
   lombaires: {
     slug: "lombaires",
     zoneLabel: "lombaires",
-    metaTitle: "Échauffement bas du dos — Plan musculation pour lombaires sensibles",
+    metaTitle: "Échauffement bas du dos : musculation avec lombaires sensibles",
     metaDescription:
       "Échauffement complet pour le bas du dos avant musculation. Mobilisation lombaire, gainage, activation fessière. 6 exercices sécurisés. Gratuit, sans inscription.",
     h1: "Échauffement bas du dos / lombaires",

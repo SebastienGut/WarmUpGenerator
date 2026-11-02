@@ -11,7 +11,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 // Date de dernière mise à jour réelle du contenu (à actualiser lors des
 // refontes). Un lastModified recalculé à chaque build envoie un faux signal
 // de fraîcheur, que Google finit par ignorer.
-const CONTENT_UPDATED = new Date("2026-10-22");
+const CONTENT_UPDATED = new Date("2026-11-02");
 
 type Entry = MetadataRoute.Sitemap[number];
 const page = (path: string, priority: number, changeFrequency: Entry["changeFrequency"] = "monthly", lastModified = CONTENT_UPDATED): Entry => ({

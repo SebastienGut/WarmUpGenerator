@@ -78,7 +78,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 6. Vérif : parcours complet sur mobile et desktop, clavier, contrastes, mouvement réduit,
    hors ligne.
 
-## Lot 3 — Direction artistique
+## Lot 3 — Direction artistique — maquettes prêtes, choix de Seb en attente
 - Retour de Seb et de l'audit : visuel « froid, robotique, peu sportif », personnages
   approximatifs. Il faut une vraie direction artistique, pas des couleurs changées.
 - Méthode (skill frontend-design + design-critique) : comparer deux directions concrètes en
@@ -110,6 +110,9 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Ne pas affirmer de meilleure rétention sans données.
 
 ## Journal
+- 2 nov. 2026 : bloc lots 0-1-2 + audit pictogrammes fusionné en main et en ligne (crawl 54 URL OK,
+  contraste clair/sombre OK, IndexNow 46 URL). Lot 3 : docs/maquettes/directions.html, deux
+  directions (A « chrono de salle », B « affiche de compétition ») sur accueil, plan, mode guidé.
 - 2 nov. 2026 : lot 4, audit des 50 pictogrammes sélectionnables (départ/arrivée). Corrigés : charnière
   de hanche (mains sur les hanches), tractions scapulaires (coudes tendus), W allongé (sur le ventre).
   Limites connues des pictogrammes 2D : les rotations ne se voient pas (rotation du buste debout,

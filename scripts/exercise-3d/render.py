@@ -24,15 +24,19 @@ from bl_ext.blender_org.mpfb.services.humanservice import HumanService
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rig3d  # noqa: E402
+from mocap import SRC_FPS, Mocap  # noqa: E402
 from poses3d import POSES  # noqa: E402
+
+# Mouvements générés par MoMask (voir docs/animations-3d.md).
+GEN_DIR = os.path.join(os.path.expanduser("~"), "Tools", "momask", "generation")
 
 argv = sys.argv[sys.argv.index("--") + 1 :]
 OUT_DIR, IDS = argv[0], argv[1:]
 
 FPS = 24
 RES = (480, 440)  # 2 × le cadre des pictogrammes (240 × 220)
-BODY = (0.11, 0.125, 0.14)  # gris acier (linéaire), lisible sur fond clair comme sombre
-WORK = (0.6, 0.012, 0.02)  # rouge du disque de 25 (linéaire)
+BODY = (0.05, 0.058, 0.066)  # gris acier (linéaire) : rendu AgX, éclaircit les valeurs
+WORK = (0.34, 0.0, 0.004)  # rouge du disque de 25 (linéaire, compensé pour AgX)
 METAL = (0.03, 0.035, 0.04)
 
 
@@ -40,37 +44,71 @@ METAL = (0.03, 0.035, 0.04)
 # Scène, mannequin, matériaux
 
 
+# Rendu studio (Cycles) : vraies ombres douces et occlusion, attrape-ombre au sol.
+# STUDIO=0 repasse en EEVEE (aperçus rapides).
+STUDIO = os.environ.get("STUDIO", "1") != "0"
+
+
+def area_light(sc, name, energy, size, loc, target=(0, 0, 0.9)):
+    li = bpy.data.objects.new(name, bpy.data.lights.new(name, "AREA"))
+    li.data.energy = energy
+    li.data.size = size
+    li.location = loc
+    d = Vector(target) - Vector(loc)
+    li.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
+    sc.collection.objects.link(li)
+    return li
+
+
 def setup_scene():
     for o in list(bpy.data.objects):
         bpy.data.objects.remove(o)
     sc = bpy.context.scene
-    for engine in ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT"):
+    if STUDIO:
+        sc.render.engine = "CYCLES"
+        sc.cycles.device = "CPU"
+        sc.cycles.samples = 48
+        sc.cycles.use_adaptive_sampling = True
+        sc.cycles.use_denoising = True
+        sc.cycles.max_bounces = 4
+        sc.cycles.diffuse_bounces = 2
+        sc.cycles.glossy_bounces = 1
+        sc.cycles.transparent_max_bounces = 2
+    else:
+        for engine in ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT"):
+            try:
+                sc.render.engine = engine
+                break
+            except TypeError:
+                continue
         try:
-            sc.render.engine = engine
-            break
-        except TypeError:
-            continue
+            sc.eevee.taa_render_samples = 32
+        except AttributeError:
+            pass
     sc.render.resolution_x, sc.render.resolution_y = RES
     sc.render.film_transparent = True
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGBA"
-    sc.view_settings.view_transform = "Standard"
-    try:
-        sc.eevee.taa_render_samples = 32
-        sc.eevee.use_shadows = True
-    except AttributeError:
-        pass
+    sc.view_settings.view_transform = "AgX" if STUDIO else "Standard"
+    if STUDIO:
+        sc.view_settings.look = "AgX - Medium High Contrast"
     world = bpy.data.worlds.new("World")
     world.use_nodes = True
     world.node_tree.nodes["Background"].inputs[0].default_value = (0.75, 0.77, 0.8, 1)
-    world.node_tree.nodes["Background"].inputs[1].default_value = 0.55
+    world.node_tree.nodes["Background"].inputs[1].default_value = 0.35 if STUDIO else 0.55
     sc.world = world
-    # Lumière principale douce, en haut à gauche de la caméra.
-    sun = bpy.data.objects.new("Key", bpy.data.lights.new("Key", "SUN"))
-    sun.data.energy = 3.2
-    sun.data.angle = math.radians(35)
-    sun.rotation_euler = (math.radians(50), 0, math.radians(-120))
-    sc.collection.objects.link(sun)
+    if STUDIO:
+        # Éclairage trois points : grande boîte à lumière, contre-jour qui détache
+        # la silhouette, débouchage doux de l'autre côté.
+        area_light(sc, "Key", 420, 2.2, (-2.4, -2.6, 3.4))
+        area_light(sc, "Rim", 260, 1.4, (2.2, 2.8, 2.6))
+        area_light(sc, "Fill", 90, 3.0, (3.0, -2.0, 1.2))
+    else:
+        sun = bpy.data.objects.new("Key", bpy.data.lights.new("Key", "SUN"))
+        sun.data.energy = 3.2
+        sun.data.angle = math.radians(35)
+        sun.rotation_euler = (math.radians(50), 0, math.radians(-120))
+        sc.collection.objects.link(sun)
     return sc
 
 
@@ -138,7 +176,15 @@ def paint(mesh, bones):
 
 
 def contact_shadow(sc):
-    """Ombre de contact : disque flou sous le corps (EEVEE n'a pas d'attrape-ombre)."""
+    """Ombre au sol. Cycles : sol invisible qui ne garde que les ombres. EEVEE :
+    disque flou sous le corps."""
+    if STUDIO:
+        bpy.ops.mesh.primitive_plane_add(size=12)
+        plane = bpy.context.active_object
+        plane.name = "Shadow"
+        plane.is_shadow_catcher = True
+        plane["catcher"] = True
+        return plane
     bpy.ops.mesh.primitive_plane_add(size=1)
     plane = bpy.context.active_object
     plane.name = "Shadow"
@@ -323,7 +369,8 @@ CAMERAS = {
 
 def setup_camera(sc, view):
     cam = bpy.data.objects.new("Cam", bpy.data.cameras.new("Cam"))
-    cam.data.type = "ORTHO"
+    cam.data.type = "PERSP" if STUDIO else "ORTHO"
+    cam.data.lens = 70
     sc.collection.objects.link(cam)
     sc.camera = cam
     az_deg, el_deg = CAMERAS[view] if isinstance(view, str) else view
@@ -343,34 +390,79 @@ def frame_camera(cam, all_pts):
     zs = [p.dot(fwd) for p in all_pts]
     cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
     w, h = max(xs) - min(xs), max(ys) - min(ys)
-    cam.data.ortho_scale = max(w, h * RES[0] / RES[1]) * 1.12
-    cam.location = right * cx + up2 * cy + fwd * (max(zs) + 3)
+    span = max(w, h * RES[0] / RES[1]) * 1.14
+    if cam.data.type == "ORTHO":
+        cam.data.ortho_scale = span
+        cam.location = right * cx + up2 * cy + fwd * (max(zs) + 3)
+    else:
+        # Distance qui fait tenir le mouvement dans le cadre au foyer choisi.
+        half_fov = math.atan(cam.data.sensor_width / 2 / cam.data.lens)
+        mid = (min(zs) + max(zs)) / 2
+        dist = span / 2 / math.tan(half_fov) + (max(zs) - mid)
+        cam.location = right * cx + up2 * cy + fwd * (mid + dist)
     cam.rotation_euler = Matrix((right, up2, fwd)).transposed().to_4x4().to_euler()
     cam.data.clip_end = 20
+
+
+def apply_item(kin, item):
+    """Pose une image : posture anatomique (dict) ou rotations issues d'une
+    capture (W, déplacement du bassin). Renvoie le déplacement du bassin."""
+    if isinstance(item, dict):
+        kin.pose(item)
+        return Vector((0, 0, 0))
+    W, move, grip = item
+    kin.apply(W, {"l": grip, "r": grip})
+    return move
+
+
+def mocap_items(spec, kin, rig, n):
+    """Images d'un passage capté, rééchantillonné à FPS, avec un fondu final vers
+    la première image pour une boucle sans à-coup."""
+    mc = Mocap(os.path.join(GEN_DIR, spec["mocap"]), kin, rig)
+    a, b = spec["start"], spec["end"]
+    grip = spec.get("grip", 0.25)
+    items = []
+    for i in range(n):
+        W, move = mc.world_at(a + (b - a) * i / n)
+        items.append([W, move, grip])
+    fade = max(1, round(0.3 * FPS))
+    W0, m0 = items[0][0], items[0][1]
+    for k in range(fade):
+        i = n - fade + k
+        t = (k + 1) / (fade + 1)
+        t = t * t * (3 - 2 * t)
+        W, move = items[i][0], items[i][1]
+        items[i][0] = {bn: W[bn].to_quaternion().slerp(W0[bn].to_quaternion(), t).to_matrix() for bn in W}
+        items[i][1] = move.lerp(m0, t)
+    mc.cleanup()
+    return [tuple(it) for it in items]
 
 
 def solve_frames(rig, kin, mesh, spec, n):
     """Pose chaque image et calcule le décalage qui pose le corps au sol (ou
     les mains à la barre) sans faire glisser le point d'appui."""
     root = rig.pose.bones["Root"]
+    items = mocap_items(spec, kin, rig, n) if "mocap" in spec else [rig3d.sample(spec, i / n) for i in range(n)]
     poses, offsets, pts_all, ref = [], [], [], None
-    for i in range(n):
-        p = rig3d.sample(spec, i / n)
+    for item in items:
         root.location = (0, 0, 0)
-        kin.pose(p)
+        move = apply_item(kin, item)
         bpy.context.view_layer.update()
         pts = world_points(mesh)
-        anc = anchor_point(rig, spec)
-        if ref is None:
-            ref = anc.copy()
-        off = Vector((ref.x - anc.x, ref.y - anc.y, 0))
+        if spec.get("anchor", "feet") == "none":
+            off = Vector((move.x, move.y, 0))
+        else:
+            anc = anchor_point(rig, spec)
+            if ref is None:
+                ref = anc.copy()
+            off = Vector((ref.x - anc.x, ref.y - anc.y, 0))
         if spec.get("hang"):
             off.z = 2.3 - max(hand(rig, "l").z, hand(rig, "r").z)
         elif spec.get("seat") is not None:
             off.z = spec["seat"] - bone_head(rig, "pelvis").z
         else:
             off.z = -min(q.z for q in pts)
-        poses.append(p)
+        poses.append(item)
         offsets.append(off)
         pts_all += [q + off for q in pts[::4]]
     return poses, offsets, pts_all
@@ -379,14 +471,16 @@ def solve_frames(rig, kin, mesh, spec, n):
 def shoot(sc, rig, kin, mesh, shadow, props, frame0, p, off, path):
     root = rig.pose.bones["Root"]
     root.location = (0, 0, 0)
-    kin.pose(p)
+    apply_item(kin, p)
     # La translation de l'os racine s'exprime dans son repère local.
     root.location = rig.data.bones["Root"].matrix_local.to_3x3().inverted() @ off
     bpy.context.view_layer.update()
     body_pts = world_points(mesh, 23)
     place_props(props, rig, frame0, body_pts)
     ground = [q for q in body_pts if q.z < 0.08]
-    if ground:
+    if shadow.get("catcher"):
+        pass
+    elif ground:
         xs, ys = [q.x for q in ground], [q.y for q in ground]
         shadow.location = ((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2, 0.001)
         shadow.scale = (max(0.35, (max(xs) - min(xs)) * 1.5), max(0.35, (max(ys) - min(ys)) * 1.5), 1)
@@ -399,13 +493,21 @@ def shoot(sc, rig, kin, mesh, shadow, props, frame0, p, off, path):
 
 def render_figure(sc, mesh, rig, kin, shadow, fid, spec):
     paint(mesh, worked_bones(spec, rig))
-    n = max(24, round(spec.get("dur", 2.6) * FPS))
+    if "mocap" in spec:
+        n = round((spec["end"] - spec["start"]) / SRC_FPS * FPS)
+    else:
+        n = max(24, round(spec.get("dur", 2.6) * FPS))
     poses, offsets, pts_all = solve_frames(rig, kin, mesh, spec, n)
     props = build_props(spec)
     out = os.path.join(OUT_DIR, fid)
     os.makedirs(out, exist_ok=True)
-    nk = len(spec["keys"])
-    picks = (0, n // 6, n // 3, n // 2) if spec.get("loop", "pingpong") == "pingpong" else tuple(round(j * n / nk) for j in range(nk))
+    if "mocap" in spec:
+        picks = tuple(round(j * n / 6) for j in range(6))
+    elif spec.get("loop", "pingpong") == "pingpong":
+        picks = (0, n // 6, n // 3, n // 2)
+    else:
+        nk = len(spec["keys"])
+        picks = tuple(round(j * n / nk) for j in range(nk))
     multi = bool(os.environ.get("VIEWS"))
     own = spec.get("view", "side")
     views = ([own] + [v for v in ("front", "side", "back") if v != own]) if multi else [own]

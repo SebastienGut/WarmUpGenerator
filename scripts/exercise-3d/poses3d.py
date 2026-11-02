@@ -143,3 +143,13 @@ POSES = {
         "work": ["spine", "pelvis", "clavicle", "upperarm"],
     },
 }
+
+# Essais de mouvements générés par MoMask (chemins relatifs à ~/Tools/momask/generation).
+POSES.update({
+    "_mc-jog": {"mocap": "haut/animations/0/sample0_repeat2_len196_ik.bvh", "start": 3, "end": 47,
+                "anchor": "hip", "view": "side", "work": ["thigh", "calf"], "grip": 0.6},
+    "_mc-hinge": {"mocap": "haut/animations/3/sample3_repeat2_len176_ik.bvh", "start": 84, "end": 144,
+                  "view": "side", "work": ["thigh", "pelvis"]},
+    "_mc-yt": {"mocap": "haut/animations/4/sample4_repeat0_len196_ik.bvh", "start": 49, "end": 168,
+               "view": (145, 18), "work": ["upperarm", "clavicle", "spine_03"], "grip": 0.5},
+})

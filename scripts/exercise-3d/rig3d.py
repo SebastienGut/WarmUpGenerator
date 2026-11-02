@@ -136,18 +136,38 @@ class Rig:
             A[name] = Ap @ local
         for name in self.order:
             W[name] = A[name] @ self.neutral[name]
+        self.apply(W, {"l": get(p, "grip", "l", 0.25), "r": get(p, "grip", "r", 0.25)})
+
+    def world(self, p):
+        """Rotations monde de chaque os pour une posture anatomique (sans l'appliquer)."""
+        saved = self.apply
+        out = {}
+        self.apply = lambda W, grip: out.update(W)
+        try:
+            self.pose(p)
+        finally:
+            self.apply = saved
+        return out
+
+    def apply(self, W, grip):
+        """Applique des rotations monde (repère armature) aux os. Un os absent de W
+        suit son parent ; les doigts se ferment selon grip (0 = main ouverte)."""
         pb = self.rig.pose.bones
+        full = {}
         for name in self.order:
             par = self.parent[name]
-            Wp = W[par] if par else Matrix.Identity(3)
+            full[name] = W.get(name, full[par] if par else Matrix.Identity(3))
+        for name in self.order:
+            par = self.parent[name]
+            Wp = full[par] if par else Matrix.Identity(3)
             rest = self.rest[name]
             if name.startswith(FINGERS) or name.startswith("thumb"):
                 # Doigts : flexion dans leur propre repère (axe X local = charnière).
-                g = get(p, "grip", name.split("_")[-1], 0.25)
+                g = grip[name.split("_")[-1]]
                 ang = 70 * g if not name.startswith("thumb") else 25 * g
                 basis = Matrix.Rotation(math.radians(ang), 3, "X")
             else:
-                basis = rest.inverted() @ Wp.inverted() @ W[name] @ rest
+                basis = rest.inverted() @ Wp.inverted() @ full[name] @ rest
             pb[name].rotation_mode = "QUATERNION"
             pb[name].rotation_quaternion = basis.to_quaternion()
             pb[name].location = (0, 0, 0)

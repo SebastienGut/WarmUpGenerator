@@ -1,47 +1,40 @@
-# Génère les icônes du site à partir du monogramme (mêmes coordonnées que components/Logo.tsx).
+# Génère les icônes du site à partir du logo de Seb (brand/logo-warmup.png).
 # Usage : python scripts/build-logo.py
-import math
-from PIL import Image, ImageDraw
-
-RED = (200, 32, 42, 255)
-WHITE = (255, 255, 255, 255)
-YELLOW = (232, 180, 23, 255)
-PAPER = (247, 246, 242, 255)
-
-# Monogramme dans une boîte 100 × 100, incliné comme les titres d'affiche.
-W = [(13, 22), (30, 22), (36, 55), (43, 22), (57, 22), (64, 55), (70, 22), (87, 22), (73, 74), (56, 74), (50, 46), (44, 74), (27, 74)]
-BAR = [(16, 81), (84, 81), (84, 89), (16, 89)]
-SKEW = math.tan(math.radians(7))
-
-
-def skew(pts):
-    return [(x + (50 - y) * SKEW, y) for x, y in pts]
-
-
-def render(size, pad=0.0, bg=None, radius=0.22):
-    s = size * 4  # suréchantillonnage, puis réduction pour des bords nets
-    im = Image.new("RGBA", (s, s), bg or (0, 0, 0, 0))
-    d = ImageDraw.Draw(im)
-    inset = s * pad
-    box = s - 2 * inset
-    d.rounded_rectangle([inset, inset, s - inset, s - inset], radius=box * radius, fill=RED)
-    k = box / 100
-    t = lambda pts: [(inset + x * k, inset + y * k) for x, y in skew(pts)]
-    d.polygon(t(W), fill=WHITE)
-    d.polygon(t(BAR), fill=YELLOW)
-    return im.resize((size, size), Image.LANCZOS)
-
+from PIL import Image
 
 root = "C:/Users/seb/Desktop/warmup-generator/"
-render(512).save(root + "public/logo.png")
-render(180, pad=0.0, bg=RED, radius=0).save(root + "app/apple-icon.png")
-render(180, pad=0.0, bg=RED, radius=0).save(root + "public/icons/logo-apple-touch.png")
-render(192).save(root + "public/icons/logo-pwa-192.png")
-render(512).save(root + "public/icons/logo-pwa-512.png")
-# Maskable : zone sûre de 80 %, fond plein.
-render(512, pad=0.1, bg=RED, radius=0).save(root + "public/icons/logo-pwa-maskable-512.png")
-render(512, pad=0.1, bg=RED, radius=0).save(root + "public/icons/maskable-512.png")
-ico = render(256)
-ico.save(root + "app/favicon.ico", sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
-render(96).save(root + "app/icon.png")
-print("ok")
+PAPER = (247, 246, 242, 255)
+
+src = Image.open(root + "brand/logo-warmup.png").convert("RGBA")
+# Recadrage sur le dessin réel (on ignore le halo presque transparent).
+alpha = src.getchannel("A").point(lambda a: 255 if a > 40 else 0)
+mark = src.crop(alpha.getbbox())
+
+
+def render(size, pad=0.06, bg=None):
+    """Logo centré dans un carré, avec une marge relative."""
+    canvas = Image.new("RGBA", (size, size), bg or (0, 0, 0, 0))
+    inner = int(size * (1 - 2 * pad))
+    w, h = mark.size
+    k = inner / max(w, h)
+    m = mark.resize((max(1, round(w * k)), max(1, round(h * k))), Image.LANCZOS)
+    canvas.alpha_composite(m, ((size - m.width) // 2, (size - m.height) // 2))
+    return canvas
+
+
+# Favicon et icône d'onglet : fond transparent, marge minimale pour rester lisible à 16 px.
+render(256, pad=0.02).save(root + "app/favicon.ico", sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+render(96, pad=0.02).save(root + "app/icon.png")
+# Logo déclaré aux moteurs (JSON-LD Organization) et logo de l'en-tête.
+render(512, pad=0.06).save(root + "public/logo.png")
+# En-tête : le dessin seul, recadré (plus large que haut), 120 px de haut pour les écrans denses.
+mark.resize((round(mark.width * 120 / mark.height), 120), Image.LANCZOS).save(root + "public/logo-mark.png")
+# Icônes d'app : fond papier plein (iOS et Android n'aiment pas la transparence).
+render(180, pad=0.1, bg=PAPER).save(root + "app/apple-icon.png")
+render(180, pad=0.1, bg=PAPER).save(root + "public/icons/logo-apple-touch.png")
+render(192, pad=0.08, bg=PAPER).save(root + "public/icons/logo-pwa-192.png")
+render(512, pad=0.08, bg=PAPER).save(root + "public/icons/logo-pwa-512.png")
+# Maskable : le système peut rogner jusqu'à 20 % de chaque côté.
+render(512, pad=0.2, bg=PAPER).save(root + "public/icons/logo-pwa-maskable-512.png")
+render(512, pad=0.2, bg=PAPER).save(root + "public/icons/maskable-512.png")
+print("ok", mark.size)

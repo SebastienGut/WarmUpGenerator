@@ -142,7 +142,7 @@ export default function SeriesApprochePage() {
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-[720px] items-center gap-2.5 px-6 py-3">
           <Link href="/" aria-label="Warmup Generator, accueil" className="text-ink">
-            <Logo className="[&_svg]:h-8 [&_svg]:w-8" />
+            <Logo />
           </Link>
           <Link href="/" className="ml-auto text-[14px] font-semibold text-ink hover:opacity-80">
             ← Générateur

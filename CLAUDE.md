@@ -82,8 +82,8 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
   (contraste AA). Boutons d'action : pilule noire.
 - Disques de charge : composant `Plates`, une pastille ronde par disque, poids écrit dessus, aux couleurs de
   compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
-- Logo : monogramme W d'affiche sur barre jaune (`components/Logo.tsx`), icônes générées par
-  `python scripts/build-logo.py` (mêmes coordonnées).
+- Logo : dessin de Seb (W en ruban finissant en flèche montante), source `brand/logo-warmup.png` ;
+  favicon, icônes d'app et `public/logo-mark.png` (en-têtes) générés par `python scripts/build-logo.py`.
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
 - Mouvement : un seul moment non déclenché (le chargement des disques, `plate-load`) ; le reste répond aux actions. Animations d'entrée en CSS, jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
 - Tout nouvel exercice (lib/warmup-data.ts ou lib/lifts.ts) doit avoir sa posture dans lib/figures.ts.

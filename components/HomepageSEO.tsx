@@ -21,6 +21,7 @@ const MUSCLE_GUIDES: { href: string; label: string }[] = [
   { href: "/echauffement/fessiers", label: "Fessiers" },
   { href: "/echauffement/bras", label: "Bras" },
   { href: "/echauffement/core", label: "Gainage" },
+  { href: "/echauffement/exercice", label: "Avant un exercice précis" },
 ];
 
 const PROTECTION_LINKS: { href: string; label: string }[] = [
@@ -45,280 +46,101 @@ const DOULEUR_LINKS: { href: string; label: string }[] = [
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "Pourquoi s'échauffer avant une séance de musculation ?",
-    a: "Un échauffement musculation augmente la température corporelle, lubrifie les articulations, active le système nerveux et prépare les muscles à des charges lourdes. Résultat : moins de blessures, plus de force disponible et une meilleure connexion neuro-musculaire dès la première série de travail.",
-  },
-  {
     q: "Combien de temps doit durer un échauffement ?",
-    a: "Cinq à huit minutes suffisent pour la majorité des séances. Compte 2 à 3 minutes de mobilisation articulaire générale, puis 2 à 5 minutes d'activation musculaire ciblée sur les muscles que tu vas travailler. Au-delà de 10 minutes, tu fatigues sans bénéfice supplémentaire.",
+    a: "Pour la plupart des séances, 5 à 10 minutes suffisent : quelques minutes de mise en route, puis de la mobilité et de l'activation ciblées sur les muscles du jour. Le plan affiche sa durée réelle, transitions comprises. Viennent ensuite les séries d'approche sur ton premier exercice lourd.",
   },
   {
     q: "Faut-il s'étirer avant la musculation ?",
-    a: "Non, pas en statique. Les étirements statiques avant l'effort réduisent la force et la puissance de 5 à 10 % pendant 30 à 60 minutes. Privilégie la mobilité dynamique (cercles d'épaules, fentes marchées, swings de hanches) et l'activation musculaire. Garde les étirements statiques pour la fin de séance ou les jours de repos.",
+    a: "Les étirements statiques longs (plus de 60 secondes par muscle) juste avant l'effort peuvent réduire un peu la force et la puissance ; des étirements courts ont un effet négligeable. On privilégie donc la mobilité dynamique et l'activation avant la séance, et on garde les étirements tenus pour après ou pour un autre moment.",
   },
   {
     q: "Cet échauffement remplace-t-il les séries de chauffe avec barre ?",
-    a: "Non. L'échauffement général prépare le corps. Sur les exercices polyarticulaires lourds (squat, développé couché, soulevé de terre), ajoute toujours 2 à 5 séries d'approche à charge croissante avant tes séries de travail : le calculateur de séries d'approche du site te donne les charges exactes.",
-  },
-  {
-    q: "L'application est-elle vraiment gratuite ?",
-    a: "Oui — 100 % gratuite, sans inscription, sans publicité, sans email demandé. Le générateur tourne entièrement dans ton navigateur, fonctionne hors ligne après la première visite, et ne collecte aucune donnée personnelle.",
-  },
-  {
-    q: "Quelle différence entre un échauffement pour la force et pour l'hypertrophie ?",
-    a: "Pour la force (charges maximales), l'activation neuro-musculaire est prioritaire : il faut que le système nerveux soit prêt à recruter un maximum d'unités motrices dès la première série. Pour l'hypertrophie, la connexion mind-muscle prime — tu dois sentir le muscle travailler. Le générateur en tient compte à travers tes répétitions de travail : plus elles sont basses, plus la montée en charge est longue et ses répétitions courtes.",
+    a: "Non. L'échauffement prépare les zones que tu vas travailler ; les séries d'approche préparent le geste et la charge. Sur un exercice lourd (squat, développé couché, soulevé de terre), fais ensuite quelques séries à charge croissante : le calculateur de séries d'approche donne les charges et les disques.",
   },
   {
     q: "Peut-on s'échauffer avec une douleur à l'épaule ou au genou ?",
-    a: "Oui, à condition d'adapter le protocole. Un échauffement spécifique « zone sensible » utilise des mouvements thérapeutiques à faible charge qui préparent l'articulation fragilisée sans l'aggraver. Le générateur intègre cette logique : indique la zone qui coince, il exclut les exercices contre-indiqués, ajoute une préparation dédiée et te rappelle le seuil de douleur à ne pas dépasser pendant les séries d'approche.",
-  },
-  {
-    q: "Peut-on s'échauffer efficacement en 3 minutes ?",
-    a: "En 3 minutes, on peut faire un échauffement minimal suffisant pour une séance légère ou de reprise. Pour des charges lourdes (squat lourd, développé couché à 80 %+), 5 à 8 minutes sont nécessaires. La version courte du générateur supprime le cardio et ne garde que l'essentiel : deux mobilités, une activation et tes séries d'approche.",
-  },
-  {
-    q: "Quel échauffement avant les squats ?",
-    a: "Le squat sollicite chevilles, genoux, hanches, lombaires et thoracique simultanément. L'échauffement idéal comprend : rotations de cheville, mobilité thoracique en rotation, hip circles, fentes marchées et activation des fessiers. Choisis « Squat » dans le générateur : il sélectionne la mobilité de cheville et de hanche, active les fessiers et calcule ta montée en charge jusqu'à ta charge de travail.",
-  },
-  {
-    q: "Faut-il faire du cardio avant de faire de la musculation ?",
-    a: "Non, ce n'est pas nécessaire ni optimal. Un cardio prolongé (10-15 min de tapis) avant la musculation fatigue le système énergétique et peut réduire ta force disponible. Un échauffement spécifique articulaire + activation musculaire est bien plus efficace pour préparer une séance de force ou d'hypertrophie.",
+    a: "Une gêne légère et connue peut se préparer en douceur : indique la zone qui coince, le plan évite les exercices qui la sollicitent fortement et rappelle de garder la gêne faible (sous 3 sur 10). Ce n'est ni un diagnostic ni un soin : une douleur vive, qui augmente ou qui dure demande l'avis d'un kiné ou d'un médecin.",
   },
   {
     q: "Le générateur fonctionne-t-il hors connexion en salle ?",
-    a: "Oui. Après la première visite, l'application est mise en cache et fonctionne sans réseau. Tu peux construire ton échauffement et le suivre étape par étape même en sous-sol sans Wi-Fi. Aucune donnée n'est envoyée à un serveur — tout tourne localement dans ton navigateur.",
+    a: "Oui. Après la première visite, l'outil est mis en cache et fonctionne sans réseau : tu peux générer ton échauffement et le suivre étape par étape même sans Wi-Fi. Tout est calculé sur ton téléphone.",
   },
 ];
 
 export default function HomepageSEO() {
-  // Schema FAQPage retiré : Google a réservé les rich results FAQ aux sites
-  // gouvernementaux/santé (août 2023). Le contenu FAQ reste affiché ci-dessous.
+  // Sous l'outil, un index sobre : tous les guides restent à un clic de
+  // l'accueil (exploration par les moteurs) sans concurrencer l'outil.
+  // Schema FAQPage retiré : rich results FAQ réservés aux sites de santé/État depuis 2023.
+  const columns: { title: string; links: { href: string; label: string }[] }[] = [
+    { title: "Par séance", links: POPULAR_PLANS },
+    { title: "Par muscle", links: MUSCLE_GUIDES },
+    {
+      title: "Douleurs et zones sensibles",
+      links: [...DOULEUR_LINKS, ...PROTECTION_LINKS],
+    },
+  ];
   return (
-    <section
-      aria-labelledby="seo-heading"
-      className="content-layer relative w-full bg-paper border-t border-line"
-    >
-      <div className="mx-auto grid w-full max-w-[1080px] gap-10 px-5 py-12 sm:px-8 lg:grid-cols-2 lg:gap-x-14">
-
-        {/* INTRO SEO */}
-        {/* Replié par défaut : lisible par les moteurs, discret pour l'utilisateur. */}
-        <details className="group lg:col-span-2 [&_summary::-webkit-details-marker]:hidden">
-          <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4">
-            <h2
-              id="seo-heading"
-              className="font-display text-[26px] font-extrabold leading-tight tracking-tight text-ink"
-            >
-              Pourquoi s&apos;échauffer avant la musculation ?
-            </h2>
-            <span aria-hidden="true" className="shrink-0 font-display text-[22px] text-subtle transition-transform group-open:rotate-45">+</span>
-          </summary>
-          <div className="mt-4 flex max-w-[68ch] flex-col gap-3 text-[15px] leading-relaxed text-muted">
-            <p>
-              Sauter l&apos;échauffement, c&apos;est entrer en séance avec un corps froid : articulations
-              raides, muscles peu vascularisés, système nerveux endormi. À court terme, ta première
-              série lourde part sur un geste qui n&apos;a pas été répété. À long terme, tu accumules les micro-traumatismes — tendinites d&apos;épaule, douleurs
-              lombaires, gênes au genou.
-            </p>
-            <p>
-              Un bon échauffement musculation suit une logique simple :{" "}
-              <strong className="text-ink">élever la température, mobiliser les articulations
-              ciblées, activer les muscles que tu vas solliciter</strong>. Cinq minutes bien dosées
-              valent mieux que quinze minutes mal pensées. Ce générateur part de ce que tu travailles : des jambes
-              demande des chevilles et des hanches mobiles, un développé couché des épaules stables. Il
-              prépare exactement ces zones. Pour ta première série lourde, le calculateur de séries d&apos;approche donne la montée en charge sur le
-              premier.
-            </p>
-            <p>
-              L&apos;outil est <strong className="text-ink">gratuit, sans inscription, et fonctionne
-              hors ligne</strong> une fois la page chargée. Aucune donnée n&apos;est collectée, aucun
-              compte n&apos;est requis — pose ton téléphone à côté du tapis et suis l&apos;échauffement
-              étape par étape, avec les temps de repos décomptés.
-            </p>
-          </div>
-        </details>
-
-        {/* ÉCHAUFFEMENTS POPULAIRES */}
-        <article className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <p className="text-[14px] font-semibold text-subtle">
-              Plans prêts à l&apos;emploi
-            </p>
-            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
-              Échauffements populaires
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            {POPULAR_PLANS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
-              >
-                <span className="truncate">{label}</span>
-              </Link>
+    <section aria-labelledby="seo-heading" className="w-full border-t border-line bg-paper">
+      <div className="mx-auto flex w-full max-w-[1080px] flex-col gap-12 px-5 py-12 sm:px-8">
+        <div>
+          <h2 id="seo-heading" className="mb-5 font-display text-[22px] font-extrabold tracking-tight text-ink">
+            Tous les échauffements
+          </h2>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
+            {columns.map((c, i) => (
+              <nav key={c.title} aria-label={c.title} className={i === 2 ? "col-span-2 sm:col-span-1" : ""}>
+                <p className="mb-2 text-[14px] font-semibold text-subtle">{c.title}</p>
+                <ul className={i === 2 ? "columns-2 gap-x-6 sm:columns-1 [&>li]:mb-1.5 [&>li]:break-inside-avoid" : "flex flex-col gap-1.5"}>
+                  {c.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-[15px] text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             ))}
           </div>
-          <div className="flex flex-col gap-2 pt-1">
-            <p className="text-[14px] font-semibold text-subtle">
-              Guides par muscle
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {MUSCLE_GUIDES.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="rounded-full border border-line bg-card px-3.5 py-1.5 text-[12px] font-bold text-muted transition-colors hover:border-ink hover:underline underline-offset-4"
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </article>
+        </div>
 
-        {/* SÉRIES D'APPROCHE — l'étape spécifique, après l'échauffement général */}
-        <Link
-          href="/series-approche"
-          className="group flex items-center justify-between gap-4 rounded-2xl border border-line bg-ink/[0.035] px-5 py-4 transition-colors hover:border-line"
-        >
-          <span className="flex flex-col gap-1">
-            <span className="text-[14px] font-semibold text-ink">
-              L&apos;autre outil
-            </span>
-            <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight text-ink">
-              Séries d&apos;approche : quelle charge, combien de reps
-            </span>
-            <span className="text-[13px] text-muted">
-              Entre ta charge de travail, obtiens ta montée en charge et les disques par côté.
-            </span>
-          </span>
-        </Link>
-
-        {/* PROTECTION — zones sensibles */}
-        <article className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
-              Échauffements pour zones sensibles
-            </h2>
-            <p className="text-[13px] text-muted leading-relaxed mt-1">
-              Protocoles spécifiques pour s&apos;entraîner malgré une gêne ou une douleur articulaire
-              (sous réserve d&apos;avis médical en cas de douleur installée).
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            {PROTECTION_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-ink/[0.035] px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
-              >
-                <span className="truncate">{label}</span>
-              </Link>
-            ))}
-          </div>
-        </article>
-
-        {/* DOULEUR — diagnostic par exercice */}
-        <article className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <p className="text-[14px] font-semibold text-subtle">
-              La douleur vient d&apos;un exercice précis ?
-            </p>
-            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
-              Comprendre d&apos;où vient la douleur
-            </h2>
-            <p className="text-[13px] text-muted leading-relaxed mt-1">
-              Le genou qui souffre au squat vient presque toujours de la cheville ou de la
-              hanche. Chaque guide part du mouvement qui déclenche la douleur, explique le
-              mécanisme, puis donne les corrections et le protocole.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {DOULEUR_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-center justify-between gap-2 rounded-xl border border-line bg-card px-3 py-3 text-[13px] font-bold text-ink transition-colors hover:border-ink hover:underline underline-offset-4"
-              >
-                <span className="truncate">{label}</span>
-              </Link>
-            ))}
-          </div>
-        </article>
-
-        {/* FAQ */}
-        <article className="flex flex-col gap-4 lg:col-span-2">
-          <div className="flex flex-col gap-1">
-            <p className="text-[14px] font-semibold text-subtle">
-              FAQ
-            </p>
-            <h2 className="font-display text-[23px] font-extrabold leading-tight tracking-tight text-ink">
-              Questions fréquentes
-            </h2>
-          </div>
+        <div>
+          <h2 className="mb-2 font-display text-[22px] font-extrabold tracking-tight text-ink">Questions fréquentes</h2>
           <div className="flex flex-col border-t border-line">
             {FAQS.map((f) => (
-              <details
-                key={f.q}
-                className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-bold text-ink">
+              <details key={f.q} className="group border-b border-line py-4 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-semibold text-ink">
                   <span>{f.q}</span>
-                  <span
-                    aria-hidden="true"
-                    className=" text-subtle transition-transform group-open:rotate-180"
-                  >
-                    ▾
+                  <span aria-hidden="true" className="text-subtle transition-transform group-open:rotate-45">
+                    +
                   </span>
                 </summary>
-                <p className="mt-3 text-[13px] leading-relaxed text-muted">{f.a}</p>
+                <p className="mt-3 max-w-[68ch] text-[14px] leading-relaxed text-muted">{f.a}</p>
               </details>
             ))}
           </div>
-        </article>
+        </div>
 
-        {/* GUIDES — liens discrets */}
-        <nav aria-label="Guides" className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-line pt-6 lg:col-span-2">
-          <span className="w-full text-[14px] font-semibold text-subtle">Guides</span>
-          <Link href="/blog/guide-complet-echauffement-musculation" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Guide complet</Link>
-          <Link href="/blog/pourquoi-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Pourquoi s&apos;échauffer</Link>
-          <Link href="/blog/combien-de-temps-s-echauffer-musculation" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Combien de temps</Link>
-          <Link href="/blog/echauffement-dynamique-ou-statique" className="text-[13px] text-muted transition-colors hover:underline underline-offset-4">Dynamique ou statique</Link>
-        </nav>
-
-        {/* FOOTER */}
-        <footer className="flex flex-col gap-4 border-t border-line pt-8 text-[12px] text-subtle lg:col-span-2">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="font-display text-[18px] font-extrabold text-ink">
-              Warmup
-            </p>
-            <p>
-              Gratuit · Sans inscription · Fonctionne hors ligne
-            </p>
-          </div>
-          <nav aria-label="Liens secondaires" className="flex flex-wrap gap-x-4 gap-y-2">
-            <Link href="/blog" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
-              Blog
-            </Link>
-            <Link href="/a-propos" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
-              À propos
-            </Link>
-            <Link href="/methodologie" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
-              Méthodologie
-            </Link>
-            <Link href="/echauffement/exercice" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
-              Exercices
-            </Link>
-            <Link href="/echauffement/protection" className="font-display font-semibold transition-colors hover:underline underline-offset-4">
-              Zones sensibles
-            </Link>
+        <footer className="flex flex-col gap-4 border-t border-line pt-8 text-[13px] text-subtle">
+          <nav aria-label="Liens secondaires" className="flex flex-wrap gap-x-5 gap-y-2">
+            {[
+              ["/series-approche", "Séries d'approche"],
+              ["/echauffement", "Tous les guides"],
+              ["/blog", "Blog"],
+              ["/methodologie", "Méthodologie"],
+              ["/a-propos", "À propos"],
+              ["/donnees", "Données ouvertes"],
+            ].map(([href, label]) => (
+              <Link key={href} href={href} className="font-semibold text-ink hover:underline underline-offset-4">
+                {label}
+              </Link>
+            ))}
           </nav>
-          <p className="text-subtle">
-            Cet outil ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du
-            sport. En cas de douleur persistante, consulte un professionnel de santé.
+          <p>
+            Gratuit, sans inscription, fonctionne hors ligne. Ne remplace pas l&apos;avis d&apos;un kiné ou d&apos;un
+            médecin du sport : en cas de douleur qui dure, consulte un professionnel de santé.
           </p>
         </footer>
-
       </div>
     </section>
   );

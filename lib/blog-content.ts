@@ -19,7 +19,7 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "pourquoi-s-echauffer-musculation",
-    metaTitle: "Pourquoi s'échauffer avant la musculation ? La réponse scientifique",
+    metaTitle: "Pourquoi s'échauffer avant la musculation ? Ce que dit la science",
     metaDescription:
       "Les 3 raisons physiologiques qui rendent l'échauffement obligatoire avant toute séance de musculation — et comment le faire en 5 minutes chrono.",
     h1: "Pourquoi s'échauffer avant la musculation ?",

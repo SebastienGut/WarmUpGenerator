@@ -25,20 +25,20 @@
 ---
 
 ## Lot 0 — Bugs et incohérences (rapide, à faire en premier)
-- [ ] **Séances récentes** : la déduplication se fait sur le paramètre `s` (exercices) ; les
+- [x] **Séances récentes** : la déduplication se fait sur le paramètre `s` (exercices) ; les
       routines par zones (`z`) ont toutes `s` vide → chaque routine écrase la précédente
       (`lib/saved-sessions.ts`). Dédupliquer sur la combinaison réelle (zones + options).
-- [ ] **Variante du jour automatique** (`dayVariant` dans SessionBuilder) : empêche de retrouver
+- [x] **Variante du jour automatique** (`dayVariant` dans SessionBuilder) : empêche de retrouver
       la même routine. Routine stable par défaut ; la variation reste un choix (↻ Varier).
-- [ ] **Message de fin** « Barre chargée / première série de travail » faux après un simple
+- [x] **Message de fin** « Barre chargée / première série de travail » faux après un simple
       échauffement : adapter au contenu réalisé (et proposer les séries d'approche).
-- [ ] **Durée estimée** : ajouter les transitions entre exercices (changement de position,
+- [x] **Durée estimée** : ajouter les transitions entre exercices (changement de position,
       prise de matériel), arrondir honnêtement.
-- [ ] **FAQ et textes** : traquer les contradictions avec les capacités réelles du générateur
+- [x] **FAQ et textes** : traquer les contradictions avec les capacités réelles du générateur
       et les affirmations trop absolues (douleurs, prévention des blessures, étirements, durées).
 - Vérif : tests de comportement (pas des tests qui recopient l'implémentation).
 
-## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur)
+## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur) — fait, en attente de validation
 Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement ce que je ferais ».
 1. **Audit de la base** (`lib/warmup-data.ts`, 80 exercices de préparation) : pour chacun,
    rôle (mise en route / mobilité / activation), zones, matériel, position (debout, sol,
@@ -62,7 +62,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
    différences entre routines). Garder ces cas comme tests de non-régression.
 5. **Validation par Seb** sur 5 routines types avant de passer au lot 2.
 
-## Lot 2 — Le parcours : choisir, comprendre, suivre, retrouver
+## Lot 2 — Le parcours : choisir, comprendre, suivre, retrouver — en grande partie fait
 1. **Accueil = l'outil** : sélection des groupes musculaires simple et agréable (séances types
    en raccourcis), visible sans défiler sur téléphone. Le contenu SEO (FAQ, guides, liens)
    descend nettement ou part sur les pages dédiées, sans supprimer d'URL indexée.
@@ -110,6 +110,24 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Ne pas affirmer de meilleure rétention sans données.
 
 ## Journal
+- 2 nov. 2026 : lot 4, audit des 50 pictogrammes sélectionnables (départ/arrivée). Corrigés : charnière
+  de hanche (mains sur les hanches), tractions scapulaires (coudes tendus), W allongé (sur le ventre).
+  Limites connues des pictogrammes 2D : les rotations ne se voient pas (rotation du buste debout,
+  pronation-supination, cercles de hanches) ; rotation externe « allongé sur le côté » dessinée sur le
+  dos. Piste : illustrations fixes départ → arrivée avec flèches de rotation (lot 3/4).
+- 2 nov. 2026 : lot 2. Mode guidé : pause/reprise de tout minuteur, chrono proposé pour les positions
+  tenues (signal de changement de côté à mi-temps), raison de chaque exercice affichée, on peut passer
+  à tout moment. Accueil : sous l'outil, un index sobre (3 colonnes de liens, 5 questions) au lieu des
+  cartes, doublons et 11 FAQ. Reste : transition vers le plan (jugée non nécessaire pour l'instant).
+- 2 nov. 2026 : lot 1. Nouveau moteur fondé sur des besoins de coach (lib/prep-catalog.ts : 26 besoins,
+  leur liste d'exercices et leur raison ; besoins par zone ; position de chaque exercice). Besoins
+  additionnés entre zones, besoin principal de chaque zone servi d'abord, couverture unique, bras et
+  gainage secondaires avec d'autres zones, biceps/triceps selon tirage/poussée, répétition du geste
+  au poids du corps, ordre debout → sol → debout. Contrôles : scripts/bench/engine-checks.ts
+  (5 080 routines, 0 écart). Résumés « En bref » des 13 landings réécrits selon les nouveaux plans,
+  /methodologie réécrite (principes, prouvé / choisi / à valider, sources corrigées).
+  Reste : validation de Seb (docs/decisions-a-prendre.md).
+- 2 nov. 2026 : lot 0 fait (branche bloc/produit-v1). Séances récentes dédupliquées par composition ; routine stable, la séance déjà faite se rouvre avec ses réglages ; fin de mode guidé adaptée (échauffement ou montée, exercices passés comptés) ; durée avec transitions (10 s, +15 s au changement de matériel) ; durées des landings et de la version courte calculées par le moteur ({min}, {court}) ; FAQ de l'accueil réécrites (cardio, étirements, douleurs, squat). Constats pour le lot 1 : version courte à 2 min, plan « bras » à 3 exercices, durées de 3 à 8 min selon les zones.
 - 2 nov. 2026 : 3D retirée à 100 % (code, animations, scripts, brief).
 - 2 nov. 2026 : plan créé à partir du verdict de Seb et de l'audit ChatGPT. Anomalies du lot 0
   vérifiées dans le code : séances récentes (confirmé), durée sans transitions (confirmé),

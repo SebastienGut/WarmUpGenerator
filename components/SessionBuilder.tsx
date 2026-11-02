@@ -8,12 +8,8 @@ import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
 import { LIFTS_BY_ID, SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel } from "@/lib/lifts";
 import { serializeSession } from "@/lib/session-engine";
-import { loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
+import { compositionOf, loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
 import { MUSCLE_LABELS, type MuscleGroup } from "@/lib/warmup-data";
-
-/** Variante du jour : le même tap redonne un plan un peu différent d'un jour à
- * l'autre, sans jamais changer au sein d'une même journée. */
-const dayVariant = () => Math.floor(Date.now() / 86_400_000) % 997;
 
 export default function SessionBuilder() {
   const router = useRouter();
@@ -27,8 +23,12 @@ export default function SessionBuilder() {
     setSaved(loadSessions());
   }, []);
 
+  // Routine stable : la même séance redonne le même plan. Si elle a déjà été
+  // faite sur cet appareil, on rouvre sa dernière version (réglages compris) ;
+  // la variation reste un choix (↻ Varier sur le plan).
   const go = (z: MuscleGroup[]) => {
-    const q = serializeSession({ zones: z, lifts: [], pain: [], band: false, short: false, variant: dayVariant() });
+    const fresh = serializeSession({ zones: z, lifts: [], pain: [], band: false, short: false, variant: 0 });
+    const q = loadSessions().find((s) => compositionOf(s.query) === compositionOf(fresh))?.query ?? fresh;
     saveSession({ query: q, label: zonesLabel(z) });
     router.push(`/plan?${q}`);
   };
@@ -48,7 +48,7 @@ export default function SessionBuilder() {
         <span className="block text-[15px] font-semibold text-subtle">Échauffement musculation</span>
         <span className="mt-1 block font-display text-[40px] font-extrabold leading-[0.95] tracking-tight sm:text-[60px]">Tu entraînes quoi&nbsp;?</span>
       </h1>
-      <p className="mt-3 max-w-[34ch] text-[16px] text-muted">Touche ta séance, ton échauffement de 6 minutes est prêt.</p>
+      <p className="mt-3 max-w-[34ch] text-[16px] text-muted">Touche ta séance, ton échauffement est prêt.</p>
 
       {saved.length > 0 && (
         <div className="-mx-5 mt-6 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">

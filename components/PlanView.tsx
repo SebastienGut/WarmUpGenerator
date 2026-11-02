@@ -180,7 +180,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
         </div>
         <div className="divide-y divide-line border-y border-line">
           <Toggle on={input.band} onChange={(v) => update({ band: v })} title="J'ai un élastique" />
-          <Toggle on={input.short} onChange={(v) => update({ short: v })} title="Version courte (5 min)" />
+          <Toggle on={input.short} onChange={(v) => update({ short: v })} title={`Version courte (${buildSessionPlan({ ...input, short: true }).minutes} min)`} />
         </div>
       </Sheet>
 

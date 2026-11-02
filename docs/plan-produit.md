@@ -62,7 +62,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
    différences entre routines). Garder ces cas comme tests de non-régression.
 5. **Validation par Seb** sur 5 routines types avant de passer au lot 2.
 
-## Lot 2 — Le parcours : choisir, comprendre, suivre, retrouver
+## Lot 2 — Le parcours : choisir, comprendre, suivre, retrouver — en grande partie fait
 1. **Accueil = l'outil** : sélection des groupes musculaires simple et agréable (séances types
    en raccourcis), visible sans défiler sur téléphone. Le contenu SEO (FAQ, guides, liens)
    descend nettement ou part sur les pages dédiées, sans supprimer d'URL indexée.
@@ -110,6 +110,10 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Ne pas affirmer de meilleure rétention sans données.
 
 ## Journal
+- 2 nov. 2026 : lot 2. Mode guidé : pause/reprise de tout minuteur, chrono proposé pour les positions
+  tenues (signal de changement de côté à mi-temps), raison de chaque exercice affichée, on peut passer
+  à tout moment. Accueil : sous l'outil, un index sobre (3 colonnes de liens, 5 questions) au lieu des
+  cartes, doublons et 11 FAQ. Reste : transition vers le plan (jugée non nécessaire pour l'instant).
 - 2 nov. 2026 : lot 1. Nouveau moteur fondé sur des besoins de coach (lib/prep-catalog.ts : 26 besoins,
   leur liste d'exercices et leur raison ; besoins par zone ; position de chaque exercice). Besoins
   additionnés entre zones, besoin principal de chaque zone servi d'abord, couverture unique, bras et

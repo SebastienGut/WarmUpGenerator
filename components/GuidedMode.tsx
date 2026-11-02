@@ -11,7 +11,21 @@ import type { PlanPhase, SessionPlan } from "@/lib/session-engine";
 type PK = PlanPhase["key"];
 
 type GuidedItem =
-  | { type: "do"; pk: PK; phase: string; fig?: string; title: string; target: string; instructions: string; countdown?: number }
+  | {
+      type: "do";
+      pk: PK;
+      phase: string;
+      fig?: string;
+      title: string;
+      target: string;
+      instructions: string;
+      /** Pourquoi cet exercice est dans la routine. */
+      why?: string;
+      /** Étape chronométrée (mise en route). */
+      countdown?: number;
+      /** Position tenue : chrono proposé, avec changement de côté à mi-temps. */
+      hold?: { seconds: number; sides: boolean };
+    }
   | { type: "set"; pk: PK; phase: string; fig: string; title: string; load: string; reps: number; plates?: number[]; rest: number; index: number; total: number }
   | { type: "info"; pk: PK; phase: string; title: string; lines: string[] };
 
@@ -23,7 +37,18 @@ function flatten(plan: SessionPlan): GuidedItem[] {
       if (step.kind === "raise") {
         items.push({ type: "do", pk: phase.key, phase: phase.title, fig: "raise", title: step.name, target: step.reps, instructions: step.instructions, countdown: step.seconds });
       } else if (step.kind === "prep") {
-        items.push({ type: "do", pk: phase.key, phase: phase.title, fig: step.exercise.id, title: step.exercise.name, target: step.reps, instructions: step.instructions });
+        const held = /seconde/i.test(step.reps);
+        items.push({
+          type: "do",
+          pk: phase.key,
+          phase: phase.title,
+          fig: step.exercise.id,
+          title: step.exercise.name,
+          target: step.reps,
+          instructions: step.instructions,
+          why: step.reason,
+          hold: held ? { seconds: step.seconds, sides: /côté/.test(step.reps) } : undefined,
+        });
       } else if (step.full) {
         step.lines.forEach((line, i) =>
           items.push({
@@ -91,6 +116,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
   const [remaining, setRemaining] = useState<number | null>(null);
   const [duration, setDuration] = useState(1);
   const [resting, setResting] = useState(false);
+  const [paused, setPaused] = useState(false);
   // Étapes passées sans les faire (cardio déjà fait…) : la fin dit ce qui a vraiment été fait.
   const [skipped, setSkipped] = useState<number[]>([]);
   const item = items[index];
@@ -109,7 +135,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
   }, []);
 
   useEffect(() => {
-    if (remaining === null) return;
+    if (remaining === null || paused) return;
     if (remaining <= 0) {
       navigator.vibrate?.(200);
       const t = setTimeout(() => {
@@ -122,13 +148,22 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
     }
     const t = setTimeout(() => setRemaining((r) => (r === null ? null : r - 1)), 1000);
     return () => clearTimeout(t);
-  }, [remaining]);
+  }, [remaining, paused]);
+
+  // Position tenue d'un côté puis de l'autre : signal à mi-temps.
+  const current = items[index];
+  const sides = current?.type === "do" && current.hold?.sides;
+  useEffect(() => {
+    if (sides && remaining !== null && !paused && remaining === Math.floor(duration / 2)) navigator.vibrate?.([120, 80, 120]);
+  }, [sides, remaining, paused, duration]);
 
   const startTimer = (s: number) => {
+    setPaused(false);
     setDuration(s);
     setRemaining(s);
   };
   const go = (delta: number) => {
+    setPaused(false);
     setRemaining(null);
     setResting(false);
     setDir(delta);
@@ -235,8 +270,20 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
               </div>
             ) : (
               <div className="flex flex-col">
-                {item.countdown && remaining !== null ? (
-                  <Ring remaining={remaining} total={duration} label="Cardio léger" />
+                {(item.countdown || item.hold) && remaining !== null ? (
+                  <Ring
+                    remaining={remaining}
+                    total={duration}
+                    label={
+                      paused
+                        ? "En pause"
+                        : item.countdown
+                          ? "Cardio léger"
+                          : item.hold?.sides && remaining <= duration / 2
+                            ? "Autre côté"
+                            : "Tiens"
+                    }
+                  />
                 ) : item.fig ? (
                   <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(32vh,240px)] w-full max-w-[300px]" />
                 ) : (
@@ -247,6 +294,7 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
                 <p className="mt-4 font-display text-[32px] font-extrabold leading-[0.98] tracking-tight text-ink">{item.title}</p>
                 <p className={`mt-2 font-display text-[28px] font-extrabold leading-none tracking-tight tabular ${PHASE_STYLE[item.pk].ink}`}>{item.target}</p>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{item.instructions}</p>
+                {item.why && <p className="mt-3 border-l-2 border-line-strong pl-3 text-[14px] leading-relaxed text-subtle">{item.why}</p>}
               </div>
             )}
           </motion.div>
@@ -282,6 +330,19 @@ export default function GuidedMode({ plan, onClose }: { plan: SessionPlan; onClo
               <button type="button" onClick={() => go(-1)} disabled={index === 0 && !resting} className={`${secondary} disabled:opacity-30`} aria-label="Étape précédente">
                 ←
               </button>
+            )}
+            {remaining !== null ? (
+              // Un minuteur tourne : pause possible, et on peut toujours passer à la suite.
+              <button type="button" onClick={() => setPaused((v) => !v)} className={secondary} aria-pressed={paused}>
+                {paused ? "Reprendre" : "Pause"}
+              </button>
+            ) : (
+              item.type === "do" &&
+              item.hold && (
+                <button type="button" onClick={() => startTimer(item.hold!.seconds)} className={secondary} aria-label={`Lancer le chrono, ${item.hold.seconds} secondes`}>
+                  {fmt(item.hold.seconds)}
+                </button>
+              )
             )}
             {resting ? (
               <button type="button" onClick={() => go(1)} className={`${secondary} flex-1`}>

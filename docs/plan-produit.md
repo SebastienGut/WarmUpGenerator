@@ -110,6 +110,11 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Ne pas affirmer de meilleure rétention sans données.
 
 ## Journal
+- 2 nov. 2026 : lot 4, audit des 50 pictogrammes sélectionnables (départ/arrivée). Corrigés : charnière
+  de hanche (mains sur les hanches), tractions scapulaires (coudes tendus), W allongé (sur le ventre).
+  Limites connues des pictogrammes 2D : les rotations ne se voient pas (rotation du buste debout,
+  pronation-supination, cercles de hanches) ; rotation externe « allongé sur le côté » dessinée sur le
+  dos. Piste : illustrations fixes départ → arrivée avec flèches de rotation (lot 3/4).
 - 2 nov. 2026 : lot 2. Mode guidé : pause/reprise de tout minuteur, chrono proposé pour les positions
   tenues (signal de changement de côté à mi-temps), raison de chaque exercice affichée, on peut passer
   à tout moment. Accueil : sous l'outil, un index sobre (3 colonnes de liens, 5 questions) au lieu des

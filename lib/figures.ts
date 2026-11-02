@@ -44,7 +44,8 @@ export const FIGURES: Record<string, Figure> = {
   "art-chevilles": f("side", { ...STAND, th: 55, sh: 10, ft: 50 }, { ...STAND, th: 55, sh: 10, ft: 140, th2: 0, sh2: 0 }, { anchor: "foot2", hi: ["sh"] }),
   "art-tronc-lateral": f("front", { t: -18, ua: 8, fa: 4, th: 12, sh: 12 }, { t: 18, ua: 8, fa: 4, th: 12, sh: 12 }, { hi: ["torso"], dur: 3 }),
   "art-lombaires-essuie-glace": f("side", { ...BACK_BENT, ua: -80, fa: -90 }, { ...BACK_BENT, ua: -80, fa: -90, th: 105, sh: 60 }, { hi: ["th"], dur: 3 }),
-  "prep-charniere-hanche": f("side", { ...STAND }, { t: 76, ua: 0, fa: 0, th: -12, sh: 6 }, { hi: ["torso", "th"], dur: 2.8 }),
+  // Mains sur les hanches : les bras suivent le buste quand il bascule.
+  "prep-charniere-hanche": f("side", { ...STAND, th: 6, sh: -6, ua: -25, fa: 40 }, { t: 76, ua: -101, fa: -36, th: -12, sh: 6 }, { hi: ["torso", "th"], dur: 2.8 }),
   "prep-inchworm": f("side", { t: 122, ua: 0, fa: 0, th: -4, sh: -4 }, { ...PLANK }, { anchor: "hand", hi: ["th"], dur: 3.2 }),
   "prep-extension-thoracique-banc": f("side", { ...QUAD }, { ...QUAD, t: 105, ua: 62, fa: 62 }, { anchor: "foot1", hi: ["torso"], dur: 3 }),
   "cib-hanches-fente-rotation": f(
@@ -109,7 +110,7 @@ export const FIGURES: Record<string, Figure> = {
   "act-core-planche": f("side", { t: 84, ua: 0, fa: 90, th: -84, sh: -84, ft: 0 }, { t: 86, ua: 0, fa: 90, th: -86, sh: -86, ft: 0 }, { hi: ["torso"], dur: 3 }),
   "act-core-bird-dog": f("side", { ...QUAD }, { ...QUAD, ua: 96, fa: 96, th2: -96, sh2: -96 }, { anchor: "hand", hi: ["ua", "fa", "th2", "sh2"], dur: 3 }),
   "prep-glisses-mur": f("front", { t: 0, ua: 80, fa: 175, th: 6, sh: 6 }, { t: 0, ua: 155, fa: 160, th: 6, sh: 6 }, { hi: ["ua", "fa", "ua2", "fa2"], dur: 3 }),
-  "prep-tractions-scapulaires": f("side", { t: 0, ua: 180, fa: 180, th: 4, sh: -14 }, { t: -4, ua: 176, fa: 150, th: 4, sh: -14 }, { hang: true, props: [{ kind: "pullbar" }], hi: ["torso"], dur: 2.4 }),
+  "prep-tractions-scapulaires": f("side", { t: 0, ua: 180, fa: 180, th: 4, sh: -14 }, { t: -6, ua: 172, fa: 172, th: 4, sh: -14 }, { hang: true, props: [{ kind: "pullbar" }], hi: ["torso"], dur: 2.4 }),
   "prep-pull-apart": f("side", { ...STAND, ...ARMS_FWD }, { ...STAND, ua: -78, fa: -78 }, { hi: ["ua", "fa"], dur: 2.4 }),
 
   // ── Préparation ciblée ───────────────────────────────────────────
@@ -218,7 +219,8 @@ export const FIGURES: Record<string, Figure> = {
   "prep-pont-marche": f("side", { ...BACK_BENT, t: -112, th: 100, sh: 4 }, { ...BACK_BENT, t: -112, th: 100, sh: 4, th2: 175, sh2: 90 }, { anchor: "foot1", hi: ["th"], dur: 2.4 }),
   "prep-clamshell": f("side", { t: -90, ua: 180, fa: -90, th: 140, sh: 60, th2: 140, sh2: 60 }, { t: -90, ua: 180, fa: -90, th: 175, sh: 75, th2: 140, sh2: 60 }, { hi: ["th"], dur: 2.4 }),
   "prep-marche-laterale": f("front", { t: 0, ua: 15, fa: 15, th: 14, sh: 2 }, { t: 0, ua: 15, fa: 15, th: 34, sh: 20, th2: 10, sh2: 0 }, { hi: ["th", "th2"], dur: 1.8 }),
-  "prep-w-sol": f("front", { t: 0, ua: 70, fa: 165, th: 6, sh: 6 }, { t: 0, ua: 82, fa: 178, th: 6, sh: 6 }, { hi: ["ua", "fa", "ua2", "fa2"], dur: 2.6 }),
+  // Allongé sur le ventre : coudes et mains décollent du sol, omoplates serrées.
+  "prep-w-sol": f("side", { ...PRONE, ua: 150, fa: 100 }, { ...PRONE, t: 84, ua: 168, fa: 112 }, { hi: ["ua", "fa"], dur: 2.6 }),
   "prep-hollow": f("side", { t: -80, ua: -110, fa: -110, th: 122, sh: 122, ft: 200 }, { t: -84, ua: -100, fa: -100, th: 108, sh: 108, ft: 190 }, { hi: ["torso"], dur: 3 }),
   "prep-pallof": f("side", { ...STAND, ua: -15, fa: 120 }, { ...STAND, ua: 90, fa: 90 }, { props: [{ kind: "band", to: [226, 104] }], hi: ["torso"], dur: 2.6 }),
   "prep-planche-laterale": f("side", { t: 72, ua: -6, fa: 90, th: -72, sh: -72, ft: 0 }, { t: 66, ua: -6, fa: 90, th: -66, sh: -66, ft: 0 }, { hi: ["torso"], dur: 3 }),

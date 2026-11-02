@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FIGURE_CONST, GROUND, VIEW_H, VIEW_W, lerpPose, placed, placement, type Figure, type Segment } from "@/lib/figure";
 import { FIGURES, FALLBACK_FIGURE } from "@/lib/figures";
-import { EXERCISE_3D } from "@/lib/exercise-3d";
 
 // Une seule boucle d'animation pour toutes les figures de la page.
 type Tick = (now: number) => void;
@@ -152,55 +151,17 @@ function Body({ fig, k }: { fig: Figure; k: number }) {
   );
 }
 
-/**
- * Animations 3D en pause (oct. 2026) : l'essai montrait des distorsions de
- * membres et des gestes infidèles. Voir docs/animations-3d.md avant de rallumer.
- */
-const SHOW_3D = false;
-
-/**
- * Animation 3D pré-rendue (WebP animé transparent, scripts/exercise-3d). Image
- * fixe quand l'animation est coupée ou que le mouvement réduit est demandé.
- */
-function Exercise3D({ id, label, className, animate, large }: { id: string; label: string; className?: string; animate: boolean; large: boolean }) {
-  const base = `/exercices-3d/${id}`;
-  const alt = `Mouvement : ${label}`;
-  const img = "h-full w-full object-contain";
-  if (!animate) {
-    return (
-      <span className={`block ${className ?? ""}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- animation pré-rendue, servie telle quelle */}
-        <img src={`${base}-p.webp`} alt={alt} loading="lazy" decoding="async" className={img} />
-      </span>
-    );
-  }
-  return (
-    <picture className={`block ${className ?? ""}`}>
-      <source media="(prefers-reduced-motion: reduce)" srcSet={`${base}-p.webp`} />
-      <img src={large ? `${base}.webp` : `${base}-s.webp`} alt={alt} loading="lazy" decoding="async" className={img} />
-    </picture>
-  );
-}
-
 export default function ExerciseFigure({
   id,
   label,
   className,
   animate = true,
-  large = false,
 }: {
   id: string;
   label: string;
   className?: string;
   animate?: boolean;
-  /** Grand affichage (mode guidé, consigne ouverte) : version 480 px. */
-  large?: boolean;
 }) {
-  if (SHOW_3D && EXERCISE_3D.has(id)) return <Exercise3D id={id} label={label} className={className} animate={animate} large={large} />;
-  return <ExerciseSvg id={id} label={label} className={className} animate={animate} />;
-}
-
-function ExerciseSvg({ id, label, className, animate }: { id: string; label: string; className?: string; animate: boolean }) {
   const fig = FIGURES[id] ?? FALLBACK_FIGURE;
   const ref = useRef<SVGSVGElement>(null);
   const [k, setK] = useState(0);

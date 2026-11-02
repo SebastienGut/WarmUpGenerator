@@ -1,0 +1,116 @@
+# Plan produit : rendre Warmup vraiment utile
+
+> À reprendre avec : « Lis docs/plan-produit.md et attaque le lot suivant non terminé. »
+> Mis à jour : 2 nov. 2026. Chaque lot se termine par des vérifications, un push en main
+> (Seb teste sur téléphone) et la mise à jour de ce fichier (cocher, noter les décisions).
+
+## Où on en est
+- **Signal encourageant** : l'aperçu IA de Google recommande Warmup Generator sur
+  « générateur d'échauffement musculation » ; ~16 clics la semaine du 26 oct. 2026.
+- **Verdict de Seb, sportif** : en l'état, le site « n'a aucune valeur » : visuel raté,
+  logique des exercices proposés peu crédible, page d'accueil surchargée.
+- Source complémentaire : un audit ChatGPT (prompt collé par Seb le 2 nov.), dont on garde
+  la vision et les anomalies vérifiées ci-dessous.
+
+## Vision (inchangée, décisions de Seb)
+- Je choisis les muscles que je travaille aujourd'hui → j'obtiens vite une préparation
+  adaptée → je la suis exercice par exercice → je la retrouve la prochaine fois.
+- Pas de questionnaire, pas de saisie des exercices ou charges. Séances types = raccourcis
+  vers une combinaison de muscles. La personnalisation vient de la qualité du moteur.
+- Deux outils distincts : l'échauffement ; les séries d'approche à côté, sans alourdir l'entrée.
+- Gratuit, sans compte, sans IA en ligne, hors ligne, aucune dépendance payante.
+- Promesse exacte : échauffement adapté aux groupes travaillés, pas un diagnostic ni la
+  connaissance de toute la séance.
+
+---
+
+## Lot 0 — Bugs et incohérences (rapide, à faire en premier)
+- [ ] **Séances récentes** : la déduplication se fait sur le paramètre `s` (exercices) ; les
+      routines par zones (`z`) ont toutes `s` vide → chaque routine écrase la précédente
+      (`lib/saved-sessions.ts`). Dédupliquer sur la combinaison réelle (zones + options).
+- [ ] **Variante du jour automatique** (`dayVariant` dans SessionBuilder) : empêche de retrouver
+      la même routine. Routine stable par défaut ; la variation reste un choix (↻ Varier).
+- [ ] **Message de fin** « Barre chargée / première série de travail » faux après un simple
+      échauffement : adapter au contenu réalisé (et proposer les séries d'approche).
+- [ ] **Durée estimée** : ajouter les transitions entre exercices (changement de position,
+      prise de matériel), arrondir honnêtement.
+- [ ] **FAQ et textes** : traquer les contradictions avec les capacités réelles du générateur
+      et les affirmations trop absolues (douleurs, prévention des blessures, étirements, durées).
+- Vérif : tests de comportement (pas des tests qui recopient l'implémentation).
+
+## Lot 1 — Le moteur et la base d'exercices (le cœur de la valeur)
+Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement ce que je ferais ».
+1. **Audit de la base** (`lib/warmup-data.ts`, 80 exercices de préparation) : pour chacun,
+   rôle (mise en route / mobilité / activation), zones, matériel, position (debout, sol,
+   quatre pattes, banc), dosage, et verdict garder / corriger / retirer. Ajouter les manques
+   évidents. Signaler à Seb les exercices discutables plutôt que de les garder par défaut.
+2. **Règles de sélection**, écrites puis codées (`lib/session-engine.ts`) :
+   - mutualiser les besoins communs d'une combinaison (pecs + épaules + bras ≠ 3 listes collées) ;
+   - pas de doublons fonctionnels, pas d'exercice ajouté pour remplir un quota ;
+   - limiter les changements de position et de matériel, ordre logique (debout → sol, ou l'inverse) ;
+   - dosage qui prépare sans fatiguer ; activation ≠ préfatigue ;
+   - routine stable, variation volontaire ; substitutions cohérentes (sans élastique…) ;
+   - chaque exercice a un rôle défendable et une justification liée à la sélection, écrite
+     pour cet exercice dans ce contexte, pas un discours générique.
+3. **Sources** : appuyer les règles importantes (protocole RAMP de Jeffreys, études sur
+   l'échauffement dynamique et les étirements statiques, séries d'approche). Distinguer
+   résultats scientifiques, choix de conception et points à faire valider par un coach.
+   Mettre à jour /methodologie en conséquence. Ne jamais prétendre à une validation par un coach.
+4. **Banc d'essai** : un muscle seul, muscles proches (pecs + épaules), haut du corps, jambes,
+   full body, avec et sans élastique, version courte, zones qui coincent. Pour chaque cas :
+   la routine produite, relue comme un coach (doublons, ordre, matériel, durée, cohérence des
+   différences entre routines). Garder ces cas comme tests de non-régression.
+5. **Validation par Seb** sur 5 routines types avant de passer au lot 2.
+
+## Lot 2 — Le parcours : choisir, comprendre, suivre, retrouver
+1. **Accueil = l'outil** : sélection des groupes musculaires simple et agréable (séances types
+   en raccourcis), visible sans défiler sur téléphone. Le contenu SEO (FAQ, guides, liens)
+   descend nettement ou part sur les pages dédiées, sans supprimer d'URL indexée.
+2. **Transition** courte et sobre vers le plan (pas de fausse « analyse IA », pas d'attente artificielle).
+3. **Aperçu** : muscles choisis, durée honnête, liste des exercices, bouton « C'est parti ».
+4. **Mode guidé** :
+   - un exercice à la fois, avec sa démonstration, ses répétitions ou sa durée, une consigne courte
+     et la raison de sa présence dans la routine ;
+   - pause, précédent et suivant toujours accessibles, y compris pendant un minuteur ;
+   - écran allumé, gros boutons utilisables en salle.
+5. **Fin** adaptée à ce qui a été fait ; retrouver sa routine (séances récentes fiables) ;
+   lien vers les séries d'approche en complément.
+6. Vérif : parcours complet sur mobile et desktop, clavier, contrastes, mouvement réduit,
+   hors ligne.
+
+## Lot 3 — Direction artistique
+- Retour de Seb et de l'audit : visuel « froid, robotique, peu sportif », personnages
+  approximatifs. Il faut une vraie direction artistique, pas des couleurs changées.
+- Méthode (skill frontend-design + design-critique) : comparer deux directions concrètes en
+  maquette (accueil, aperçu, mode guidé, sur téléphone), choisir avec Seb, puis implémenter.
+- Cibles : sportif, physique, précis, motivant, lisible en salle ; typographie expressive pour
+  les titres, lisible pour les consignes ; palette resserrée ; illustrations homogènes ;
+  mouvements sobres et utiles. Pas d'esthétique de tableau de bord.
+- Garder ce qui marche de la refonte du 23 oct. si Seb le confirme (« barre chargée » ?) ;
+  sinon repartir de la comparaison.
+
+## Lot 4 — Démonstrations des exercices
+- La compréhension du mouvement prime sur la sophistication. Aucune animation douteuse
+  présentée comme finale.
+- **3D abandonnée** (2 nov. 2026, verdict de Seb : « complètement éclaté »). Code retiré de main ;
+  le dernier état (Blender + MPFB, moteur anatomique, MoMask) reste sur la branche
+  `feat/exercise-3d-v2` pour mémoire. Ne pas relancer sans nouvelle idée validée par Seb.
+- Pistes sans 3D : illustrations fixes « départ → arrivée » soignées et homogènes, ou pictogrammes
+  retravaillés ; auditer appuis, trajectoire, amplitude et rythme de chaque visuel.
+- À faire **après** le lot 1, sur la base d'exercices stabilisée.
+
+## Lot 5 — Contenu, SEO, GEO (en continu)
+- Préserver les URL utiles, métadonnées, maillage ; pas de suppression massive sans examen.
+- Promesses exactes partout (l'aperçu IA de Google reprend nos phrases : elles doivent être vraies).
+- Garder /llms.txt, les blocs « En bref » et l'open data à jour après chaque lot.
+- Suivre l'évolution des clics (Seb) après chaque mise en ligne.
+
+## Hors périmètre (décisions)
+- Pas de compte obligatoire, de chatbot, de gamification, d'IA en ligne pour choisir les exercices.
+- Ne pas affirmer de meilleure rétention sans données.
+
+## Journal
+- 2 nov. 2026 : 3D retirée à 100 % (code, animations, scripts, brief).
+- 2 nov. 2026 : plan créé à partir du verdict de Seb et de l'audit ChatGPT. Anomalies du lot 0
+  vérifiées dans le code : séances récentes (confirmé), durée sans transitions (confirmé),
+  message de fin (confirmé).

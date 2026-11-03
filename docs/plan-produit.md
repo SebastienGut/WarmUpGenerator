@@ -117,6 +117,9 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 3 nov. 2026 : incident de mise en ligne : Vercel n'a pas reçu la notification GitHub de deux pushs
+  (47b33e7, 404c2a5 : aucun statut sur le commit). Relancé par un commit vide. À surveiller : après un push,
+  vérifier qu'un statut « Vercel » apparaît sur le commit (gh api repos/SebastienGut/WarmUpGenerator/commits/<sha>/statuses).
 - 3 nov. 2026 : lot 4, 45 démonstrations générées par Claude dans le ChatGPT de Seb (une image en deux
   panneaux par exercice pour garder personnage et cadrage), relues contre leur checklist ; 8 refaites
   (wall slides, W allongé, rétraction, rotations de poignets, coquillage, ouverture de hanche, fente basse,

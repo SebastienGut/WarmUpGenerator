@@ -38,12 +38,21 @@ const EXAMPLES: { exercise: ApproachExercise; weight: number; reps: number }[] =
   { exercise: "souleve-de-terre", weight: 140, reps: 3 },
 ];
 
-const RAMP_TABLE = [
-  { work: "1 à 3 reps (force max)", ramp: "Barre × 10 · 40 % × 5 · 60 % × 3 · 75 % × 2 · 85 % × 1 · 92 % × 1" },
-  { work: "4 à 6 reps (force)", ramp: "Barre × 10 · 40 % × 5 · 60 % × 3 · 75 % × 2 · 85 % × 1" },
-  { work: "7 à 10 reps (hypertrophie)", ramp: "Barre × 10 · 50 % × 8 · 70 % × 4 · 85 % × 2" },
-  { work: "11 reps et plus", ramp: "Barre × 10 · 50 % × 10 · 75 % × 4" },
-];
+// Montées types, calculées par l'outil lui-même (squat à 100 kg) : le tableau ne
+// peut pas contredire ce que le calculateur affiche.
+const RAMP_TABLE = (
+  [
+    ["1 à 3 reps (force max)", 3],
+    ["4 à 6 reps (force)", 5],
+    ["7 à 10 reps (hypertrophie)", 8],
+    ["11 reps et plus", 12],
+  ] as const
+).map(([work, reps]) => ({
+  work,
+  ramp: computeApproachSets({ exercise: "squat", workWeight: 100, workReps: reps, barWeight: 20 })
+    .map((s) => (s.emptyBar ? `Barre × ${s.reps}` : `${s.percent} % × ${s.reps}`))
+    .join(" · "),
+}));
 
 const FAQS = [
   {
@@ -60,11 +69,11 @@ const FAQS = [
   },
   {
     q: "Combien de temps de repos entre deux séries d'approche ?",
-    a: "Très peu au début : 30 à 45 secondes sur les paliers légers, le temps de changer les disques. Puis 60 à 90 secondes sur les deux derniers paliers, au-delà de 75 % de la charge de travail, pour arriver frais sur la série qui compte.",
+    a: "Très peu au début : 30 secondes sur les paliers légers, le temps de changer les disques. Puis 60 à 90 secondes au-delà de 55 % de la charge, et 2 à 3 minutes entre la dernière série d'approche et la série de travail, pour arriver frais sur la série qui compte.",
   },
   {
     q: "Pourquoi commencer le soulevé de terre avec des disques plutôt qu'à la barre seule ?",
-    a: "La barre nue est trop basse : sans disques, elle repose au sol bien plus bas qu'en position de départ réelle, ce qui force à arrondir le dos pour l'attraper. On commence donc avec au moins une paire de disques de 10 kg, ou la barre posée sur des cales.",
+    a: "La barre nue est trop basse : sans disques, elle repose au sol bien plus bas qu'en position de départ réelle, ce qui force à arrondir le dos pour l'attraper. On commence donc avec une paire de disques de 20 kg (hauteur standard), ou la barre posée sur des cales.",
   },
 ];
 
@@ -173,10 +182,11 @@ export default function SeriesApprochePage() {
           <div className="mt-6 rounded-2xl border border-line bg-ink/[0.035] px-5 py-4">
             <p className="mb-2 text-[14px] font-semibold text-ink">En bref</p>
             <p className="text-[15px] font-medium leading-[1.65] text-ink md:text-[16px]">
-              Les séries d&apos;approche sont des séries légères et courtes, faites à charge croissante
-              avant la première série de travail d&apos;un exercice. Pour une série de 5 répétitions, la
-              montée classique est : barre seule × 10, puis 40 % × 5, 60 % × 3, 75 % × 2 et 85 % × 1 de
-              la charge de travail, avec 45 à 90 secondes de repos.
+              Les séries d&apos;approche sont des séries courtes, faites à charge croissante avant la
+              première série de travail d&apos;un exercice. Pour une série de 5 répétitions à 100 kg au
+              squat : barre seule × 8, puis 40 kg × 5, 55 kg × 4, 70 kg × 3 et 85 kg × 2, avec 30 à
+              60 secondes de repos entre les paliers légers et 2 à 3 minutes avant la série de travail.
+              La dernière série d&apos;approche, autour de 85 %, est la plus utile.
             </p>
           </div>
         </section>

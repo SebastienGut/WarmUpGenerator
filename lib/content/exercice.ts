@@ -81,7 +81,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     faqs: [
       {
         q: "Combien de séries de chauffe avec la barre avant les séries de travail ?",
-        a: "Pour un travail à 80 % du 1RM, 3 séries suffisent : barre vide × 10, 50 % × 5, 70 % × 3. Pour des séries au-delà de 90 %, ajoute une 4ème série à 85 % × 1-2 reps. L'objectif : préparer le système nerveux sans accumuler de fatigue.",
+        a: "Trois à quatre paliers suffisent : barre seule × 8, puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Pour des séries au-delà de 90 %, ajoute une 4ème série à 85 % × 1-2 reps. L'objectif : préparer le système nerveux sans accumuler de fatigue.",
       },
       {
         q: "Le développé couché peut-il abîmer les épaules ?",
@@ -173,7 +173,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Combien de séries de chauffe avant le squat lourd ?",
-        a: "Pour une série de travail à 80 % : barre vide × 10, 40 % × 5, 60 % × 3, 75 % × 1-2. Pour 90 %+, ajoute 85 % × 1. Ne jamais skipper la barre vide même si tu \"te sens chaud\" — c'est le moment où tu programmes le pattern moteur.",
+        a: "Barre seule × 8, puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Ne jamais skipper la barre vide même si tu \"te sens chaud\" — c'est le moment où tu programmes le pattern moteur.",
       },
       {
         q: "J'ai mal aux genoux au squat : c'est l'amplitude ?",
@@ -257,7 +257,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Combien de séries de chauffe avant le SDT lourd ?",
-        a: "Pour une série de travail à 80 % du 1RM : barre vide × 5 (technique), 40 % × 5, 60 % × 3, 75 % × 1. Pour 90 %+, ajoute 85 % × 1. Le SDT a besoin de moins de séries de chauffe que le squat car il fatigue plus le système nerveux — mais il faut activer la chaîne postérieure au préalable.",
+        a: "Commence avec deux disques de 20 kg (la barre seule est trop basse), puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Le SDT a besoin de moins de séries de chauffe que le squat car il fatigue plus le système nerveux — mais il faut activer la chaîne postérieure au préalable.",
       },
       {
         q: "Le SDT abîme-t-il forcément le dos ?",

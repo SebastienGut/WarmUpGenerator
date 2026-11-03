@@ -7,6 +7,7 @@ import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, fmtMin, phaseSecon
 import { EQUIPMENT_LABELS } from "@/lib/bank";
 import { saveEquipment } from "@/lib/equipment-pref";
 import GuidedMode from "@/components/GuidedMode";
+import { REHAB_ZONES } from "@/lib/rehab";
 import { saveSession } from "@/lib/saved-sessions";
 import {
   PAIN_LABELS,
@@ -108,14 +109,34 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           <Chip onClick={() => update({ variant: ((input.variant ?? 0) + 1) % 997 })}>↻ Varier</Chip>
         </div>
 
-        {plan.warnings.map((w) => (
-          <p key={w.zone} className="mt-4 rounded-xl bg-warn-bg px-4 py-3 text-[13px] leading-relaxed text-warn-ink">
-            {PAIN_LABELS[w.zone]} : garde la douleur sous 3/10 pendant la montée, sinon reste à la charge confortable.{" "}
-            <Link href={w.href} className="font-semibold underline underline-offset-2">
-              En savoir plus
-            </Link>
-          </p>
-        ))}
+        {/* Zone sensible : ajoute un ou deux exercices doux à la préparation (pas une séance de soin). */}
+        <div className="mt-5">
+          <p className="mb-2 text-[13px] font-semibold text-subtle">Une zone sensible à préparer en plus ?</p>
+          <div className="flex flex-wrap gap-2">
+            {REHAB_ZONES.map((z) => {
+              const on = input.pain.includes(z.id);
+              return (
+                <Chip key={z.id} tone={on ? "warn" : "default"} onClick={() => update({ pain: on ? input.pain.filter((p) => p !== z.id) : [...input.pain, z.id] })}>
+                  {on ? `✓ ${z.label}` : z.label}
+                </Chip>
+              );
+            })}
+          </div>
+          {input.pain.length > 0 && (
+            <p className="mt-3 rounded-xl bg-warn-bg px-4 py-3 text-[13px] leading-relaxed text-warn-ink">
+              Un ou deux exercices doux ajoutés pour {input.pain.map((z) => PAIN_LABELS[z].toLowerCase()).join(" et ")}. Garde la gêne sous 3 sur 10,
+              pendant l&apos;échauffement comme pendant la séance. Douleur vive ou qui dure : consulte un kiné ou un médecin.
+              {plan.warnings[0] && (
+                <>
+                  {" "}
+                  <Link href={plan.warnings[0].href} className="font-semibold underline underline-offset-2">
+                    En savoir plus
+                  </Link>
+                </>
+              )}
+            </p>
+          )}
+        </div>
 
         <div className="mt-6 hidden lg:block">{startButton}</div>
       </aside>

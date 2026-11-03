@@ -20,6 +20,8 @@ export interface ApproachInput {
   workReps: number;
   /** Poids de la barre, en kg. Ignoré pour les haltères. */
   barWeight: number;
+  /** Exercice qui suit un autre exercice pour les mêmes muscles : montée courte. */
+  alreadyWarm?: boolean;
 }
 
 export interface ApproachSet {
@@ -46,15 +48,23 @@ export const EXERCISE_LABELS: Record<ApproachExercise, string> = {
 
 const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
 
-/** Paliers [pourcentage, répétitions] selon le nombre de reps de travail.
- * Plus la série de travail est lourde, plus la montée est longue et plus les
- * répétitions d'approche sont courtes : on prépare le système nerveux à la
- * charge sans entamer la fatigue avant la série qui compte. */
-function rampFor(workReps: number): [number, number][] {
-  if (workReps <= 3) return [[0.4, 5], [0.6, 3], [0.75, 2], [0.85, 1], [0.92, 1]];
-  if (workReps <= 6) return [[0.4, 5], [0.6, 3], [0.75, 2], [0.85, 1]];
-  if (workReps <= 10) return [[0.5, 8], [0.7, 4], [0.85, 2]];
-  return [[0.5, 10], [0.75, 4]];
+/**
+ * Montée en charge, selon les principes partagés par la littérature et les
+ * entraîneurs de force :
+ *  - la dernière série d'approche est lourde (80 à 90 % de la charge de travail) :
+ *    c'est elle qui prépare le mieux la performance (Sousa et al. 2024, Ribeiro et
+ *    al. 2020, synthèse Stronger by Science « heavier warm-ups ») ;
+ *  - entre la barre et ce dernier palier, des sauts réguliers et limités (20 kg ou
+ *    20 % de la charge au plus), donc plus de paliers quand la charge est lourde ;
+ *  - des répétitions qui baissent à mesure que la charge monte, loin de l'échec :
+ *    on prépare le geste et le système nerveux sans entamer la série qui compte ;
+ *  - un exercice déjà échauffé par le précédent n'a besoin que de deux paliers.
+ */
+function topFor(workReps: number): { pct: number; reps: number } {
+  if (workReps <= 3) return { pct: 0.9, reps: 1 };
+  if (workReps <= 6) return { pct: 0.85, reps: 2 };
+  if (workReps <= 10) return { pct: 0.8, reps: 3 };
+  return { pct: 0.75, reps: 4 };
 }
 
 function roundTo(value: number, step: number) {
@@ -77,47 +87,53 @@ export function computeApproachSets(input: ApproachInput): ApproachSet[] {
   const machine = input.exercise === "machine";
   // Haltères et machines : pas de barre ni de disques à afficher.
   const dumbbells = input.exercise === "halteres" || machine;
+  const deadlift = input.exercise === "souleve-de-terre";
   const bar = dumbbells ? 0 : input.barWeight;
   // Une paire de 1,25 kg à la barre ; les haltères vont en général de 2 en 2.
   const step = machine ? 5 : dumbbells ? 2 : 2.5;
   const work = input.workWeight;
   if (!Number.isFinite(work) || work <= 0) return [];
 
+  const { pct: topPct, reps: topReps } = topFor(input.workReps);
+  const top = roundTo(work * topPct, step);
   const sets: ApproachSet[] = [];
   const push = (weight: number, reps: number, emptyBar: boolean) => {
-    sets.push({
-      weight,
-      reps,
-      percent: Math.round((weight / work) * 100),
-      platesPerSide: dumbbells ? [] : platesPerSide(weight, bar),
-      restSeconds: 0,
-      emptyBar,
-    });
+    if (weight >= work || (sets.length && weight <= sets[sets.length - 1].weight)) return;
+    sets.push({ weight, reps, percent: Math.round((weight / work) * 100), platesPerSide: dumbbells ? [] : platesPerSide(weight, bar), restSeconds: 0, emptyBar });
   };
 
-  // Barre seule : utile tant qu'elle reste nettement sous le premier palier.
-  // Pas au soulevé de terre — la barre nue est trop basse pour une position
-  // de départ correcte, on commence avec des disques.
-  const ramp = rampFor(input.workReps);
-  if (!dumbbells && input.exercise !== "souleve-de-terre" && bar > 0 && bar <= work * 0.45) {
-    push(bar, 10, true);
+  // Point de départ : la barre seule pour répéter le geste (pas au soulevé de terre,
+  // trop bas sans disques : on part de deux disques de 20, hauteur standard).
+  const emptyBarSet = !dumbbells && !deadlift && !input.alreadyWarm && bar > 0 && bar <= work * 0.5;
+  let from: number;
+  if (emptyBarSet) {
+    push(bar, input.workReps >= 8 ? 10 : 8, true);
+    from = bar;
+  } else if (deadlift && !input.alreadyWarm) {
+    from = Math.min(Math.max(bar + 40, roundTo(work * 0.4, step)), top);
+  } else {
+    from = roundTo(work * (input.alreadyWarm ? 0.6 : 0.5), step);
   }
 
-  for (const [pct, reps] of ramp) {
-    const minimum = dumbbells ? step : input.exercise === "souleve-de-terre" ? bar + 2 * 10 : bar;
-    const w = Math.max(roundTo(work * pct, step), minimum);
-    if (w >= work) continue;
-    const prev = sets.at(-1);
-    // Deux paliers trop proches n'apportent rien et fatiguent : on fusionne.
-    if (prev && w - prev.weight < Math.max(2 * step, work * 0.05)) continue;
-    push(w, reps, !dumbbells && w === bar);
+  // Paliers réguliers jusqu'au dernier palier lourd.
+  const maxJump = Math.max(20, work * 0.2);
+  const first = emptyBarSet ? from + Math.min(maxJump, (top - from) / 2) : from;
+  const loaded = input.alreadyWarm ? 2 : Math.min(4, Math.max(2, Math.ceil((top - first) / maxJump) + 1));
+  const reps0 = Math.max(input.workReps >= 8 ? 8 : 5, topReps + 1);
+  for (let k = 0; k < loaded; k++) {
+    const t = loaded === 1 ? 1 : k / (loaded - 1);
+    const w = roundTo(first + (top - first) * t, step);
+    const reps = Math.round(reps0 + (topReps - reps0) * t);
+    push(Math.max(w, dumbbells ? step : bar), reps, !dumbbells && w === bar);
   }
 
-  // Repos : court au début, plus long à l'approche de la charge réelle.
-  return sets.map((s, i) => ({
-    ...s,
-    restSeconds: s.percent >= 80 || i === sets.length - 1 ? 90 : s.percent >= 60 ? 60 : 45,
-  }));
+  // Repos : presque rien sur les paliers légers, davantage en approchant de la charge,
+  // et 2 à 3 minutes avant la série de travail.
+  return sets.map((s, i) => {
+    const last = i === sets.length - 1;
+    const restSeconds = last ? (input.workReps <= 6 ? 180 : 120) : s.percent >= 75 ? 90 : s.percent >= 55 ? 60 : 30;
+    return { ...s, restSeconds };
+  });
 }
 
 export function formatKg(weight: number) {

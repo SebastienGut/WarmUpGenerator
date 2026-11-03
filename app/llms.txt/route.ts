@@ -73,7 +73,7 @@ export function GET() {
     "  hanche, genou, cheville), 8 à 15 minutes, règle des 3 sur 10, renvoi vers un professionnel si besoin.",
     `- [Calculateur de séries d'approche](${SITE_URL}/series-approche) : montée en charge avant la`,
     "  première série de travail (squat, développé couché, soulevé de terre...), disques par côté.",
-    "  Repère : pour 5 répétitions de travail, barre × 10 puis 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1.",
+    "  Repère : 2 à 4 paliers réguliers, répétitions décroissantes, dernier palier lourd (80 à 90 %).",
     "",
     "## Guides",
     "",

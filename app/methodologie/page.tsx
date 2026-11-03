@@ -50,7 +50,7 @@ const PRINCIPLES = [
   {
     n: "06",
     title: "Les séries d'approche, un outil à part",
-    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : plus la série est lourde, plus il y a de paliers et moins chaque palier compte de répétitions (pour 5 reps : barre × 10, 40 % × 5, 60 % × 3, 75 % × 2, 85 % × 1), arrondis aux disques réels.",
+    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : des sauts réguliers (20 kg ou 20 % de la charge au plus), des répétitions qui baissent, et un dernier palier lourd (90 % avant 1 à 3 répétitions, 85 % avant 4 à 6, 80 % avant 7 à 10), le plus utile d'après les études récentes ; deux paliers seulement si l'exercice suit un autre exercice pour les mêmes muscles, arrondis aux disques réels.",
   },
 ];
 

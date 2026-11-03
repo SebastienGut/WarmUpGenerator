@@ -117,6 +117,13 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 3 nov. 2026 : retours de Seb sur téléphone. Accueil : six cartes visibles sans défiler (bandeau et cartes
+  resserrés, séances récentes sous les cartes), « Routine de soin » retiré, carte Séries d'approche refaite
+  (escalier de paliers, sans disques). Routines à 6 min (durée réelle par dose, activation en 2 séries ;
+  Pull sans matériel 5 min, faute de curl). Zone sensible sur le plan : 1 à 2 exercices de soin ajoutés
+  (lib/rehab.ts PREP_EXTRAS). Séries d'approche refondues : dernier palier lourd (90/85/80/75 % selon les
+  reps), sauts ≤ 20 kg ou 20 %, 2 à 4 paliers, reps décroissantes, repos 2-3 min avant le travail, option
+  « muscles déjà échauffés » ; textes de la page calculés depuis l'outil.
 - 3 nov. 2026 : incident de mise en ligne : Vercel n'a pas reçu la notification GitHub de deux pushs
   (47b33e7, 404c2a5 : aucun statut sur le commit). Relancé par un commit vide. À surveiller : après un push,
   vérifier qu'un statut « Vercel » apparaît sur le commit (gh api repos/SebastienGut/WarmUpGenerator/commits/<sha>/statuses).

@@ -17,6 +17,7 @@ import { LIFTS_BY_ID, SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel, ses
 import { computeApproachSets, formatKg, type ApproachExercise } from "@/lib/approach-sets";
 import { BANK, type BankExercise, type BankPosition, type Equipment, type Variant } from "@/lib/bank";
 import { ALTERNATIVES, MAX_STEPS, SHORT_STEPS, TEMPLATE_ROUTINES, ZONE_BASES, type RoutineEntry } from "@/lib/routines";
+import { prepExtras } from "@/lib/rehab";
 
 export type { Equipment } from "@/lib/bank";
 
@@ -143,7 +144,7 @@ function rampExerciseFor(lift: Lift): ApproachExercise {
   return lift.id === "souleve-de-terre" ? "souleve-de-terre" : "squat";
 }
 
-function fullRamp(lift: Lift, input: Pick<SessionInput, "workWeight" | "workReps">, barWeight = 20): RampLine[] {
+function fullRamp(lift: Lift, input: Pick<SessionInput, "workWeight" | "workReps">, barWeight = 20, alreadyWarm = false): RampLine[] {
   if (lift.loading === "poids-du-corps") {
     return [
       { load: "Amplitude réduite", reps: 5, restSeconds: 45 },
@@ -156,6 +157,7 @@ function fullRamp(lift: Lift, input: Pick<SessionInput, "workWeight" | "workReps
     workWeight: known ? input.workWeight! : 100,
     workReps: input.workReps ?? 8,
     barWeight,
+    alreadyWarm,
   });
   return sets.map((s) => ({
     load: s.emptyBar ? "Barre seule" : known ? formatKg(s.weight) : `${s.percent} %`,
@@ -277,7 +279,8 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
     if ((r.ex.avoid ?? []).some((z) => input.pain.includes(z as BodyZone))) continue;
     seen.add(r.ex.id);
     // Dose de la routine pour l'exercice prévu ; dose propre pour un remplaçant.
-    const dose = !r.substituted && en.dose ? en.dose : r.ex.dose;
+    // La dose de la routine vaut aussi pour un remplaçant (même rôle, même volume).
+    const dose = en.dose ?? r.ex.dose;
     steps.push({
       phase: r.ex.phase,
       step: {
@@ -287,12 +290,19 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
         substituted: r.substituted,
         replaces: r.substituted ? plannedName(en.id) : undefined,
         reps: dose,
-        seconds: r.ex.seconds,
+        seconds: en.seconds ?? r.ex.seconds,
         reason: r.ex.why,
       },
     });
   }
   const kept = input.short ? steps.slice(0, SHORT_STEPS) : steps;
+  // Zone sensible : un ou deux exercices doux de la routine de soin, sans doublon.
+  for (const zone of input.pain) {
+    for (const extra of prepExtras(zone)) {
+      if (kept.some((k) => k.step.exercise.id === extra.step.exercise.id)) continue;
+      kept.push(extra);
+    }
+  }
 
   const phases: PlanPhase[] = [];
   for (const key of ["mobility", "activation"] as const) {
@@ -303,8 +313,13 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
   // Durée honnête : exercices (côtés et installation compris), ~10 s entre deux
   // exercices, 15 s de plus pour descendre au sol ou se relever.
   const flat = kept.map((s) => s.step);
-  const levelOf = (st: PrepStep) => LEVEL[BANK[st.exercise.bankId].position];
-  const transitions = flat.reduce((s, st, i) => (i === 0 ? s : s + 10 + (levelOf(st) !== levelOf(flat[i - 1]) ? 15 : 0)), 0);
+  // Les exercices de soin ajoutés n'ont pas de position connue : pas de surcoût de changement de niveau.
+  const levelOf = (st: PrepStep) => (BANK[st.exercise.bankId] ? LEVEL[BANK[st.exercise.bankId].position] : undefined);
+  const transitions = flat.reduce((s, st, i) => {
+    if (i === 0) return s;
+    const a = levelOf(st), b = levelOf(flat[i - 1]);
+    return s + 10 + (a !== undefined && b !== undefined && a !== b ? 15 : 0);
+  }, 0);
   const seconds = flat.reduce((s, st) => s + st.seconds, 0) + transitions;
 
   const refLifts = byZone ? [...new Set(zones.flatMap((z) => ZONE_LIFTS[z]))].map((id) => LIFTS_BY_ID[id]) : lifts;
@@ -332,9 +347,9 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
   };
 }
 
-export function buildRampPlan(liftId: string, workWeight: number | undefined, workReps: number, barWeight = 20): SessionPlan {
+export function buildRampPlan(liftId: string, workWeight: number | undefined, workReps: number, barWeight = 20, alreadyWarm = false): SessionPlan {
   const lift = LIFTS_BY_ID[liftId];
-  const lines = fullRamp(lift, { workWeight, workReps }, barWeight);
+  const lines = fullRamp(lift, { workWeight, workReps }, barWeight, alreadyWarm);
   return {
     title: lift.name,
     lifts: [lift],

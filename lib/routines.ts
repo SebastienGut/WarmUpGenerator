@@ -12,49 +12,58 @@ export interface RoutineEntry {
   id: string;
   /** Dose propre à cette routine ; sinon la dose par défaut de l'exercice. */
   dose?: string;
+  /** Durée réelle de cette dose (côtés, séries et installation compris), en secondes. */
+  seconds?: number;
 }
 
-const e = (id: string, dose?: string): RoutineEntry => ({ id, dose });
+const e = (id: string, dose?: string, seconds?: number): RoutineEntry => ({ id, dose, seconds });
 
 /** Routines des séances types, dans leur ordre d'exécution. */
+// Chaque séance type dure environ 6 minutes (transitions comprises) : l'activation
+// se fait en deux séries courtes, la mobilité en cycles lents.
 export const TEMPLATE_ROUTINES: Record<string, RoutineEntry[]> = {
-  push: [e("cat-cow", "6 cycles"), e("pompes-scapulaires", "10 répétitions"), e("rotation-externe", "10 par côté"), e("face-pull", "12 répétitions")],
+  push: [
+    e("cat-cow", "8 cycles", 50),
+    e("pompes-scapulaires", "2 × 10 répétitions", 75),
+    e("rotation-externe", "2 × 10 par côté", 110),
+    e("face-pull", "2 × 12 répétitions", 85),
+  ],
   pull: [
-    e("cat-cow", "6 cycles"),
-    e("rotation-thoracique", "5 par côté"),
-    e("wall-slides", "8 répétitions"),
-    e("face-pull", "12 répétitions"),
-    e("curl-marteau", "10 répétitions"),
+    e("cat-cow", "6 cycles", 40),
+    e("rotation-thoracique", "6 par côté", 55),
+    e("wall-slides", "2 × 8 répétitions", 65),
+    e("face-pull", "2 × 12 répétitions", 85),
+    e("curl-marteau", "2 × 10 répétitions", 65),
   ],
   legs: [
-    e("cheville-mur", "10 par côté"),
-    e("squat-assiste", "3 × 10 secondes"),
-    e("good-morning", "10 répétitions"),
-    e("glute-bridge", "10 répétitions"),
-    e("mollets", "12 répétitions"),
+    e("cheville-mur", "10 par côté", 50),
+    e("squat-assiste", "3 × 10 secondes", 50),
+    e("good-morning", "2 × 10 répétitions", 65),
+    e("glute-bridge", "2 × 10 répétitions", 65),
+    e("mollets", "2 × 12 répétitions", 60),
   ],
   haut: [
-    e("cat-cow", "6 cycles"),
-    e("rotation-thoracique", "5 par côté"),
-    e("pompes-scapulaires", "10 répétitions"),
-    e("rotation-externe", "10 par côté"),
-    e("face-pull", "12 répétitions"),
+    e("cat-cow", "6 cycles", 40),
+    e("rotation-thoracique", "5 par côté", 45),
+    e("pompes-scapulaires", "2 × 10 répétitions", 75),
+    e("rotation-externe", "10 par côté", 55),
+    e("face-pull", "2 × 12 répétitions", 85),
   ],
   bas: [
-    e("cheville-mur", "10 par côté"),
-    e("squat-assiste", "3 × 10 secondes"),
-    e("good-morning", "10 répétitions"),
-    e("glute-bridge", "10 répétitions"),
-    e("dead-bug", "5 par côté"),
+    e("cheville-mur", "10 par côté", 50),
+    e("squat-assiste", "3 × 10 secondes", 50),
+    e("good-morning", "2 × 10 répétitions", 65),
+    e("glute-bridge", "2 × 10 répétitions", 65),
+    e("dead-bug", "2 × 5 par côté", 70),
   ],
   full: [
-    e("cheville-mur", "8 par côté"),
-    e("squat-assiste", "2 × 10 secondes"),
-    e("good-morning", "8 répétitions"),
-    e("face-pull", "10 répétitions"),
-    e("rotation-externe", "8 par côté"),
-    e("pompes-scapulaires", "8 répétitions"),
-    e("dead-bug", "4 par côté"),
+    e("cheville-mur", "8 par côté", 45),
+    e("squat-assiste", "2 × 10 secondes", 35),
+    e("good-morning", "8 répétitions", 35),
+    e("face-pull", "10 répétitions", 40),
+    e("rotation-externe", "8 par côté", 45),
+    e("pompes-scapulaires", "8 répétitions", 30),
+    e("dead-bug", "4 par côté", 40),
   ],
 };
 

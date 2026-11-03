@@ -133,3 +133,58 @@ export function buildRehabPlan(zones: BodyZone[]): SessionPlan {
   const seconds = keys.reduce((s, k) => s + EX[k].seconds, 0) + Math.max(0, keys.length - 1) * 15;
   return { title: rehabLabel(zones), lifts: [], phases, minutes: Math.max(1, Math.round(seconds / 60)), warnings: [], equipment: "none" };
 }
+
+/**
+ * Zone sensible ajoutée à un échauffement : un ou deux exercices de la routine de
+ * soin, à dose d'échauffement, pour préparer l'articulation sans en faire une séance
+ * de rééducation. La mobilité rejoint la phase de mobilité, le renforcement l'activation.
+ */
+const PREP_EXTRAS: Record<BodyZone, { key: ExKey; dose: string; seconds: number }[]> = {
+  epaule: [
+    { key: "carsEpaule", dose: "3 par sens et par côté", seconds: 50 },
+    { key: "reCote", dose: "10 par côté", seconds: 60 },
+  ],
+  coudes: [
+    { key: "flexExtCoude", dose: "10 par côté", seconds: 35 },
+    { key: "pronoSupi", dose: "10 par côté", seconds: 40 },
+  ],
+  poignets: [
+    { key: "rotPoignets", dose: "10 par sens", seconds: 30 },
+    { key: "appuiPoignets", dose: "10 bascules", seconds: 40 },
+  ],
+  "bas-du-dos": [
+    { key: "genouxPoitrine", dose: "2 × 15 s", seconds: 40 },
+    { key: "birdDog", dose: "5 par côté, tenir 3 s", seconds: 60 },
+  ],
+  hanches: [
+    { key: "nonante", dose: "6 transitions", seconds: 45 },
+    { key: "coquillage", dose: "10 par côté", seconds: 55 },
+  ],
+  genou: [
+    { key: "chevilleMur", dose: "8 par côté", seconds: 40 },
+    { key: "fenteIso", dose: "2 × 20 s par côté", seconds: 95 },
+  ],
+  chevilles: [
+    { key: "rotChevilles", dose: "8 par sens et par côté", seconds: 45 },
+    { key: "pointes", dose: "12 lentes", seconds: 45 },
+  ],
+};
+
+export function prepExtras(zone: BodyZone): { phase: "mobility" | "activation"; step: PrepStep }[] {
+  const label = REHAB_ZONES.find((z) => z.id === zone)?.label.toLowerCase() ?? zone;
+  return (PREP_EXTRAS[zone] ?? []).map(({ key, dose, seconds }) => {
+    const ex = EX[key];
+    return {
+      phase: ex.phase,
+      step: {
+        kind: "prep",
+        exercise: { id: ex.figure, bankId: `soin-${key}`, name: ex.name, equipment: "none" },
+        instructions: ex.instructions,
+        substituted: false,
+        reps: dose,
+        seconds,
+        reason: `Ajouté pour ta zone sensible (${label}) : ${ex.why.charAt(0).toLowerCase()}${ex.why.slice(1)} Garde la gêne sous 3 sur 10.`,
+      },
+    };
+  });
+}

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import { useRouter } from "next/navigation";
 import { FigureStill } from "@/components/ExerciseFigure";
-import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
 import { SESSION_TEMPLATES, zonesLabel } from "@/lib/lifts";
 import { REHAB_ZONES } from "@/lib/rehab";
@@ -68,30 +67,60 @@ export default function SessionBuilder() {
   return (
     <main className="w-full pb-16">
       {/* Bandeau d'affiche : la question, en grand. */}
-      <section className="relative overflow-hidden bg-blue px-5 pb-9 pt-5 text-white sm:px-8 sm:pb-12">
+      <section className="relative overflow-hidden bg-blue px-5 pb-6 pt-4 text-white sm:px-8 sm:pb-12 sm:pt-5">
         <span aria-hidden="true" className="pointer-events-none absolute -right-20 -top-16 h-72 w-72 rounded-full border-[34px] border-white/[0.12]" />
         <div className="relative mx-auto max-w-[1080px]">
-          <header className="mb-7 flex items-center justify-between sm:mb-10">
+          <header className="mb-4 flex items-center justify-between sm:mb-10">
             <Logo />
             <Link href="/series-approche" className="text-[14px] font-semibold text-white hover:underline">
               Séries d&apos;approche
             </Link>
           </header>
-          <h1 className="poster font-display text-[64px] leading-[1.04] sm:text-[96px]">
+          <h1 className="poster font-display text-[54px] leading-[1.04] sm:text-[96px]">
             Tu entraînes
             <br />
             quoi&nbsp;?
           </h1>
-          <p className="mt-4 max-w-[34rem] text-balance text-white">
-            <strong className="block text-[19px] font-bold leading-snug sm:text-[22px]">La longévité du sportif commence ici.</strong>
-            <span className="mt-1 block text-[16px]">Choisis ta séance, obtiens ton échauffement sur mesure.</span>
+          <p className="mt-3 max-w-[34rem] text-balance text-white sm:mt-4">
+            <strong className="block text-[17px] font-bold leading-snug sm:text-[22px]">La longévité du sportif commence ici.</strong>
+            <span className="mt-0.5 block text-[15px] sm:mt-1 sm:text-[16px]">Choisis ta séance, obtiens ton échauffement sur mesure.</span>
           </p>
         </div>
       </section>
 
       <div className="mx-auto max-w-[1080px] px-3 sm:px-8">
+        <section aria-label="Séances types" className="mt-2.5 grid grid-cols-2 gap-2 sm:mt-5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+          {templates.map((t) => {
+            const c = CARD[t.id] ?? CARD.full;
+            const minutes = buildSessionPlan({ zones: t.zones, template: t.id, lifts: [], pain: [], band: false, short: false, variant: 0 }).minutes;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => go(t.zones, t.id, t.label)}
+                className={`relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${c.bg} ${c.fg}`}
+              >
+                <span className="text-[12px] font-bold">{minutes} min</span>
+                <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
+                  <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
+                </span>
+                <span className="relative">
+                  <span className="poster font-display text-[28px] leading-[0.95] sm:text-[34px]">{t.label}</span>
+                </span>
+              </button>
+            );
+          })}
+          <button
+            type="button"
+            onClick={() => setPicking(true)}
+            className="flex min-h-[112px] flex-col justify-end rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97] sm:min-h-[150px]"
+          >
+            <span className="poster font-display text-[28px] leading-[0.95] sm:text-[34px]">Une douleur&nbsp;?</span>
+          </button>
+        </section>
+
         {saved.length > 0 && (
-          <div className="-mx-3 mt-4 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+          <div className="-mx-3 mt-3 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
             {saved.map((s) => (
               <span key={s.query} className="flex shrink-0 items-center rounded-full bg-ink/[0.07]">
                 <Link href={`/plan?${s.query}`} className="flex items-center gap-2 py-2 pl-4 pr-2 text-[14px] font-semibold text-ink">
@@ -114,49 +143,22 @@ export default function SessionBuilder() {
           </div>
         )}
 
-        <section aria-label="Séances types" className="mt-3 grid grid-cols-2 gap-2.5 sm:mt-5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
-          {templates.map((t) => {
-            const c = CARD[t.id] ?? CARD.full;
-            const minutes = buildSessionPlan({ zones: t.zones, template: t.id, lifts: [], pain: [], band: false, short: false, variant: 0 }).minutes;
-            return (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => go(t.zones, t.id, t.label)}
-                className={`relative flex min-h-[132px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${c.bg} ${c.fg}`}
-              >
-                <span className="text-[12px] font-bold">{minutes} min</span>
-                <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
-                  <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
-                </span>
-                <span className="relative">
-                  <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">{t.label}</span>
-                </span>
-              </button>
-            );
-          })}
-          <button
-            type="button"
-            onClick={() => setPicking(true)}
-            className="flex min-h-[132px] flex-col justify-between rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97] sm:min-h-[150px]"
-          >
-            <span className="text-[12px] font-bold text-subtle">Routine de soin</span>
-            <span className="poster font-display text-[30px] leading-[0.95] sm:text-[34px]">Une douleur&nbsp;?</span>
-          </button>
-        </section>
-
         {/* Second outil, distinct : la montée en charge sur un exercice précis. */}
         <Link
           href="/series-approche"
-          className="mt-8 flex items-center gap-5 rounded-3xl bg-black px-6 py-6 text-white transition-transform active:scale-[0.99] sm:px-8"
+          className="mt-6 flex items-end gap-5 overflow-hidden rounded-3xl bg-black px-5 pb-5 pt-5 text-white transition-transform active:scale-[0.99] sm:px-8"
         >
           <span className="min-w-0 flex-1">
-            <span className="block text-[12px] font-bold tracking-[0.08em] text-white/70">L&apos;AUTRE OUTIL</span>
-            <span className="poster mt-1 font-display text-[30px] leading-none">Séries d&apos;approche</span>
-            <span className="mt-2 block max-w-[40ch] text-[14px] text-white/80">Ta charge de travail du jour, et la montée en charge disque par disque pour y arriver.</span>
+            <span className="poster block font-display text-[28px] leading-none sm:text-[32px]">Séries d&apos;approche</span>
+            <span className="mt-2 block max-w-[34ch] text-[14px] leading-snug text-white">
+              Ta charge du jour, et les paliers pour y arriver, disques compris.
+            </span>
           </span>
-          <span className="shrink-0" aria-hidden="true">
-            <Plates plates={[25, 20, 5, 2.5]} size={52} />
+          {/* La montée en escalier : paliers qui grandissent jusqu'à la série de travail (rouge). */}
+          <span aria-hidden="true" className="flex shrink-0 items-end gap-1">
+            {[18, 28, 38, 48, 62].map((h, i, a) => (
+              <span key={h} className={`w-3 rounded-t-[3px] ${i === a.length - 1 ? "bg-accent" : "bg-white"}`} style={{ height: h }} />
+            ))}
           </span>
         </Link>
       </div>

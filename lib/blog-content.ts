@@ -452,7 +452,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Combien de séries de chauffe avec barre avant les séries de travail ?",
-        a: "Pour un travail à 80 % du 1RM : barre vide × 10, 50 % × 5, 70 % × 3. Pour 90 %+ : ajoute 85 % × 1-2 reps. Ne skip pas la barre vide — c'est là que tu programmes le pattern et que tu vérifies le setup.",
+        a: "Barre seule × 8, puis deux à quatre paliers réguliers en baissant les répétitions, jusqu'à un dernier palier lourd : 85 % de ta charge de travail avant une série de 5, 90 % avant une série de 1 à 3. Ne skip pas la barre vide — c'est là que tu programmes le pattern et que tu vérifies le setup.",
       },
     ],
     relatedLinks: [

@@ -18,13 +18,15 @@ function check(label: string, input: SessionInput) {
   const eq = input.equipment ?? "gym";
   if (plan.phases.some((p) => p.key !== "mobility" && p.key !== "activation")) fail(label, "phase hors mobilité/activation");
   if (new Set(ids).size !== ids.length) fail(label, `doublon ${ids.join(", ")}`);
-  if (steps.length > (input.short ? SHORT_STEPS : MAX_STEPS)) fail(label, `${steps.length} exercices, trop`);
+  const base = steps.filter((st) => !st.exercise.bankId.startsWith("soin-"));
+  if (steps.length - base.length > input.pain.length * 2) fail(label, "trop d'ajouts pour la zone sensible");
+  if (base.length > (input.short ? SHORT_STEPS : MAX_STEPS)) fail(label, `${steps.length} exercices, trop`);
   const onlyArmsBare = eq === "none" && (input.zones ?? []).every((z) => z === "bras");
   if (steps.length < (input.short ? 2 : 3) && !input.pain.length && !onlyArmsBare) fail(label, `${steps.length} exercices seulement`);
   for (const s of steps) {
     const ex = BANK[s.exercise.bankId];
-    if (!ex) fail(label, `hors banque : ${s.exercise.bankId}`);
-    else {
+    if (!ex && !s.exercise.bankId.startsWith("soin-")) fail(label, `hors banque : ${s.exercise.bankId}`);
+    else if (ex) {
       const v = ex.variants[eq];
       if (!s.substituted && (typeof v !== "object" || v === null)) fail(label, `variante absente prise quand même : ${s.exercise.name}`);
       if ((ex.avoid ?? []).some((z) => input.pain.includes(z as BodyZone))) fail(label, `contre-indiqué : ${s.exercise.name}`);

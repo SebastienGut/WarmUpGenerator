@@ -20,6 +20,8 @@ export default function ApproachCalculator() {
   const [weight, setWeight] = useState("100");
   const [reps, setReps] = useState(5);
   const [bar, setBar] = useState(20);
+  // Deuxième exercice pour les mêmes muscles : deux paliers suffisent.
+  const [warm, setWarm] = useState(false);
   const [picking, setPicking] = useState(false);
   const [guided, setGuided] = useState(false);
 
@@ -37,6 +39,7 @@ export default function ApproachCalculator() {
     if (charge > 0) setWeight(String(charge));
     if (r >= 1 && r <= 15) setReps(r);
     if (BARS.includes(b)) setBar(b);
+    if (p.get("chaud") === "1") setWarm(true);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
@@ -44,7 +47,7 @@ export default function ApproachCalculator() {
   const barbell = lift.loading === "barre";
   const kg = Number(weight.replace(",", "."));
   const workWeight = kg > 0 && kg < 600 ? kg : undefined;
-  const plan = useMemo(() => buildRampPlan(liftId, workWeight, reps, bar), [liftId, workWeight, reps, bar]);
+  const plan = useMemo(() => buildRampPlan(liftId, workWeight, reps, bar, warm), [liftId, workWeight, reps, bar, warm]);
   const ramp = plan.phases[0].steps[0];
   const lines = ramp.kind === "ramp" ? ramp.lines : [];
 
@@ -52,8 +55,9 @@ export default function ApproachCalculator() {
     const p = new URLSearchParams({ ex: liftId, reps: String(reps) });
     if (workWeight) p.set("charge", String(workWeight));
     if (barbell && bar !== 20) p.set("barre", String(bar));
+    if (warm) p.set("chaud", "1");
     window.history.replaceState(null, "", `?${p.toString()}`);
-  }, [liftId, workWeight, reps, bar, barbell]);
+  }, [liftId, workWeight, reps, bar, barbell, warm]);
 
   const label = "mb-2 text-[14px] font-semibold text-subtle";
 
@@ -104,6 +108,21 @@ export default function ApproachCalculator() {
             </select>
           </label>
         </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={warm}
+          onClick={() => setWarm(!warm)}
+          className="mt-4 flex w-full items-center justify-between gap-3 rounded-2xl border border-line bg-card px-4 py-3 text-left"
+        >
+          <span>
+            <span className="block text-[15px] font-semibold text-ink">Muscles déjà échauffés</span>
+            <span className="block text-[13px] text-subtle">Tu as déjà fait un exercice pour les mêmes muscles : deux paliers suffisent.</span>
+          </span>
+          <span className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${warm ? "bg-accent" : "bg-faint"}`}>
+            <span className={`absolute top-1 h-5 w-5 rounded-full bg-card shadow-sm transition-all ${warm ? "right-1" : "left-1"}`} />
+          </span>
+        </button>
         {barbell && (
           <div className="mt-4 flex items-center gap-2">
             <span className="text-[13px] text-subtle">Barre</span>

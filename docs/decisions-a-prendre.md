@@ -16,9 +16,9 @@
         allongé, 90/90 ↔ squat assisté). Garder le bouton ou le retirer ?
       - **Bras sans matériel** : une seule ligne (pronation-supination), aucun équivalent honnête pour
         biceps et triceps. Acceptable, ou ajouter un message « fais une série légère de ton premier exercice » ?
-- [ ] **Démonstrations IA** (action, lot 4) : génère les images avec docs/demos-ia.md (45 exercices,
-      2 images chacun), dépose-les dans brand/demos/, puis dis « importe les démos ». Par lots si tu veux :
-      chaque exercice complet est publié seul, les autres gardent leur pictogramme.
+- [ ] **Démonstrations IA** (relecture, lot 4) : les 45 exercices ont leurs images (générées dans ton
+      ChatGPT, vérifiées une à une contre leur checklist, 8 refaites). Regarde le plan Push, Pull, Legs et
+      une routine douleur sur ton téléphone : si une image te gêne, donne son nom et je la régénère.
 - [ ] **Routines « Une douleur ? »** (lib/rehab.ts) : 7 zones, 4 à 7 exercices chacune, 7 à 16 min,
       pictogrammes existants uniquement. À relire en sportif, idéalement par un kiné : doses, choix
       (isométrie pour le genou, McGill pour le bas du dos), et la règle des 3/10 à cocher.

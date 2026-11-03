@@ -89,7 +89,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Garder ce qui marche de la refonte du 23 oct. si Seb le confirme (« barre chargée » ?) ;
   sinon repartir de la comparaison.
 
-## Lot 4 — Démonstrations des exercices — images IA en cours (kit : docs/demos-ia.md)
+## Lot 4 — Démonstrations des exercices — images IA en ligne (45 exercices)
 - La compréhension du mouvement prime sur la sophistication. Aucune animation douteuse
   présentée comme finale.
 - **3D abandonnée** (2 nov. 2026, verdict de Seb : « complètement éclaté »). Code retiré de main ;
@@ -117,6 +117,10 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 3 nov. 2026 : lot 4, 45 démonstrations générées par Claude dans le ChatGPT de Seb (une image en deux
+  panneaux par exercice pour garder personnage et cadrage), relues contre leur checklist ; 8 refaites
+  (wall slides, W allongé, rétraction, rotations de poignets, coquillage, ouverture de hanche, fente basse,
+  rotation thoracique). Import : découpe, cadre commun, fond ramené au papier, WebP (1,2 Mo au total).
 - 3 nov. 2026 : verdict de Seb sur les pictogrammes corrigés : « pas terrible ». Choix : images IA,
   2 par exercice. Code prêt (ExerciseVisual, lib/demos.ts, scripts/import-demos.mjs : cadre 4:3,
   fond papier) ; kit de prompts et checklists pour 45 exercices dans docs/demos-ia.md.

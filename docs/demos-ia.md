@@ -4,6 +4,10 @@
 > seront des images générées par IA, deux par exercice (départ, arrivée). Le site les affiche en
 > alternance ; tant qu'un exercice n'a pas ses deux images, il garde son pictogramme.
 
+> **3 nov. 2026 : fait.** Les 45 exercices ont été générés par Claude dans le ChatGPT de Seb, au format
+> « une image, deux panneaux » (départ à gauche, arrivée à droite) déposée dans `brand/demos/raw/{clé}.png` :
+> l'import la découpe et cadre les deux moitiés à l'identique. Pour refaire un exercice, même méthode.
+
 ## Méthode (à suivre dans l'ordre)
 
 1. **Une seule conversation** dans ton générateur (ChatGPT, comme pour le logo) pour tout le lot :

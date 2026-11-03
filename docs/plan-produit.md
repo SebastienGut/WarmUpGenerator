@@ -89,7 +89,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Garder ce qui marche de la refonte du 23 oct. si Seb le confirme (« barre chargée » ?) ;
   sinon repartir de la comparaison.
 
-## Lot 4 — Démonstrations des exercices
+## Lot 4 — Démonstrations des exercices — pictogrammes audités et corrigés (3 nov. 2026)
 - La compréhension du mouvement prime sur la sophistication. Aucune animation douteuse
   présentée comme finale.
 - **3D abandonnée** (2 nov. 2026, verdict de Seb : « complètement éclaté »). Code retiré de main ;
@@ -117,6 +117,13 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 3 nov. 2026 : lot 4. Audit des 42 pictogrammes réellement affichés (séances × matériel + routines
+  douleur) sur planche contact (docs/pictogrammes/, outil scripts/build-figure-sheet.mjs + /lab-figures
+  en dev). Corrigés : dead bug (bras à travers le sol), planche latérale genoux au sol, pompes
+  scapulaires (banc et mur, deux figures), squat assisté (mains au montant), montée de marche (tête
+  hors cadre), rotation thoracique (main derrière la tête), curl haltères (haltères, plus d'élastique),
+  rétraction sans élastique, Y-T debout. Nouveau repère « rotation » (flèche courbe) pour ce qui tourne
+  sur soi : pronation-supination, poignets, chevilles, 90/90, essuie-glaces, ouverture de hanche.
 - 3 nov. 2026 : logo (monogramme W), accueil épuré (Legs, Upper, Bas retiré), disques en pastilles,
   frise en segments ; routine « Une douleur ? » (lib/rehab.ts) à la place de « Mes zones » ; plan
   réduit au matériel + ↻ Varier. Vérifs lot 2 : contraste AA clair/sombre sur 8 écrans

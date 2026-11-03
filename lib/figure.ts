@@ -54,7 +54,14 @@ export type Prop =
   /** Barres parallèles sous les mains (dips). */
   | { kind: "rails" }
   /** Appui sous la hanche, qui suit le corps (banc à lombaires). */
-  | { kind: "hipPad" };
+  | { kind: "hipPad" }
+  /**
+   * Repère de rotation : flèche courbe autour d'une articulation, pour les
+   * mouvements qui tournent sur eux-mêmes et ne se voient pas de profil
+   * (pronation-supination, cercles de poignet ou de cheville, rotation de hanche).
+   * `both` : flèche aux deux bouts, pour un aller-retour.
+   */
+  | { kind: "turn"; at: "hand" | "elbow" | "shoulder" | "hip" | "knee" | "ankle" | "toe"; r?: number; both?: boolean };
 
 export interface Figure {
   view: "side" | "front";

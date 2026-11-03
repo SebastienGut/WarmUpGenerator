@@ -164,13 +164,14 @@ export const BANK: Record<string, BankExercise> = {
       },
       band: {
         name: "Pompes scapulaires contre un mur",
-        instructions: "Mains sur un banc (ou contre un mur), bras tendus, corps gainé. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse pour les écarter.",
-        figure: "act-pecs-iso",
+        instructions: "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+        figure: "prep-pompes-scap-mur",
+        needs: "un mur",
       },
       none: {
         name: "Pompes scapulaires contre un mur",
         instructions: "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
-        figure: "act-pecs-iso",
+        figure: "prep-pompes-scap-mur",
         needs: "un mur",
       },
     },
@@ -315,7 +316,7 @@ export const BANK: Record<string, BankExercise> = {
       gym: {
         name: "Curl marteau très léger, haltères",
         instructions: "Haltères très légers, paumes face à face. Fléchis les coudes sans balancer le buste, redescends lentement. Aucune fatigue recherchée.",
-        figure: "act-bras-curl-elastique",
+        figure: "curl-marteau",
         needs: "deux haltères légers",
       },
       band: {

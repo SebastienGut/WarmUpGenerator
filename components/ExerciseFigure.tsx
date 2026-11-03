@@ -31,6 +31,30 @@ function phase(now: number, dur: number) {
 
 const { STROKE, LEN, BAR_Y } = FIGURE_CONST;
 
+/** Flèche courbe (trois quarts de cercle) autour d'une articulation. */
+function Turn({ c, r, both }: { c: [number, number]; r: number; both?: boolean }) {
+  const pt = (deg: number): [number, number] => [c[0] + r * Math.cos((deg * Math.PI) / 180), c[1] + r * Math.sin((deg * Math.PI) / 180)];
+  const a0 = 200, a1 = 470; // de gauche, par le haut, jusqu'en bas à droite
+  const [x0, y0] = pt(a0), [x1, y1] = pt(a1);
+  // Pointe de flèche : un triangle orienté selon la tangente au bout de l'arc.
+  const head = (deg: number, dirSign: number) => {
+    const [x, y] = pt(deg);
+    const t = ((deg + 90 * dirSign) * Math.PI) / 180;
+    const n = (deg * Math.PI) / 180;
+    const tip: [number, number] = [x + 6 * Math.cos(t), y + 6 * Math.sin(t)];
+    const b1: [number, number] = [x + 4.5 * Math.cos(n), y + 4.5 * Math.sin(n)];
+    const b2: [number, number] = [x - 4.5 * Math.cos(n), y - 4.5 * Math.sin(n)];
+    return `${tip.join(",")} ${b1.join(",")} ${b2.join(",")}`;
+  };
+  return (
+    <g fill="var(--accent)" stroke="var(--accent)">
+      <path d={`M ${x0} ${y0} A ${r} ${r} 0 1 1 ${x1} ${y1}`} fill="none" strokeWidth={3} strokeLinecap="round" />
+      <polygon points={head(a1, 1)} strokeWidth={1} />
+      {both && <polygon points={head(a0, -1)} strokeWidth={1} />}
+    </g>
+  );
+}
+
 function Body({ fig, k }: { fig: Figure; k: number }) {
   const pl = useMemo(() => placement(fig), [fig]);
   const pose = lerpPose(fig.frames[0], fig.frames[1], k);
@@ -140,6 +164,7 @@ function Body({ fig, k }: { fig: Figure; k: number }) {
           ));
         }
         if (p.kind === "kb") return <circle key={`k${i}`} cx={s.hand[0]} cy={s.hand[1] + 9} r={9} fill="var(--subtle)" />;
+        if (p.kind === "turn") return <Turn key={`t${i}`} c={s[p.at]} r={p.r ?? 15} both={p.both} />;
         if (p.kind === "band") {
           return (
             <line key={`e${i}`} x1={s.hand[0]} y1={s.hand[1]} x2={p.to[0]} y2={p.to[1]} stroke="var(--accent)" strokeWidth={3} strokeDasharray="5 4" strokeLinecap="round" opacity={0.8} />

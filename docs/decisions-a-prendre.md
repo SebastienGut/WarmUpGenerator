@@ -16,9 +16,11 @@
         allongé, 90/90 ↔ squat assisté). Garder le bouton ou le retirer ?
       - **Bras sans matériel** : une seule ligne (pronation-supination), aucun équivalent honnête pour
         biceps et triceps. Acceptable, ou ajouter un message « fais une série légère de ton premier exercice » ?
-- [ ] **Pictogrammes à regarder** : squat profond assisté (au mur) et rotation thoracique à quatre
-      pattes sont nouveaux. Je n'ai pas pu les voir rendus (panneau navigateur masqué) : jette un œil
-      sur /plan?t=legs et /plan?t=pull. Pas d'autre travail graphique tant que la banque n'est pas validée.
+- [ ] **Pictogrammes** (lot 4) : les 42 affichés sont sur `docs/pictogrammes/planche-1.png` à `-5.png`
+      (départ, milieu, arrivée). J'en ai corrigé une dizaine. Limites restantes du dessin de profil,
+      à juger : étirements des extenseurs et des fléchisseurs du poignet identiques (paume invisible),
+      W allongé peu lisible, essuie-glaces et ouverture de hanche compris grâce à la flèche seulement.
+      Si l'un te choque, dis lequel ; sinon on considère le lot 4 bouclé.
 - [ ] **Routines « Une douleur ? »** (lib/rehab.ts) : 7 zones, 4 à 7 exercices chacune, 7 à 16 min,
       pictogrammes existants uniquement. À relire en sportif, idéalement par un kiné : doses, choix
       (isométrie pour le genou, McGill pour le bas du dos), et la règle des 3/10 à cocher.

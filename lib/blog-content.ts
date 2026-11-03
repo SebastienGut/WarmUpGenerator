@@ -62,7 +62,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "Combien de temps faut-il s'échauffer avant la musculation ?",
-        a: "5 à 8 minutes pour la majorité des séances. En dessous de 5 min, la température musculaire n'a pas eu le temps de monter suffisamment. Au-delà de 10 min, tu commences à fatiguer sans bénéfice supplémentaire. Le générateur propose une version courte (environ 5 minutes) et une version complète, qui allonge surtout la montée en charge quand ta première série est lourde.",
+        a: "5 à 8 minutes pour la majorité des séances. En dessous de 5 min, la température musculaire n'a pas eu le temps de monter suffisamment. Au-delà de 10 min, tu commences à fatiguer sans bénéfice supplémentaire. Le générateur propose une routine de 6 minutes par séance ; le calculateur de séries d'approche allonge ensuite la montée en charge quand ta première série est lourde.",
       },
       {
         q: "Faut-il s'étirer avant la musculation ?",
@@ -127,7 +127,7 @@ export const BLOG_POSTS: BlogPost[] = [
     faqs: [
       {
         q: "Est-ce que 3 minutes d'échauffement suffisent ?",
-        a: "Pour une séance légère ou de mobilité, oui. Pour des charges lourdes (80 %+ du max), non — 5 à 8 minutes sont nécessaires pour que les tendons et les articulations soient prêts. Le générateur propose une version courte et une version complète, selon le temps dont tu disposes.",
+        a: "Pour une séance légère ou de mobilité, oui. Pour des charges lourdes (80 %+ du max), non — 5 à 8 minutes sont nécessaires pour que les tendons et les articulations soient prêts. Le générateur propose une routine de 6 minutes : assez pour préparer, sans entamer ta séance.",
       },
       {
         q: "Pourquoi ne pas faire 20 minutes d'échauffement pour être sûr ?",
@@ -141,7 +141,7 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
       { href: "/blog/echauffement-dynamique-ou-statique", label: "Dynamique ou statique ?" },
-      { href: "/echauffement/full-body", label: "Plan full body 5 min" },
+      { href: "/echauffement/full-body", label: "Plan full body 6 min" },
       { href: "/echauffement/protection/lombaires", label: "Échauffement lombaires sensibles" },
     ],
   },
@@ -167,7 +167,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "L'échauffement dynamique : ce que ça signifie concrètement",
         content: [
-          "Dynamique ne veut pas dire sauter dans tous les sens. Un échauffement dynamique, c'est des <strong class='text-ink'>mouvements contrôlés, en amplitude croissante, qui imitent les patterns du mouvement de travail</strong>. Des cercles d'épaules progressifs avant le développé couché. Des rotations thoraciques avant le rowing. Des hip circles avant le squat. Des cercles de cheville avant les fentes.",
+          "Dynamique ne veut pas dire sauter dans tous les sens. Un échauffement dynamique, ce sont des <strong class='text-ink'>mouvements contrôlés, en amplitude croissante, qui imitent les patterns du mouvement de travail</strong>. Des cercles d'épaules progressifs avant le développé couché. Des rotations thoraciques avant le rowing. Des hip circles avant le squat. Des cercles de cheville avant les fentes.",
           "L'objectif est de répartir le liquide synovial, d'augmenter progressivement l'amplitude de mouvement, et d'activer le système nerveux — sans inhiber la tonicité musculaire nécessaire à la production de force.",
         ],
       },
@@ -175,7 +175,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "Les étirements statiques ont-ils un rôle en musculation ?",
         content: [
           "Oui — <strong class='text-ink'>après l'effort ou les jours off</strong>. En fin de séance, les étirements statiques améliorent la récupération et développent la souplesse à long terme. Le problème n'est pas l'étirement statique en soi. C'est son placement avant l'effort.",
-          "Pour un gain de souplesse réel, les étirements doivent être maintenus 60 à 90 secondes — c'est le seuil minimal pour remoduler le tissu conjonctif. Ce type d'étirement n'a rien à faire avant une série de squat.",
+          "Pour un gain de souplesse réel, les étirements doivent être maintenus 60 à 90 secondes — c'est le seuil minimal pour remodeler le tissu conjonctif. Ce type d'étirement n'a rien à faire avant une série de squat.",
         ],
       },
       {
@@ -307,7 +307,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Un générateur d'échauffement, c'est vraiment utile ?",
-        a: "Il résout le problème principal : savoir quoi faire exactement selon ce qu'on travaille. La plupart des pratiquants font toujours le même échauffement générique parce que créer un protocole adapté prend du temps. Un générateur qui part des exercices de ta séance et des zones qui coincent, c'est la différence entre un échauffement qui prépare et un échauffement qui fait perdre du temps.",
+        a: "Il résout le problème principal : savoir quoi faire exactement selon ce qu'on travaille. La plupart des pratiquants font toujours le même échauffement générique parce que créer un protocole adapté prend du temps. Un générateur qui part de ta séance, de ton matériel et de tes zones sensibles, c'est la différence entre un échauffement qui prépare et un échauffement qui fait perdre du temps.",
       },
     ],
     relatedLinks: [
@@ -378,7 +378,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Le générateur s'adapte-t-il aux débutants ?",
-        a: "Oui — sélectionne tes groupes musculaires, l'objectif \"Reprise\" ou \"Hypertrophie\" et la durée 5 minutes. Le générateur construit un plan adapté à ton niveau sans exercices trop techniques. Tous les exercices du plan sont réalisables sans expérience préalable.",
+        a: "Oui — choisis ta séance et ton matériel : la routine de 6 minutes n'utilise que des exercices simples, au poids du corps ou très légers, réalisables sans expérience préalable.",
       },
       {
         q: "Faut-il s'échauffer différemment si on est très débutant ?",
@@ -388,7 +388,7 @@ export const BLOG_POSTS: BlogPost[] = [
     relatedLinks: [
       { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
       { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps ?" },
-      { href: "/echauffement/full-body", label: "Plan full body 5 min" },
+      { href: "/echauffement/full-body", label: "Plan full body 6 min" },
       { href: "/echauffement/haut-du-corps", label: "Plan haut du corps" },
     ],
   },
@@ -417,7 +417,7 @@ export const BLOG_POSTS: BlogPost[] = [
           "<strong class='text-ink'>Étape 1 — Mobilisation thoracique en rotation (1 min) :</strong> à quatre pattes, main droite derrière la tête. Coude vers l'intérieur puis ouvre vers le plafond. La cage thoracique tourne. 8 répétitions par côté. Sans cette mobilité, tu ne peux pas arriver en bas du développé couché avec une arche propre.",
           "<strong class='text-ink'>Étape 2 — Ouverture pectorale contre le mur (45s) :</strong> bras à 90°, paume contre un mur. Pivote doucement le corps en éloignant le buste du bras. Étire le pec mineur souvent raccourci. 15s par côté, 2 fois.",
           "<strong class='text-ink'>Étape 3 — Pompes scapulaires (1 min) :</strong> position planche, coudes verrouillés. Les omoplates glissent : rétraction puis protraction. 12 répétitions. Active le grand dentelé.",
-          "<strong class='text-ink'>Étape 4 — Rotations externes élastique (1 min) :</strong> coude collé au flanc, avant-bras à 90°. Rotation externe contre une résistance légère. 12 répétitions par bras. Active la coiffe des rotateurs.",
+          "<strong class='text-ink'>Étape 4 — Rotations externes à l'élastique (1 min) :</strong> coude collé au flanc, avant-bras à 90°. Rotation externe contre une résistance légère. 12 répétitions par bras. Active la coiffe des rotateurs.",
           "<strong class='text-ink'>Étape 5 — Chauffe à la barre vide (1 min) :</strong> allonge-toi sur le banc, omoplates rétractées, dos légèrement cambré. 10 répétitions à la barre vide en explorant la trajectoire. Verrouille le pattern moteur.",
         ],
       },

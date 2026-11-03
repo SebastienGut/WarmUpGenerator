@@ -158,7 +158,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     intro: [
       "C'est une douleur qui s'installe rarement d'un coup. Elle commence par une gêne en fin de séance, puis apparaît plus tôt, puis finit par se rappeler à toi dans les escaliers. Beaucoup de pratiquants réagissent en renforçant le genou ou en mettant une genouillère — et se demandent pourquoi rien ne change.",
       "La localisation, elle, te renseigne beaucoup. Une douleur <strong class='text-ink'>en avant, autour ou sous la rotule</strong>, qui apparaît en descente et augmente avec le volume, oriente vers un syndrome fémoro-patellaire : la rotule ne coulisse pas dans son axe. Une douleur <strong class='text-ink'>juste sous la rotule, sur le tendon</strong>, plutôt en fin de série et le lendemain matin, évoque une tendinopathie rotulienne.",
-      "Ces deux situations se traitent différemment, mais elles partagent le même point de départ : rendre à la cheville et à la hanche l'amplitude et le contrôle qu'elles ont perdus. Voici comment identifier laquelle te concerne, et quoi faire.",
+      "Ces deux situations se traitent différemment, mais elles partagent le même point de départ : rendre à la cheville et à la hanche l'amplitude et le contrôle qu'elles ont perdus. Voici comment identifier laquelle te concerne, et que faire.",
     ],
     causes: {
       title: "Les 4 causes réelles, dans l'ordre de fréquence",
@@ -217,7 +217,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     advice: {
       title: "Adapter le squat sans arrêter de progresser",
       paragraphs: [
-        "<strong class='text-ink'>Écarte un peu plus les pieds et ouvre les pointes.</strong> Un stance légèrement plus large, pointes ouvertes à 20-30°, donne de la place à la hanche et réduit la demande en dorsiflexion de cheville. Beaucoup de douleurs disparaissent avec ce seul ajustement, parce que le corps cesse de compenser.",
+        "<strong class='text-ink'>Écarte un peu plus les pieds et ouvre les pointes.</strong> Une position légèrement plus large, pointes ouvertes à 20-30°, donne de la place à la hanche et réduit la demande en dorsiflexion de cheville. Beaucoup de douleurs disparaissent avec ce seul ajustement, parce que le corps cesse de compenser.",
         "<strong class='text-ink'>Utilise des chaussures à talon surélevé.</strong> Des chaussures d'haltérophilie — ou à défaut de petites cales sous les talons — compensent artificiellement un déficit de cheville et te permettent de squatter droit et profond pendant que tu travailles la mobilité en parallèle. C'est un outil, pas une triche.",
         "<strong class='text-ink'>Si le tendon rotulien est en cause, ne cherche pas le repos complet.</strong> Un tendon douloureux se soigne par la charge, mais une charge contrôlée. Réduis à 50-60 % de ta charge habituelle, travaille en descente lente (3 secondes) sur des amplitudes indolores, et remonte de 5 à 10 % par semaine. Le repos total affaiblit le tendon et fait rechuter dès la reprise.",
       ],
@@ -595,7 +595,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       {
         name: "Extension de poignet excentrique",
         description:
-          "Avant-bras sur la cuisse, paume vers le sol, charge très légère. Monte avec l'aide de l'autre main, puis redescends lentement sur 3 secondes avec la main travaillante seule. Le travail excentrique est le traitement de référence de l'épicondylite.",
+          "Avant-bras sur la cuisse, paume vers le sol, charge très légère. Monte avec l'aide de l'autre main, puis redescends lentement sur 3 secondes avec la seule main qui travaille. Le travail excentrique est le traitement de référence de l'épicondylite.",
         durationSeconds: 60,
         reps: "12 par bras",
       },

@@ -24,7 +24,7 @@ export function GET() {
     "> Deux outils distincts. Le générateur : l'utilisateur choisit une séance type (Push,",
     "> Pull, Legs, Upper, Full body) et son matériel (sans matériel, élastique ou salle) ; un",
     "> algorithme déterministe donne une routine de référence de mobilité puis d'activation (sans",
-    "> cardio), chaque exercice nommé avec sa variante et sa dose, et un pictogramme animé.",
+    "> cardio), chaque exercice nommé avec sa variante et sa dose, et une démonstration en images.",
     "> « Une douleur ? » : pour une articulation qui gêne, une routine de soin plus longue",
     "> (mobilité douce, renforcement léger), à suivre sous 3 sur 10 de douleur.",
     "> Le calculateur : à partir de la charge de travail du jour sur un",

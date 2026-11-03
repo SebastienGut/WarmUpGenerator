@@ -137,8 +137,7 @@ export default function HomepageSEO() {
             ))}
           </nav>
           <p>
-            Gratuit, sans inscription, fonctionne hors ligne. Ne remplace pas l&apos;avis d&apos;un kiné ou d&apos;un
-            médecin du sport : en cas de douleur qui dure, consulte un professionnel de santé.
+            Gratuit, sans inscription, fonctionne hors ligne.
           </p>
         </footer>
       </div>

@@ -6,8 +6,11 @@ import { DEMOS } from "@/lib/demos";
  * quand elles existent (public/demos, importées par scripts/assets/import-demos.mjs),
  * sinon le pictogramme animé. `still` : départ seul, pour les vignettes.
  */
+// Exercices de séance qui partagent les images d'un exercice de préparation identique.
+const ALIASES: Record<string, string> = { triceps: "extension-triceps-poulie", "face-pull": "face-pull-poulie" };
+
 export default function ExerciseVisual({ id, demo, label, className = "", still = false }: { id: string; demo?: string; label: string; className?: string; still?: boolean }) {
-  const key = demo ?? id;
+  const key = demo ?? ALIASES[id] ?? id;
   const size = DEMOS[key];
   if (!size) return <ExerciseFigure id={id} label={label} className={className} animate={!still} />;
   const src = (pos: "depart" | "arrivee") => `/demos/${key}-${pos}.webp`;

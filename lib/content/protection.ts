@@ -166,8 +166,8 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       title: "Le piège \"genou en avant des orteils\"",
       paragraphs: [
         "Pendant des décennies, on a entendu \"interdit, le genou ne doit pas dépasser les orteils\". <strong class='text-ink'>C'est faux pour la plupart des squats.</strong> Empêcher le genou d'avancer reporte tout le stress sur le bas du dos et limite l'activation du quadriceps. Ce qui compte : que le genou suive l'axe du pied (pas de valgus dynamique), pas qu'il reste derrière les orteils.",
-        "<strong class='text-ink'>Le valgus dynamique</strong> (genou qui rentre vers l'intérieur en sortie de squat) est la vraie cause de blessure. Il vient quasi-toujours d'une faiblesse du moyen fessier ou d'une cheville rigide. C'est pour ça que ce protocole insiste sur la hanche et la cheville plutôt que sur le genou lui-même.",
-        "Si tu as déjà une douleur fémoro-patellaire (en avant du genou), réduis temporairement l'amplitude du squat à un parallèle ou au-dessus, et travaille le VMO via les step-ups et les terminal knee extensions. La douleur disparaît souvent en 4 à 6 semaines avec ce protocole.",
+        "<strong class='text-ink'>Le valgus dynamique</strong> (genou qui rentre vers l'intérieur en sortie de squat) est la vraie cause de blessure. Il vient presque toujours d'une faiblesse du moyen fessier ou d'une cheville rigide. C'est pour ça que ce protocole insiste sur la hanche et la cheville plutôt que sur le genou lui-même.",
+        "Si tu as déjà une douleur fémoro-patellaire (en avant du genou), réduis temporairement l'amplitude du squat à un parallèle ou au-dessus, et travaille le VMO via les step-ups et les extensions terminales du genou (TKE). La douleur disparaît souvent en 4 à 6 semaines avec ce protocole.",
       ],
     },
     faqs: [
@@ -268,7 +268,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       },
       {
         q: "Les abdos protègent-ils le dos ?",
-        a: "Oui, mais pas comme on le croit. Ce ne sont pas les crunchs qui aident — c'est le gainage anti-rotation et anti-extension (planche, dead bug, paloff press). Ces exercices apprennent au tronc à stabiliser la colonne sous charge dynamique, ce qui prévient bien plus efficacement la blessure que des séries de relevés de buste.",
+        a: "Oui, mais pas comme on le croit. Ce ne sont pas les crunchs qui aident — c'est le gainage anti-rotation et anti-extension (planche, dead bug, Pallof press). Ces exercices apprennent au tronc à stabiliser la colonne sous charge dynamique, ce qui prévient bien plus efficacement la blessure que des séries de relevés de buste.",
       },
       {
         q: "Combien de temps avant de reprendre après un lumbago ?",
@@ -301,14 +301,14 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
         reps: "30s par sens",
       },
       {
-        name: "Étirement fléchisseurs (paume vers le ciel)",
+        name: "Étirement des fléchisseurs (paume vers le ciel)",
         description:
           "Bras tendu devant toi, main paume vers le ciel. Avec l'autre main, tire les doigts vers toi, vers le bas. Tu dois sentir un étirement sur le dessous de l'avant-bras. Tiens, sans rebond.",
         durationSeconds: 30,
         reps: "15s par bras",
       },
       {
-        name: "Étirement extenseurs (paume vers le sol)",
+        name: "Étirement des extenseurs (paume vers le sol)",
         description:
           "Bras tendu devant toi, main paume vers le sol, dos de la main vers toi. Tire les doigts vers toi avec l'autre main. Étirement sur le dessus de l'avant-bras. Sans douleur, juste une tension.",
         durationSeconds: 30,
@@ -340,14 +340,14 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
       title: "Prise de barre : 90 % des problèmes viennent de là",
       paragraphs: [
         "Sur le développé couché, beaucoup de pratiquants ont une <strong class='text-ink'>prise \"poignets cassés\"</strong> où la barre s'enfonce dans la paume vers les doigts. Sous charge, le poignet est en hyperextension extrême, ce qui crée une douleur en quelques semaines. La bonne prise : barre dans la <strong class='text-ink'>base de la paume</strong>, alignée avec l'avant-bras. Poignet droit ou très légèrement en extension.",
-        "Sur les pompes et les dips, la <strong class='text-ink'>douleur en bas du mouvement</strong> vient souvent d'un manque de mobilité en extension de poignet. Le protocole ci-dessus la corrige en 2-3 semaines. En attendant, pose les pompes sur des poignées de pompes (parallètes) — la prise neutre soulage instantanément.",
+        "Sur les pompes et les dips, la <strong class='text-ink'>douleur en bas du mouvement</strong> vient souvent d'un manque de mobilité en extension de poignet. Le protocole ci-dessus la corrige en 2-3 semaines. En attendant, pose les pompes sur des poignées de pompes (parallettes) — la prise neutre soulage instantanément.",
         "Pour les pratiquants de musculation lourde au-delà de 100 kg au DC, des <strong class='text-ink'>bandes de poignet (wrist wraps)</strong> ne sont pas un signe de faiblesse — elles protègent la structure passive sur les charges proches du max. Les utiliser au-dessous de 70 % du 1RM est par contre contre-productif : tu n'entraînes plus tes stabilisateurs.",
       ],
     },
     faqs: [
       {
         q: "Puis-je faire des pompes avec une douleur de poignet ?",
-        a: "Oui, en utilisant des poignées parallètes (prise neutre) qui éliminent l'hyperextension. Si la douleur persiste même en prise neutre, consulte. Le syndrome du canal carpien et certaines tendinopathies demandent un repos plus long et un suivi spécialisé.",
+        a: "Oui, en utilisant des poignées parallettes (prise neutre) qui éliminent l'hyperextension. Si la douleur persiste même en prise neutre, consulte. Le syndrome du canal carpien et certaines tendinopathies demandent un repos plus long et un suivi spécialisé.",
       },
       {
         q: "Les bandes de poignet (wrist wraps) sont-elles indispensables ?",

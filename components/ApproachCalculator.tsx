@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import ExerciseFigure from "@/components/ExerciseFigure";
+import ExerciseVisual from "@/components/ExerciseVisual";
 import GuidedMode from "@/components/GuidedMode";
 import Plates from "@/components/Plates";
 import Sheet from "@/components/Sheet";
@@ -71,7 +71,7 @@ export default function ApproachCalculator() {
           onClick={() => setPicking(true)}
           className="flex w-full items-center gap-3 rounded-2xl border border-line bg-card p-2 pr-4 text-left transition-colors hover:border-ink"
         >
-          <ExerciseFigure id={liftId} label={lift.name} className="h-16 w-[72px] shrink-0 rounded-xl bg-ink/[0.03]" />
+          <ExerciseVisual id={liftId} label={lift.name} still className="h-16 w-[72px] shrink-0 rounded-xl bg-ink/[0.03]" />
           <span className="flex-1 font-display text-[22px] font-extrabold leading-none tracking-tight text-ink">{lift.name}</span>
           <span className="text-[13px] font-semibold text-ink">Changer</span>
         </button>
@@ -210,7 +210,7 @@ export default function ApproachCalculator() {
                       l.id === liftId ? "border-ink bg-card" : "border-line bg-card hover:border-line-strong"
                     }`}
                   >
-                    <ExerciseFigure id={l.id} label={l.name} animate={false} className="aspect-[12/10] w-full" />
+                    <ExerciseVisual id={l.id} label={l.name} still className="aspect-[4/3] w-full" />
                     <span className="px-2 pb-2 text-[12px] font-semibold leading-tight text-ink">{l.name}</span>
                   </button>
                 ))}

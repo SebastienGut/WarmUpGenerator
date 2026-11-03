@@ -1,6 +1,6 @@
 # Pack de soumissions — textes prêts à coller
 
-Tout est rédigé. Tu crées le compte, tu colles, tu valides.
+Textes à jour au 3 nov. 2026 (moteur v3, démonstrations en images, séries d'approche refondues).
 
 ## À lire avant de commencer
 
@@ -44,9 +44,9 @@ similaire existe, ta fiche apparaîtra alors dans ses alternatives.
 **Description courte**
 
 ```
-Free warm-up app for strength training. Pick what you're training (push, pull,
-legs, upper or lower body) and get a targeted warm-up in one tap, each drill shown
-as an animated pictogram. A separate calculator turns today's working weight into
+Free warm-up app for strength training. Pick your session (push, pull, legs, upper,
+full body) and your equipment, get a 6-minute warm-up with a demo of every drill and
+a guided mode for the gym. A separate calculator turns today's working weight into
 warm-up sets, plates per side. Runs in the browser, works offline, no account or ads.
 ```
 
@@ -55,15 +55,16 @@ warm-up sets, plates per side. Runs in the browser, works offline, no account or
 ```
 Warmup Generator is two tools that stay separate on purpose.
 
-The warm-up generator: tap a session type (Push, Pull, Legs, Upper, Lower, Full
-body) or pick muscle groups, flag a joint that bothers you, and get a short warm-up:
-a raise, targeted mobility, then activation. It doesn't guess which exercises you'll
-do — it prepares the area. Every drill has an animated pictogram, and a guided
+The warm-up generator: tap a session (Push, Pull, Legs, Upper, Full body), choose
+your equipment (none, band, full gym) and get a 6-minute reference routine: mobility,
+then activation, each drill named with its variant and dose and shown in a start/end
+demo. Flag a sensitive joint and it adds one or two gentle drills for it; a separate
+"pain?" routine offers a longer, slower session for a joint that bothers you. A guided
 full-screen mode runs it in the gym with the screen kept awake.
 
 The warm-up set calculator: choose the lift, enter today's working weight and reps,
-and get the ramp-up, rounded to real plates and drawn in competition colours, with
-rest timers.
+and get the ramp-up (regular jumps, decreasing reps, a heavy last warm-up set),
+rounded to real plates per side, with rest timers.
 
 Everything runs client-side, so it works offline. No account, no ads, no cookies.
 The exercise dataset is open under CC BY 4.0 and the code is AGPL-3.0.
@@ -88,7 +89,7 @@ Angle choisi : **le problème algorithmique et le jeu de données ouvert**, pas
 - **Title** (80 caractères max)
 
 ```
-Show HN: Gym warm-ups as animated pictograms, generated from joint angles
+Show HN: A 6-minute gym warm-up builder that runs entirely client-side
 ```
 
 - **URL** : `https://warmup-generator.com`
@@ -98,28 +99,21 @@ Show HN: Gym warm-ups as animated pictograms, generated from joint angles
 ```
 Two small tools for lifters, kept separate on purpose.
 
-The warm-up generator: tap what you're training (push, pull, legs…) and get a
-six-minute warm-up — a raise, targeted mobility, activation. Each zone is described
-by what its typical lifts demand (legs: ankle and hip mobility, knee control, glutes,
-bracing), weighted 1 to 3. A greedy pass then picks, from an 80-drill dataset, the
-drill covering the most remaining demand and discounts what it covered, with
-separate maps for mobility and activation. Declared painful joints exclude
-contraindicated drills and pull in dedicated ones; I check every zone × pain ×
-option combination for violations (zero).
+The warm-up generator: tap your session (push, pull, legs, upper, full body) and your
+equipment (none, band, gym) and get a 6-minute routine: mobility then activation.
+Routines are written per session like a coach would, then adapted by equipment: each
+drill has a gym, band and no-equipment variant, and when no honest equivalent exists
+(a face pull without a band), it's swapped for a drill with the same role or dropped,
+and the plan says so. I check every session × equipment × sensitive-joint combination
+for rule violations (zero). Durations are computed from the real dose, not guessed.
 
-My first version tried to be clever: it asked for your exact exercises and folded
-warm-up sets into the warm-up. A lifter's feedback was blunt — don't guess my
-session, and don't mix the general warm-up with ramping up on the bar. So the ramp
-is now a second tool: lift, today's working weight and reps in, warm-up sets out,
-rounded to real plates and drawn in competition colours, with rest timers.
+The warm-up set calculator: lift, today's working weight and reps in; warm-up sets out:
+regular jumps capped at 20 kg or 20 %, decreasing reps, and a heavy last set (80-90 %),
+which recent studies find most useful. Rounded to real plates, with rest timers.
 
-The pictograms aren't drawn: a 2D articulated skeleton is defined by joint angles,
-each drill has two poses, and the component interpolates between them. 117 drills,
-a few hundred bytes each, consistent style, works offline.
-
-Everything is static and client-side — no API, no database, no server cost. No
-account, no ads, no cookies (analytics is GoatCounter, cookieless). Dataset CC BY
-4.0 at /api/exercices, code AGPL-3.0. Content is in French.
+Everything is static and client-side: no API, no database, no server cost. No account,
+no ads, no cookies (analytics is GoatCounter, cookieless). Dataset CC BY 4.0 at
+/api/exercices, code AGPL-3.0. Content is in French.
 ```
 
 ---
@@ -139,9 +133,9 @@ I built a free warm-up generator with zero server cost and no monetization plan
 
 ```
 Warmup Generator (warmup-generator.com) is two free tools for lifters: a warm-up
-generator (pick what you're training, get a targeted six-minute warm-up with
-animated pictograms) and a warm-up set calculator (today's working weight in,
-ramp-up with plates out).
+generator (pick your session and equipment, get a six-minute routine with a demo of
+every drill) and a warm-up set calculator (today's working weight in, ramp-up with
+plates out).
 
 Three constraints shaped every technical decision:
 
@@ -182,12 +176,11 @@ Salut,
 Je zappais systématiquement l'échauffement — décider quoi faire me prenait plus de
 temps que l'échauffement lui-même. Du coup j'ai fait deux petits outils.
 
-1. L'échauffement : tu touches ce que tu fais aujourd'hui (push, pull, jambes, haut
-   ou bas du corps…) et tu as en 6 minutes une mise en route, de la mobilité et de
-   l'activation ciblées. Chaque exercice est illustré par une petite animation, et il
-   y a un mode guidé pour la salle (un exercice par écran, écran qui reste allumé).
-   Si une articulation coince, ça retire ce qui est contre-indiqué et ajoute une
-   préparation dédiée.
+1. L'échauffement : tu touches ta séance (push, pull, legs, upper, full body) et ton
+   matériel (rien, élastique, salle), et tu as une routine de 6 minutes : mobilité puis
+   activation, chaque exercice montré en image, avec un mode guidé pour la salle (un
+   exercice par écran, écran qui reste allumé). Si une articulation est sensible, ça
+   ajoute un ou deux exercices doux pour elle.
 
 2. Les séries d'approche : tu choisis l'exercice, ta charge de travail du jour et tes
    reps, il te donne la montée en charge avec les disques à mettre de chaque côté,
@@ -258,7 +251,7 @@ strictes et une PR mal formatée est fermée sans discussion.
 - **Ligne à ajouter, format habituel**
 
 ```markdown
-- [Warmup Generator](https://warmup-generator.com) - Échauffement musculation en un tap par zone, calculateur de séries d'approche, avec jeu de données d'exercices ouvert (CC BY 4.0). Sans publicité ni inscription, fonctionne hors ligne.
+- [Warmup Generator](https://warmup-generator.com) - Échauffement musculation de 6 minutes par séance et selon ton matériel, calculateur de séries d'approche, jeu de données d'exercices ouvert (CC BY 4.0). Sans publicité ni inscription, fonctionne hors ligne.
 ```
 
 - **Titre de la PR**
@@ -270,8 +263,8 @@ Add Warmup Generator
 - **Corps de la PR**
 
 ```
-Adds Warmup Generator, a free warm-up builder for strength training: it reads the
-exercises of the session and computes targeted prep plus warm-up sets.
+Adds Warmup Generator, a free warm-up builder for strength training: a 6-minute
+routine per session adapted to your equipment, plus a warm-up set calculator.
 
 - No ads, no account, no cookies, no monetization
 - Runs fully client-side and works offline (PWA)

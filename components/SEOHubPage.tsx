@@ -168,7 +168,7 @@ export default function SEOHubPage({
           <section className="mb-14">
             <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink pb-2">
               <h2 className="font-display text-[26px] font-extrabold leading-[0.95] tracking-tight text-ink">
-                Questions frequentes
+                Questions fréquentes
               </h2>
               <span className="shrink-0 text-[14px] font-semibold text-subtle">
                 FAQ - {faqs.length}
@@ -217,7 +217,7 @@ export default function SEOHubPage({
 
         <footer className="border-t border-line pt-6 text-[11px] leading-relaxed text-subtle">
           Warmup Generator fournit des protocoles informatifs. En cas de douleur persistante,
-          consulte un professionnel de sante.
+          consulte un professionnel de santé.
         </footer>
       </div>
     </main>

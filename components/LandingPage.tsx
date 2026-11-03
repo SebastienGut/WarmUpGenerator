@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import InlinePlan from "@/components/InlinePlan";
-import ExerciseFigure from "@/components/ExerciseFigure";
+import ExerciseVisual from "@/components/ExerciseVisual";
 import { LANDINGS, type Landing } from "@/lib/content/landings";
 import { buildSessionPlan, type PrepStep } from "@/lib/session-engine";
 
@@ -89,7 +89,7 @@ export default function LandingPage({ landing }: { landing: Landing }) {
             reste tôt dans le HTML et s'affiche après le plan. */}
         <div className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:grid-rows-[auto_1fr] lg:gap-x-12">
           <section className="order-1 lg:col-start-1 lg:row-start-1">
-            <ExerciseFigure id={landing.cover} label={landing.h1} className="hidden h-48 w-full max-w-[320px] lg:block" />
+            <ExerciseVisual id={landing.cover} label={landing.h1} className="hidden h-48 w-full max-w-[320px] rounded-2xl lg:block" />
           </section>
           <p className="order-3 mt-6 self-start lg:mt-4 text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
           <div className="order-2 mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
@@ -161,7 +161,6 @@ export default function LandingPage({ landing }: { landing: Landing }) {
         </section>
 
         <p className="mt-12 border-t border-line pt-6 text-[12px] leading-relaxed text-subtle">
-          Ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du sport en cas de douleur installée.{" "}
           <Link href="/methodologie" className="underline underline-offset-2 hover:text-ink">
             Comment l&apos;échauffement est construit
           </Link>

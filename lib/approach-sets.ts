@@ -89,8 +89,9 @@ export function computeApproachSets(input: ApproachInput): ApproachSet[] {
   const dumbbells = input.exercise === "halteres" || machine;
   const deadlift = input.exercise === "souleve-de-terre";
   const bar = dumbbells ? 0 : input.barWeight;
-  // Une paire de 1,25 kg à la barre ; les haltères vont en général de 2 en 2.
-  const step = machine ? 5 : dumbbells ? 2 : 2.5;
+  // Paliers d'approche arrondis à 5 kg à la barre : pas de petits disques à manipuler
+  // pour une série légère. Les haltères vont en général de 2 en 2.
+  const step = machine ? 5 : dumbbells ? 2 : 5;
   const work = input.workWeight;
   if (!Number.isFinite(work) || work <= 0) return [];
 

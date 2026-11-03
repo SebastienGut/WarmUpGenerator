@@ -58,7 +58,8 @@ export default function Home() {
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
       featureList: [
-        "Échauffement en un tap par zone ou type de séance",
+        "Échauffement de 6 minutes par séance, selon le matériel disponible",
+        "Démonstration en images de chaque exercice, mode guidé",
         "Calculateur de séries d'approche avec les disques par côté",
         "Adaptation aux zones sensibles (épaule, genou, lombaires)",
         "Mode guidé plein écran avec minuteur de repos",

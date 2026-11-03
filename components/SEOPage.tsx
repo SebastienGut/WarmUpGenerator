@@ -151,8 +151,8 @@ export default function SEOPage(props: SEOPageProps) {
           </span>
           <span className="text-[12px] font-medium">
             {planHref
-              ? "Séries d'approche comprises, repos décomptés · Hors ligne"
-              : "Par zone ou type de séance · Gratuit, sans compte"}
+              ? "Mobilité et activation, minuteur intégré · Hors ligne"
+              : "Par séance, selon ton matériel · Gratuit, sans compte"}
           </span>
         </div>
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
@@ -382,11 +382,8 @@ export default function SEOPage(props: SEOPageProps) {
           {ctaBlock}
         </section>
 
-        {/* DISCLAIMER */}
-        <footer className="border-t border-line pt-6 pb-24 text-[11px] leading-relaxed text-subtle md:pb-6">
-          Cet article est informatif et ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou
-          d&apos;un médecin du sport. En cas de douleur persistante, consulte un professionnel de santé.
-        </footer>
+        {/* Espace pour la barre d'action fixe en bas d'écran sur mobile. */}
+        <div className="pb-24 md:pb-6" />
 
       </div>
 

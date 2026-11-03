@@ -115,7 +115,7 @@ export default function AboutPage() {
           <p>
             Pourtant, un échauffement ciblé prend 5 minutes et change tout. Le problème, c&apos;est
             que <strong className="text-ink">trouver le bon protocole pour <em>sa</em> séance, <em>son</em> objectif et
-            <em> ses</em> zones sensibles</strong> demande des heures de recherche dans des articles génériques
+            <em> ses</em> zones sensibles</strong>{" "}demande des heures de recherche dans des articles génériques
             ou contradictoires. Cet outil règle ce problème : tu choisis ce que tu travailles, il construit
             l&apos;échauffement qui y prépare. Un second outil calcule tes séries d&apos;approche. Sans inscription, sans pub.
           </p>
@@ -201,15 +201,15 @@ export default function AboutPage() {
               un outil ciblé sur une étape précise : l&apos;échauffement, juste avant ta séance.
             </p>
             <p>
-              <strong className="text-ink">Il n&apos;est pas un substitut médical.</strong> En cas de douleur
+              <strong className="text-ink">Il n&apos;est pas un substitut médical.</strong>{" "}En cas de douleur
               persistante, de blessure récente ou de pathologie connue, consulte un professionnel
               de santé. Les protocoles &quot;zones sensibles&quot; sont des aides à la pratique, pas des
               traitements.
             </p>
             <p>
-              <strong className="text-ink">Il n&apos;est pas alimenté par de l&apos;IA générative.</strong> Le générateur
-              est un algorithme déterministe : à entrées identiques, sortie identique. Pas de
-              hallucinations, pas d&apos;exercices inventés. La base d&apos;exercices est construite et
+              <strong className="text-ink">Il n&apos;est pas alimenté par de l&apos;IA générative.</strong>{" "}Le générateur
+              est un algorithme déterministe : à entrées identiques, sortie identique. Pas
+              d&apos;hallucinations, pas d&apos;exercices inventés. La base d&apos;exercices est construite et
               maintenue à la main, en cohérence avec les standards de la préparation physique.
             </p>
           </div>
@@ -229,7 +229,7 @@ export default function AboutPage() {
                 Construire mon échauffement
               </span>
               <span className="text-[12px] font-medium">
-                Choisis tes exercices du jour, la charge et ce qui coince.
+                Choisis ta séance et ton matériel, ta routine de 6 minutes est prête.
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
@@ -262,8 +262,7 @@ export default function AboutPage() {
         </section>
 
         <footer className="border-t border-line pt-6 text-[11px] leading-relaxed text-subtle">
-          Warmup Generator · Outil informatif sur l&apos;échauffement musculation. Ne remplace pas
-          l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du sport.
+          Warmup Generator, outil gratuit d&apos;échauffement musculation.
         </footer>
 
       </div>

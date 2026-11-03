@@ -81,7 +81,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     faqs: [
       {
         q: "Combien de séries de chauffe avec la barre avant les séries de travail ?",
-        a: "Trois à quatre paliers suffisent : barre seule × 8, puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Pour des séries au-delà de 90 %, ajoute une 4ème série à 85 % × 1-2 reps. L'objectif : préparer le système nerveux sans accumuler de fatigue.",
+        a: "Trois à quatre paliers suffisent : barre seule × 8, puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Pour des séries au-delà de 90 %, ajoute une 4e série à 85 % × 1-2 reps. L'objectif : préparer le système nerveux sans accumuler de fatigue.",
       },
       {
         q: "Le développé couché peut-il abîmer les épaules ?",
@@ -177,7 +177,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "J'ai mal aux genoux au squat : c'est l'amplitude ?",
-        a: "Rarement. Les douleurs de genou en squat viennent quasi-toujours de (1) un valgus dynamique (genou qui rentre vers l'intérieur), (2) une cheville rigide qui force le genou à compenser, ou (3) des fessiers inactifs qui laissent les quads tout faire. Travaille l'échauffement ci-dessus et la technique avant de blâmer l'amplitude.",
+        a: "Rarement. Les douleurs de genou en squat viennent presque toujours de (1) un valgus dynamique (genou qui rentre vers l'intérieur), (2) une cheville rigide qui force le genou à compenser, ou (3) des fessiers inactifs qui laissent les quads tout faire. Travaille l'échauffement ci-dessus et la technique avant de blâmer l'amplitude.",
       },
     ],
   },
@@ -233,7 +233,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       {
         name: "SDT classique à la barre vide",
         description:
-          "Position de départ : barre au-dessus du milieu du pied, hanches plus hautes que les genoux, dos plat, omoplates au-dessus de la barre. Tire en poussant le sol, finis hanches en avant. 5 répétitions techniques.",
+          "Position de départ : barre au-dessus du milieu du pied, hanches plus hautes que les genoux, dos plat, omoplates au-dessus de la barre. Tire en poussant le sol, finis en poussant les hanches vers l'avant. 5 répétitions techniques.",
         durationSeconds: 60,
         reps: "5 répétitions",
       },
@@ -253,7 +253,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Faut-il des straps pour s'entraîner ?",
-        a: "Pas en dessous de 80 % du 1RM. La grip strength est un atout naturel à développer — utiliser des straps trop tôt te limite à ton grip max. Sur les séries lourdes, le top set, les rep PR, les straps deviennent légitimes pour ne pas que ta prise limite ton dos.",
+        a: "Pas en dessous de 80 % du 1RM. La force de préhension (grip) est un atout naturel à développer — utiliser des straps trop tôt te limite à ton grip max. Sur les séries lourdes, le top set, les rep PR, les straps deviennent légitimes pour que ta prise ne limite pas ton dos.",
       },
       {
         q: "Combien de séries de chauffe avant le SDT lourd ?",
@@ -301,7 +301,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
         reps: "15 répétitions",
       },
       {
-        name: "Face pulls élastique",
+        name: "Face pulls à l'élastique",
         description:
           "Élastique fixé en hauteur, tire vers le visage en gardant les coudes hauts. Active deltoïde postérieur et externalisateurs d'épaule. Antidote des heures épaules en avant.",
         durationSeconds: 60,
@@ -425,7 +425,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Faut-il des straps ou de la magnésie ?",
-        a: "Pour des séries strictes au poids du corps, ni l'un ni l'autre. Sur des tractions lestées (>20 kg), des straps sont légitimes pour ne pas que ton grip cède avant ton dos. La magnésie aide aussi sur les barres glissantes. Évite les straps systématiques — ton grip se développe en grande partie sur les tractions.",
+        a: "Pour des séries strictes au poids du corps, ni l'un ni l'autre. Sur des tractions lestées (>20 kg), des straps sont légitimes pour que ton grip ne cède pas avant ton dos. La magnésie aide aussi sur les barres glissantes. Évite les straps systématiques — ton grip se développe en grande partie sur les tractions.",
       },
       {
         q: "Mes épaules grincent en haut de traction : que faire ?",
@@ -493,7 +493,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     advice: {
       title: "Trajectoire et bracing : les non-dits du push lourd",
       paragraphs: [
-        "La <strong class='text-ink'>trajectoire de la barre</strong> à l'OHP n'est pas verticale comme on l'imagine. Au démarrage, ta tête est sur le passage de la barre — pour la laisser monter, tu dois soit pencher la tête en arrière, soit ramener la tête vers l'avant <em>après</em> que la barre soit passée. La barre finit <strong class='text-ink'>au-dessus du milieu de l'oreille</strong>, pas devant. Une trajectoire \"en avant\" charge les épaules et le bas du dos.",
+        "La <strong class='text-ink'>trajectoire de la barre</strong> à l'OHP n'est pas verticale comme on l'imagine. Au démarrage, ta tête est sur le passage de la barre — pour la laisser monter, tu dois soit pencher la tête en arrière, soit ramener la tête vers l'avant <em>une fois</em> la barre passée. La barre finit <strong class='text-ink'>au-dessus du milieu de l'oreille</strong>, pas devant. Une trajectoire \"en avant\" charge les épaules et le bas du dos.",
         "Le <strong class='text-ink'>bracing</strong> est aussi important qu'au squat. Une OHP debout sans gainage sérieux = un transfert de force qui passe par les lombaires. Avant chaque répétition lourde : inspire profondément, serre les abdos et les fessiers comme si tu allais recevoir un coup. La cage abdominale stable = les épaules peuvent pousser sans qu'aucune énergie ne se perde.",
         "Pour <strong class='text-ink'>les pratiquants avec mobilité d'épaule limitée</strong>, le <em>landmine press</em> (barre dans un coin, on pousse en diagonale) est une excellente alternative pendant que tu travailles la mobilité. Le push press (avec impulsion des jambes) est aussi plus accessible que le strict press pour les charges lourdes.",
       ],

@@ -120,7 +120,7 @@ export default function BlogPage() {
                 Générer ton échauffement sur mesure
               </span>
               <span className="text-[12px] font-medium">
-                Par zone ou type de séance · Prêt en un tap
+                Par séance, selon ton matériel · Prêt en un tap
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
@@ -131,10 +131,6 @@ export default function BlogPage() {
           </Link>
         </section>
 
-        <footer className="border-t border-line pt-6 text-[11px] leading-relaxed text-subtle">
-          Cet outil ne remplace pas l&apos;avis d&apos;un kinésithérapeute ou d&apos;un médecin du
-          sport. En cas de douleur persistante, consulte un professionnel de santé.
-        </footer>
 
       </div>
     </main>

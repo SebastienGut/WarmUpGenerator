@@ -35,7 +35,7 @@ const PRINCIPLES = [
   {
     n: "03",
     title: "Un ordre qui évite les allers-retours",
-    body: "Mobilité, puis activation, puis les séries d'approche sur ton premier exercice. Pas de cardio : la montée en température se fait sur l'exercice lui-même, avec des charges progressives. Dans « Mes zones », la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout. Trois à sept exercices : de quoi préparer sans fatiguer.",
+    body: "Mobilité, puis activation, puis les séries d'approche sur ton premier exercice. Pas de cardio : la montée en température se fait sur l'exercice lui-même, avec des charges progressives. Sur les pages par zone, la mobilité commence debout et descend au sol, l'activation repart du sol et finit debout. Trois à sept exercices : de quoi préparer sans fatiguer.",
   },
   {
     n: "04",
@@ -181,7 +181,7 @@ export default function MethodologyPage() {
             </p>
             <p>
               Cette page documente <strong className="text-ink">les 5 principes</strong> qui guident la sélection,
-              ainsi que les <strong className="text-ink">sources scientifiques</strong> sur lesquelles s&apos;appuie
+              ainsi que les <strong className="text-ink">sources scientifiques</strong>{" "}sur lesquelles s&apos;appuie
               le protocole. Tu sauras exactement pourquoi tel exercice se retrouve dans ton plan.
             </p>
           </div>
@@ -289,16 +289,16 @@ export default function MethodologyPage() {
               <strong className="text-ink">L&apos;algorithme n&apos;est pas omniscient.</strong> Il propose un
               plan générique adapté à des entrées générales, pas un programme personnalisé sur
               mesure. Ton kinésithérapeute, ton préparateur physique ou ton médecin du sport
-              connaissent <em>ton</em> historique, <em>tes</em> spécificités. Cet outil ne les remplace
+              connaissent <em>ton</em> historique, <em>tes</em>{" "}spécificités. Cet outil ne les remplace
               pas — il comble le vide quand tu n&apos;as pas accès à eux.
             </p>
             <p>
-              <strong className="text-ink">La science évolue.</strong> Les recommandations sur l&apos;échauffement
+              <strong className="text-ink">La science évolue.</strong>{" "}Les recommandations sur l&apos;échauffement
               changent au fil de la recherche. Cette méthodologie est mise à jour quand un consensus
               scientifique évolue de manière significative. La dernière révision date de 2026.
             </p>
             <p>
-              <strong className="text-ink">Si une zone fait mal, consulte.</strong> Les protocoles &quot;zones
+              <strong className="text-ink">Si une zone fait mal, consulte.</strong>{" "}Les protocoles &quot;zones
               sensibles&quot; sont des aides à la pratique pour des gênes mineures, pas des traitements.
               Une douleur installée mérite un avis médical.
             </p>
@@ -319,7 +319,7 @@ export default function MethodologyPage() {
                 Construire mon échauffement
               </span>
               <span className="text-[12px] font-medium">
-                Choisis tes exercices, l&apos;échauffement se construit en quelques secondes.
+                Choisis ta séance et ton matériel, ta routine de 6 minutes est prête.
               </span>
             </div>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/15 transition-transform group-hover:translate-x-1">
@@ -352,8 +352,7 @@ export default function MethodologyPage() {
         </section>
 
         <footer className="border-t border-line pt-6 text-[11px] leading-relaxed text-subtle">
-          Méthodologie révisée en 2026. Cet outil ne remplace pas l&apos;avis d&apos;un kinésithérapeute
-          ou d&apos;un médecin du sport.
+          Méthodologie révisée en novembre 2026.
         </footer>
 
       </div>

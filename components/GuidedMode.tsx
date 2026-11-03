@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import ExerciseFigure from "@/components/ExerciseFigure";
 import ExerciseVisual from "@/components/ExerciseVisual";
 import Plates from "@/components/Plates";
 import { PHASE_STYLE, StepBar } from "@/components/PlanParts";
@@ -273,7 +272,7 @@ export default function GuidedMode({ plan, onClose, care = false }: { plan: Sess
               </div>
             ) : item.type === "set" ? (
               <div className="flex flex-col">
-                <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(26vh,200px)] w-full max-w-[280px]" />
+                <ExerciseVisual id={item.fig} label={item.title} className="mx-auto h-[min(26vh,200px)] w-full max-w-[280px]" />
                 <p className="mt-2 text-[15px] font-medium text-muted">
                   {item.title}, approche {item.index} sur {item.total}
                 </p>

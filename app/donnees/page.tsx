@@ -109,7 +109,7 @@ export default function DonneesPage() {
             </p>
             <p>
               S&apos;y ajoute un référentiel de{" "}
-              <strong className="text-ink">{exercises.length} exercices d&apos;échauffement</strong> en français,
+              <strong className="text-ink">{exercises.length} exercices d&apos;échauffement</strong>{" "}en français,
               annotés par groupe musculaire, objectif d&apos;entraînement, contre-indications
               par zone sensible, articulations mobilisées et matériel requis.
             </p>

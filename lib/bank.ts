@@ -18,6 +18,8 @@ export interface Variant {
   instructions: string;
   /** Pictogramme (identifiant dans lib/figures.ts). */
   figure: string;
+  /** Images de démonstration (public/demos/{demo}-depart|arrivee.webp), si elles diffèrent de `figure`. */
+  demo?: string;
   /** Ce qu'il faut sous la main : mur, banc, ancrage… */
   needs?: string;
 }
@@ -189,6 +191,7 @@ export const BANK: Record<string, BankExercise> = {
         name: "Rotation externe à la poulie, coude au corps",
         instructions: "Poulie à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement. Charge très légère.",
         figure: "act-epaules-rotation-coiffe",
+        demo: "rotation-externe-poulie",
         needs: "une poulie",
       },
       band: {
@@ -227,6 +230,7 @@ export const BANK: Record<string, BankExercise> = {
         name: "Face pull à la corde, poulie haute",
         instructions: "Corde à la poulie haute. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement. Charge légère.",
         figure: "act-dos-face-pull-elastique",
+        demo: "face-pull-poulie",
         needs: "une poulie",
       },
       band: {
@@ -339,6 +343,7 @@ export const BANK: Record<string, BankExercise> = {
         name: "Extension triceps à la poulie, corde",
         instructions: "Corde à la poulie haute, coudes collés au corps. Tends les bras vers le bas, reviens lentement. Charge très légère.",
         figure: "act-bras-pushdown-elastique",
+        demo: "extension-triceps-poulie",
         needs: "une poulie",
       },
       band: {

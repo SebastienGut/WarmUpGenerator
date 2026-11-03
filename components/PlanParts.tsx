@@ -5,7 +5,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import ExerciseFigure from "@/components/ExerciseFigure";
+import ExerciseVisual from "@/components/ExerciseVisual";
 import { EQUIPMENT_LABELS, type Equipment } from "@/lib/bank";
 import type { PlanPhase, PlanStep, RampStep } from "@/lib/session-engine";
 
@@ -85,10 +85,11 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
   const reduce = useReducedMotion();
   const id = step.kind === "prep" ? step.exercise.id : "raise";
   const name = step.kind === "prep" ? step.exercise.name : step.name;
+  const demo = step.kind === "prep" ? step.exercise.demo : undefined;
   return (
     <li className="overflow-hidden rounded-2xl bg-card shadow-[0_1px_0_var(--line)] ring-1 ring-line">
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="flex w-full items-center gap-3 p-2 pr-3.5 text-left">
-        <ExerciseFigure id={id} label={name} className="h-[58px] w-[64px] shrink-0 rounded-xl bg-ink/[0.04]" />
+        <ExerciseVisual id={id} demo={demo} label={name} className="h-[58px] w-[64px] shrink-0 rounded-xl bg-ink/[0.04]" />
         <span className="min-w-0 flex-1">
           <span className="block text-[15px] font-semibold leading-snug text-ink">{name}</span>
           <span className={`font-display text-[17px] leading-tight tabular ${PHASE_STYLE[phase].ink}`}>{step.reps}</span>
@@ -106,7 +107,7 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="px-4 pb-4">
-              <ExerciseFigure id={id} label={name} className="mx-auto mb-3 h-40 w-full max-w-[260px]" />
+              <ExerciseVisual id={id} demo={demo} label={name} className="mx-auto mb-3 h-40 w-full max-w-[260px]" />
               <p className="text-[14px] leading-relaxed text-muted">{step.instructions}</p>
               {step.kind === "prep" && (
                 <p className="mt-2 text-[12px] text-subtle">

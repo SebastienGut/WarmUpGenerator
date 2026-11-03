@@ -51,6 +51,8 @@ export interface PrepExercise {
   name: string;
   equipment: Equipment;
   needs?: string;
+  /** Clé des images de démonstration (lib/demos.ts) ; par défaut, l'identifiant du pictogramme. */
+  demo?: string;
 }
 
 export interface PrepStep {
@@ -280,7 +282,7 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
       phase: r.ex.phase,
       step: {
         kind: "prep",
-        exercise: { id: r.v.figure, bankId: r.ex.id, name: r.v.name, equipment, needs: r.v.needs },
+        exercise: { id: r.v.figure, bankId: r.ex.id, name: r.v.name, equipment, needs: r.v.needs, demo: r.v.demo },
         instructions: r.v.instructions,
         substituted: r.substituted,
         replaces: r.substituted ? plannedName(en.id) : undefined,

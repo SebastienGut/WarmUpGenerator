@@ -87,4 +87,7 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
 - Mouvement : un seul moment non déclenché (le chargement des disques, `plate-load`) ; le reste répond aux actions. Animations d'entrée en CSS, jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
 - Tout nouvel exercice (lib/warmup-data.ts ou lib/lifts.ts) doit avoir sa posture dans lib/figures.ts.
+- Démonstrations : images IA (2 par exercice, départ/arrivée) dans brand/demos/, importées par
+  `node scripts/import-demos.mjs` vers public/demos/ et lib/demos.ts ; `ExerciseVisual` les affiche, sinon le
+  pictogramme. Prompts et checklists : docs/demos-ia.md. Toute image est relue contre sa checklist avant import.
 - Aucun tracking, aucun cookie, aucune dépendance externe payante

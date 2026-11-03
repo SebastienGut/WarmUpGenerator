@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import ExerciseFigure from "@/components/ExerciseFigure";
+import ExerciseVisual from "@/components/ExerciseVisual";
 import Plates from "@/components/Plates";
 import { PHASE_STYLE, StepBar } from "@/components/PlanParts";
 import type { PlanPhase, SessionPlan } from "@/lib/session-engine";
@@ -16,6 +17,8 @@ type GuidedItem =
       pk: PK;
       phase: string;
       fig?: string;
+      /** Clé des images de démonstration, si elle diffère de `fig`. */
+      demo?: string;
       title: string;
       target: string;
       instructions: string;
@@ -43,6 +46,7 @@ function flatten(plan: SessionPlan): GuidedItem[] {
           pk: phase.key,
           phase: phase.title,
           fig: step.exercise.id,
+          demo: step.exercise.demo,
           title: step.exercise.name,
           target: step.reps,
           instructions: step.instructions,
@@ -313,7 +317,7 @@ export default function GuidedMode({ plan, onClose, care = false }: { plan: Sess
                   />
                 ) : item.fig ? (
                   <div className={`rounded-3xl ${PHASE_STYLE[item.pk].bg} px-4 pt-4`} style={FIG_VARS[item.pk]}>
-                    <ExerciseFigure id={item.fig} label={item.title} className="mx-auto h-[min(30vh,230px)] w-full max-w-[300px]" />
+                    <ExerciseVisual id={item.fig} demo={item.type === "do" ? item.demo : undefined} label={item.title} className="mx-auto h-[min(30vh,230px)] w-full max-w-[300px]" />
                   </div>
                 ) : (
                   <span className="mx-auto font-display text-[96px] font-extrabold text-accent" aria-hidden="true">

@@ -16,11 +16,9 @@
         allongé, 90/90 ↔ squat assisté). Garder le bouton ou le retirer ?
       - **Bras sans matériel** : une seule ligne (pronation-supination), aucun équivalent honnête pour
         biceps et triceps. Acceptable, ou ajouter un message « fais une série légère de ton premier exercice » ?
-- [ ] **Pictogrammes** (lot 4) : les 42 affichés sont sur `docs/pictogrammes/planche-1.png` à `-5.png`
-      (départ, milieu, arrivée). J'en ai corrigé une dizaine. Limites restantes du dessin de profil,
-      à juger : étirements des extenseurs et des fléchisseurs du poignet identiques (paume invisible),
-      W allongé peu lisible, essuie-glaces et ouverture de hanche compris grâce à la flèche seulement.
-      Si l'un te choque, dis lequel ; sinon on considère le lot 4 bouclé.
+- [ ] **Démonstrations IA** (action, lot 4) : génère les images avec docs/demos-ia.md (45 exercices,
+      2 images chacun), dépose-les dans brand/demos/, puis dis « importe les démos ». Par lots si tu veux :
+      chaque exercice complet est publié seul, les autres gardent leur pictogramme.
 - [ ] **Routines « Une douleur ? »** (lib/rehab.ts) : 7 zones, 4 à 7 exercices chacune, 7 à 16 min,
       pictogrammes existants uniquement. À relire en sportif, idéalement par un kiné : doses, choix
       (isométrie pour le genou, McGill pour le bas du dos), et la règle des 3/10 à cocher.
@@ -34,6 +32,8 @@
 - [ ] **Zip Blender ARM64** dans `Téléchargements` (action) : inutile, à supprimer.
 
 ## Traitées
+
+- [x] **Support des démonstrations** : images IA (3 nov. 2026), les pictogrammes en bâtons jugés insuffisants.
 
 - [x] **Version courte, « Ça coince ? », « Mes zones » sur l'accueil** : retirés (3 nov. 2026, retour de Seb) ;
       la douleur a sa routine dédiée. **Jambes / Bas du corps** : Bas retiré de l'accueil, renommage Legs / Upper.

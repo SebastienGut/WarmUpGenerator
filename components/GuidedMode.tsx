@@ -256,8 +256,7 @@ export default function GuidedMode({ plan, onClose, care = false }: { plan: Sess
                   <p className="text-[16px] text-muted">Place à ta première série de travail.</p>
                 ) : care ? (
                   <p className="text-[16px] text-muted">
-                    Refais-la tous les jours ou presque. Si la douleur a dépassé 3 sur 10, ou si elle ne diminue pas d&apos;ici
-                    deux à trois semaines, montre-la à un kiné ou à un médecin.
+                    Refais-la tous les jours ou presque : c&apos;est la régularité qui fait la différence.
                   </p>
                 ) : (
                   <p className="text-[18px] font-semibold text-ink">Passe maintenant aux séries d&apos;approche de ton premier exercice.</p>

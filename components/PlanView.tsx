@@ -124,8 +124,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           </div>
           {input.pain.length > 0 && (
             <p className="mt-3 rounded-xl bg-warn-bg px-4 py-3 text-[13px] leading-relaxed text-warn-ink">
-              Un ou deux exercices doux ajoutés pour {input.pain.map((z) => PAIN_LABELS[z].toLowerCase()).join(" et ")}. Garde la gêne sous 3 sur 10,
-              pendant l&apos;échauffement comme pendant la séance. Douleur vive ou qui dure : consulte un kiné ou un médecin.
+              Un ou deux exercices doux ajoutés pour {input.pain.map((z) => PAIN_LABELS[z].toLowerCase()).join(" et ")}. Garde la gêne sous 3 sur 10.
               {plan.warnings[0] && (
                 <>
                   {" "}
@@ -165,9 +164,8 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           </span>
         </Link>
         <p className="text-[12px] leading-relaxed text-subtle">
-          Ne remplace pas l&apos;avis d&apos;un kiné en cas de douleur installée.{" "}
           <Link href="/methodologie" className="underline underline-offset-2 hover:text-ink">
-            Méthode
+            Comment cette routine est construite
           </Link>
         </p>
       </div>

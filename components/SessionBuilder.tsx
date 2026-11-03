@@ -206,12 +206,9 @@ export default function SessionBuilder() {
           <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 h-5 w-5 shrink-0 accent-black" />
           <span className="text-[14px] leading-relaxed">
             <strong className="block font-bold">Ma douleur reste sous 3 sur 10.</strong>
-            Pendant les exercices aussi. Si elle monte, je réduis l&apos;amplitude ou j&apos;arrête.
+            Si elle monte, je réduis l&apos;amplitude.
           </span>
         </label>
-        <p className="mt-4 text-[12px] leading-relaxed text-subtle">
-          Pas un traitement. Douleur vive, nocturne, gonflement, perte de force ou fourmillements : consulte un médecin ou un kiné.
-        </p>
       </Sheet>
     </main>
   );

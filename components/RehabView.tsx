@@ -74,9 +74,7 @@ function RehabContent({ zones }: { zones: BodyZone[] }) {
             </section>
           ))}
           <p className="text-[12px] leading-relaxed text-subtle">
-            Ces routines accompagnent une gêne légère et connue ; elles ne remplacent pas un diagnostic. Douleur vive, qui
-            réveille la nuit, gonflement, perte de force, fourmillements, ou gêne qui ne diminue pas en deux à trois
-            semaines : consulte un médecin ou un kiné.{" "}
+            Pour aller plus loin sur ta zone :{" "}
             <Link href="/douleur" className="underline underline-offset-2 hover:text-ink">
               Guides douleur
             </Link>

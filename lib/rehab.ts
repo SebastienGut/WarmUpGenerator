@@ -183,7 +183,7 @@ export function prepExtras(zone: BodyZone): { phase: "mobility" | "activation"; 
         substituted: false,
         reps: dose,
         seconds,
-        reason: `Ajouté pour ta zone sensible (${label}) : ${ex.why.charAt(0).toLowerCase()}${ex.why.slice(1)} Garde la gêne sous 3 sur 10.`,
+        reason: `Ajouté pour ta zone sensible (${label}) : ${ex.why.charAt(0).toLowerCase()}${ex.why.slice(1)}`,
       },
     };
   });

@@ -45,7 +45,7 @@ const PRINCIPLES = [
   {
     n: "05",
     title: "Une douleur : une routine à part",
-    body: "Pour une articulation qui gêne (épaule, coude, poignet, bas du dos, hanche, genou, cheville), « Une douleur ? » propose une routine plus longue et plus lente que l'échauffement : mobilité douce, puis renforcement léger (contrôle, isométrie, comme la fente tenue pour le genou). Elle demande d'accepter une règle avant de commencer : la douleur reste sous 3 sur 10, pendant et après. Ce sont des aides pour des gênes légères et connues, pas des traitements : une douleur vive ou qui dure relève d'un kiné ou d'un médecin.",
+    body: "Pour une articulation qui gêne (épaule, coude, poignet, bas du dos, hanche, genou, cheville), « Une douleur ? » propose une routine plus longue et plus lente que l'échauffement : mobilité douce, puis renforcement léger (contrôle, isométrie, comme la fente tenue pour le genou). Elle demande d'accepter une règle avant de commencer : la douleur reste sous 3 sur 10, pendant et après. Un outil pour aller mieux au quotidien, sans prétendre remplacer un kiné.",
   },
   {
     n: "06",
@@ -70,13 +70,6 @@ const STATUS = [
       "La liste des besoins de chaque zone et leur importance.",
       "Le choix de l'exercice qui répond à chaque besoin, et l'ordre qui limite les passages au sol.",
       "Les durées et le nombre d'exercices (trois à sept).",
-    ],
-  },
-  {
-    title: "À faire valider par un professionnel",
-    items: [
-      "Les routines n'ont pas été relues par un coach diplômé : c'est la prochaine étape.",
-      "Les préparations pour zones sensibles restent des aides générales, pas une prise en charge individuelle.",
     ],
   },
 ];
@@ -214,7 +207,7 @@ export default function MethodologyPage() {
           <h2 className="mb-6 border-b border-line pb-3 font-display text-[25px] font-extrabold tracking-tight text-ink md:text-[24px]">
             Ce qui est prouvé, ce qui est choisi
           </h2>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {STATUS.map((g) => (
               <div key={g.title} className="border-t-2 border-ink pt-3">
                 <h3 className="mb-2 text-[15px] font-bold text-ink">{g.title}</h3>

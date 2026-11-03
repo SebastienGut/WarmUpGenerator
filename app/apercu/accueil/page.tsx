@@ -7,13 +7,12 @@ export const metadata = { title: "Aperçu de l'accueil", robots: { index: false,
 
 const VARIANTS: { id: CardCovers; label: string }[] = [
   { id: "picto", label: "Actuel" },
-  { id: "medaillon", label: "A · Médaillon" },
-  { id: "vignette", label: "B · Vignette" },
+  { id: "photo", label: "Images" },
 ];
 
 export default async function ApercuAccueil({ searchParams }: { searchParams: Promise<{ v?: string }> }) {
   const { v } = await searchParams;
-  const covers = VARIANTS.find((x) => x.id === v)?.id ?? "medaillon";
+  const covers = VARIANTS.find((x) => x.id === v)?.id ?? "photo";
   return (
     <>
       <nav aria-label="Variantes" className="sticky top-0 z-50 flex gap-1.5 bg-ink px-3 py-2">

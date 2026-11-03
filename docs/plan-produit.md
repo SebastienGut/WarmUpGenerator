@@ -89,7 +89,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Garder ce qui marche de la refonte du 23 oct. si Seb le confirme (« barre chargée » ?) ;
   sinon repartir de la comparaison.
 
-## Lot 4 — Démonstrations des exercices — images IA en ligne (45 exercices)
+## Lot 4 — Démonstrations des exercices — images IA en ligne (77 exercices)
 - La compréhension du mouvement prime sur la sophistication. Aucune animation douteuse
   présentée comme finale.
 - **3D abandonnée** (2 nov. 2026, verdict de Seb : « complètement éclaté »). Code retiré de main ;
@@ -127,6 +127,10 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - 3 nov. 2026 : incident de mise en ligne : Vercel n'a pas reçu la notification GitHub de deux pushs
   (47b33e7, 404c2a5 : aucun statut sur le commit). Relancé par un commit vide. À surveiller : après un push,
   vérifier qu'un statut « Vercel » apparaît sur le commit (gh api repos/SebastienGut/WarmUpGenerator/commits/<sha>/statuses).
+- 3 nov. 2026 : lot 4 suite, 32 exercices de séance (développés, tirages, squats, soulevés, machines,
+  tractions…) générés et relus de la même façon ; ils remplacent les pictogrammes dans le calculateur de
+  séries d'approche, le mode guidé et les pages d'atterrissage. Les cartes de l'accueil gardent leurs
+  pictogrammes (posés sur les aplats de couleur).
 - 3 nov. 2026 : lot 4, 45 démonstrations générées par Claude dans le ChatGPT de Seb (une image en deux
   panneaux par exercice pour garder personnage et cadrage), relues contre leur checklist ; 8 refaites
   (wall slides, W allongé, rétraction, rotations de poignets, coquillage, ouverture de hanche, fente basse,

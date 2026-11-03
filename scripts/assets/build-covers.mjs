@@ -4,7 +4,6 @@
 // Usage : node scripts/assets/build-covers.mjs
 import sharp from "sharp";
 
-const PAPER = [247, 246, 242];
 const TOL = 34; // écart toléré avec le papier (ombre du sol comprise)
 const COVERS = {
   push: "developpe-couche-depart",
@@ -12,11 +11,14 @@ const COVERS = {
   legs: "squat-arrivee",
   haut: "developpe-militaire-arrivee",
   full: "souleve-de-terre-depart",
+  // Carte « Une douleur ? » : image unique, sans exercice (brand/demos/raw).
+  douleur: "brand/demos/raw/douleur.png",
 };
 
 for (const [id, src] of Object.entries(COVERS)) {
-  const { data, info } = await sharp(`public/demos/${src}.webp`).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { data, info } = await sharp(src.includes("/") ? src : `public/demos/${src}.webp`).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: w, height: h } = info;
+  const PAPER = [data[0], data[1], data[2]]; // couleur du fond, lue dans le coin
   const near = (i) => Math.abs(data[i] - PAPER[0]) + Math.abs(data[i + 1] - PAPER[1]) + Math.abs(data[i + 2] - PAPER[2]) < TOL * 3 / 2;
   const seen = new Uint8Array(w * h);
   const stack = [];

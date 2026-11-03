@@ -13,11 +13,12 @@ import { loadEquipment } from "@/lib/equipment-pref";
 import { compositionOf, loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
 import type { BodyZone, MuscleGroup } from "@/lib/warmup-data";
 
-// Habillage des cartes de séance : pictogramme (actuel) ou démonstration détourée posée
-// sur l'aplat (public/demos/accueil, scripts/assets/build-covers.mjs), en essai sur /apercu/accueil.
+// Habillage des cartes de séance : démonstration détourée posée sur l'aplat
+// (public/demos/accueil, scripts/assets/build-covers.mjs), validée par Seb le 3 nov. 2026 ;
+// l'ancien pictogramme reste disponible ("picto").
 export type CardCovers = "picto" | "photo";
 
-export default function SessionBuilder({ covers = "picto" }: { covers?: CardCovers }) {
+export default function SessionBuilder({ covers = "photo" }: { covers?: CardCovers }) {
   const router = useRouter();
   const [saved, setSaved] = useState<SavedSession[]>([]);
   const [picking, setPicking] = useState(false);
@@ -102,12 +103,12 @@ export default function SessionBuilder({ covers = "picto" }: { covers?: CardCove
                 key={t.id}
                 type="button"
                 onClick={() => go(t.zones, t.id, t.label)}
-                className={`relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${c.bg} ${c.fg}`}
+                className={`relative flex min-h-[124px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[160px] ${c.bg} ${c.fg}`}
               >
                 <span className="text-[12px] font-bold">{minutes} min</span>
                 {covers === "photo" ? (
                   // eslint-disable-next-line @next/next/no-img-element -- vignette statique déjà optimisée
-                  <img src={`/demos/accueil/${t.id}.webp`} alt="" width={360} height={360} className="pointer-events-none absolute right-2 top-2 h-[92px] w-[54%] object-contain object-right-top sm:h-[120px]" />
+                  <img src={`/demos/accueil/${t.id}.webp`} alt="" width={360} height={360} className={`pointer-events-none absolute right-2 top-2 w-[64%] object-contain object-right-top ${t.id === "full" ? "h-[60px] sm:h-[84px]" : "h-[70px] sm:h-[92px]"}`} />
                 ) : (
                   <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
                     <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
@@ -122,9 +123,14 @@ export default function SessionBuilder({ covers = "picto" }: { covers?: CardCove
           <button
             type="button"
             onClick={() => setPicking(true)}
-            className="flex min-h-[112px] flex-col justify-end rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97] sm:min-h-[150px]"
+            className="relative flex min-h-[124px] flex-col justify-end overflow-hidden rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97] sm:min-h-[160px]"
           >
-            <span className="poster font-display text-[28px] leading-[0.95] sm:text-[34px]">Une douleur&nbsp;?</span>
+            {covers === "photo" && (
+              // Titre sur deux lignes : la figure (debout, étroite) prend la colonne de droite.
+              // eslint-disable-next-line @next/next/no-img-element -- vignette statique déjà optimisée
+              <img src="/demos/accueil/douleur.webp" alt="" width={360} height={360} className="pointer-events-none absolute bottom-2 right-1 top-2 w-[21%] object-contain object-right-top" />
+            )}
+            <span className="relative poster font-display text-[28px] leading-[0.95] sm:text-[34px]">Une douleur&nbsp;?</span>
           </button>
         </section>
 

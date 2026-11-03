@@ -109,7 +109,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Pas de compte obligatoire, de chatbot, de gamification, d'IA en ligne pour choisir les exercices.
 - Ne pas affirmer de meilleure rétention sans données.
 
-## Lot 1 bis — Moteur v3 (brief de Seb, docs/brief-moteur-v3.md) — fait, en attente de validation
+## Lot 1 bis — Moteur v3 (brief de Seb, docs/guides/brief-moteur-v3.md) — fait, en attente de validation
 - Banque `lib/bank.ts` : vrais noms, variante par matériel (salle / élastique / sans), remplacement
   honnête ou retrait. Routines `lib/routines.ts` : une par séance type, bases par zone pour « Mes zones ».
 - Pas de cardio ; mobilité puis activation ; message de fin imposé ; accroche sur l'accueil.
@@ -132,10 +132,10 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
   (wall slides, W allongé, rétraction, rotations de poignets, coquillage, ouverture de hanche, fente basse,
   rotation thoracique). Import : découpe, cadre commun, fond ramené au papier, WebP (1,2 Mo au total).
 - 3 nov. 2026 : verdict de Seb sur les pictogrammes corrigés : « pas terrible ». Choix : images IA,
-  2 par exercice. Code prêt (ExerciseVisual, lib/demos.ts, scripts/import-demos.mjs : cadre 4:3,
-  fond papier) ; kit de prompts et checklists pour 45 exercices dans docs/demos-ia.md.
+  2 par exercice. Code prêt (ExerciseVisual, lib/demos.ts, scripts/assets/import-demos.mjs : cadre 4:3,
+  fond papier) ; kit de prompts et checklists pour 45 exercices dans docs/guides/demos-ia.md.
 - 3 nov. 2026 : lot 4. Audit des 42 pictogrammes réellement affichés (séances × matériel + routines
-  douleur) sur planche contact (docs/pictogrammes/, outil scripts/build-figure-sheet.mjs + /lab-figures
+  douleur) sur planche contact (docs/pictogrammes/, outil scripts/assets/build-figure-sheet.mjs + /lab-figures
   en dev). Corrigés : dead bug (bras à travers le sol), planche latérale genoux au sol, pompes
   scapulaires (banc et mur, deux figures), squat assisté (mains au montant), montée de marche (tête
   hors cadre), rotation thoracique (main derrière la tête), curl haltères (haltères, plus d'élastique),
@@ -152,7 +152,7 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
   triceps), remplacements signalés (« Remplace : … »). Contrôles : 7 980 routines, 0 écart.
   Landings (13 « En bref », FAQ), /methodologie, llms.txt et FAQ réécrits sans cardio. Crawl 54 URL OK.
 - 2 nov. 2026 : bloc lots 0-1-2 + audit pictogrammes fusionné en main et en ligne (crawl 54 URL OK,
-  contraste clair/sombre OK, IndexNow 46 URL). Lot 3 : docs/maquettes/directions.html, deux
+  contraste clair/sombre OK, IndexNow 46 URL). Lot 3 : docs/archive/2026-11-maquettes/directions.html, deux
   directions (A « chrono de salle », B « affiche de compétition ») sur accueil, plan, mode guidé.
 - 2 nov. 2026 : lot 4, audit des 50 pictogrammes sélectionnables (départ/arrivée). Corrigés : charnière
   de hanche (mains sur les hanches), tractions scapulaires (coudes tendus), W allongé (sur le ventre).

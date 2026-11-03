@@ -20,28 +20,34 @@ npm run lint     # vérifier le code
 ## Structure
 ```
 app/
-  page.tsx                # Constructeur de séance (SessionBuilder)
+  page.tsx                # Accueil : choix de la séance (SessionBuilder)
   plan/page.tsx           # Plan, calculé dans le navigateur à partir de l'URL (PlanView)
-  series-approche/        # Calculateur de séries d'approche
   routine-douleur/        # Routine de soin « Une douleur ? » (RehabView)
+  series-approche/        # Calculateur de séries d'approche
   result/page.tsx         # Ancienne URL, redirige vers /plan
-  echauffement/[slug]/    # Pages d'atterrissage (haut-du-corps, jambes, push…) : l'outil EST le contenu
+  echauffement/[slug]/    # Pages d'atterrissage (push, jambes, épaules…) : l'outil EST le contenu
   echauffement/, douleur/, blog/   # Pages SEO statiques
+  lab-figures/            # Planche des pictogrammes, dev uniquement (404 en production)
 lib/
-  lifts.ts                # Exercices de séance et leurs exigences (entrée du moteur)
-  warmup-data.ts          # Exercices de préparation annotés (prepFocus, contre-indications…)
-  session-engine.ts       # Moteur : mise en route → mobilité → activation → séries d'approche
+  routines.ts, bank.ts    # Routines de référence par séance, banque d'exercices et variantes par matériel
+  session-engine.ts       # Moteur : mobilité → activation (+ zone sensible) ; séries d'approche du mode guidé
+  rehab.ts                # Routines « Une douleur ? » et exercices ajoutés pour une zone sensible
   approach-sets.ts        # Paliers de montée en charge et disques par côté
-  seo-plan.ts             # Plans des pages SEO, produits par le moteur
-  content/landings.ts     # Pages d'atterrissage : zones, réponse « En bref », FAQ, liens
-  saved-sessions.ts       # Séances récentes (localStorage, sur l'appareil)
-  figure.ts, figures.ts   # Moteur de pictogrammes animés + postures de chaque exercice
+  lifts.ts                # Exercices de séance (séances types, pages exercice)
+  warmup-data.ts          # Référentiel d'exercices annotés (pages SEO, open data)
+  demos.ts                # Démonstrations disponibles (généré par npm run demos)
+  figure.ts, figures.ts   # Pictogrammes animés (repli quand une démonstration manque)
+  content/                # Contenus éditoriaux (landings, douleur, protection, exercice)
+  saved-sessions.ts, equipment-pref.ts   # Séances récentes et matériel, sur l'appareil
 components/
-  SessionBuilder.tsx, PlanView.tsx, GuidedMode.tsx, Plates.tsx, ApproachCalculator.tsx
-  PlanParts.tsx, InlinePlan.tsx, LandingPage.tsx  # Briques de plan partagées, plan intégré aux landings
-  ExerciseFigure.tsx, Sheet.tsx                  # Pictogramme animé, panneau coulissant
-  SEOPage.tsx, SEOHubPage.tsx, BlogArticle.tsx   # Gabarits éditoriaux
+  SessionBuilder, PlanView, RehabView, GuidedMode, ApproachCalculator   # Écrans
+  PlanParts, InlinePlan, LandingPage, ExerciseVisual, ExerciseFigure, Plates, Sheet, Logo
+  SEOPage, SEOHubPage, BlogArticle, HomepageSEO                           # Gabarits éditoriaux
+scripts/bench/ (contrôles), scripts/assets/ (logo, démos, planche), scripts/seo/ (IndexNow, dataset, article)
+docs/ : plan-produit.md, decisions-a-prendre.md, guides/, seo/, archive/
 ```
+Commandes utiles : `npm run check` (moteur), `npm run routines`, `npm run crawl`, `npm run demos`,
+`npm run logo`, `npm run indexnow`.
 
 ## Fonctionnalités
 Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et montée en charge) :
@@ -71,7 +77,7 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
 - Composants en PascalCase
 - Pas de `any` TypeScript
 - Design « affiche de compétition » (direction B, choisie par Seb le 2 nov. 2026 ; maquettes :
-  docs/maquettes/directions.html) : papier clair, grands aplats aux couleurs des disques (`bg-blue`,
+  docs/archive/2026-11-maquettes/directions.html) : papier clair, grands aplats aux couleurs des disques (`bg-blue`,
   `bg-green`, `bg-yellow`, `bg-black`, `bg-accent` rouge), bandeaux d'affiche en tête des écrans clés.
   Phases = disques : mise en route vert (`ph-raise`), mobilité jaune (`ph-mobility`), activation bleu
   (`ph-activation`), action rouge (`accent`). `StepBar` (PlanParts, un segment par exercice) est la frise
@@ -83,11 +89,11 @@ Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et mon
 - Disques de charge : composant `Plates`, une pastille ronde par disque, poids écrit dessus, aux couleurs de
   compétition (25 rouge, 20 bleu, 15 jaune, 10 vert, 5 blanc).
 - Logo : dessin de Seb (W en ruban finissant en flèche montante), source `brand/logo-warmup.png` ;
-  favicon, icônes d'app et `public/logo-mark.png` (en-têtes) générés par `python scripts/build-logo.py`.
+  favicon, icônes d'app et `public/logo-mark.png` (en-têtes) générés par `python scripts/assets/build-logo.py`.
 - Mobile-first (audience principale = utilisateurs en salle avec leur téléphone)
 - Mouvement : un seul moment non déclenché (le chargement des disques, `plate-load`) ; le reste répond aux actions. Animations d'entrée en CSS, jamais d'opacité 0 inscrite par JS dans le HTML serveur. framer-motion réservé aux interactions.
 - Tout nouvel exercice (lib/warmup-data.ts ou lib/lifts.ts) doit avoir sa posture dans lib/figures.ts.
 - Démonstrations : images IA (2 par exercice, départ/arrivée) dans brand/demos/, importées par
-  `node scripts/import-demos.mjs` vers public/demos/ et lib/demos.ts ; `ExerciseVisual` les affiche, sinon le
-  pictogramme. Prompts et checklists : docs/demos-ia.md. Toute image est relue contre sa checklist avant import.
+  `node scripts/assets/import-demos.mjs` vers public/demos/ et lib/demos.ts ; `ExerciseVisual` les affiche, sinon le
+  pictogramme. Prompts et checklists : docs/guides/demos-ia.md. Toute image est relue contre sa checklist avant import.
 - Aucun tracking, aucun cookie, aucune dépendance externe payante

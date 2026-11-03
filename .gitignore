@@ -61,3 +61,4 @@ prototypes-svg/
 # Sources des démonstrations (lourdes) : seules public/demos/*.webp sont publiées
 brand/demos/raw/
 brand/demos/*.png
+brand/demos/split/

@@ -1,6 +1,6 @@
 // Planche contact des pictogrammes (départ, milieu, arrivée), en PNG, pour les
 // relire sans navigateur. Lit la page de travail /lab-figures du serveur de dev.
-// Usage (avec npm run dev lancé) : node scripts/build-figure-sheet.mjs [dossier de sortie]
+// Usage (avec npm run dev lancé) : node scripts/assets/build-figure-sheet.mjs [dossier de sortie]
 import sharp from "sharp";
 import { mkdirSync } from "node:fs";
 

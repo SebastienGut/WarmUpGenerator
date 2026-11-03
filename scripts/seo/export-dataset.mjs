@@ -2,7 +2,7 @@
 // JSON prérendu par le build (même contenu que /api/exercices).
 //
 // Usage :
-//   npm run build && node scripts/export-dataset.mjs
+//   npm run build && node scripts/seo/export-dataset.mjs
 //   hf upload fabdigstudio/warmup-exercises-fr dataset . --repo-type dataset
 import fs from "node:fs/promises";
 import path from "node:path";

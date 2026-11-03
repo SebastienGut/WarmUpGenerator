@@ -1,4 +1,4 @@
-// Banque d'exercices de préparation du moteur v3 (docs/brief-moteur-v3.md).
+// Banque d'exercices de préparation du moteur v3 (docs/guides/brief-moteur-v3.md).
 //
 // Banque réduite : chaque exercice a une fonction identifiable dans une routine.
 // Chaque exercice existe en variantes selon le matériel disponible ; quand il n'y

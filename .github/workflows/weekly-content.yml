@@ -41,7 +41,7 @@ jobs:
       - name: Générer l'article
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: node scripts/generate-article.mjs
+        run: node scripts/seo/generate-article.mjs
 
       - name: Vérifier les changements
         id: check_changes
@@ -87,5 +87,5 @@ jobs:
           else
             echo "ℹ️ Aucun sujet disponible — tous les articles candidats ont déjà été écrits." >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Pour ajouter de nouveaux sujets, éditer le tableau CANDIDATE_TOPICS dans scripts/generate-article.mjs" >> $GITHUB_STEP_SUMMARY
+            echo "Pour ajouter de nouveaux sujets, éditer le tableau CANDIDATE_TOPICS dans scripts/seo/generate-article.mjs" >> $GITHUB_STEP_SUMMARY
           fi

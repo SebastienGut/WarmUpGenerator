@@ -12,12 +12,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check": "node --experimental-strip-types --no-warnings --import ./scripts/bench/register.mjs scripts/bench/engine-checks.ts",
+    "routines": "node --experimental-strip-types --no-warnings --import ./scripts/bench/register.mjs scripts/bench/plans.ts",
+    "crawl": "node scripts/bench/crawl.mjs",
+    "demos": "node scripts/assets/import-demos.mjs",
+    "logo": "python scripts/assets/build-logo.py",
+    "planche": "node scripts/assets/build-figure-sheet.mjs",
+    "indexnow": "node scripts/seo/indexnow.mjs",
+    "dataset": "node scripts/seo/export-dataset.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
-    "geist": "^1.7.0",
-    "lucide-react": "^1.11.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"

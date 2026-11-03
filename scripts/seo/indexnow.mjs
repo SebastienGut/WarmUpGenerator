@@ -2,8 +2,8 @@
 // Seznam, Naver). Bing alimente les réponses de ChatGPT Search et Copilot :
 // c'est le chemin le plus court vers la citation par les moteurs génératifs.
 //
-// Usage, après un déploiement :   node scripts/indexnow.mjs
-// Ou pour quelques URL précises : node scripts/indexnow.mjs /series-approche /douleur
+// Usage, après un déploiement :   node scripts/seo/indexnow.mjs
+// Ou pour quelques URL précises : node scripts/seo/indexnow.mjs /series-approche /douleur
 
 const HOST = "warmup-generator.com";
 const KEY = "69eae1205b270abd267d47e47a2ecb47"; // servi par public/<KEY>.txt

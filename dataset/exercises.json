@@ -1,8 +1,8 @@
 {
   "$schema": "https://warmup-generator.com/api/exercices",
   "name": "Référentiel d'exercices d'échauffement pour la musculation",
-  "description": "Base de données ouverte de 80 exercices d'échauffement en français, annotés par qualité physique préparée, contre-indications par zone sensible, groupe musculaire, articulations mobilisées et matériel requis.",
-  "version": "1.2.0",
+  "description": "Base de données ouverte en français : les routines d'échauffement du générateur par séance (Push, Pull, Legs, Upper, Full body) et par matériel (salle, élastique, sans matériel), les routines « Une douleur ? » par articulation, et un référentiel de 80 exercices annotés (qualité préparée, contre-indications, muscles, articulations, matériel).",
+  "version": "2.0.0",
   "language": "fr",
   "license": {
     "name": "Creative Commons Attribution 4.0 International",
@@ -45,6 +45,11 @@
       "poulie": "Poulie / câble",
       "barre": "Barre"
     },
+    "routineEquipment": {
+      "none": "Sans matériel",
+      "band": "Élastique",
+      "gym": "Salle"
+    },
     "prepFocus": {
       "scapula": "omoplates",
       "rotator-cuff": "coiffe des rotateurs",
@@ -75,6 +80,8 @@
     }
   },
   "fieldDefinitions": {
+    "sessionRoutines": "Routines du générateur, une par séance type ; byEquipment donne la version pour chaque matériel (voir vocabularies.routineEquipment), dans l'ordre d'exécution, avec dose, consigne, utilité et, le cas échéant, l'exercice remplacé (replaces)",
+    "painRoutines": "Routines « Une douleur ? » par articulation : mobilité douce puis renforcement léger, à suivre sous 3 sur 10 ; ne remplacent pas un avis médical",
     "id": "Identifiant stable de l'exercice",
     "name": "Nom de l'exercice en français",
     "category": "Phase de l'échauffement (voir vocabularies.categories)",
@@ -88,12 +95,996 @@
     "equipment": "Matériel requis (voir vocabularies.equipment)",
     "description": "Consigne d'exécution en français (tutoiement)",
     "fallback": "Version sans matériel, quand l'exercice demande un élastique ou une barre",
-    "prepFocus": "Qualités physiques préparées (voir vocabularies.prepFocus) : c'est le champ que croise le générateur avec les exigences des exercices de la séance",
+    "prepFocus": "Qualités physiques préparées (voir vocabularies.prepFocus) : c'est le champ que croise le générateur avec les exigences des zones à échauffer",
     "prepRoles": "Phases de l'échauffement où l'exercice peut servir (voir vocabularies.prepRoles)",
     "prepIntensity": "Intensité : soft, moderate ou neural",
     "trainingValue": "Intérêt de l'exercice en préparation, de 1 (faible) à 5 (fort)",
     "therapeutic": "Zone sensible pour laquelle l'exercice a été conçu"
   },
+  "sessionRoutines": [
+    {
+      "id": "push",
+      "name": "Push",
+      "byEquipment": {
+        "gym": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "8 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires sur banc",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Mains sur un banc, bras tendus, corps gainé. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le banc pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe à la poulie, coude au corps",
+              "dose": "2 × 10 par côté",
+              "instructions": "Poulie à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement. Charge très légère.",
+              "why": "La coiffe des rotateurs centre la tête de l'épaule quand les bras poussent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à la corde, poulie haute",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Corde à la poulie haute. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement. Charge légère.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            }
+          ]
+        },
+        "band": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "8 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires contre un mur",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe à l'élastique, coude au corps",
+              "dose": "2 × 10 par côté",
+              "instructions": "Élastique fixé à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement.",
+              "why": "La coiffe des rotateurs centre la tête de l'épaule quand les bras poussent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à l'élastique",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Élastique fixé à hauteur du visage. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            }
+          ]
+        },
+        "none": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "8 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires contre un mur",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe allongé sur le côté",
+              "dose": "2 × 10 par côté",
+              "instructions": "Allongé sur le côté, coude du dessus collé au flanc et plié à 90°. Monte l'avant-bras vers le plafond sans décoller le coude, puis redescends lentement.",
+              "why": "Fait travailler la coiffe des rotateurs contre le poids de l'avant-bras, sans matériel.",
+              "replaces": "Rotation externe à la poulie, coude au corps"
+            },
+            {
+              "phase": "Activation",
+              "name": "W allongé sur le ventre",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Allongé sur le ventre, bras en W, coudes pliés. Décolle coudes et mains du sol en serrant les omoplates vers le bas, tiens deux secondes, repose.",
+              "why": "Sans matériel, travaille l'arrière des épaules et le bas des trapèzes contre la gravité.",
+              "replaces": "Face pull à la corde, poulie haute"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "pull",
+      "name": "Pull",
+      "byEquipment": {
+        "gym": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "6 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Rotation thoracique à quatre pattes, main derrière la tête",
+              "dose": "6 par côté",
+              "instructions": "À quatre pattes, une main derrière la tête. Amène le coude vers le bras d'appui, puis ouvre-le vers le plafond en suivant des yeux. Le bassin reste au-dessus des genoux : le mouvement vient du haut du dos.",
+              "why": "Fait tourner le haut du dos, pour que les épaules n'aient pas à compenser."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Wall slides (glissés des avant-bras au mur)",
+              "dose": "2 × 8 répétitions",
+              "instructions": "Face au mur, avant-bras posés dessus, coudes à hauteur d'épaules. Fais glisser les avant-bras vers le haut en les gardant au contact, sans hausser les épaules ni cambrer, puis redescends.",
+              "why": "Prépare l'épaule à monter au-dessus de la tête, omoplates qui suivent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à la corde, poulie haute",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Corde à la poulie haute. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement. Charge légère.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            },
+            {
+              "phase": "Activation",
+              "name": "Curl marteau très léger, haltères",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Haltères très légers, paumes face à face. Fléchis les coudes sans balancer le buste, redescends lentement. Aucune fatigue recherchée.",
+              "why": "Quelques flexions très légères préparent biceps et tendons du coude avant de tirer."
+            }
+          ]
+        },
+        "band": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "6 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Rotation thoracique à quatre pattes, main derrière la tête",
+              "dose": "6 par côté",
+              "instructions": "À quatre pattes, une main derrière la tête. Amène le coude vers le bras d'appui, puis ouvre-le vers le plafond en suivant des yeux. Le bassin reste au-dessus des genoux : le mouvement vient du haut du dos.",
+              "why": "Fait tourner le haut du dos, pour que les épaules n'aient pas à compenser."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Wall slides (glissés des avant-bras au mur)",
+              "dose": "2 × 8 répétitions",
+              "instructions": "Face au mur, avant-bras posés dessus, coudes à hauteur d'épaules. Fais glisser les avant-bras vers le haut en les gardant au contact, sans hausser les épaules ni cambrer, puis redescends.",
+              "why": "Prépare l'épaule à monter au-dessus de la tête, omoplates qui suivent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à l'élastique",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Élastique fixé à hauteur du visage. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            },
+            {
+              "phase": "Activation",
+              "name": "Curl marteau à l'élastique",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Élastique sous les pieds, prise neutre (paumes face à face). Fléchis les coudes sans balancer le buste, redescends lentement.",
+              "why": "Quelques flexions très légères préparent biceps et tendons du coude avant de tirer."
+            }
+          ]
+        },
+        "none": {
+          "minutes": 5,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "6 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Rotation thoracique à quatre pattes, main derrière la tête",
+              "dose": "6 par côté",
+              "instructions": "À quatre pattes, une main derrière la tête. Amène le coude vers le bras d'appui, puis ouvre-le vers le plafond en suivant des yeux. Le bassin reste au-dessus des genoux : le mouvement vient du haut du dos.",
+              "why": "Fait tourner le haut du dos, pour que les épaules n'aient pas à compenser."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Wall slides (glissés des avant-bras au mur)",
+              "dose": "2 × 8 répétitions",
+              "instructions": "Face au mur, avant-bras posés dessus, coudes à hauteur d'épaules. Fais glisser les avant-bras vers le haut en les gardant au contact, sans hausser les épaules ni cambrer, puis redescends.",
+              "why": "Prépare l'épaule à monter au-dessus de la tête, omoplates qui suivent."
+            },
+            {
+              "phase": "Activation",
+              "name": "W allongé sur le ventre",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Allongé sur le ventre, bras en W, coudes pliés. Décolle coudes et mains du sol en serrant les omoplates vers le bas, tiens deux secondes, repose.",
+              "why": "Sans matériel, travaille l'arrière des épaules et le bas des trapèzes contre la gravité.",
+              "replaces": "Face pull à la corde, poulie haute"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "legs",
+      "name": "Legs",
+      "byEquipment": {
+        "gym": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Mobilisation de cheville genou au mur",
+              "dose": "10 par côté",
+              "instructions": "Pied à une main du mur, talon au sol. Avance le genou vers le mur dans l'axe du pied sans décoller le talon, puis reviens. Recule le pied si c'est trop facile.",
+              "why": "En squat et en fente, le genou avance au-dessus du pied : la cheville doit suivre."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Squat profond assisté",
+              "dose": "3 × 10 secondes",
+              "instructions": "Tiens un support stable (montant de rack, poteau). Descends à une profondeur confortable, talons au sol, et tiens 10 secondes en faisant de petits déplacements de hanches. Remonte, recommence. Aucun rebond, aucune profondeur imposée.",
+              "why": "Ouvre hanches et chevilles en bas du squat, sans charge ni rebond."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Good morning au poids du corps",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Debout, genoux légèrement fléchis, mains sur les hanches. Recule les fesses dos plat jusqu'à sentir l'arrière des cuisses, puis reviens en serrant les fessiers.",
+              "why": "Répète la charnière de hanche, dos plat, et délie l'arrière des cuisses."
+            },
+            {
+              "phase": "Activation",
+              "name": "Glute bridge (pont fessier)",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Allongé sur le dos, pieds à plat, genoux fléchis. Pousse le bassin vers le plafond en serrant les fessiers, tiens une seconde en haut, redescends.",
+              "why": "Des fessiers actifs prennent le relais du bas du dos dans les extensions de hanche."
+            },
+            {
+              "phase": "Activation",
+              "name": "Élévations de mollets debout, avec appui",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Debout, une main en appui sur un mur ou un rack. Monte sur la pointe des pieds, tiens une seconde, redescends lentement.",
+              "why": "Prépare mollets et tendons d'Achille, sollicités dans tous les gestes de jambes."
+            }
+          ]
+        },
+        "band": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Mobilisation de cheville genou au mur",
+              "dose": "10 par côté",
+              "instructions": "Pied à une main du mur, talon au sol. Avance le genou vers le mur dans l'axe du pied sans décoller le talon, puis reviens. Recule le pied si c'est trop facile.",
+              "why": "En squat et en fente, le genou avance au-dessus du pied : la cheville doit suivre."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Squat profond assisté",
+              "dose": "3 × 10 secondes",
+              "instructions": "Tiens un support stable (montant de rack, poteau). Descends à une profondeur confortable, talons au sol, et tiens 10 secondes en faisant de petits déplacements de hanches. Remonte, recommence. Aucun rebond, aucune profondeur imposée.",
+              "why": "Ouvre hanches et chevilles en bas du squat, sans charge ni rebond."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Good morning au poids du corps",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Debout, genoux légèrement fléchis, mains sur les hanches. Recule les fesses dos plat jusqu'à sentir l'arrière des cuisses, puis reviens en serrant les fessiers.",
+              "why": "Répète la charnière de hanche, dos plat, et délie l'arrière des cuisses."
+            },
+            {
+              "phase": "Activation",
+              "name": "Glute bridge (pont fessier)",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Allongé sur le dos, pieds à plat, genoux fléchis. Pousse le bassin vers le plafond en serrant les fessiers, tiens une seconde en haut, redescends.",
+              "why": "Des fessiers actifs prennent le relais du bas du dos dans les extensions de hanche."
+            },
+            {
+              "phase": "Activation",
+              "name": "Élévations de mollets debout, avec appui",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Debout, une main en appui sur un mur ou un rack. Monte sur la pointe des pieds, tiens une seconde, redescends lentement.",
+              "why": "Prépare mollets et tendons d'Achille, sollicités dans tous les gestes de jambes."
+            }
+          ]
+        },
+        "none": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Mobilisation de cheville genou au mur",
+              "dose": "10 par côté",
+              "instructions": "Pied à une main du mur, talon au sol. Avance le genou vers le mur dans l'axe du pied sans décoller le talon, puis reviens. Recule le pied si c'est trop facile.",
+              "why": "En squat et en fente, le genou avance au-dessus du pied : la cheville doit suivre."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Squat profond assisté",
+              "dose": "3 × 10 secondes",
+              "instructions": "Tiens un support stable (montant de rack, poteau). Descends à une profondeur confortable, talons au sol, et tiens 10 secondes en faisant de petits déplacements de hanches. Remonte, recommence. Aucun rebond, aucune profondeur imposée.",
+              "why": "Ouvre hanches et chevilles en bas du squat, sans charge ni rebond."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Good morning au poids du corps",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Debout, genoux légèrement fléchis, mains sur les hanches. Recule les fesses dos plat jusqu'à sentir l'arrière des cuisses, puis reviens en serrant les fessiers.",
+              "why": "Répète la charnière de hanche, dos plat, et délie l'arrière des cuisses."
+            },
+            {
+              "phase": "Activation",
+              "name": "Glute bridge (pont fessier)",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Allongé sur le dos, pieds à plat, genoux fléchis. Pousse le bassin vers le plafond en serrant les fessiers, tiens une seconde en haut, redescends.",
+              "why": "Des fessiers actifs prennent le relais du bas du dos dans les extensions de hanche."
+            },
+            {
+              "phase": "Activation",
+              "name": "Élévations de mollets debout, avec appui",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Debout, une main en appui sur un mur ou un rack. Monte sur la pointe des pieds, tiens une seconde, redescends lentement.",
+              "why": "Prépare mollets et tendons d'Achille, sollicités dans tous les gestes de jambes."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "haut",
+      "name": "Upper",
+      "byEquipment": {
+        "gym": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "6 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Rotation thoracique à quatre pattes, main derrière la tête",
+              "dose": "5 par côté",
+              "instructions": "À quatre pattes, une main derrière la tête. Amène le coude vers le bras d'appui, puis ouvre-le vers le plafond en suivant des yeux. Le bassin reste au-dessus des genoux : le mouvement vient du haut du dos.",
+              "why": "Fait tourner le haut du dos, pour que les épaules n'aient pas à compenser."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires sur banc",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Mains sur un banc, bras tendus, corps gainé. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le banc pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe à la poulie, coude au corps",
+              "dose": "10 par côté",
+              "instructions": "Poulie à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement. Charge très légère.",
+              "why": "La coiffe des rotateurs centre la tête de l'épaule quand les bras poussent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à la corde, poulie haute",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Corde à la poulie haute. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement. Charge légère.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            }
+          ]
+        },
+        "band": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "6 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Rotation thoracique à quatre pattes, main derrière la tête",
+              "dose": "5 par côté",
+              "instructions": "À quatre pattes, une main derrière la tête. Amène le coude vers le bras d'appui, puis ouvre-le vers le plafond en suivant des yeux. Le bassin reste au-dessus des genoux : le mouvement vient du haut du dos.",
+              "why": "Fait tourner le haut du dos, pour que les épaules n'aient pas à compenser."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires contre un mur",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe à l'élastique, coude au corps",
+              "dose": "10 par côté",
+              "instructions": "Élastique fixé à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement.",
+              "why": "La coiffe des rotateurs centre la tête de l'épaule quand les bras poussent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à l'élastique",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Élastique fixé à hauteur du visage. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            }
+          ]
+        },
+        "none": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Cat-cow (dos rond / dos creux)",
+              "dose": "6 cycles",
+              "instructions": "À quatre pattes, mains sous les épaules, genoux sous les hanches. Arrondis le dos en rentrant le menton, puis creuse-le en ouvrant la poitrine. Lentement, sans forcer en fin d'amplitude.",
+              "why": "Mobilise toute la colonne en douceur avant de la gainer sous la charge."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Rotation thoracique à quatre pattes, main derrière la tête",
+              "dose": "5 par côté",
+              "instructions": "À quatre pattes, une main derrière la tête. Amène le coude vers le bras d'appui, puis ouvre-le vers le plafond en suivant des yeux. Le bassin reste au-dessus des genoux : le mouvement vient du haut du dos.",
+              "why": "Fait tourner le haut du dos, pour que les épaules n'aient pas à compenser."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires contre un mur",
+              "dose": "2 × 10 répétitions",
+              "instructions": "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe allongé sur le côté",
+              "dose": "10 par côté",
+              "instructions": "Allongé sur le côté, coude du dessus collé au flanc et plié à 90°. Monte l'avant-bras vers le plafond sans décoller le coude, puis redescends lentement.",
+              "why": "Fait travailler la coiffe des rotateurs contre le poids de l'avant-bras, sans matériel.",
+              "replaces": "Rotation externe à la poulie, coude au corps"
+            },
+            {
+              "phase": "Activation",
+              "name": "W allongé sur le ventre",
+              "dose": "2 × 12 répétitions",
+              "instructions": "Allongé sur le ventre, bras en W, coudes pliés. Décolle coudes et mains du sol en serrant les omoplates vers le bas, tiens deux secondes, repose.",
+              "why": "Sans matériel, travaille l'arrière des épaules et le bas des trapèzes contre la gravité.",
+              "replaces": "Face pull à la corde, poulie haute"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "full",
+      "name": "Full body",
+      "byEquipment": {
+        "gym": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Mobilisation de cheville genou au mur",
+              "dose": "8 par côté",
+              "instructions": "Pied à une main du mur, talon au sol. Avance le genou vers le mur dans l'axe du pied sans décoller le talon, puis reviens. Recule le pied si c'est trop facile.",
+              "why": "En squat et en fente, le genou avance au-dessus du pied : la cheville doit suivre."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Squat profond assisté",
+              "dose": "2 × 10 secondes",
+              "instructions": "Tiens un support stable (montant de rack, poteau). Descends à une profondeur confortable, talons au sol, et tiens 10 secondes en faisant de petits déplacements de hanches. Remonte, recommence. Aucun rebond, aucune profondeur imposée.",
+              "why": "Ouvre hanches et chevilles en bas du squat, sans charge ni rebond."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Good morning au poids du corps",
+              "dose": "8 répétitions",
+              "instructions": "Debout, genoux légèrement fléchis, mains sur les hanches. Recule les fesses dos plat jusqu'à sentir l'arrière des cuisses, puis reviens en serrant les fessiers.",
+              "why": "Répète la charnière de hanche, dos plat, et délie l'arrière des cuisses."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à la corde, poulie haute",
+              "dose": "10 répétitions",
+              "instructions": "Corde à la poulie haute. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement. Charge légère.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe à la poulie, coude au corps",
+              "dose": "8 par côté",
+              "instructions": "Poulie à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement. Charge très légère.",
+              "why": "La coiffe des rotateurs centre la tête de l'épaule quand les bras poussent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires sur banc",
+              "dose": "8 répétitions",
+              "instructions": "Mains sur un banc, bras tendus, corps gainé. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le banc pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Dead bug",
+              "dose": "4 par côté",
+              "instructions": "Allongé sur le dos, bras vers le plafond, hanches et genoux à 90°, bas du dos au contact du sol. Abaisse bras et jambe opposés sans que le dos décolle, reviens, alterne.",
+              "why": "Apprend à gainer le tronc en respirant, bas du dos stable."
+            }
+          ]
+        },
+        "band": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Mobilisation de cheville genou au mur",
+              "dose": "8 par côté",
+              "instructions": "Pied à une main du mur, talon au sol. Avance le genou vers le mur dans l'axe du pied sans décoller le talon, puis reviens. Recule le pied si c'est trop facile.",
+              "why": "En squat et en fente, le genou avance au-dessus du pied : la cheville doit suivre."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Squat profond assisté",
+              "dose": "2 × 10 secondes",
+              "instructions": "Tiens un support stable (montant de rack, poteau). Descends à une profondeur confortable, talons au sol, et tiens 10 secondes en faisant de petits déplacements de hanches. Remonte, recommence. Aucun rebond, aucune profondeur imposée.",
+              "why": "Ouvre hanches et chevilles en bas du squat, sans charge ni rebond."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Good morning au poids du corps",
+              "dose": "8 répétitions",
+              "instructions": "Debout, genoux légèrement fléchis, mains sur les hanches. Recule les fesses dos plat jusqu'à sentir l'arrière des cuisses, puis reviens en serrant les fessiers.",
+              "why": "Répète la charnière de hanche, dos plat, et délie l'arrière des cuisses."
+            },
+            {
+              "phase": "Activation",
+              "name": "Face pull à l'élastique",
+              "dose": "10 répétitions",
+              "instructions": "Élastique fixé à hauteur du visage. Tire vers le visage en écartant les mains, coudes hauts et vers l'extérieur, omoplates serrées, puis reviens lentement.",
+              "why": "Réveille l'arrière des épaules et les muscles qui serrent les omoplates."
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe à l'élastique, coude au corps",
+              "dose": "8 par côté",
+              "instructions": "Élastique fixé à hauteur de coude, de côté. Coude plié à 90° collé au corps, ouvre l'avant-bras vers l'extérieur puis reviens lentement.",
+              "why": "La coiffe des rotateurs centre la tête de l'épaule quand les bras poussent."
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires contre un mur",
+              "dose": "8 répétitions",
+              "instructions": "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Dead bug",
+              "dose": "4 par côté",
+              "instructions": "Allongé sur le dos, bras vers le plafond, hanches et genoux à 90°, bas du dos au contact du sol. Abaisse bras et jambe opposés sans que le dos décolle, reviens, alterne.",
+              "why": "Apprend à gainer le tronc en respirant, bas du dos stable."
+            }
+          ]
+        },
+        "none": {
+          "minutes": 6,
+          "steps": [
+            {
+              "phase": "Mobilité",
+              "name": "Mobilisation de cheville genou au mur",
+              "dose": "8 par côté",
+              "instructions": "Pied à une main du mur, talon au sol. Avance le genou vers le mur dans l'axe du pied sans décoller le talon, puis reviens. Recule le pied si c'est trop facile.",
+              "why": "En squat et en fente, le genou avance au-dessus du pied : la cheville doit suivre."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Squat profond assisté",
+              "dose": "2 × 10 secondes",
+              "instructions": "Tiens un support stable (montant de rack, poteau). Descends à une profondeur confortable, talons au sol, et tiens 10 secondes en faisant de petits déplacements de hanches. Remonte, recommence. Aucun rebond, aucune profondeur imposée.",
+              "why": "Ouvre hanches et chevilles en bas du squat, sans charge ni rebond."
+            },
+            {
+              "phase": "Mobilité",
+              "name": "Good morning au poids du corps",
+              "dose": "8 répétitions",
+              "instructions": "Debout, genoux légèrement fléchis, mains sur les hanches. Recule les fesses dos plat jusqu'à sentir l'arrière des cuisses, puis reviens en serrant les fessiers.",
+              "why": "Répète la charnière de hanche, dos plat, et délie l'arrière des cuisses."
+            },
+            {
+              "phase": "Activation",
+              "name": "W allongé sur le ventre",
+              "dose": "10 répétitions",
+              "instructions": "Allongé sur le ventre, bras en W, coudes pliés. Décolle coudes et mains du sol en serrant les omoplates vers le bas, tiens deux secondes, repose.",
+              "why": "Sans matériel, travaille l'arrière des épaules et le bas des trapèzes contre la gravité.",
+              "replaces": "Face pull à la corde, poulie haute"
+            },
+            {
+              "phase": "Activation",
+              "name": "Rotation externe allongé sur le côté",
+              "dose": "8 par côté",
+              "instructions": "Allongé sur le côté, coude du dessus collé au flanc et plié à 90°. Monte l'avant-bras vers le plafond sans décoller le coude, puis redescends lentement.",
+              "why": "Fait travailler la coiffe des rotateurs contre le poids de l'avant-bras, sans matériel.",
+              "replaces": "Rotation externe à la poulie, coude au corps"
+            },
+            {
+              "phase": "Activation",
+              "name": "Pompes scapulaires contre un mur",
+              "dose": "8 répétitions",
+              "instructions": "Mains au mur à hauteur d'épaules, bras tendus, pieds reculés. Sans plier les coudes, laisse les omoplates se rapprocher puis repousse le mur pour les écarter.",
+              "why": "Réveille le dentelé, qui plaque l'omoplate contre les côtes en fin de poussée."
+            },
+            {
+              "phase": "Activation",
+              "name": "Dead bug",
+              "dose": "4 par côté",
+              "instructions": "Allongé sur le dos, bras vers le plafond, hanches et genoux à 90°, bas du dos au contact du sol. Abaisse bras et jambe opposés sans que le dos décolle, reviens, alterne.",
+              "why": "Apprend à gainer le tronc en respirant, bas du dos stable."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "painRoutines": [
+    {
+      "zone": "epaule",
+      "name": "Épaule",
+      "minutes": 11,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Cercles d'épaule lents",
+          "dose": "5 par sens et par côté",
+          "instructions": "Bras tendu, dessine le plus grand cercle possible, très lentement, le reste du corps immobile. Réduis le cercle là où ça tire.",
+          "why": "Explore l'amplitude disponible sans charge, pour qu'elle reste accessible."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Wall slides (glissés au mur)",
+          "dose": "2 × 8, lents",
+          "instructions": "Avant-bras contre le mur, fais glisser les bras vers le haut en gardant le contact, puis redescends. Monte seulement jusqu'où c'est confortable.",
+          "why": "Lever le bras en guidant l'omoplate, sans compensation du bas du dos."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement de l'arrière de l'épaule",
+          "dose": "2 × 30 s par côté",
+          "instructions": "Ramène le bras tendu devant la poitrine avec l'autre main, épaule basse. Étirement léger, jamais de pincement à l'avant.",
+          "why": "Assouplit l'arrière de l'épaule, qui limite souvent la rotation."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Rétraction des omoplates, bras tendus",
+          "dose": "2 × 10, tenir 3 s",
+          "instructions": "Debout, bras tendus devant toi à hauteur d'épaules. Sans plier les coudes, recule les épaules pour rapprocher les omoplates, sans les hausser, tiens 3 secondes, relâche.",
+          "why": "Réapprend à l'omoplate à se placer : c'est elle qui donne de la place à l'épaule."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Rotation externe allongé sur le côté",
+          "dose": "2 × 12 par côté",
+          "instructions": "Allongé sur le côté, coude plié à 90° collé au flanc. Tourne l'avant-bras vers le plafond en 2 secondes, redescends en 3.",
+          "why": "Renforce doucement la coiffe des rotateurs, qui centre la tête de l'humérus."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Y-T debout",
+          "dose": "2 × 8",
+          "instructions": "Debout, pouces vers l'arrière, monte les bras en Y au-dessus de la tête puis ouvre-les en T à hauteur d'épaules, en serrant les omoplates. Lentement, sans hausser les épaules.",
+          "why": "Active le bas des trapèzes, souvent endormi quand l'épaule gêne."
+        }
+      ]
+    },
+    {
+      "zone": "coudes",
+      "name": "Coude",
+      "minutes": 12,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Flexions-extensions du coude",
+          "dose": "2 × 10 par côté",
+          "instructions": "Plie et tends le coude lentement, sans forcer en fin d'extension.",
+          "why": "Fait circuler le liquide articulaire et réchauffe les tendons du coude."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Pronation-supination de l'avant-bras",
+          "dose": "2 × 10 par côté",
+          "instructions": "Coude plié à 90°, collé au corps. Tourne la paume vers le haut puis vers le bas, lentement, sur toute l'amplitude confortable.",
+          "why": "Mobilise l'articulation du coude et de l'avant-bras sans contrainte."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement des extenseurs du poignet",
+          "dose": "3 × 30 s par côté",
+          "instructions": "Bras tendu devant, paume vers le bas, plie le poignet avec l'autre main jusqu'à un étirement léger sur le dessus de l'avant-bras.",
+          "why": "Détend les muscles qui s'insèrent à l'extérieur du coude (épicondyle)."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement des fléchisseurs du poignet",
+          "dose": "3 × 30 s par côté",
+          "instructions": "Bras tendu devant, paume vers le haut, ramène les doigts vers toi avec l'autre main, étirement léger.",
+          "why": "Détend les muscles qui s'insèrent à l'intérieur du coude (épitrochlée)."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement du triceps",
+          "dose": "2 × 30 s par côté",
+          "instructions": "Main derrière la tête, l'autre main pousse doucement le coude vers l'arrière.",
+          "why": "Relâche l'arrière du coude, sollicité par les extensions et les développés."
+        }
+      ]
+    },
+    {
+      "zone": "poignets",
+      "name": "Poignet",
+      "minutes": 11,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Rotations des poignets",
+          "dose": "10 par sens",
+          "instructions": "Doigts entrecroisés, dessine de grands cercles lents avec les poignets.",
+          "why": "Remet en mouvement le poignet dans toutes les directions."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Pronation-supination de l'avant-bras",
+          "dose": "2 × 10 par côté",
+          "instructions": "Coude plié à 90°, collé au corps. Tourne la paume vers le haut puis vers le bas, lentement, sur toute l'amplitude confortable.",
+          "why": "Mobilise l'articulation du coude et de l'avant-bras sans contrainte."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement des fléchisseurs du poignet",
+          "dose": "3 × 30 s par côté",
+          "instructions": "Bras tendu devant, paume vers le haut, ramène les doigts vers toi avec l'autre main, étirement léger.",
+          "why": "Détend les muscles qui s'insèrent à l'intérieur du coude (épitrochlée)."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement des extenseurs du poignet",
+          "dose": "3 × 30 s par côté",
+          "instructions": "Bras tendu devant, paume vers le bas, plie le poignet avec l'autre main jusqu'à un étirement léger sur le dessus de l'avant-bras.",
+          "why": "Détend les muscles qui s'insèrent à l'extérieur du coude (épicondyle)."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Mise en charge progressive des poignets",
+          "dose": "2 × 10 bascules",
+          "instructions": "À quatre pattes, mains sous les épaules, avance doucement le poids du corps au-dessus des mains puis recule. Réduis l'amplitude si ça tire.",
+          "why": "Réhabitue le poignet à porter du poids, progressivement."
+        }
+      ]
+    },
+    {
+      "zone": "bas-du-dos",
+      "name": "Bas du dos",
+      "minutes": 13,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Genoux sur la poitrine",
+          "dose": "3 × 20 s",
+          "instructions": "Allongé sur le dos, ramène les deux genoux vers la poitrine avec les mains, respire lentement.",
+          "why": "Décomprime doucement le bas du dos."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Cat-cow (dos rond / dos creux)",
+          "dose": "2 × 8, lents",
+          "instructions": "À quatre pattes, arrondis le dos en expirant puis creuse-le en inspirant, sans forcer en fin de mouvement.",
+          "why": "Mobilise la colonne vertèbre par vertèbre, dans l'amplitude confortable."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Essuie-glaces des jambes",
+          "dose": "2 × 8 par côté",
+          "instructions": "Allongé sur le dos, genoux pliés, laisse tomber les deux genoux d'un côté puis de l'autre, épaules au sol.",
+          "why": "Rotation douce du bas du dos et des hanches."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Bird dog",
+          "dose": "2 × 6 par côté, tenir 5 s",
+          "instructions": "À quatre pattes, tends un bras et la jambe opposée, dos plat, tiens 5 secondes, reviens. Le bassin ne bascule pas.",
+          "why": "Gainage qui protège le dos : il résiste à la rotation sans comprimer."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Dead bug",
+          "dose": "2 × 6 par côté",
+          "instructions": "Allongé, bras vers le plafond, genoux à 90°. Descends un bras et la jambe opposée en gardant le bas du dos collé au sol.",
+          "why": "Renforce les abdominaux profonds en gardant le dos neutre."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Pont fessier",
+          "dose": "2 × 12, tenir 2 s en haut",
+          "instructions": "Allongé, pieds à plat, pousse dans les talons pour monter le bassin, serre les fessiers 2 secondes, redescends lentement.",
+          "why": "Les fessiers soulagent le bas du dos et guident le genou."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Planche latérale, genoux au sol",
+          "dose": "3 × 15 s par côté",
+          "instructions": "Sur un coude, genoux pliés au sol, monte le bassin pour aligner épaule, hanche et genou. Respire.",
+          "why": "Renforce les muscles du côté du tronc, qui stabilisent le bas du dos."
+        }
+      ]
+    },
+    {
+      "zone": "hanches",
+      "name": "Hanche",
+      "minutes": 11,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Transitions de hanches 90/90",
+          "dose": "2 × 6 transitions",
+          "instructions": "Assis, genoux pliés à 90° tous les deux du même côté, bascule-les de l'autre côté lentement, mains au sol si besoin.",
+          "why": "Travaille les rotations de hanche en douceur."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Fente basse, genou au sol",
+          "dose": "5 respirations par côté",
+          "instructions": "Un genou au sol, l'autre pied devant, avance doucement le bassin jusqu'à sentir l'avant de la hanche s'étirer.",
+          "why": "Assouplit l'avant de la hanche, souvent raide quand on reste assis."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Essuie-glaces des jambes",
+          "dose": "2 × 8 par côté",
+          "instructions": "Allongé sur le dos, genoux pliés, laisse tomber les deux genoux d'un côté puis de l'autre, épaules au sol.",
+          "why": "Rotation douce du bas du dos et des hanches."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Coquillage (clamshell)",
+          "dose": "2 × 12 par côté",
+          "instructions": "Allongé sur le côté, genoux pliés, pieds joints : ouvre le genou du dessus sans faire rouler le bassin, referme lentement.",
+          "why": "Renforce le moyen fessier, qui stabilise la hanche et le genou."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Pont fessier",
+          "dose": "2 × 12, tenir 2 s en haut",
+          "instructions": "Allongé, pieds à plat, pousse dans les talons pour monter le bassin, serre les fessiers 2 secondes, redescends lentement.",
+          "why": "Les fessiers soulagent le bas du dos et guident le genou."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Ouverture de hanche à quatre pattes",
+          "dose": "2 × 8 par côté",
+          "instructions": "À quatre pattes, ouvre le genou plié sur le côté sans tourner le buste, redescends lentement.",
+          "why": "Active les rotateurs de hanche dans une position sans charge."
+        }
+      ]
+    },
+    {
+      "zone": "genou",
+      "name": "Genou",
+      "minutes": 15,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Mobilisation de cheville genou au mur",
+          "dose": "2 × 10 par côté",
+          "instructions": "Pied à une main du mur, avance le genou vers le mur sans décoller le talon, reviens.",
+          "why": "Une cheville mobile soulage le genou, qui compense souvent ses raideurs."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Relevé de jambe tendue",
+          "dose": "2 × 10 par côté",
+          "instructions": "Allongé, une jambe pliée, l'autre tendue : contracte la cuisse, lève la jambe tendue à hauteur du genou opposé, redescends lentement.",
+          "why": "Renforce le quadriceps sans plier le genou."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Coquillage (clamshell)",
+          "dose": "2 × 12 par côté",
+          "instructions": "Allongé sur le côté, genoux pliés, pieds joints : ouvre le genou du dessus sans faire rouler le bassin, referme lentement.",
+          "why": "Renforce le moyen fessier, qui stabilise la hanche et le genou."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Pont fessier",
+          "dose": "2 × 12, tenir 2 s en haut",
+          "instructions": "Allongé, pieds à plat, pousse dans les talons pour monter le bassin, serre les fessiers 2 secondes, redescends lentement.",
+          "why": "Les fessiers soulagent le bas du dos et guident le genou."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Fente tenue (isométrie)",
+          "dose": "4 × 30 s par côté",
+          "instructions": "En fente, descends à mi-hauteur et tiens, genou aligné avec le pied. Choisis une hauteur où la douleur reste sous 3 sur 10.",
+          "why": "L'effort tenu sans mouvement charge le genou et ses tendons de façon contrôlée, et soulage souvent la douleur."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Montée de marche contrôlée",
+          "dose": "2 × 8 par côté",
+          "instructions": "Sur une marche basse, monte en poussant dans le talon, genou dans l'axe du pied, redescends en 3 secondes.",
+          "why": "Reprend le geste du quotidien avec contrôle du genou."
+        }
+      ]
+    },
+    {
+      "zone": "chevilles",
+      "name": "Cheville",
+      "minutes": 8,
+      "rule": "Douleur sous 3 sur 10 pendant et après chaque exercice.",
+      "steps": [
+        {
+          "phase": "Mobilité douce",
+          "name": "Rotations de chevilles",
+          "dose": "10 par sens et par côté",
+          "instructions": "Pied décollé du sol, dessine de grands cercles lents avec la pointe du pied.",
+          "why": "Remet la cheville en mouvement dans toutes les directions."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Mobilisation de cheville genou au mur",
+          "dose": "2 × 10 par côté",
+          "instructions": "Pied à une main du mur, avance le genou vers le mur sans décoller le talon, reviens.",
+          "why": "Une cheville mobile soulage le genou, qui compense souvent ses raideurs."
+        },
+        {
+          "phase": "Mobilité douce",
+          "name": "Étirement du mollet au mur",
+          "dose": "2 × 30 s par côté",
+          "instructions": "Mains au mur, une jambe tendue derrière, talon au sol, avance le bassin jusqu'à un étirement léger du mollet.",
+          "why": "Un mollet souple libère la flexion de cheville."
+        },
+        {
+          "phase": "Renforcement léger",
+          "name": "Montées sur la pointe des pieds, lentes",
+          "dose": "2 × 12, descente en 3 s",
+          "instructions": "Debout, une main au mur, monte sur la pointe des pieds puis redescends lentement.",
+          "why": "Renforce le mollet et le tendon d'Achille de façon progressive."
+        }
+      ]
+    }
+  ],
   "exercises": [
     {
       "id": "art-cervicales",

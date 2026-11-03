@@ -3,7 +3,7 @@ import { DEMOS } from "@/lib/demos";
 
 /**
  * Démonstration d'un exercice : les deux images (départ, arrivée) en alternance
- * quand elles existent (public/demos, importées par scripts/import-demos.mjs),
+ * quand elles existent (public/demos, importées par scripts/assets/import-demos.mjs),
  * sinon le pictogramme animé. `still` : départ seul, pour les vignettes.
  */
 export default function ExerciseVisual({ id, demo, label, className = "", still = false }: { id: string; demo?: string; label: string; className?: string; still?: boolean }) {

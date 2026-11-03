@@ -110,7 +110,6 @@
   --color-ph-activation-ink: var(--ph-activation-ink);
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-anton), var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 

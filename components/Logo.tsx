@@ -1,5 +1,5 @@
 // Logo Warmup Generator : le W en ruban qui finit en flèche montante (dessin de
-// Seb, brand/logo-warmup.png). Icônes et favicon : python scripts/build-logo.py.
+// Seb, brand/logo-warmup.png). Icônes et favicon : python scripts/assets/build-logo.py.
 
 /** Le dessin seul, à la hauteur de la classe passée (largeur ≈ 1,67 × hauteur). */
 export function LogoMark({ className = "h-8 w-auto" }: { className?: string }) {

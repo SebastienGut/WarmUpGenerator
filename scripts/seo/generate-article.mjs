@@ -3,7 +3,7 @@
  * Génère automatiquement un nouvel article de blog et l'ajoute à blog-content.ts
  * Appelé par le GitHub Action weekly-content.yml
  *
- * Usage: node scripts/generate-article.mjs
+ * Usage: node scripts/seo/generate-article.mjs
  * Requiert: ANTHROPIC_API_KEY dans l'environnement
  */
 
@@ -12,7 +12,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, "..");
+const ROOT = join(__dirname, "../..");
 
 // ─── 1. Lire les slugs existants ────────────────────────────────────────────
 const blogContent = readFileSync(join(ROOT, "lib/blog-content.ts"), "utf8");

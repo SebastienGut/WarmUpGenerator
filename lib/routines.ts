@@ -1,4 +1,4 @@
-// Routines de référence du moteur v3 (docs/brief-moteur-v3.md).
+// Routines de référence du moteur v3 (docs/guides/brief-moteur-v3.md).
 //
 // Les séances types (Push, Pull…) ont une routine écrite d'un bloc, pensée comme
 // un préparateur physique la composerait. « Mes zones » compose les bases de

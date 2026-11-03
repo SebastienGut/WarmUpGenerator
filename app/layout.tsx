@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import ClientScripts from "@/components/ClientScripts";
-import { GeistMono } from "geist/font/mono";
 import { Anton, Archivo } from "next/font/google";
 import "./globals.css";
 
@@ -79,7 +78,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${archivo.variable} ${anton.variable} ${GeistMono.variable}`}>
+    <html lang="fr" className={`${archivo.variable} ${anton.variable}`}>
       <head>
         <link rel="apple-touch-icon" href="/icons/logo-apple-touch.png" />
       </head>

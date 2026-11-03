@@ -1,6 +1,6 @@
 // Page de travail (dev uniquement) : planche contact des pictogrammes réellement
 // affichés par le site, en départ, milieu et arrivée. Lue par
-// scripts/build-figure-sheet.mjs pour relire les postures sans navigateur.
+// scripts/assets/build-figure-sheet.mjs pour relire les postures sans navigateur.
 import { notFound } from "next/navigation";
 import { FigureStill } from "@/components/ExerciseFigure";
 import { BANK } from "@/lib/bank";

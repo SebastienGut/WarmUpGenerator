@@ -1,4 +1,4 @@
-// Moteur d'échauffement (v3, docs/brief-moteur-v3.md).
+// Moteur d'échauffement (v3, docs/guides/brief-moteur-v3.md).
 //
 // Une courte préparation articulaire et musculaire, à faire AVANT les séries
 // d'approche du premier exercice : mobilité utile, contrôle, sollicitation

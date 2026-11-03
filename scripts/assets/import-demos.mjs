@@ -1,11 +1,11 @@
-// Importe les images de démonstration (générées par IA, voir docs/demos-ia.md).
+// Importe les images de démonstration (générées par IA, voir docs/guides/demos-ia.md).
 //
 // Entrée : brand/demos/{clé}-depart.(png|jpg|jpeg|webp) et {clé}-arrivee.(…),
 //          ou brand/demos/raw/{clé}.png (image double, départ à gauche, arrivée à droite)
 // Sortie : public/demos/{clé}-depart.webp, {clé}-arrivee.webp (cadre 4:3, fond papier,
 //          800 px de large) et lib/demos.ts (liste des clés complètes).
 // Une clé n'est publiée que si ses deux images existent.
-// Usage : node scripts/import-demos.mjs
+// Usage : node scripts/assets/import-demos.mjs
 import sharp from "sharp";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 
@@ -38,6 +38,7 @@ mkdirSync(OUT, { recursive: true });
 // Images doubles (brand/demos/raw/{clé}.png : départ à gauche, arrivée à droite) :
 // découpées sur la colonne vide la plus proche du centre.
 const RAW = `${SRC}/raw`;
+const SPLIT = `${SRC}/split`; // moitiés découpées des images doubles (fichiers intermédiaires)
 const framed = new Set(); // clés déjà cadrées en commun : pas de recadrage individuel
 if (existsSync(RAW)) {
   for (const f of readdirSync(RAW).filter((f) => /^[a-z0-9-]+\.(png|jpe?g|webp)$/i.test(f))) {
@@ -69,22 +70,26 @@ if (existsSync(RAW)) {
     const a = box(0, best), b = box(best, info.width);
     const l = Math.min(a.l, b.l), r = Math.max(a.r, b.r), t = Math.min(a.t, b.t), btm = Math.max(a.btm, b.btm);
     const width = Math.min(r - l + 1, best - l, info.width - best - l), height = btm - t + 1;
-    await sharp(base).extract({ left: l, top: t, width, height }).png().toFile(`${SRC}/${key}-depart.png`);
-    await sharp(base).extract({ left: best + l, top: t, width, height }).png().toFile(`${SRC}/${key}-arrivee.png`);
+    mkdirSync(SPLIT, { recursive: true });
+    await sharp(base).extract({ left: l, top: t, width, height }).png().toFile(`${SPLIT}/${key}-depart.png`);
+    await sharp(base).extract({ left: best + l, top: t, width, height }).png().toFile(`${SPLIT}/${key}-arrivee.png`);
     framed.add(key);
   }
 }
 
-const files = readdirSync(SRC).filter((f) => /\.(png|jpe?g|webp)$/i.test(f));
+// Paires posées à la main dans brand/demos/, puis moitiés découpées (prioritaires).
+const files = [SRC, SPLIT]
+  .filter((d) => existsSync(d))
+  .flatMap((d) => readdirSync(d).filter((f) => /\.(png|jpe?g|webp)$/i.test(f)).map((f) => ({ d, f })));
 const byKey = new Map();
-for (const f of files) {
+for (const { d, f } of files) {
   const m = f.match(/^(.+)-(depart|arrivee)\.(png|jpe?g|webp)$/i);
   if (!m) {
     console.warn(`ignoré (nom attendu {clé}-depart|arrivee) : ${f}`);
     continue;
   }
   const [, key, pos] = m;
-  byKey.set(key, { ...byKey.get(key), [pos.toLowerCase()]: `${SRC}/${f}` });
+  byKey.set(key, { ...byKey.get(key), [pos.toLowerCase()]: `${d}/${f}` });
 }
 
 const done = {};
@@ -111,7 +116,7 @@ for (const [key, pair] of [...byKey].sort()) {
 const body = Object.entries(done).map(([k, v]) => `  "${k}": [${v.join(", ")}],`).join("\n");
 writeFileSync(
   "lib/demos.ts",
-  `// Généré par scripts/import-demos.mjs : ne pas modifier à la main.
+  `// Généré par scripts/assets/import-demos.mjs : ne pas modifier à la main.
 // Images de démonstration disponibles (clé → [largeur, hauteur]) ; les autres
 // exercices gardent leur pictogramme.
 export const DEMOS: Record<string, [number, number]> = {${body ? `\n${body}\n` : ""}};

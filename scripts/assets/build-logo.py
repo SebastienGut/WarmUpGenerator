@@ -1,5 +1,5 @@
 # Génère les icônes du site à partir du logo de Seb (brand/logo-warmup.png).
-# Usage : python scripts/build-logo.py
+# Usage : python scripts/assets/build-logo.py
 from PIL import Image
 
 root = "C:/Users/seb/Desktop/warmup-generator/"
@@ -36,5 +36,4 @@ render(192, pad=0.08, bg=PAPER).save(root + "public/icons/logo-pwa-192.png")
 render(512, pad=0.08, bg=PAPER).save(root + "public/icons/logo-pwa-512.png")
 # Maskable : le système peut rogner jusqu'à 20 % de chaque côté.
 render(512, pad=0.2, bg=PAPER).save(root + "public/icons/logo-pwa-maskable-512.png")
-render(512, pad=0.2, bg=PAPER).save(root + "public/icons/maskable-512.png")
 print("ok", mark.size)

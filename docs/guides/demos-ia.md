@@ -21,7 +21,7 @@
 5. **Télécharge et renomme** chaque image exactement `{clé}-depart.png` et `{clé}-arrivee.png`
    (la clé est indiquée pour chaque exercice), puis dépose-les dans `brand/demos/`.
 6. **Dis-moi « importe les démos »** : je relis chaque image contre la checklist, je les recadre au même
-   format (4:3, fond papier) avec `node scripts/import-demos.mjs`, et je les mets en ligne.
+   format (4:3, fond papier) avec `node scripts/assets/import-demos.mjs`, et je les mets en ligne.
 
 Tu peux avancer par lots (par exemple les 5 séances d'abord) : chaque exercice complet est publié seul.
 

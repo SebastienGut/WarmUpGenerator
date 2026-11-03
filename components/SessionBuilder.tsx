@@ -13,7 +13,11 @@ import { loadEquipment } from "@/lib/equipment-pref";
 import { compositionOf, loadSessions, removeSession, saveSession, type SavedSession } from "@/lib/saved-sessions";
 import type { BodyZone, MuscleGroup } from "@/lib/warmup-data";
 
-export default function SessionBuilder() {
+// Habillage des cartes de séance : pictogramme (actuel), médaillon photo façon disque,
+// ou vignette photo en tête de carte. Les deux derniers sont en essai sur /apercu/accueil.
+export type CardCovers = "picto" | "medaillon" | "vignette";
+
+export default function SessionBuilder({ covers = "picto" }: { covers?: CardCovers }) {
   const router = useRouter();
   const [saved, setSaved] = useState<SavedSession[]>([]);
   const [picking, setPicking] = useState(false);
@@ -98,13 +102,29 @@ export default function SessionBuilder() {
                 key={t.id}
                 type="button"
                 onClick={() => go(t.zones, t.id, t.label)}
-                className={`relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${c.bg} ${c.fg}`}
+                className={`relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl text-left transition-transform active:scale-[0.97] sm:min-h-[150px] ${covers === "vignette" ? "p-1.5 pb-3" : "p-3.5"} ${c.bg} ${c.fg}`}
               >
-                <span className="text-[12px] font-bold">{minutes} min</span>
-                <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
-                  <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
-                </span>
-                <span className="relative">
+                {covers === "vignette" ? (
+                  <span className="relative block h-[62px] overflow-hidden rounded-xl bg-paper sm:h-[92px]">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- vignette statique déjà optimisée */}
+                    <img src={`/demos/covers/${t.id}.webp`} alt="" width={320} height={320} className="h-full w-full object-contain" />
+                    <span className="absolute left-1.5 top-1.5 rounded-full bg-ink px-2 py-0.5 text-[11px] font-bold text-paper">{minutes} min</span>
+                  </span>
+                ) : (
+                  <span className="text-[12px] font-bold">{minutes} min</span>
+                )}
+                {covers === "picto" && (
+                  <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
+                    <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
+                  </span>
+                )}
+                {covers === "medaillon" && (
+                  <span aria-hidden="true" className="absolute -right-3 -top-3 h-[92px] w-[92px] overflow-hidden rounded-full bg-paper ring-[5px] ring-black/10 sm:h-[116px] sm:w-[116px]">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- vignette statique déjà optimisée */}
+                    <img src={`/demos/covers/${t.id}.webp`} alt="" width={320} height={320} className="h-full w-full -translate-x-[6%] translate-y-[6%] object-contain" />
+                  </span>
+                )}
+                <span className={`relative ${covers === "vignette" ? "px-2 pt-2" : ""}`}>
                   <span className="poster font-display text-[28px] leading-[0.95] sm:text-[34px]">{t.label}</span>
                 </span>
               </button>

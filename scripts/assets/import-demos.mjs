@@ -41,7 +41,7 @@ const RAW = `${SRC}/raw`;
 const SPLIT = `${SRC}/split`; // moitiés découpées des images doubles (fichiers intermédiaires)
 const framed = new Set(); // clés déjà cadrées en commun : pas de recadrage individuel
 if (existsSync(RAW)) {
-  for (const f of readdirSync(RAW).filter((f) => /^[a-z0-9-]+\.(png|jpe?g|webp)$/i.test(f))) {
+  for (const f of readdirSync(RAW).filter((f) => /^[a-z0-9-]+\.(png|jpe?g|webp)$/i.test(f) && f !== "douleur.png")) { // douleur : image unique de la carte d'accueil (build-covers)
     const key = f.replace(/\.(png|jpe?g|webp)$/i, "");
     const base = await (await paperize(`${RAW}/${f}`)).png().toBuffer();
     const { data, info } = await sharp(base).greyscale().raw().toBuffer({ resolveWithObject: true });

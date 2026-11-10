@@ -40,6 +40,7 @@ export const DEMOS: Record<string, [number, number]> = {
   "developpe-incline": [800, 600],
   "developpe-machine": [800, 600],
   "developpe-militaire": [800, 600],
+  "douleur": [800, 600],
   "ecartes": [800, 600],
   "elevations-laterales": [800, 600],
   "extension-triceps-poulie": [800, 600],

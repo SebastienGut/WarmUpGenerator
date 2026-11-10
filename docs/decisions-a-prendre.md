@@ -8,8 +8,6 @@
 - [ ] **Routines par groupe musculaire** (Seb, à venir) : tu proposeras tes routines par groupe musculaire,
       avec les exercices à ajouter. Je les intégrerai (banque, variantes par matériel, démonstrations IA
       pour les nouveaux exercices).
-- [ ] **Démonstrations IA à refaire** : tractions et tirage vertical, en prise pronation (retour de Seb,
-      nov. 2026) ; les autres images sont validées.
 
 ## Traitées
 

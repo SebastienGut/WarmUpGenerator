@@ -7,6 +7,7 @@ import { Chip, EquipmentPicker, PhaseMark, StepRow, SwapHint, Timeline, fmtMin, 
 import { EQUIPMENT_LABELS } from "@/lib/bank";
 import { saveEquipment } from "@/lib/equipment-pref";
 import GuidedMode from "@/components/GuidedMode";
+import Sheet from "@/components/Sheet";
 import { REHAB_ZONES } from "@/lib/rehab";
 import { saveSession } from "@/lib/saved-sessions";
 import {
@@ -22,6 +23,7 @@ function PlanContent({ initial }: { initial: SessionInput }) {
   const router = useRouter();
   const [input, setInput] = useState(initial);
   const [guided, setGuided] = useState(false);
+  const [zonesOpen, setZonesOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const plan = useMemo(() => buildSessionPlan(input), [input]);
   const label = plan.title;
@@ -107,38 +109,24 @@ function PlanContent({ initial }: { initial: SessionInput }) {
           />
         </div>
 
-        {/* Zone sensible : ajoute un ou deux exercices doux à la préparation (pas une séance de soin). */}
-        <div className="mt-5">
-          <p className="mb-2 text-[13px] font-semibold text-subtle">Une zone sensible à préparer en plus ?</p>
-          <div className="flex flex-wrap gap-2">
-            {REHAB_ZONES.map((z) => {
-              const on = input.pain.includes(z.id);
-              return (
-                <Chip key={z.id} tone={on ? "warn" : "default"} onClick={() => update({ pain: on ? input.pain.filter((p) => p !== z.id) : [...input.pain, z.id] })}>
-                  {on ? `✓ ${z.label}` : z.label}
-                </Chip>
-              );
-            })}
-          </div>
-          {input.pain.length > 0 && (
-            <p className="mt-3 rounded-xl bg-warn-bg px-4 py-3 text-[13px] leading-relaxed text-warn-ink">
-              Un ou deux exercices doux ajoutés pour {input.pain.map((z) => PAIN_LABELS[z].toLowerCase()).join(" et ")}. Garde la gêne sous 3 sur 10.
-              {plan.warnings[0] && (
-                <>
-                  {" "}
-                  <Link href={plan.warnings[0].href} className="font-semibold underline underline-offset-2">
-                    En savoir plus
-                  </Link>
-                </>
-              )}
-            </p>
-          )}
-        </div>
+        {/* Zone sensible : une ligne, la séance reste au premier plan ; le choix se fait dans un panneau. */}
+        <button
+          type="button"
+          onClick={() => setZonesOpen(true)}
+          className={`mt-2 flex w-full items-center justify-between gap-3 rounded-full border px-4 py-2.5 text-left text-[13px] font-semibold transition-colors ${
+            input.pain.length ? "border-warn bg-warn-bg text-warn-ink" : "border-dashed border-line-strong text-ink hover:border-ink"
+          }`}
+        >
+          <span className="min-w-0 truncate">
+            {input.pain.length ? `Zone sensible : ${input.pain.map((z) => PAIN_LABELS[z].toLowerCase()).join(", ")}` : "Une zone sensible à préparer en plus ?"}
+          </span>
+          <span className="shrink-0 underline underline-offset-2">{input.pain.length ? "Modifier" : "Ajouter"}</span>
+        </button>
 
         <div className="mt-6 hidden lg:block">{startButton}</div>
       </aside>
 
-      <div className="mt-8 lg:mt-14">
+      <div className="mt-5 lg:mt-14">
         <SwapHint />
         {plan.phases.map((phase) => (
           <section key={phase.key} className="mb-8">
@@ -172,6 +160,36 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/95 px-5 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md lg:hidden">
         <div className="mx-auto max-w-[560px]">{startButton}</div>
       </div>
+
+      <Sheet
+        open={zonesOpen}
+        onClose={() => setZonesOpen(false)}
+        title="Une zone sensible ?"
+        footer={
+          <button type="button" onClick={() => setZonesOpen(false)} className="w-full rounded-full bg-black px-6 py-4 font-display text-[20px] leading-none text-white transition-transform active:scale-[0.98]">
+            Voir ma séance
+          </button>
+        }
+      >
+        <p className="mb-4 text-[15px] leading-relaxed text-muted">Un ou deux exercices doux s&apos;ajoutent à ta préparation. Garde la gêne sous 3 sur 10.</p>
+        <div className="flex flex-wrap gap-2">
+          {REHAB_ZONES.map((z) => {
+            const on = input.pain.includes(z.id);
+            return (
+              <Chip key={z.id} tone={on ? "warn" : "default"} onClick={() => update({ pain: on ? input.pain.filter((p) => p !== z.id) : [...input.pain, z.id] })}>
+                {on ? `✓ ${z.label}` : z.label}
+              </Chip>
+            );
+          })}
+        </div>
+        {plan.warnings[0] && (
+          <p className="mt-4 text-[13px]">
+            <Link href={plan.warnings[0].href} className="font-semibold text-ink underline underline-offset-2">
+              En savoir plus sur cette zone
+            </Link>
+          </p>
+        )}
+      </Sheet>
 
       {guided && <GuidedMode plan={plan} onClose={() => setGuided(false)} />}
     </main>

@@ -135,7 +135,7 @@ export function StepRow({ step, phase, onSwap }: { step: Exclude<PlanStep, RampS
 
 /** Rappel du bouton ↻ présent sur les exercices. */
 export function SwapHint() {
-  return <p className="mb-3 text-[13px] text-subtle">↻ remplace un exercice qui ne te convient pas, le reste ne bouge pas.</p>;
+  return <p className="mb-3 text-[13px] text-subtle">↻ remplace un exercice sans toucher au reste.</p>;
 }
 
 export function Chip({ children, onClick, tone = "default" }: { children: React.ReactNode; onClick: () => void; tone?: "default" | "warn" | "on" }) {

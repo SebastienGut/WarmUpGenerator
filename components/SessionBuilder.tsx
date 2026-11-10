@@ -33,11 +33,11 @@ export default function SessionBuilder({ covers = "photo" }: { covers?: CardCove
 
   // Routine stable : la même séance redonne le même plan. Si elle a déjà été
   // faite sur cet appareil, on rouvre sa dernière version (réglages compris) ;
-  // la variation reste un choix (↻ Varier sur le plan).
+  // les remplacements restent un choix (↻ sur chaque exercice du plan).
   // Le matériel est un réglage de l'appareil : il prime sur celui de la séance rouverte.
   const go = (z: MuscleGroup[], template?: string, label = zonesLabel(z)) => {
     const equipment = loadEquipment();
-    const fresh = serializeSession({ zones: z, template, lifts: [], pain: [], band: false, equipment, short: false, variant: 0 });
+    const fresh = serializeSession({ zones: z, template, lifts: [], pain: [], band: false, equipment, short: false });
     const prev = loadSessions().find((s) => compositionOf(s.query) === compositionOf(fresh))?.query;
     const q = prev ? serializeSession({ ...parseSession(Object.fromEntries(new URLSearchParams(prev))), equipment }) : fresh;
     saveSession({ query: q, label });
@@ -71,17 +71,21 @@ export default function SessionBuilder({ covers = "photo" }: { covers?: CardCove
 
   return (
     <main className="w-full pb-16">
+      {/* Sur téléphone, le bandeau et les six cartes remplissent exactement le premier écran :
+          le bandeau prend la hauteur restante, la suite de la page commence sous le pli. */}
+      <div className="flex min-h-svh flex-col sm:block sm:min-h-0">
       {/* Bandeau d'affiche : la question, en grand. */}
-      <section className="relative overflow-hidden bg-blue px-5 pb-6 pt-4 text-white sm:px-8 sm:pb-12 sm:pt-5">
+      <section className="relative flex flex-1 flex-col overflow-hidden bg-blue px-5 pb-6 pt-4 text-white sm:block sm:px-8 sm:pb-12 sm:pt-5">
         <span aria-hidden="true" className="pointer-events-none absolute -right-20 -top-16 h-72 w-72 rounded-full border-[34px] border-white/[0.12]" />
-        <div className="relative mx-auto max-w-[1080px]">
+        <div className="relative mx-auto flex w-full max-w-[1080px] flex-1 flex-col sm:block">
           <header className="mb-4 flex items-center justify-between sm:mb-10">
             <Logo />
             <Link href="/series-approche" className="text-[14px] font-semibold text-white hover:underline">
               Séries d&apos;approche
             </Link>
           </header>
-          <h1 className="poster font-display text-[54px] leading-[1.04] sm:text-[96px]">
+          <div className="my-auto sm:my-0">
+          <h1 className="poster font-display text-[clamp(54px,min(8.4svh,17vw),76px)] leading-[1.04] sm:text-[96px]">
             Tu entraînes
             <br />
             quoi&nbsp;?
@@ -90,25 +94,26 @@ export default function SessionBuilder({ covers = "photo" }: { covers?: CardCove
             <strong className="block text-[17px] font-bold leading-snug sm:text-[22px]">La longévité du sportif commence ici.</strong>
             <span className="mt-0.5 block text-[15px] sm:mt-1 sm:text-[16px]">Choisis ta séance, obtiens ton échauffement sur mesure.</span>
           </p>
+          </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1080px] px-3 sm:px-8">
-        <section aria-label="Séances types" className="mt-2.5 grid grid-cols-2 gap-2 sm:mt-5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+      <div className="mx-auto w-full max-w-[1080px] px-3 pb-3 sm:px-8 sm:pb-0">
+        <section aria-label="Séances types" className="mt-2.5 grid grid-cols-2 gap-2 [--card:clamp(100px,15.5svh,150px)] sm:mt-5 sm:grid-cols-3 sm:gap-3 sm:[--card:160px] lg:grid-cols-4">
           {templates.map((t) => {
             const c = CARD[t.id] ?? CARD.full;
-            const minutes = buildSessionPlan({ zones: t.zones, template: t.id, lifts: [], pain: [], band: false, short: false, variant: 0 }).minutes;
+            const minutes = buildSessionPlan({ zones: t.zones, template: t.id, lifts: [], pain: [], band: false, short: false }).minutes;
             return (
               <button
                 key={t.id}
                 type="button"
                 onClick={() => go(t.zones, t.id, t.label)}
-                className={`relative flex min-h-[124px] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] sm:min-h-[160px] ${c.bg} ${c.fg}`}
+                className={`relative flex min-h-[var(--card)] flex-col justify-between overflow-hidden rounded-2xl p-3.5 text-left transition-transform active:scale-[0.97] ${c.bg} ${c.fg}`}
               >
                 <span className="text-[12px] font-bold">{minutes} min</span>
                 {covers === "photo" ? (
                   // eslint-disable-next-line @next/next/no-img-element -- vignette statique déjà optimisée
-                  <img src={`/demos/accueil/${t.id}.webp`} alt="" width={360} height={360} className={`pointer-events-none absolute right-2 top-2 w-[64%] object-contain object-right-top ${t.id === "full" ? "h-[60px] sm:h-[84px]" : "h-[70px] sm:h-[92px]"}`} />
+                  <img src={`/demos/accueil/${t.id}.webp`} alt="" width={360} height={360} className={`pointer-events-none absolute right-2 top-2 w-[64%] object-contain object-right-top ${t.id === "full" ? "h-[calc(var(--card)-64px)] sm:h-[84px]" : "h-[calc(var(--card)-54px)] sm:h-[92px]"}`} />
                 ) : (
                   <span style={c.vars as React.CSSProperties} className="absolute right-1 top-2 opacity-90">
                     <FigureStill id={COVER[t.id]?.id ?? t.cover} k={COVER[t.id]?.k ?? 0} className="h-[64px] w-[74px]" />
@@ -123,7 +128,7 @@ export default function SessionBuilder({ covers = "photo" }: { covers?: CardCove
           <button
             type="button"
             onClick={() => setPicking(true)}
-            className="relative flex min-h-[124px] flex-col justify-end overflow-hidden rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97] sm:min-h-[160px]"
+            className="relative flex min-h-[var(--card)] flex-col justify-end overflow-hidden rounded-2xl border-2 border-dashed border-line-strong p-3.5 text-left text-ink transition-transform active:scale-[0.97]"
           >
             {covers === "photo" && (
               // Titre sur deux lignes : la figure (debout, étroite) prend la colonne de droite.
@@ -133,7 +138,10 @@ export default function SessionBuilder({ covers = "photo" }: { covers?: CardCove
             <span className="relative poster font-display text-[28px] leading-[0.95] sm:text-[34px]">Une douleur&nbsp;?</span>
           </button>
         </section>
+      </div>
+      </div>
 
+      <div className="mx-auto max-w-[1080px] px-3 sm:px-8">
         {saved.length > 0 && (
           <div className="-mx-3 mt-3 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
             {saved.map((s) => (

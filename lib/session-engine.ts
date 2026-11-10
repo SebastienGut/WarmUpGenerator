@@ -8,7 +8,7 @@
 //   séance type (Push, Pull…) → sa routine de référence (lib/routines.ts)
 //   « Mes zones »             → bases des zones, mises en commun et ordonnées
 //   puis                        variantes selon le matériel (lib/bank.ts),
-//                               zones sensibles, version courte, ↻ Varier.
+//                               zones sensibles, version courte, ↻ sur chaque exercice.
 //
 // Les séries d'approche sont un outil à part (buildRampPlan, /series-approche).
 
@@ -16,7 +16,7 @@ import type { BodyZone, MuscleGroup } from "@/lib/warmup-data";
 import { LIFTS_BY_ID, SESSION_TEMPLATES, ZONE_LIFTS, ZONE_ORDER, zonesLabel, sessionLabel, type Lift, type LiftLoading } from "@/lib/lifts";
 import { computeApproachSets, formatKg, type ApproachExercise } from "@/lib/approach-sets";
 import { BANK, type BankExercise, type BankPosition, type Equipment, type Variant } from "@/lib/bank";
-import { ALTERNATIVES, MAX_STEPS, SHORT_STEPS, TEMPLATE_ROUTINES, ZONE_BASES, type RoutineEntry } from "@/lib/routines";
+import { ALTERNATIVES, MAX_STEPS, SHORT_STEPS, TEMPLATE_ROUTINES, ZONE_BASES, ZONE_BASES_NONE, type RoutineEntry } from "@/lib/routines";
 import { prepExtras } from "@/lib/rehab";
 
 export type { Equipment } from "@/lib/bank";
@@ -39,8 +39,8 @@ export interface SessionInput {
   band: boolean;
   /** Version courte : quatre exercices au plus. */
   short: boolean;
-  /** Variante : 0 = la routine de référence ; au-delà, remplacements de même fonction. */
-  variant?: number;
+  /** Exercices remplacés par ↻ : exercice prévu → remplaçant choisi. */
+  swaps?: Record<string, string>;
 }
 
 /** Ce que l'interface affiche d'un exercice. */
@@ -68,6 +68,15 @@ export interface PrepStep {
   seconds: number;
   /** Pourquoi cet exercice est là, en clair. */
   reason: string;
+  /** ↻ : prochain remplaçant disponible ; absent s'il n'y en a aucun. */
+  swap?: StepSwap;
+}
+
+export interface StepSwap {
+  /** Exercice prévu par la routine (ce qu'on remplace). */
+  slot: string;
+  /** Exercice suivant dans le cycle ; égal à `slot` pour revenir à l'exercice prévu. */
+  next: string;
 }
 
 export interface RaiseStep {
@@ -192,14 +201,14 @@ export function templateForZones(zones: MuscleGroup[]): string | undefined {
  */
 function composeZones(zones: MuscleGroup[], equipment: Equipment, cap: number): RoutineEntry[] {
   const target = (id: string) => resolve(id, equipment, new Set())?.ex.id;
-  const bases = zones.map((z) => ZONE_BASES[z].filter((en) => target(en.id)));
+  const bases = zones.map((z) => ((equipment === "none" && ZONE_BASES_NONE[z]) || ZONE_BASES[z]).filter((en) => target(en.id)));
   const count = new Map<string, number>();
   for (const b of bases) for (const en of b) count.set(target(en.id)!, (count.get(target(en.id)!) ?? 0) + 1);
   const picked: RoutineEntry[] = [];
   const has = (id: string) => picked.some((p) => target(p.id) === target(id));
   // Tour par tour, chaque zone pas encore servie à ce niveau prend son prochain
   // exercice, en préférant celui qui sert aussi d'autres zones choisies.
-  for (let round = 0; picked.length < cap && round < 4; round++) {
+  for (let round = 0; picked.length < cap && round < 6; round++) {
     for (const b of bases) {
       if (picked.length >= cap || b.filter((en) => has(en.id)).length > round) continue;
       const next = b
@@ -258,18 +267,35 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
   const template = input.template && TEMPLATE_ROUTINES[input.template] ? input.template : !byZone ? templateForZones(zones) : undefined;
   const equipment: Equipment = input.equipment ?? (input.band ? "band" : "gym");
 
-  let entries = template ? TEMPLATE_ROUTINES[template] : composeZones(zones, equipment, input.short ? SHORT_STEPS : MAX_STEPS);
-  // ↻ Varier : remplacements de même fonction, un sur deux selon la variante.
-  const v = input.variant ?? 0;
-  if (v) {
-    let n = 0;
-    entries = entries.map((en) => {
-      const alt = ALTERNATIVES[en.id];
-      if (!alt) return en;
-      n++;
-      return (v + n) % 2 === 0 && !entries.some((o) => o.id === alt) ? { id: alt } : en;
-    });
-  }
+  const planned = template ? TEMPLATE_ROUTINES[template] : composeZones(zones, equipment, input.short ? SHORT_STEPS : MAX_STEPS);
+  const allowed = (id: string) => {
+    const r = resolve(id, equipment, new Set());
+    return r && !(r.ex.avoid ?? []).some((z) => input.pain.includes(z as BodyZone)) ? r.ex.id : null;
+  };
+  // ↻ : le remplaçant prend la place de l'exercice, le reste de la routine ne bouge pas.
+  // Un remplacement devenu impossible (autre matériel, doublon) est ignoré.
+  const taken = new Set(planned.map((en) => allowed(en.id)).filter((id): id is string => Boolean(id)));
+  const entries = planned.map((en): RoutineEntry & { slot: string } => {
+    const alt = input.swaps?.[en.id];
+    const to = alt && ALTERNATIVES[en.id]?.includes(alt) ? allowed(alt) : null;
+    if (!alt || !to || taken.has(to)) return { ...en, slot: en.id };
+    const from = allowed(en.id);
+    if (from) taken.delete(from);
+    taken.add(to);
+    return { id: alt, slot: en.id };
+  });
+
+  // Cycle exercice prévu → remplaçants : seuls ceux possibles ici, sans doublon.
+  const nextSwap = (slot: string, current: string): StepSwap | undefined => {
+    const options = new Map<string, string>();
+    for (const id of [slot, ...(ALTERNATIVES[slot] ?? [])]) {
+      const to = allowed(id);
+      if (to && (to === current || !taken.has(to)) && !options.has(to)) options.set(to, id);
+    }
+    const cycle = [...options.keys()];
+    if (cycle.length < 2) return undefined;
+    return { slot, next: options.get(cycle[(cycle.indexOf(current) + 1) % cycle.length])! };
+  };
 
   const seen = new Set<string>();
   const steps: { step: PrepStep; phase: "mobility" | "activation" }[] = [];
@@ -288,10 +314,11 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
         exercise: { id: r.v.figure, bankId: r.ex.id, name: r.v.name, equipment, needs: r.v.needs, demo: r.v.demo },
         instructions: r.v.instructions,
         substituted: r.substituted,
-        replaces: r.substituted ? plannedName(en.id) : undefined,
+        replaces: r.substituted && en.id === en.slot ? plannedName(en.id) : undefined,
         reps: dose,
         seconds: en.seconds ?? r.ex.seconds,
         reason: r.ex.why,
+        swap: nextSwap(en.slot, r.ex.id),
       },
     });
   }
@@ -347,6 +374,14 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
   };
 }
 
+/** L'entrée avec ce remplacement appliqué (retour à l'exercice prévu quand le cycle est bouclé). */
+export function applySwap(input: SessionInput, { slot, next }: StepSwap): SessionInput {
+  const swaps = { ...input.swaps };
+  if (next === slot) delete swaps[slot];
+  else swaps[slot] = next;
+  return { ...input, swaps };
+}
+
 export function buildRampPlan(liftId: string, workWeight: number | undefined, workReps: number, barWeight = 20, alreadyWarm = false): SessionPlan {
   const lift = LIFTS_BY_ID[liftId];
   const lines = fullRamp(lift, { workWeight, workReps }, barWeight, alreadyWarm);
@@ -363,7 +398,7 @@ export function buildRampPlan(liftId: string, workWeight: number | undefined, wo
 // ── URL ────────────────────────────────────────────────────────────
 // /plan?t=push                       (séance type)
 // /plan?z=jambes,fessiers&p=genou    (mes zones)
-// &m=n|e|s (matériel : sans, élastique, salle — salle par défaut) &c=1 (courte) &v=2
+// &m=n|e|s (matériel : sans, élastique, salle — salle par défaut) &c=1 (courte) &x=face-pull.y-t (remplacements)
 // Anciens liens : /plan?s=squat, e=1 (élastique).
 
 const ZONES = Object.keys(PAIN_LABELS) as BodyZone[];
@@ -378,7 +413,8 @@ export function serializeSession(input: SessionInput): string {
   const eq = input.equipment ?? (input.band ? "band" : "gym");
   if (eq !== "gym") p.set("m", EQ_CODE[eq]);
   if (input.short) p.set("c", "1");
-  if (input.variant) p.set("v", String(input.variant));
+  const swaps = Object.entries(input.swaps ?? {});
+  if (swaps.length) p.set("x", swaps.map(([a, b]) => `${a}.${b}`).join(","));
   return p.toString();
 }
 
@@ -402,7 +438,9 @@ export function parseSession(params: Record<string, string | string[] | undefine
     equipment,
     band: equipment === "band",
     short: str("c") === "1",
-    variant: Math.max(0, Math.floor(Number(str("v")) || 0)) % 1000,
+    swaps: Object.fromEntries(
+      str("x").split(",").map((pair) => pair.split(".")).filter(([a, b]) => ALTERNATIVES[a]?.includes(b)),
+    ),
   };
 }
 

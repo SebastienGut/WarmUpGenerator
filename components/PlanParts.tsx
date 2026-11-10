@@ -7,7 +7,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import ExerciseVisual from "@/components/ExerciseVisual";
 import { EQUIPMENT_LABELS, type Equipment } from "@/lib/bank";
-import type { PlanPhase, PlanStep, RampStep } from "@/lib/session-engine";
+import type { PlanPhase, PlanStep, RampStep, StepSwap } from "@/lib/session-engine";
 
 export function phaseSeconds(phase: PlanPhase) {
   return phase.steps.reduce((s, st) => {
@@ -80,15 +80,17 @@ export function Timeline({ phases }: { phases: PlanPhase[] }) {
 }
 
 /** Ligne d'exercice : pictogramme, nom, volume. La consigne s'ouvre au tap. */
-export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; phase: PlanPhase["key"] }) {
+export function StepRow({ step, phase, onSwap }: { step: Exclude<PlanStep, RampStep>; phase: PlanPhase["key"]; onSwap?: (swap: StepSwap) => void }) {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const id = step.kind === "prep" ? step.exercise.id : "raise";
   const name = step.kind === "prep" ? step.exercise.name : step.name;
   const demo = step.kind === "prep" ? step.exercise.demo : undefined;
+  const swap = step.kind === "prep" ? step.swap : undefined;
   return (
     <li className="overflow-hidden rounded-2xl bg-card shadow-[0_1px_0_var(--line)] ring-1 ring-line">
-      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="flex w-full items-center gap-3 p-2 pr-3.5 text-left">
+      <div className="flex items-center">
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="flex min-w-0 flex-1 items-center gap-3 p-2 pr-1 text-left">
         <ExerciseVisual id={id} demo={demo} label={name} className="h-[58px] w-[64px] shrink-0 rounded-xl bg-ink/[0.04]" />
         <span className="min-w-0 flex-1">
           <span className="block text-[15px] font-semibold leading-snug text-ink">{name}</span>
@@ -98,6 +100,14 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
           ▾
         </motion.span>
       </button>
+      {swap && onSwap ? (
+        <button type="button" onClick={() => onSwap(swap)} aria-label={`Remplacer : ${name}`} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[19px] leading-none text-subtle hover:text-ink active:scale-90">
+          ↻
+        </button>
+      ) : (
+        <span aria-hidden="true" className="w-3 shrink-0" />
+      )}
+      </div>
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
@@ -121,6 +131,11 @@ export function StepRow({ step, phase }: { step: Exclude<PlanStep, RampStep>; ph
       </AnimatePresence>
     </li>
   );
+}
+
+/** Rappel du bouton ↻ présent sur les exercices. */
+export function SwapHint() {
+  return <p className="mb-3 text-[13px] text-subtle">↻ remplace un exercice qui ne te convient pas, le reste ne bouge pas.</p>;
 }
 
 export function Chip({ children, onClick, tone = "default" }: { children: React.ReactNode; onClick: () => void; tone?: "default" | "warn" | "on" }) {

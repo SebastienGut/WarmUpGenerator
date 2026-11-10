@@ -41,6 +41,11 @@ export interface BankExercise {
 
 const same = (v: Variant) => ({ gym: v, band: v, none: v });
 
+/** Exercice identique quel que soit le matériel, sur une seule ligne. */
+const ex = (id: string, phase: BankPhase, position: BankPosition, why: string, dose: string, seconds: number, name: string, instructions: string, figure: string, needs?: string): BankExercise => ({
+  id, phase, position, why, dose, seconds, variants: same({ name, instructions, figure, needs }),
+});
+
 export const BANK: Record<string, BankExercise> = {
   "cat-cow": {
     id: "cat-cow",
@@ -328,7 +333,7 @@ export const BANK: Record<string, BankExercise> = {
         instructions: "Élastique sous les pieds, prise neutre (paumes face à face). Fléchis les coudes sans balancer le buste, redescends lentement.",
         figure: "act-bras-curl-elastique",
       },
-      none: null,
+      none: "flexion-coude",
     },
   },
   "extension-triceps": {
@@ -352,7 +357,21 @@ export const BANK: Record<string, BankExercise> = {
         figure: "act-bras-pushdown-elastique",
         needs: "un point d'ancrage",
       },
-      none: null,
+      none: "flexion-coude",
     },
   },
+  // Remplaçants proposés par ↻ sur un exercice (lib/routines.ts, ALTERNATIVES) ; images déjà existantes.
+  "cercles-epaule": ex("cercles-epaule", "mobility", "debout", "Explore toute l'amplitude de l'épaule, sans charge.", "5 par sens et par côté", 60, "Cercles d'épaule lents", "Bras tendu, dessine le plus grand cercle possible, très lentement, le reste du corps immobile. Réduis le cercle là où ça tire.", "prep-epaules-cars"),
+  "essuie-glaces": ex("essuie-glaces", "mobility", "sol", "Fait tourner le bas du dos et les hanches en douceur.", "8 par côté", 45, "Essuie-glaces des jambes", "Allongé sur le dos, genoux pliés, laisse tomber les deux genoux d'un côté puis de l'autre, épaules au sol.", "art-lombaires-essuie-glace"),
+  "rotations-chevilles": ex("rotations-chevilles", "mobility", "debout", "Remet la cheville en mouvement dans toutes les directions.", "10 par sens et par côté", 50, "Rotations de chevilles", "Pied décollé du sol, dessine de grands cercles lents avec la pointe du pied.", "art-chevilles"),
+  "rotations-poignets": ex("rotations-poignets", "mobility", "debout", "Prépare les poignets, qui tiennent la charge à chaque répétition.", "10 par sens", 40, "Rotations des poignets", "Doigts entrecroisés, dessine de grands cercles lents avec les poignets.", "art-poignets"),
+  "fente-basse": ex("fente-basse", "mobility", "sol", "Ouvre l'avant de la hanche, souvent raide quand on reste assis.", "5 respirations par côté", 50, "Fente basse, genou au sol", "Un genou au sol, l'autre pied devant, avance doucement le bassin jusqu'à sentir l'avant de la hanche s'étirer.", "cib-hanches-fente-rotation"),
+  "squat-profond-rebond": { ...ex("squat-profond-rebond", "mobility", "debout", "Ouvre chevilles, genoux et hanches dans la position du squat.", "8 répétitions", 40, "Squat profond au poids du corps", "Pieds largeur d'épaules, descends aussi bas que possible, talons au sol, mains jointes devant la poitrine. Reste une seconde en bas, remonte sans à-coup.", "art-squat-profond-rebond"), avoid: ["genou"] },
+  retraction: ex("retraction", "activation", "debout", "Apprend à l'omoplate à se placer avant de pousser ou de tirer.", "2 × 10, tenir 2 s", 60, "Rétraction des omoplates, bras tendus", "Debout, bras tendus devant toi à hauteur d'épaules. Sans plier les coudes, recule les épaules pour rapprocher les omoplates, sans les hausser, tiens 2 secondes, relâche.", "rehab-retraction-bras-tendus"),
+  "y-t": ex("y-t", "activation", "debout", "Réveille le bas des trapèzes, qui stabilise l'omoplate.", "2 × 8 répétitions", 60, "Y-T debout", "Debout, pouces vers l'arrière, monte les bras en Y au-dessus de la tête puis ouvre-les en T à hauteur d'épaules, en serrant les omoplates. Lentement, sans hausser les épaules.", "cib-epaule-yt-sol"),
+  "flexion-coude": ex("flexion-coude", "activation", "debout", "Réchauffe biceps, triceps et tendons du coude, sans charge.", "2 × 12 par côté, poing serré", 45, "Flexions-extensions du coude", "Poing serré, plie et tends le coude lentement en contractant le bras, sans forcer en fin d'extension.", "art-coudes"),
+  "planche-laterale": ex("planche-laterale", "activation", "sol", "Gaine le côté du tronc, qui stabilise le bas du dos.", "2 × 15 s par côté", 60, "Planche latérale, genoux au sol", "Sur un coude, genoux pliés au sol, monte le bassin pour aligner épaule, hanche et genou. Respire.", "prep-planche-laterale"),
+  clamshell: ex("clamshell", "activation", "sol", "Réveille le moyen fessier, qui stabilise hanche et genou.", "12 par côté", 50, "Coquillage (clamshell)", "Allongé sur le côté, genoux pliés, pieds joints : ouvre le genou du dessus sans faire rouler le bassin, referme lentement.", "prep-clamshell"),
+  "ouverture-hanche": ex("ouverture-hanche", "activation", "quadrupedie", "Active les rotateurs de hanche, sans charge.", "8 par côté", 45, "Ouverture de hanche à quatre pattes", "À quatre pattes, ouvre le genou plié sur le côté sans tourner le buste, redescends lentement.", "cib-hanches-fire-hydrant"),
+  "montee-marche": { ...ex("montee-marche", "activation", "debout", "Sollicite mollet, cuisse et contrôle du genou en un seul geste.", "8 par côté", 50, "Montée de marche contrôlée", "Sur une marche basse, monte en poussant dans le talon, genou dans l'axe du pied, redescends en 3 secondes.", "cib-genou-step-up", "Une marche ou un step"), avoid: ["genou"] },
 };

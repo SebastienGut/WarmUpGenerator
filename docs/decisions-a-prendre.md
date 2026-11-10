@@ -7,17 +7,15 @@
 
 - [ ] **Routines par groupe musculaire** (Seb, à venir) : tu proposeras tes routines par groupe musculaire,
       avec les exercices à ajouter. Je les intégrerai (banque, variantes par matériel, démonstrations IA
-      pour les nouveaux exercices). Questions restées en suspens, à trancher à ce moment-là :
-      - **Push** : rotation externe puis face pull, deux exercices pour l'arrière de l'épaule. Redondant ou voulu ?
-      - **↻ Varier** : il ne reste que 4 permutations (dead bug ↔ bird dog, rotation externe debout ↔
-        allongé, 90/90 ↔ squat assisté). Garder le bouton ou le retirer ?
-      - **Bras sans matériel** : une seule ligne (pronation-supination), aucun équivalent honnête pour
-        biceps et triceps. Acceptable, ou ajouter un message « fais une série légère de ton premier exercice » ?
-- [ ] **Démonstrations IA** (relecture au fil de l'eau) : globalement validées ; si une image ne va pas,
-      donne son nom et je la régénère.
+      pour les nouveaux exercices).
+- [ ] **Démonstrations IA à refaire** : tractions et tirage vertical, en prise pronation (retour de Seb,
+      nov. 2026) ; les autres images sont validées.
 
 ## Traitées
 
+- [x] **Push, rotation externe puis face pull** : voulu (Seb, nov. 2026), coiffe d'un côté, omoplates de l'autre.
+- [x] **↻ Varier** : remplacé par un ↻ sur chaque exercice (nov. 2026), le reste du plan ne bouge pas.
+- [x] **Bras sans matériel** : complété (épaule, coude, poignets) ; curl et extension deviennent des flexions du coude.
 - [x] **Routines « Une douleur ? »** : validées (3 nov. 2026). Ton choisi : un outil pour aller mieux, sans
       prétendre remplacer un kiné ; avertissements allégés (règle des 3/10 gardée, plus de paragraphes de précaution).
 - [x] **Relecture par un coach diplômé** : abandonnée (on ne vend rien) ; mention retirée de /methodologie.

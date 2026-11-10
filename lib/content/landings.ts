@@ -195,7 +195,7 @@ const RAW: Record<string, Landing> = {
       { title: "Des versions de remplacement", body: "Le face pull n'a pas d'équivalent au poids du corps : il est remplacé par le W allongé, qui travaille les mêmes muscles, et l'outil l'indique." },
     ],
     faqs: [
-      { q: "Peut-on bien s'échauffer sans matériel ?", a: "Oui pour la mobilité et presque toute l'activation (squat profond assisté, good morning, pompes scapulaires, dead bug). Seuls le face pull et les exercices de bras n'ont pas d'équivalent exact : la routine les remplace ou les retire, sans le cacher." },
+      { q: "Peut-on bien s'échauffer sans matériel ?", a: "Oui pour la mobilité et presque toute l'activation (squat profond assisté, good morning, pompes scapulaires, dead bug). Seuls le face pull et les exercices de bras n'ont pas d'équivalent exact : la routine les remplace par l'exercice le plus proche, et l'indique." },
       DUREE,
       { q: "Quel échauffement sans matériel pour le haut du corps ?", a: "Cat-cow, rotation thoracique à quatre pattes, pompes scapulaires contre un mur, rotation externe allongé sur le côté et W allongé sur le ventre. Choisis « Sans matériel » sur la page échauffement haut du corps." },
       ETIREMENTS,
@@ -291,7 +291,7 @@ const RAW: Record<string, Landing> = {
     h1: "Échauffement bras",
     kicker: "Biceps, triceps, coudes",
     keyAnswer:
-      "Avant une séance bras, l'échauffement vise les coudes et les poignets, très sollicités par les curls et les extensions : pronation-supination des avant-bras, puis un curl marteau très léger et une extension triceps légère, à la poulie, à l'haltère ou à l'élastique. Sans matériel, seule la mobilité reste : les séries d'approche font le reste.",
+      "Avant une séance bras, l'échauffement vise les coudes et les poignets, très sollicités par les curls et les extensions : pronation-supination des avant-bras, puis un curl marteau très léger et une extension triceps légère, à la poulie, à l'haltère ou à l'élastique. Sans matériel, la routine prépare tout ce qui porte le bras : cercles d'épaule, poignets, flexions du coude, pompes scapulaires et rotation externe.",
     needs: [
       { title: "Des coudes préparés", body: "Les tendons du coude encaissent les curls et les extensions : une série très légère de chaque les prépare." },
       { title: "Des poignets mobiles", body: "La prise sur la barre ou les haltères met les poignets en tension, surtout en supination." },
@@ -382,7 +382,7 @@ const RAW: Record<string, Landing> = {
 
 /** Durée réelle du plan affiché sur la page (moteur, version complète). */
 export function landingMinutes(l: Pick<Landing, "zones" | "template" | "equipment">, short = false) {
-  return buildSessionPlan({ zones: l.zones, template: l.template, lifts: [], pain: [], band: false, equipment: l.equipment ?? "gym", short, variant: 0 }).minutes;
+  return buildSessionPlan({ zones: l.zones, template: l.template, lifts: [], pain: [], band: false, equipment: l.equipment ?? "gym", short }).minutes;
 }
 
 // Les textes écrivent « {min} » (version complète) et « {court} » (version

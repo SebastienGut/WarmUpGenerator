@@ -43,7 +43,7 @@ const sessionRoutines = SESSION_TEMPLATES.filter((t) => t.id !== "bas").map((t) 
   name: t.label,
   byEquipment: Object.fromEntries(
     KITS.map((eq) => {
-      const plan = buildSessionPlan({ template: t.id, zones: t.zones, lifts: [], pain: [], band: false, equipment: eq, short: false, variant: 0 });
+      const plan = buildSessionPlan({ template: t.id, zones: t.zones, lifts: [], pain: [], band: false, equipment: eq, short: false });
       return [eq, { minutes: plan.minutes, steps: stepsOf(plan) }];
     }),
   ),

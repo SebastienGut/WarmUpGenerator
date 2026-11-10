@@ -9,7 +9,7 @@ import { buildSessionPlan, type PrepStep, type SessionInput } from "@/lib/sessio
 const EQ: Equipment[] = ["gym", "band", "none"];
 
 function print(name: string, input: Partial<SessionInput>) {
-  const plan = buildSessionPlan({ zones: [], lifts: [], pain: [], band: false, short: false, variant: 0, ...input });
+  const plan = buildSessionPlan({ zones: [], lifts: [], pain: [], band: false, short: false, ...input });
   console.log(`\n=== ${name} — ${plan.minutes} min, ${EQUIPMENT_LABELS[plan.equipment]}`);
   for (const ph of plan.phases) {
     for (const s of ph.steps as PrepStep[]) {

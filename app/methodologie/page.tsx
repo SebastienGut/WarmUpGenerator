@@ -40,7 +40,7 @@ const PRINCIPLES = [
   {
     n: "04",
     title: "Ton matériel, des remplacements honnêtes",
-    body: "Tu indiques une fois ton matériel (sans matériel, élastique ou salle) ; chaque exercice prend la variante correspondante : rotation externe à la poulie, à l'élastique, ou allongé sur le côté. Quand il n'existe pas d'équivalent fiable, l'outil le dit : sans matériel, le face pull devient un W allongé, qui travaille les mêmes muscles, et les exercices de bras disparaissent plutôt que d'être remplacés par un geste qui n'a rien à voir. Pas d'étirement tenu longtemps avant l'effort.",
+    body: "Tu indiques une fois ton matériel (sans matériel, élastique ou salle) ; chaque exercice prend la variante correspondante : rotation externe à la poulie, à l'élastique, ou allongé sur le côté. Quand il n'existe pas d'équivalent fiable, l'outil le dit : sans matériel, le face pull devient un W allongé, qui travaille les mêmes muscles, et les curls et extensions deviennent des flexions du coude poing serré, complétées par la préparation de l'épaule et des poignets. Pas d'étirement tenu longtemps avant l'effort.",
   },
   {
     n: "05",

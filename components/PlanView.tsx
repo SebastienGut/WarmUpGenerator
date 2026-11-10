@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { Chip, EquipmentPicker, PhaseMark, StepRow, SwapHint, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
 import { EQUIPMENT_LABELS } from "@/lib/bank";
 import { saveEquipment } from "@/lib/equipment-pref";
 import GuidedMode from "@/components/GuidedMode";
@@ -11,6 +11,7 @@ import { REHAB_ZONES } from "@/lib/rehab";
 import { saveSession } from "@/lib/saved-sessions";
 import {
   PAIN_LABELS,
+  applySwap,
   buildSessionPlan,
   parseSession,
   serializeSession,
@@ -95,18 +96,15 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       <aside className="lg:sticky lg:top-6 lg:self-start">
         <Timeline phases={plan.phases} />
 
-        {/* Réglages utiles en salle : le matériel disponible, et une autre version. */}
-        <div className="mt-5 flex flex-col items-start gap-3">
-          <div className="w-full">
-            <EquipmentPicker
-              value={plan.equipment}
-              onChange={(v) => {
-                saveEquipment(v);
-                update({ equipment: v, band: v === "band" });
-              }}
-            />
-          </div>
-          <Chip onClick={() => update({ variant: ((input.variant ?? 0) + 1) % 997 })}>↻ Varier</Chip>
+        {/* Réglage utile en salle : le matériel disponible. */}
+        <div className="mt-5">
+          <EquipmentPicker
+            value={plan.equipment}
+            onChange={(v) => {
+              saveEquipment(v);
+              update({ equipment: v, band: v === "band" });
+            }}
+          />
         </div>
 
         {/* Zone sensible : ajoute un ou deux exercices doux à la préparation (pas une séance de soin). */}
@@ -141,15 +139,16 @@ function PlanContent({ initial }: { initial: SessionInput }) {
       </aside>
 
       <div className="mt-8 lg:mt-14">
+        <SwapHint />
         {plan.phases.map((phase) => (
-          <section key={phase.key + (input.variant ?? 0)} className="mb-8">
+          <section key={phase.key} className="mb-8">
             <h2 className="mb-2 flex items-center gap-3">
               <PhaseMark phase={phase.key} />
               <span className="poster font-display text-[26px] leading-none text-ink">{phase.title}</span>
               <span className="ml-auto text-[13px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h2>
             <ol className="flex flex-col gap-2">
-              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} />))}
+              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} onSwap={(swap) => update({ swaps: applySwap(input, swap).swaps })} />))}
             </ol>
           </section>
         ))}

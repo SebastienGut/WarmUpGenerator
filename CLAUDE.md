@@ -53,7 +53,7 @@ Commandes utiles : `npm run check` (moteur), `npm run routines`, `npm run crawl`
 Deux outils **distincts** (décision de Seb : ne pas mêler échauffement et montée en charge) :
 1. **Générateur d'échauffement** — séance type (Push, Pull, Legs, Upper, Full body) ; routines de référence
    (lib/routines.ts, lib/bank.ts), mobilité → activation, sans cardio ; matériel sans / élastique / salle.
-   Pages par zone (landings) composées par le moteur. Mode guidé, ↻ Varier, séances récentes.
+   Pages par zone (landings) composées par le moteur. Mode guidé, ↻ sur chaque exercice (remplaçants de même fonction, lib/routines.ts), séances récentes.
    **Une douleur ?** (/routine-douleur, lib/rehab.ts) — zones douloureuses → routine de soin plus longue
    (mobilité douce, renforcement léger), règle des 3/10 à cocher, renvoi discret vers un professionnel.
 2. **Calculateur de séries d'approche** (/series-approche) — exercice + charge de travail du jour + reps

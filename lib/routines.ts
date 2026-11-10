@@ -33,7 +33,7 @@ export const TEMPLATE_ROUTINES: Record<string, RoutineEntry[]> = {
     e("rotation-thoracique", "6 par côté", 55),
     e("wall-slides", "2 × 8 répétitions", 65),
     e("face-pull", "2 × 12 répétitions", 85),
-    e("curl-marteau", "2 × 10 répétitions", 65),
+    e("curl-marteau", "2 × 10 répétitions", 55),
   ],
   legs: [
     e("cheville-mur", "10 par côté", 50),
@@ -79,12 +79,32 @@ export const ZONE_BASES: Record<MuscleGroup, RoutineEntry[]> = {
   core: [e("cat-cow"), e("bird-dog"), e("dead-bug")],
 };
 
-/** Remplacements proposés par ↻ Varier : seulement entre exercices de même fonction. */
-export const ALTERNATIVES: Record<string, string> = {
-  "dead-bug": "bird-dog",
-  "bird-dog": "dead-bug",
-  "rotation-externe": "rotation-externe-cote",
-  "90-90": "squat-assiste",
+/** Sans matériel, « Bras » n'a pas d'isolation : on prépare tout ce qui porte le bras (épaule, coude, poignet). */
+export const ZONE_BASES_NONE: Partial<Record<MuscleGroup, RoutineEntry[]>> = {
+  bras: [e("cercles-epaule"), e("pronation-supination"), e("rotations-poignets"), e("curl-marteau"), e("pompes-scapulaires"), e("rotation-externe")],
+};
+
+/** Remplaçants proposés par ↻ sur un exercice : même phase, fonction la plus proche possible. */
+export const ALTERNATIVES: Record<string, string[]> = {
+  "cat-cow": ["rotation-thoracique", "essuie-glaces"],
+  "rotation-thoracique": ["cat-cow", "essuie-glaces"],
+  "wall-slides": ["cercles-epaule", "rotation-thoracique"],
+  "cercles-epaule": ["wall-slides", "rotation-thoracique"],
+  "cheville-mur": ["rotations-chevilles", "squat-profond-rebond"],
+  "squat-assiste": ["squat-profond-rebond", "90-90", "fente-basse"],
+  "good-morning": ["90-90", "fente-basse"],
+  "90-90": ["fente-basse", "squat-assiste"],
+  "pronation-supination": ["rotations-poignets"],
+  "rotations-poignets": ["pronation-supination"],
+  "pompes-scapulaires": ["retraction", "y-t"],
+  "rotation-externe": ["rotation-externe-cote", "y-t", "retraction"],
+  "face-pull": ["w-allonge", "retraction", "y-t"],
+  "glute-bridge": ["clamshell", "ouverture-hanche"],
+  mollets: ["montee-marche"],
+  "dead-bug": ["bird-dog", "planche-laterale"],
+  "bird-dog": ["dead-bug", "planche-laterale"],
+  "curl-marteau": ["flexion-coude", "retraction"],
+  "extension-triceps": ["flexion-coude", "retraction"],
 };
 
 /** Volume maximal : au-delà, la préparation devient une séance. */

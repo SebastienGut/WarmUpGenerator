@@ -127,6 +127,10 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - 3 nov. 2026 : incident de mise en ligne : Vercel n'a pas reçu la notification GitHub de deux pushs
   (47b33e7, 404c2a5 : aucun statut sur le commit). Relancé par un commit vide. À surveiller : après un push,
   vérifier qu'un statut « Vercel » apparaît sur le commit (gh api repos/SebastienGut/WarmUpGenerator/commits/<sha>/statuses).
+- Nov. 2026 : ↻ par exercice à la place de ↻ Varier (ALTERNATIVES, 13 exercices ajoutés à la banque avec des
+  images existantes, URL x=) ; Bras sans matériel complété ; accueil mobile cadré sur un écran (bandeau + 6 cartes).
+- 3 nov. 2026 : cartes de l'accueil en démonstrations détourées (scripts/assets/build-covers.mjs), image pour
+  « Une douleur ? ».
 - 3 nov. 2026 : lot 4 suite, 32 exercices de séance (développés, tirages, squats, soulevés, machines,
   tractions…) générés et relus de la même façon ; ils remplacent les pictogrammes dans le calculateur de
   séries d'approche, le mode guidé et les pages d'atterrissage. Les cartes de l'accueil gardent leurs

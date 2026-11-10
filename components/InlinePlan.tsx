@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import GuidedMode from "@/components/GuidedMode";
-import { Chip, EquipmentPicker, PhaseMark, StepRow, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
+import { EquipmentPicker, PhaseMark, StepRow, SwapHint, Timeline, fmtMin, phaseSeconds } from "@/components/PlanParts";
 import type { Equipment } from "@/lib/bank";
 import { loadEquipment, saveEquipment } from "@/lib/equipment-pref";
-import { buildSessionPlan, type SessionInput } from "@/lib/session-engine";
+import { applySwap, buildSessionPlan, type SessionInput } from "@/lib/session-engine";
 import type { MuscleGroup } from "@/lib/warmup-data";
 
 /**
@@ -17,7 +17,7 @@ import type { MuscleGroup } from "@/lib/warmup-data";
 export default function InlinePlan({ zones, template, fixedEquipment }: { zones: MuscleGroup[]; template?: string; fixedEquipment?: Equipment }) {
   const [equipment, setEquipment] = useState<Equipment>(fixedEquipment ?? "gym");
   const short = false;
-  const [variant, setVariant] = useState(0);
+  const [swaps, setSwaps] = useState<SessionInput["swaps"]>({});
   const [guided, setGuided] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function InlinePlan({ zones, template, fixedEquipment }: { zones:
     if (!fixedEquipment) setEquipment(loadEquipment());
   }, [fixedEquipment]);
 
-  const input: SessionInput = { zones, template, lifts: [], pain: [], band: equipment === "band", equipment, short, variant };
+  const input: SessionInput = { zones, template, lifts: [], pain: [], band: equipment === "band", equipment, short, swaps };
   // Calcul instantané (quelques dizaines d'exercices) : pas besoin de mémoïser.
   const plan = buildSessionPlan(input);
 
@@ -49,20 +49,17 @@ export default function InlinePlan({ zones, template, fixedEquipment }: { zones:
         />
       </div>
 
-      <div className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-        <Chip onClick={() => setVariant((v) => (v + 1) % 997)}>↻ Varier</Chip>
-      </div>
-
       <div className="mt-6">
+        <SwapHint />
         {plan.phases.map((phase) => (
-          <section key={phase.key + variant} className="mb-6">
+          <section key={phase.key} className="mb-6">
             <h3 className="mb-2 flex items-center gap-3">
               <PhaseMark phase={phase.key} />
               <span className="poster font-display text-[22px] leading-none text-ink">{phase.title}</span>
               <span className="ml-auto text-[13px] text-subtle tabular">{fmtMin(phaseSeconds(phase))}</span>
             </h3>
             <ol className="flex flex-col gap-2">
-              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} />))}
+              {phase.steps.map((s, j) => (s.kind === "ramp" ? null : <StepRow key={`${s.kind === "prep" ? s.exercise.id : "r"}${j}`} step={s} phase={phase.key} onSwap={(swap) => setSwaps(applySwap(input, swap).swaps)} />))}
             </ol>
           </section>
         ))}

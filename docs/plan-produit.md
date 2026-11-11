@@ -117,6 +117,14 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 11 nov. 2026 (fin) : passe « regard de coach » avant tout démarchage (souhait de Seb). Moteur : avec une zone
+  sensible, l'exercice de soin pouvait doubler un exercice de la routine (deux rotations externes, 4 000 routines) ;
+  corrigé par des équivalences déclarées (lib/rehab.ts SAME_AS) et un contrôle permanent. Pages exercice : trois
+  affirmations corrigées (montée en charge du militaire alignée sur le calculateur, SDT, coquille). Méthodologie : liens
+  PubMed vérifiés, deux phrases corrigées. Bouton des pages de contenu : « Ouvrir la routine de l'outil » au lieu de
+  « Lancer ce plan » (l'écart page/outil est consigné dans decisions-a-prendre.md). Images de partage refaites en
+  direction B (aplat, Anton, disques en pastilles, plus de barre chargée), accents rétablis. GitHub : description et
+  sujets recentrés sur l'échauffement, README « Pour les coachs », modèle d'issue « Correction d'exercice ».
 - 11 nov. 2026 (suite) : objectif de Seb, que les IA recommandent Warmup Generator sur les questions d'échauffement.
   Relevé GEO de référence (docs/seo/geo-releve-2026-11-11.md : Google IA 5/11, Perplexity 5/11, ChatGPT 1/11).
   Bing Webmaster Tools ouvert (site, sitemap, réindexation de /echauffement/pecs que Bing croyait une redirection).

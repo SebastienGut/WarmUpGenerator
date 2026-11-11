@@ -15,6 +15,28 @@ sans inscription, sans collecte de données.
 
 ---
 
+## Pour les coachs et préparateurs physiques
+
+- **Ce que fait l'outil.** Une routine de référence par séance type, mobilité puis activation,
+  sans cardio ni étirement long ; la montée en température se fait ensuite sur le premier
+  exercice, avec les séries d'approche. Les routines sont listées par séance et par matériel
+  avec `npm run routines`.
+- **Ce qui est prouvé, ce qui est choisi.** La [méthodologie](https://warmup-generator.com/methodologie)
+  sépare ce qui s'appuie sur la recherche (effet de l'échauffement sur la performance, coût des
+  étirements statiques longs) de ce qui relève de choix de programmation (exercices, doses,
+  ordre). Les doses sont des choix assumés, pas des valeurs démontrées.
+- **Des sources vérifiables.** Les pages de contenu citent leurs études avec un lien PubMed
+  ([`lib/content/sources.ts`](lib/content/sources.ts)) ; aucune référence n'est ajoutée sans avoir
+  été retrouvée dans PubMed.
+- **Des règles contrôlées.** `npm run check` vérifie 62 547 combinaisons (séance, matériel,
+  zones sensibles) : pas de doublon de fonction, pas d'exercice contre-indiqué pour une zone
+  sensible, mobilité avant activation, matériel respecté.
+- **Une erreur, un désaccord ?** Ouvre une
+  [issue « Correction d'exercice »](https://github.com/SebastienGut/WarmUpGenerator/issues/new?template=correction-exercice.md) :
+  consigne, dose, choix d'exercice ou source. Les retours de professionnels sont les bienvenus.
+
+---
+
 ## Les contraintes du projet
 
 - **Zéro coût serveur.** Pas d'API externe, pas de base de données, pas d'IA en ligne :
@@ -89,6 +111,8 @@ curl https://warmup-generator.com/api/exercices
 ```
 
 Documentation : **[warmup-generator.com/donnees](https://warmup-generator.com/donnees)**.
+Aussi publié sur Hugging Face :
+[fabdigstudio/warmup-exercises-fr](https://huggingface.co/datasets/fabdigstudio/warmup-exercises-fr).
 
 ## Licence
 

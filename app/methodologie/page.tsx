@@ -50,7 +50,7 @@ const PRINCIPLES = [
   {
     n: "06",
     title: "Les séries d'approche, un outil à part",
-    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : des sauts réguliers (20 kg ou 20 % de la charge au plus), des répétitions qui baissent, et un dernier palier lourd (90 % avant 1 à 3 répétitions, 85 % avant 4 à 6, 80 % avant 7 à 10), le plus utile d'après les études récentes ; deux paliers seulement si l'exercice suit un autre exercice pour les mêmes muscles, arrondis aux disques réels.",
+    body: "La montée en charge se fait sur l'exercice lui-même, une fois échauffé : c'est le second outil. À partir de ta charge et de tes répétitions de travail du jour, il calcule les paliers : des sauts réguliers (20 kg ou 20 % de la charge au plus), des répétitions qui baissent, et un dernier palier lourd (90 % avant 1 à 3 répétitions, 85 % avant 4 à 6, 80 % avant 7 à 10) ; deux paliers seulement si l'exercice suit un autre exercice pour les mêmes muscles, arrondis aux disques réels.",
   },
 ];
 
@@ -74,7 +74,7 @@ const STATUS = [
   },
 ];
 
-const SOURCES = [
+const SOURCES: { label: string; full: string; url?: string; desc: string }[] = [
   {
     label: "Jeffreys (2007)",
     full: "Warm-up revisited: the RAMP method of optimising warm-ups",
@@ -83,31 +83,37 @@ const SOURCES = [
   {
     label: "Fradkin et al. (2010)",
     full: "Effects of warming-up on physical performance: a systematic review with meta-analysis",
+    url: "https://pubmed.ncbi.nlm.nih.gov/19996770/",
     desc: "Revue systématique : l'échauffement améliore la performance dans 79 % des critères mesurés.",
   },
   {
     label: "McCrary, Ackermann & Halaki (2015)",
     full: "A systematic review of the effects of upper body warm-up on performance and injury",
-    desc: "Revue sur le haut du corps : échauffements dynamiques et spécifiques améliorent la performance ; peu de données solides sur la prévention des blessures.",
+    url: "https://pubmed.ncbi.nlm.nih.gov/25694615/",
+    desc: "Revue sur le haut du corps : échauffements dynamiques et spécifiques améliorent la performance ; aucune étude n'y mesure l'effet sur les blessures.",
   },
   {
     label: "Behm & Chaouachi (2011)",
     full: "A review of the acute effects of static and dynamic stretching on performance",
+    url: "https://pubmed.ncbi.nlm.nih.gov/21373870/",
     desc: "Les étirements statiques prolongés réduisent la force et la puissance ; les étirements dynamiques préservent voire améliorent la performance.",
   },
   {
     label: "Behm et al. (2016)",
     full: "Acute effects of muscle stretching on physical performance, range of motion, and injury incidence",
+    url: "https://pubmed.ncbi.nlm.nih.gov/26642915/",
     desc: "Au-dessous de 60 secondes par muscle, l'effet des étirements statiques sur la performance devient faible : c'est la durée qui compte.",
   },
   {
     label: "Hartmann et al. (2013)",
     full: "Analysis of the load on the knee joint and vertebral column with changes in squatting depth and weight load",
+    url: "https://pubmed.ncbi.nlm.nih.gov/23821469/",
     desc: "Le squat profond bien exécuté n'est pas plus risqué pour le genou que le squat partiel, à charge adaptée.",
   },
   {
     label: "Page (2012)",
     full: "Current concepts in muscle stretching for exercise and rehabilitation",
+    url: "https://pubmed.ncbi.nlm.nih.gov/22319684/",
     desc: "Cadre clinique sur la place des étirements avant et après l'effort, et sur la mobilité dynamique.",
   },
 ];
@@ -271,7 +277,13 @@ export default function MethodologyPage() {
                   <span className="text-[14px] font-semibold text-ink">
                     {s.label}
                   </span>
-                  <span className="text-[13px] font-bold text-ink">{s.full}</span>
+                  {s.url ? (
+                    <a href={s.url} target="_blank" rel="noopener" className="text-[13px] font-bold text-ink underline underline-offset-2">
+                      {s.full}
+                    </a>
+                  ) : (
+                    <span className="text-[13px] font-bold text-ink">{s.full}</span>
+                  )}
                 </div>
                 <p className="text-[13px] leading-relaxed text-muted">{s.desc}</p>
               </li>

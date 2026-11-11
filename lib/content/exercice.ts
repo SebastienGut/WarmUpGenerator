@@ -97,7 +97,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Le développé couché peut-il abîmer les épaules ?",
-        a: "Le DC bien exécuté est l'un des exercices les plus sûrs. Le DC mal exécuté (sans rétraction scapulaire, prise trop large, descente incomplète, ou trop loué d'un coup) est l'un des plus dangereux. La technique et l'échauffement font 90 % de la différence.",
+        a: "Le DC bien exécuté est l'un des exercices les plus sûrs. Le DC mal exécuté (sans rétraction scapulaire, prise trop large, descente incomplète, ou charge augmentée trop vite) est l'un des plus dangereux. La technique et l'échauffement font 90 % de la différence.",
       },
       {
         q: "Faut-il faire les pompes avant le DC ?",
@@ -276,7 +276,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Combien de séries de chauffe avant le SDT lourd ?",
-        a: "Commence avec deux disques de 20 kg (la barre seule est trop basse), puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Le SDT a besoin de moins de séries de chauffe que le squat car il fatigue plus le système nerveux — mais il faut activer la chaîne postérieure au préalable.",
+        a: "Commence avec deux disques de 20 kg (la barre seule est trop basse), puis des sauts réguliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Beaucoup de pratiquants font un peu moins de paliers au SDT qu'au squat, pour garder leur énergie pour les séries de travail ; la chaîne postérieure, elle, doit être activée avant.",
       },
       {
         q: "Le SDT abîme-t-il forcément le dos ?",
@@ -547,7 +547,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       },
       {
         q: "Combien de séries de chauffe avant l'OHP lourd ?",
-        a: "Pour 80 % du 1RM : barre vide × 10, 50 % × 5, 70 % × 3, 80 % × 1. L'OHP demande plus de chauffe que le DC car la coiffe est plus exposée. Ne sous-estime pas la barre vide — c'est là que tu programmes la trajectoire.",
+        a: "Barre seule × 10, puis 2 à 4 paliers en baissant les répétitions, jusqu'à un dernier palier autour de 85 % de ta charge de travail. Ne sous-estime pas la barre seule : c'est là que tu cales la trajectoire, qui passe juste devant le visage.",
       },
       {
         q: "L'OHP debout abîme-t-il le dos ?",

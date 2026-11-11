@@ -8,8 +8,21 @@
 - [ ] **Routines par groupe musculaire** (Seb, à venir) : tu proposeras tes routines par groupe musculaire,
       avec les exercices à ajouter. Je les intégrerai (banque, variantes par matériel, démonstrations IA
       pour les nouveaux exercices).
+- [ ] **Pages exercice et douleur : deux protocoles pour un même cas** (11 nov. 2026, regard de coach).
+      Exemple : « Échauffement avant le squat » décrit 6 mouvements écrits à la main (cheville en fente, 90/90,
+      pont fessier, squat cosaque, squats avec pause, barre vide), mais le bouton de la page ouvre la routine
+      du moteur (cheville au mur, squat profond assisté, good morning, cat-cow, bird dog, dead bug, mollets).
+      Même écart sur les pages développé couché, soulevé de terre, rowing, militaire, tractions, et sur les
+      pages douleur et protection. Un coach voit deux réponses différentes du même site.
+      Options : (a) les pages affichent la routine du moteur, plus la barre seule et les séries d'approche
+      (une seule source de vérité, textes à réécrire) ; (b) le moteur reprend ces protocoles par exercice
+      (exercices à ajouter à la banque, démonstrations IA à produire) ; (c) garder les deux, en les présentant
+      comme « protocole détaillé » et « routine rapide de l'outil ». Ma recommandation : (a).
+      En attendant : le bouton ne promet plus « ce plan », il ouvre « la routine de l'outil ».
 
 ## Traitées
+- [x] **Doublon de rotation externe avec une épaule sensible** : corrigé le 11 nov. 2026 (4 000 routines
+      concernées), contrôle permanent ajouté dans scripts/bench/engine-checks.ts.
 
 - [x] **Push, rotation externe puis face pull** : voulu (Seb, nov. 2026), coiffe d'un côté, omoplates de l'autre.
 - [x] **↻ Varier** : remplacé par un ↻ sur chaque exercice (nov. 2026), le reste du plan ne bouge pas.

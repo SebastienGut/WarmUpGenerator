@@ -90,7 +90,8 @@ export interface SEOPageProps {
   /** @deprecated Conservé pour compat ascendante. */
   totalDurationLabel?: string;
   ramp?: SEORamp;
-  /** Deep-link vers /plan préconfiguré : le CTA devient « Lancer ce plan en mode guidé ». */
+  /** Deep-link vers /plan préconfiguré : le CTA ouvre la routine de l'outil (qui peut différer
+   * du protocole écrit de la page, d'où un libellé qui ne promet pas « ce plan »). */
   planHref?: string;
   /** Date ISO de la dernière mise à jour réelle du contenu : affichée sous le titre
    * et reprise dans le schéma Article. */
@@ -184,11 +185,11 @@ export default function SEOPage(props: SEOPageProps) {
             {planHref ? "Mode guidé" : "Plan personnalisé"}
           </span>
           <span className="font-display text-[21px] font-extrabold leading-tight tracking-tight ">
-            {planHref ? "Lancer ce plan, étape par étape" : "Construire ton échauffement"}
+            {planHref ? "Ouvrir la routine de l'outil" : "Construire ton échauffement"}
           </span>
           <span className="text-[12px] font-medium">
             {planHref
-              ? "Mobilité et activation, minuteur intégré · Hors ligne"
+              ? "Sa routine de référence pour ce cas, en mode guidé · Hors ligne"
               : "Par séance, selon ton matériel · Gratuit, sans compte"}
           </span>
         </div>
@@ -456,7 +457,7 @@ export default function SEOPage(props: SEOPageProps) {
           className="flex items-center justify-between gap-3 rounded-xl bg-accent px-5 py-3 text-on-accent active:scale-[0.98] transition-transform"
         >
           <span className="font-display text-[17px] font-extrabold tracking-tight">
-            {planHref ? "Lancer ce plan" : "Générer mon plan"}
+            {planHref ? "Ouvrir dans l'outil" : "Générer mon plan"}
           </span>
           <svg width="12" height="14" viewBox="0 0 14 16" fill="currentColor" aria-hidden="true">
             <path d="M0 0 L14 8 L0 16 Z" />

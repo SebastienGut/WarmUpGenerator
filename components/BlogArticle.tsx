@@ -15,7 +15,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.h1,
-    description: post.metaDescription,
+    description: post.keyAnswer ?? post.metaDescription,
     inLanguage: "fr-FR",
     url: `${siteUrl}${path}`,
     datePublished: frDateToISO(post.publishDate),
@@ -93,6 +93,12 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
           <h1 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink hyphens-auto sm:text-[40px] md:text-[46px]">
             {post.h1}
           </h1>
+          {post.keyAnswer && (
+            <div className="rounded-2xl border border-line bg-ink/[0.035] px-5 py-4">
+              <p className="mb-2 text-[14px] font-semibold text-ink">En bref</p>
+              <p className="text-[15px] font-medium leading-[1.65] text-ink md:text-[16px]">{post.keyAnswer}</p>
+            </div>
+          )}
           <p className="text-[16px] leading-[1.7] text-muted">{post.intro}</p>
         </section>
 

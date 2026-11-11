@@ -52,6 +52,10 @@ export const SOURCES = {
     label: "Cullinane FL, Boocock MG, Trevelyan FC. Is eccentric exercise an effective treatment for lateral epicondylitis? A systematic review. Clin Rehabil, 2014.",
     url: pubmed("23881334"),
   },
+  mccrary2015: {
+    label: "McCrary JM, Ackermann BJ, Halaki M. A systematic review of the effects of upper body warm-up on performance and injury. Br J Sports Med, 2015.",
+    url: pubmed("25694615"),
+  },
   behm2016: {
     label: "Behm DG et coll. Acute effects of muscle stretching on physical performance, range of motion, and injury incidence in healthy active individuals: a systematic review. Appl Physiol Nutr Metab, 2016.",
     url: pubmed("26642915"),

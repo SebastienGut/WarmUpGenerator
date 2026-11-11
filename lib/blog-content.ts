@@ -16,6 +16,8 @@ export interface BlogPost {
   sections: BlogSection[];
   faqs: { q: string; a: string }[];
   relatedLinks: { href: string; label: string }[];
+  /** Réponse autoportante de 40 à 60 mots, citable hors contexte, affichée « En bref » */
+  keyAnswer?: string;
   /** Date (« 11 novembre 2026 ») de la dernière mise à jour réelle du contenu */
   updatedDate?: string;
   /** Références vérifiées (lib/content/sources.ts) */
@@ -221,112 +223,108 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "guide-complet-echauffement-musculation",
-    metaTitle: "Guide complet de l'échauffement en musculation (2026)",
+    metaTitle: "Comment s'échauffer avant la musculation : le guide complet",
     metaDescription:
-      "Tout ce qu'il faut savoir sur l'échauffement en musculation : pourquoi, combien de temps, les 3 phases, les erreurs à éviter.",
-    h1: "Guide complet — L'échauffement en musculation",
+      "Comment s'échauffer avant la musculation : mobilité, activation puis séries d'approche, 5 à 8 minutes, sans cardio ni étirements longs. Avec les études.",
+    h1: "Comment s'échauffer avant la musculation",
     publishDate: "19 mai 2026",
-    readingTime: "7 min",
+    updatedDate: "11 novembre 2026",
+    readingTime: "6 min",
+    keyAnswer:
+      "Pour s'échauffer avant la musculation, compte 5 à 8 minutes en trois temps : quelques mouvements de mobilité pour les articulations du jour, deux ou trois exercices d'activation légers pour les muscles qui les stabilisent, puis des séries d'approche de plus en plus lourdes sur le premier exercice. Le cardio n'est pas nécessaire, et les étirements statiques longs se gardent pour après.",
+    sources: [SOURCES.fradkin2010, SOURCES.mccrary2015, SOURCES.behm2016, SOURCES.simic2013],
     intro:
-      "L'échauffement est probablement la partie de la séance la moins bien comprise — et la plus souvent sabotée. Trop court, trop long, mal orienté, ou tout simplement absent. Ce guide couvre tout : la physiologie derrière l'échauffement, les 3 phases d'un protocole efficace, la durée selon ton objectif, les erreurs classiques et comment construire un échauffement adapté aux exercices de ta séance.",
+      "La plupart des gens s'échauffent soit trop peu (deux moulinets de bras et on charge), soit à côté (vingt minutes de tapis puis des étirements). Un bon échauffement de musculation est court et précis : il prépare les articulations et les muscles de la séance du jour, puis il amène progressivement à la charge de travail. Voici comment le construire, avec un exemple chiffré et ce que disent les études.",
     sections: [
       {
-        heading: "Pourquoi le corps a besoin d'être échauffé",
+        heading: "Les trois temps de l'échauffement",
         content: [
-          "À température de repos (36°C), le corps n'est pas optimisé pour l'effort intense. Plusieurs mécanismes physiologiques expliquent pourquoi commencer une séance à froid est à la fois moins performant et plus risqué.",
-          "<strong class='text-ink'>La viscosité musculaire.</strong> Les filaments contractiles (actine et myosine) glissent avec plus de friction à basse température. La force et la vitesse de contraction sont réduites de 10 à 15 %. Chaque degré gagné au-delà de 36°C améliore la vélocité de contraction.",
-          "<strong class='text-ink'>Le liquide synovial.</strong> Les articulations sont lubrifiées par un liquide qui, à froid, est épais et peu circulant. Sans échauffement, les surfaces cartilagineuses s'articulent sous des contraintes pour lesquelles elles ne sont pas préparées — c'est là que naissent les micro-traumatismes chroniques.",
-          "<strong class='text-ink'>Le système nerveux.</strong> Le recrutement des unités motrices est sous-optimal à froid. La connexion neuro-musculaire — la capacité du cerveau à « appeler » les fibres musculaires rapidement — n'est pas établie. L'échauffement spécifique programme ce câblage avant les séries de travail.",
-          "<strong class='text-ink'>Les tendons.</strong> Moins vascularisés que les muscles, ils montent en température plus lentement. Ce décalage crée une fenêtre de vulnérabilité sur les premières répétitions à froid — tendon rotulien, coiffe des rotateurs, tendons épicondyliens sont les plus exposés.",
+          "<strong class='text-ink'>1. La mobilité, 1 à 2 minutes.</strong> Des mouvements contrôlés dans toute l'amplitude, sur les articulations que la séance va solliciter : épaules et haut du dos pour les développés et les tirages, hanches et chevilles pour le squat et le soulevé de terre. Pas de charge, pas de rebond, pas de douleur.",
+          "<strong class='text-ink'>2. L'activation, 2 à 3 minutes.</strong> Deux ou trois exercices légers pour les muscles qui stabilisent les articulations du jour : la coiffe des rotateurs et les muscles des omoplates pour le haut du corps, les fessiers et le gainage pour le bas. Ils doivent réveiller, pas fatiguer : on s'arrête bien avant la brûlure.",
+          "<strong class='text-ink'>3. Les séries d'approche, sur le premier exercice.</strong> C'est la partie la plus spécifique : le même mouvement que ta série de travail, avec des charges croissantes et des répétitions décroissantes. En général 2 à 4 paliers, le dernier entre 75 et 90 % de ta charge de travail, puis 2 à 3 minutes de repos avant la première vraie série.",
+          "Le cardio n'a pas sa place obligatoire dans cette liste. Quelques minutes de vélo peuvent aider si tu arrives frigorifié, mais elles ne préparent ni les épaules ni les hanches. La mobilité et l'activation montent déjà la température des zones qui vont travailler.",
         ],
       },
       {
-        heading: "Les 3 phases d'un échauffement efficace",
+        heading: "Un exemple concret : avant une séance pecs",
         content: [
-          "Un échauffement muscu bien construit suit trois phases distinctes, dans cet ordre. Chacune a un rôle précis — les intervertir ou en sauter une dégrade l'efficacité de l'ensemble.",
-          "<strong class='text-ink'>Phase 1 — Mobilisation articulaire (2 min).</strong> L'objectif est de répartir le liquide synovial dans les articulations que tu vas solliciter. On travaille en cercles lents et progressifs : épaules, hanches, chevilles, colonne thoracique selon la séance. Aucune charge, aucune douleur. Si tu travailles le haut du corps, tu mobilises l'épaule et la cage thoracique. Si tu squattes, tu mobilises hanches et chevilles en priorité.",
-          "<strong class='text-ink'>Phase 2 — Activation musculaire (3 à 5 min).</strong> On réveille spécifiquement les muscles qui vont travailler. L'objectif n'est pas de les fatiguer mais d'établir la connexion neuro-musculaire et de les préparer à recevoir une charge. Les exercices sont ciblés, contrôlés, à faible charge ou au poids du corps. C'est ici que se joue la différence entre un échauffement générique (inutile) et un protocole adapté à ta séance.",
-          "<strong class='text-ink'>Phase 3 — Séries de chauffe (sur les exercices lourds).</strong> Cette phase ne fait pas partie de l'échauffement général — elle se fait à la barre ou aux haltères, juste avant tes séries de travail sur les exercices polyarticulaires. Principe : 2 à 3 séries progressives avec des charges croissantes (50 %, 70 %, 85 % du poids de travail) pour préparer le geste et le système nerveux à la charge maximale.",
+          "<strong class='text-ink'>Mobilité :</strong> cat-cow, 6 cycles, pour faire bouger la colonne et le haut du dos.",
+          "<strong class='text-ink'>Activation :</strong> pompes scapulaires sur un banc, 10 répétitions, pour le grand dentelé ; rotation externe à la poulie, coude au corps, 10 par côté, pour la coiffe des rotateurs. Trois minutes en tout.",
+          "<strong class='text-ink'>Séries d'approche</strong> pour un développé couché à 80 kg × 5 : barre seule × 8, puis 40 kg × 5, 55 kg × 4 et 70 kg × 2, avec 30 secondes à 1 minute entre les premiers paliers et 3 minutes avant la série de travail.",
+          "C'est exactement ce que propose <a href='/echauffement/pecs' class='font-semibold text-ink underline underline-offset-2'>l'échauffement pectoraux</a> de Warmup Generator, et le <a href='/series-approche?ex=developpe-couche&charge=80&reps=5' class='font-semibold text-ink underline underline-offset-2'>calculateur de séries d'approche</a> refait le calcul avec ta propre charge.",
         ],
       },
       {
-        heading: "Combien de temps s'échauffer selon l'objectif",
+        heading: "Ce que disent les études",
         content: [
-          "La durée optimale n'est pas fixe — elle dépend de l'intensité de la séance, des groupes musculaires travaillés et de la présence de zones sensibles.",
-          "<strong class='text-ink'>Force (1 à 5 reps, charges maximales) :</strong> 7 à 8 minutes. Le recrutement neuro-musculaire doit être maximal dès la première série de travail. Une activation insuffisante sur une séance de force se paye directement en kilos perdus sur la barre.",
-          "<strong class='text-ink'>Hypertrophie (6 à 15 reps, volume) :</strong> 5 à 6 minutes. La connexion mind-muscle prime sur le recrutement brut. L'activation ciblée améliore la qualité des contractions sur les séries de travail.",
-          "<strong class='text-ink'>Mobilité ou reprise :</strong> 8 à 10 minutes, rythme lent. Sur une séance de reprise après une blessure ou un long break, l'échauffement est aussi une mise en charge progressive des tissus — raccourcir cette phase multiplie le risque de rechute.",
-          "<strong class='text-ink'>Température ambiante :</strong> par temps froid ou en salle non chauffée, ajoute 2 à 3 minutes. Les muscles démarrent à 34-35°C au lieu de 36°C — le chemin vers les 38-39°C optimaux est plus long.",
-          "Règle générale : <strong class='text-ink'>en dessous de 5 minutes, l'échauffement est incomplet</strong>. Au-delà de 10 minutes, tu entames tes réserves glycolytiques et tu arrives à ta première série légèrement fatigué.",
+          "<strong class='text-ink'>L'échauffement améliore la performance.</strong> Dans une revue de 2010 portant sur 32 études (Fradkin et coll.), l'échauffement améliore la performance dans environ 79 % des mesures étudiées. Pour le haut du corps, une revue de 2015 portant sur 31 essais (McCrary et coll.) trouve des preuves solides que les échauffements dynamiques à charge élevée, comme les séries d'approche, améliorent la force et la puissance.",
+          "<strong class='text-ink'>Sur les blessures, les preuves manquent.</strong> La même revue n'a trouvé aucune étude mesurant l'effet de l'échauffement du haut du corps sur les blessures. L'argument raisonnable est ailleurs : arriver sur une charge lourde avec le geste déjà répété et les articulations déjà mobilisées.",
+          "<strong class='text-ink'>Les étirements statiques longs coûtent un peu de force.</strong> Une méta-analyse de 104 études (Simic et coll., 2013) trouve une baisse moyenne d'environ 5 % de la force maximale après des étirements statiques. Une revue de 2016 (Behm et coll.) précise que l'effet tient surtout aux étirements de 60 secondes ou plus par muscle ; courts, ils changent peu de chose.",
         ],
       },
       {
-        heading: "Dynamique ou statique — ce que dit la science",
+        heading: "Combien de temps y passer",
         content: [
-          "C'est le malentendu le plus répandu en salle : des millions de pratiquants s'étirent encore statiquement avant de soulever. Les données sont claires depuis plus de 20 ans.",
-          "Une méta-analyse portant sur 104 études (Simic et al., 2013) mesure une <strong class='text-ink'>réduction moyenne de 5,5 % de la force maximale</strong> après des étirements statiques maintenus avant l'effort. Le mécanisme : l'étirement statique inhibe les fuseaux neuromusculaires et réduit l'activité des motoneurones alpha. Pour des étirements maintenus plus de 60 secondes, la baisse atteint 8 à 10 %.",
-          "L'alternative est l'<strong class='text-ink'>échauffement dynamique</strong> : des mouvements contrôlés en amplitude croissante qui imitent les patterns du mouvement de travail. Cercles d'épaules progressifs avant le développé couché. Rotations thoraciques avant le rowing. Hip circles avant le squat. Ces mouvements lubrifient les articulations et activent le système nerveux sans inhiber la tonicité musculaire.",
-          "Les étirements statiques ont leur rôle — mais <strong class='text-ink'>après</strong> la séance ou les jours off, maintenus 60 à 90 secondes pour développer la souplesse sur le long terme.",
+          "Compte <strong class='text-ink'>5 à 8 minutes</strong> avant les séries d'approche : 2 à 3 minutes de plus si tu fais une séance de force lourde, si la salle est froide ou si une articulation est sensible. Au-delà de 10 à 15 minutes, l'échauffement commence à prendre sur l'énergie de la séance sans rien préparer de plus.",
+          "Les séries d'approche, elles, durent le temps qu'il faut pour monter jusqu'à ta charge. Plus la charge de travail est lourde, plus il y a de paliers. Le détail selon ton objectif est dans <a href='/blog/combien-de-temps-s-echauffer-musculation' class='font-semibold text-ink underline underline-offset-2'>combien de temps s'échauffer</a>.",
         ],
       },
       {
-        heading: "Adapter l'échauffement à son groupe musculaire",
+        heading: "Adapter l'échauffement à ta séance",
         content: [
-          "<strong class='text-ink'>Pectoraux / développé couché.</strong> Priorité à la mobilité thoracique et à l'activation de la coiffe des rotateurs et du grand dentelé. La cage thoracique rigide est la première cause de douleur d'épaule au DC. Mobilisation thoracique en rotation, ouverture pectorale, band pull-aparts.",
-          "<strong class='text-ink'>Dos / rowing et tractions.</strong> Activation des rhomboïdes et de l'infra-épineux (rotation externe d'épaule) pour éviter les compensations en protraction scapulaire. Face pulls au câble léger ou avec élastique, rétraction active des omoplates.",
-          "<strong class='text-ink'>Jambes / squat et soulevé de terre.</strong> Les deux exercices les plus exigeants articulairement — hanches, genoux et chevilles simultanément. Hip circles, mobilité de cheville en appui, fentes marchées, activation des fessiers avec pont fessier ou clamshells.",
-          "<strong class='text-ink'>Épaules.</strong> Articulation la plus mobile et la plus fragile. Rotation interne/externe légère, pendulum, élévations latérales très légères pour vasculariser la coiffe avant de charger.",
-          "<strong class='text-ink'>Core.</strong> Activation du transverse et des obliques avant tout exercice axial (squat, soulevé). Dead bugs, bird dogs, planches courtes.",
+          "<strong class='text-ink'>Push (pecs, épaules, triceps) :</strong> l'épaule avant tout, avec la coiffe des rotateurs et les omoplates. Voir <a href='/echauffement/push' class='font-semibold text-ink underline underline-offset-2'>l'échauffement push day</a>.",
+          "<strong class='text-ink'>Pull (dos, biceps) :</strong> omoplates, haut du dos, épaules au-dessus de la tête. Voir <a href='/echauffement/pull' class='font-semibold text-ink underline underline-offset-2'>l'échauffement pull day</a> ou <a href='/echauffement/exercice/tractions' class='font-semibold text-ink underline underline-offset-2'>avant les tractions</a>.",
+          "<strong class='text-ink'>Jambes :</strong> chevilles, hanches, fessiers. Voir <a href='/echauffement/jambes' class='font-semibold text-ink underline underline-offset-2'>l'échauffement jambes</a> ou <a href='/echauffement/exercice/squat' class='font-semibold text-ink underline underline-offset-2'>avant le squat</a>.",
+          "<strong class='text-ink'>Tout le corps :</strong> un peu de chaque, à doses réduites. Voir <a href='/echauffement/full-body' class='font-semibold text-ink underline underline-offset-2'>l'échauffement full body</a>, ou <a href='/echauffement/sans-materiel' class='font-semibold text-ink underline underline-offset-2'>sans matériel</a> si tu t'entraînes à la maison.",
         ],
       },
       {
-        heading: "Les 5 erreurs les plus communes",
+        heading: "Avec une articulation qui gêne",
         content: [
-          "<strong class='text-ink'>1. Sauter l'échauffement quand on est « en retard ».</strong> C'est précisément dans ces moments-là que les blessures arrivent — corps froid, esprit distrait, premières charges sans préparation.",
-          "<strong class='text-ink'>2. Faire 15 minutes de cardio à la place.</strong> Le tapis roulant élève la température générale mais ne prépare pas les structures spécifiques. Tu fatigues le système cardiovasculaire sans établir la connexion neuro-musculaire nécessaire.",
-          "<strong class='text-ink'>3. Les étirements statiques avant l'effort.</strong> Voir section précédente. Ils réduisent la force disponible pendant 30 à 60 minutes.",
-          "<strong class='text-ink'>4. L'échauffement générique (le même pour tout le monde, tout le temps).</strong> Un échauffement squat est différent d'un échauffement développé couché. Un pratiquant avec une épaule sensible ne fait pas le même protocole qu'un pratiquant sans gêne.",
-          "<strong class='text-ink'>5. Oublier les séries de chauffe.</strong> L'échauffement général prépare le corps — il ne remplace pas les séries progressives à la barre sur les exercices polyarticulaires lourds. Les deux sont nécessaires.",
+          "Une épaule, un genou ou un bas du dos sensible ne demandent pas de renoncer à la séance, mais de lui donner plus de temps : de la mobilité douce et un renforcement léger de la zone, avant l'échauffement habituel. Le repère courant en rééducation : une gêne qui reste sous 3 sur 10 pendant l'effort et qui a disparu le lendemain est compatible avec l'entraînement.",
+          "La routine <a href='/routine-douleur' class='font-semibold text-ink underline underline-offset-2'>« Une douleur ? »</a> construit cette préparation par articulation, et les <a href='/douleur' class='font-semibold text-ink underline underline-offset-2'>pages douleur</a> expliquent d'où vient la gêne exercice par exercice.",
         ],
       },
       {
-        heading: "Échauffement avec une zone sensible",
+        heading: "Les erreurs les plus fréquentes",
         content: [
-          "Épaule douloureuse, genou fragile, lombaires sensibles, poignets — les zones sensibles ne sont pas une contre-indication à l'entraînement. Elles nécessitent un protocole adapté.",
-          "Le principe est d'<strong class='text-ink'>ajouter des exercices thérapeutiques ciblés</strong> à l'échauffement standard — des mouvements de faible charge qui vascularisent et mobilisent la zone fragilisée sans l'aggraver. Sur une épaule sensible : rotations douces de la coiffe, pendulum, mobilisation sous-scapulaire. Sur un genou fragile : quad sets, activation VMO, mobilisation rotulienne.",
-          "Ce n'est pas une approche \"à la légère\" : les pratiquants qui s'entraînent avec une gêne chronique sans adapter leur échauffement accumulent les micro-traumatismes jusqu'à la blessure franche.",
+          "<strong class='text-ink'>Charger directement.</strong> Même pressé, garde au moins les séries d'approche : ce sont elles qui préparent le geste à la charge.",
+          "<strong class='text-ink'>Remplacer l'échauffement par du cardio.</strong> Le tapis élève la température générale, mais ne prépare ni la coiffe des rotateurs ni la cheville.",
+          "<strong class='text-ink'>S'étirer longuement avant de soulever.</strong> Garde les étirements de 60 secondes et plus pour la fin de séance ou les jours de repos.",
+          "<strong class='text-ink'>Faire le même échauffement pour toutes les séances.</strong> Un échauffement avant le squat ne ressemble pas à un échauffement avant le développé couché.",
+          "<strong class='text-ink'>Fatiguer les muscles avant la séance.</strong> L'activation sert à réveiller : si tu sens la brûlure, c'est trop.",
         ],
       },
     ],
     faqs: [
       {
         q: "Peut-on faire de la musculation sans s'échauffer ?",
-        a: "Techniquement oui — pratiquement, c'est une stratégie qui fonctionne jusqu'au jour où ça ne fonctionne plus. Les blessures tendineuses et articulaires sont souvent le résultat de mois d'entraînement à froid, pas d'un seul incident. Le risque augmente avec la charge et l'âge.",
+        a: "On peut, mais on commence ses premières séries lourdes sans avoir répété le geste ni mobilisé les articulations. Les séries d'approche sur le premier exercice sont le minimum à garder, même quand le temps manque.",
       },
       {
-        q: "L'échauffement est-il différent pour un débutant et un pratiquant avancé ?",
-        a: "Le protocole est similaire — mais un pratiquant avancé charge plus lourd, ce qui rend les séries de chauffe progressives encore plus importantes. Un débutant peut se contenter de 5 minutes d'activation ; un pratiquant qui squatte lourd aura besoin de 8 minutes plus 3 séries de chauffe à la barre.",
+        q: "Faut-il s'échauffer avant chaque exercice ?",
+        a: "Pas complètement. Après le premier exercice, une ou deux séries légères suffisent quand tu changes de mouvement ou de groupe musculaire, par exemple une série de rowing légère après le développé couché.",
       },
       {
-        q: "Faut-il s'échauffer entre deux exercices dans la même séance ?",
-        a: "Pas d'échauffement complet, mais une série de chauffe légère sur le premier exercice d'un nouveau groupe musculaire. Si tu passes du développé couché au rowing, une série de rowing très légère suffit à réveiller les muscles du dos.",
+        q: "Combien de séries d'approche faire ?",
+        a: "En général 2 à 4, avec des répétitions décroissantes et un dernier palier entre 75 et 90 % de la charge de travail. Plus la charge est lourde, plus il y a de paliers. Le calculateur de séries d'approche donne le détail avec les disques par côté.",
       },
       {
-        q: "L'échauffement sert-il aussi à améliorer la souplesse ?",
-        a: "Non — pas l'échauffement dynamique pré-séance. Celui-ci libère les amplitudes disponibles pour la séance mais ne développe pas la souplesse à long terme. Pour gagner en souplesse durablement, les étirements statiques longs (60-90 sec) en fin de séance ou les jours off sont nécessaires.",
+        q: "L'échauffement est-il différent pour un débutant ?",
+        a: "Le principe est le même. Un débutant qui travaille avec des charges légères a besoin de moins de paliers d'approche, mais gagne beaucoup à faire la mobilité et l'activation : c'est là qu'il apprend les positions des exercices.",
       },
       {
-        q: "Un générateur d'échauffement, c'est vraiment utile ?",
-        a: "Il résout le problème principal : savoir quoi faire exactement selon ce qu'on travaille. La plupart des pratiquants font toujours le même échauffement générique parce que créer un protocole adapté prend du temps. Un générateur qui part de ta séance, de ton matériel et de tes zones sensibles, c'est la différence entre un échauffement qui prépare et un échauffement qui fait perdre du temps.",
+        q: "Existe-t-il un outil pour savoir comment s'échauffer ?",
+        a: "Warmup Generator donne une routine prête à suivre selon ta séance (push, pull, jambes, haut du corps, full body) et ton matériel, avec une démonstration de chaque exercice et un mode guidé. C'est gratuit, sans compte, et ça fonctionne hors ligne.",
       },
     ],
     relatedLinks: [
-      { href: "/blog/pourquoi-s-echauffer-musculation", label: "Pourquoi s'échauffer ?" },
-      { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps ?" },
+      { href: "/echauffement", label: "Tous les échauffements prêts à suivre" },
+      { href: "/series-approche", label: "Calculateur de séries d'approche" },
+      { href: "/blog/combien-de-temps-s-echauffer-musculation", label: "Combien de temps s'échauffer ?" },
       { href: "/blog/echauffement-dynamique-ou-statique", label: "Dynamique ou statique ?" },
-      { href: "/echauffement/exercice/squat", label: "Échauffement squat" },
-      { href: "/echauffement/exercice/developpe-couche", label: "Échauffement développé couché" },
-      { href: "/echauffement/full-body", label: "Plan full body" },
+      { href: "/blog/erreurs-echauffement-musculation", label: "Les erreurs d'échauffement" },
+      { href: "/blog/echauffement-debutant-musculation", label: "Échauffement pour débutant" },
     ],
   },
 

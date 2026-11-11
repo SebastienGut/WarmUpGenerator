@@ -66,6 +66,21 @@ const RAW: Record<string, Landing> = {
         "Avant un développé couché ou un développé militaire lourd, enchaîne ensuite sur des séries d'approche : la barre seule, puis des paliers de plus en plus lourds sur l'exercice lui-même.",
       ],
     },
+    guide: [
+      {
+        title: "Une seule routine pour pousser et tirer",
+        paragraphs: [
+          "Une séance haut du corps mélange développés et tirages : l'échauffement prépare donc l'épaule dans toutes les directions. La mobilité du haut du dos donne de la place à l'épaule, puis trois exercices d'activation couvrent la coiffe des rotateurs, le grand dentelé et l'arrière de l'épaule.",
+          "Les pectoraux, le dos et les bras se préparent ensuite sur les séries d'approche de chaque premier exercice.",
+        ],
+      },
+      {
+        title: "Entre deux exercices",
+        paragraphs: [
+          "Quand tu passes d'un développé à un tirage, pas besoin de refaire la routine : une série légère du nouvel exercice suffit, les épaules sont déjà prêtes.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Quels exercices pour s'échauffer le haut du corps ?", a: "Cat-cow et rotation thoracique pour la mobilité, puis trois exercices d'activation : pompes scapulaires, rotation externe et face pull. Chacun a sa variante selon ton matériel (poulie, élastique ou poids du corps)." },
       DUREE,
@@ -73,6 +88,11 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["push", "pull", "epaules", "pecs", "dos"],
+    links: [
+      { href: "/echauffement/exercice/developpe-couche", label: "Échauffement avant le développé couché" },
+      { href: "/echauffement/exercice/tractions", label: "Échauffement avant les tractions" },
+      { href: "/echauffement/protection/epaule-douleur", label: "Échauffement épaule douloureuse" },
+    ],
   },
   "bas-du-corps": {
     slug: "bas-du-corps",
@@ -97,6 +117,15 @@ const RAW: Record<string, Landing> = {
         "L'échauffement prépare la zone ; la montée en charge prépare le geste. Après ces {min} minutes, fais tes séries d'approche sur ton premier exercice : la barre seule, puis trois à cinq paliers jusqu'à ta charge de travail.",
       ],
     },
+    guide: [
+      {
+        title: "Squat et soulevé de terre dans la même séance",
+        paragraphs: [
+          "Le squat et le soulevé de terre sollicitent les mêmes articulations, mais pas de la même façon : le squat descend en flexion profonde de hanche et de cheville, le soulevé de terre recule les hanches en gardant les tibias presque verticaux. La routine prépare les deux : cheville et squat profond assisté pour le premier, good morning pour la charnière du second.",
+          "Le glute bridge et le dead bug réveillent les fessiers et le gainage, qui tiennent le genou dans l'axe et le dos neutre sous la barre.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Quels exercices pour s'échauffer le bas du corps ?", a: "La mobilisation de cheville au mur, le squat profond assisté et le good morning au poids du corps, puis le glute bridge et le dead bug. Cinq exercices, dans un ordre qui limite les passages au sol." },
       DUREE,
@@ -104,6 +133,12 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["jambes", "fessiers", "full-body", "core"],
+    links: [
+      { href: "/echauffement/exercice/squat", label: "Échauffement avant le squat" },
+      { href: "/echauffement/exercice/souleve-de-terre", label: "Échauffement avant le soulevé de terre" },
+      { href: "/douleur/bas-du-dos-souleve-de-terre", label: "Mal au bas du dos au soulevé de terre" },
+      { href: "/echauffement/protection/lombaires", label: "Échauffement avec des lombaires sensibles" },
+    ],
   },
   "full-body": {
     slug: "full-body",
@@ -122,6 +157,21 @@ const RAW: Record<string, Landing> = {
       { title: "Le haut et le bas préparés", body: "Épaules et haut du dos pour les poussées et tirages, hanches et chevilles pour les squats et les charnières." },
       { title: "Un gainage réveillé", body: "C'est lui qui transmet la force entre le haut et le bas dans les mouvements composés." },
     ],
+    guide: [
+      {
+        title: "Sept exercices, pas plus",
+        paragraphs: [
+          "Une séance full body sollicite tout le corps, mais l'échauffement ne peut pas additionner une routine haut du corps et une routine bas du corps sans devenir trop long. Il garde l'essentiel de chaque zone, à doses réduites : la cheville et la hanche pour les squats et les charnières, la coiffe des rotateurs et les omoplates pour les développés et les tirages, et le gainage.",
+          "Chaque premier exercice de la séance reçoit ensuite ses propres séries d'approche.",
+        ],
+      },
+      {
+        title: "L'ordre de la routine",
+        paragraphs: [
+          "En salle, la routine commence debout par le bas du corps, passe aux épaules à la poulie, et finit au sol par le dead bug : un seul passage au sol, pour ne pas perdre de temps à changer de position.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Comment s'échauffer avant une séance full body ?", a: "Commence par le bas du corps debout (cheville au mur, squat profond assisté, good morning), enchaîne avec les épaules (face pull, rotation externe, pompes scapulaires) et termine par un dead bug au sol. Puis passe aux séries d'approche de ton premier exercice." },
       { q: "Existe-t-il un échauffement full body en 5 minutes ?", a: "Presque : la routine complète tient en {min} minutes. Si tu es pressé, fais les quatre premiers exercices et passe aux séries d'approche." },
@@ -129,6 +179,11 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["haut-du-corps", "bas-du-corps", "sans-materiel"],
+    links: [
+      { href: "/blog/guide-complet-echauffement-musculation", label: "Comment s'échauffer avant la musculation" },
+      { href: "/echauffement/exercice/squat", label: "Échauffement avant le squat" },
+      { href: "/echauffement/exercice/developpe-couche", label: "Échauffement avant le développé couché" },
+    ],
   },
   push: {
     slug: "push",
@@ -147,13 +202,38 @@ const RAW: Record<string, Landing> = {
       { title: "Un haut du dos qui s'ouvre", body: "Une bonne extension thoracique permet de garder les omoplates serrées sur le banc et de pousser au-dessus de la tête sans cambrer." },
       { title: "Des coudes et des poignets prêts", body: "Les triceps et les dips mettent les coudes sous tension : les séries d'approche du premier exercice les préparent." },
     ],
+    guide: [
+      {
+        title: "Pourquoi l'épaule passe avant les pecs",
+        paragraphs: [
+          "Au push day, les pectoraux et les triceps se préparent très bien sur les premières séries légères de développé. Ce qui demande une préparation à part, c'est l'épaule : elle travaille sous charge dans presque tous les exercices de la séance, et ses stabilisateurs ne se réveillent pas tout seuls.",
+          "D'où une routine centrée sur la coiffe des rotateurs (rotation externe), le grand dentelé (pompes scapulaires) et l'arrière de l'épaule (face pull), en deux séries légères chacun.",
+        ],
+      },
+      {
+        title: "Selon ton premier exercice",
+        paragraphs: [
+          "Développé couché : enchaîne avec la barre seule, puis tes séries d'approche jusqu'à la charge de travail.",
+          "Développé militaire : ajoute quelques wall slides pour monter les bras sans cambrer, puis commence à la barre seule.",
+          "Dips : commence par une série au poids du corps sur une amplitude réduite, puis descends un peu plus à chaque série.",
+          "Développé aux haltères : une série avec des haltères nettement plus légers suffit avant la charge de travail.",
+        ],
+      },
+    ],
     faqs: [
+      { q: "Faut-il échauffer les triceps au push day ?", a: "Pas séparément : ils travaillent dans tous les développés, et les séries d'approche du premier exercice les préparent. Si ta séance commence par un exercice de triceps isolé, fais une série légère de 12 à 15 répétitions." },
       { q: "Comment s'échauffer avant le développé couché ?", a: "Préparer l'épaule (cat-cow, pompes scapulaires, rotation externe, face pull), puis faire des séries d'approche sur le développé couché lui-même, de la barre seule jusqu'à la charge de travail." },
       DUREE,
       { q: "Et si j'ai mal à l'épaule au développé couché ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Épaule ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide douleur à l'épaule au développé couché, pour comprendre d'où elle vient." },
       ETIREMENTS,
     ],
     related: ["pull", "haut-du-corps", "pecs", "epaules"],
+    links: [
+      { href: "/echauffement/exercice/developpe-couche", label: "Échauffement avant le développé couché" },
+      { href: "/echauffement/exercice/developpe-militaire", label: "Échauffement avant le développé militaire" },
+      { href: "/douleur/epaule-developpe-couche", label: "Mal à l'épaule au développé couché" },
+      { href: "/douleur/poignet-pompes", label: "Douleur au poignet aux pompes" },
+    ],
   },
   pull: {
     slug: "pull",
@@ -172,6 +252,24 @@ const RAW: Record<string, Landing> = {
       { title: "Des épaules libres au-dessus de la tête", body: "Les tractions et tirages verticaux partent bras tendus au-dessus de la tête." },
       { title: "Des coudes préparés", body: "Les biceps et les tendons du coude encaissent beaucoup au pull day : un curl marteau très léger les prépare sans les fatiguer." },
     ],
+    guide: [
+      {
+        title: "Le dos travaille, les omoplates décident",
+        paragraphs: [
+          "Au pull day, le grand dorsal se prépare sur les premières séries légères de tractions ou de tirage. La routine s'occupe de ce qui conditionne la qualité de ces séries : un haut du dos mobile, des épaules qui montent librement au-dessus de la tête et des omoplates qui démarrent le mouvement.",
+          "Le curl marteau très léger, en fin de routine, prépare les coudes et les biceps, sollicités par tous les tirages.",
+        ],
+      },
+      {
+        title: "Selon ton premier exercice",
+        paragraphs: [
+          "Tractions : une suspension à la barre et quelques tractions scapulaires, puis une série facile avant les séries de travail.",
+          "Tirage vertical : une série légère de 12 à 15 répétitions, puis monte progressivement.",
+          "Rowing barre : quelques good mornings au poids du corps pour trouver la position penchée, puis la barre seule.",
+          "Soulevé de terre en début de séance : il demande sa propre préparation, centrée sur les hanches et le gainage.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Comment s'échauffer avant les tractions ?", a: "Mobilise le haut du dos et les épaules (rotation thoracique, wall slides), active l'arrière de l'épaule (face pull), puis fais une ou deux séries faciles de tractions, ou de tirage vertical léger, avant tes séries de travail." },
       DUREE,
@@ -179,6 +277,12 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["push", "dos", "bras", "haut-du-corps"],
+    links: [
+      { href: "/echauffement/exercice/tractions", label: "Échauffement avant les tractions" },
+      { href: "/echauffement/exercice/rowing-barre", label: "Échauffement avant le rowing barre" },
+      { href: "/douleur/epaule-tractions", label: "Mal à l'épaule aux tractions" },
+      { href: "/douleur/coude-curl-biceps", label: "Mal au coude au curl biceps" },
+    ],
   },
   "sans-materiel": {
     slug: "sans-materiel",
@@ -198,6 +302,21 @@ const RAW: Record<string, Landing> = {
       { title: "Un mur et un bout de sol", body: "C'est tout ce qu'il faut pour la cheville au mur, les pompes scapulaires et les exercices au sol." },
       { title: "Des versions de remplacement", body: "Le face pull n'a pas d'équivalent au poids du corps : il est remplacé par le W allongé, qui travaille les mêmes muscles, et l'outil l'indique." },
     ],
+    guide: [
+      {
+        title: "Ce qui remplace la poulie et l'élastique",
+        paragraphs: [
+          "Sans poulie ni élastique, deux exercices changent : le face pull devient un W allongé sur le ventre, et la rotation externe se fait allongé sur le côté. Ils travaillent les mêmes muscles de l'arrière de l'épaule et de la coiffe des rotateurs, avec le poids du bras comme seule résistance.",
+          "Les pompes scapulaires se font contre un mur, et tout le bas du corps se fait au poids du corps.",
+        ],
+      },
+      {
+        title: "À la maison",
+        paragraphs: [
+          "La routine sert aussi avant une séance au poids du corps à la maison : pompes, squats, fentes. Ensuite, commence chaque exercice par une série facile, loin de l'échec.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Peut-on bien s'échauffer sans matériel ?", a: "Oui pour la mobilité et presque toute l'activation (squat profond assisté, good morning, pompes scapulaires, dead bug). Seuls le face pull et les exercices de bras n'ont pas d'équivalent exact : la routine les remplace par l'exercice le plus proche, et l'indique." },
       DUREE,
@@ -205,6 +324,10 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["full-body", "haut-du-corps", "bas-du-corps"],
+    links: [
+      { href: "/blog/echauffement-debutant-musculation", label: "Échauffement pour débuter la musculation" },
+      { href: "/blog/guide-complet-echauffement-musculation", label: "Comment s'échauffer avant la musculation" },
+    ],
   },
   pecs: {
     slug: "pecs",
@@ -222,6 +345,22 @@ const RAW: Record<string, Landing> = {
       { title: "Des omoplates serrées et stables", body: "Sur le banc, les omoplates rapprochées protègent l'épaule et donnent une base solide." },
       { title: "Un haut du dos qui s'ouvre", body: "Il permet de garder la poitrine haute sans forcer sur le bas du dos." },
     ],
+    guide: [
+      {
+        title: "Pourquoi la routine est si courte",
+        paragraphs: [
+          "La routine pectoraux tient en {min} minutes parce que le muscle pectoral se prépare très bien tout seul, sur les séries d'approche du développé couché. Ce qui ne se prépare pas tout seul, c'est l'épaule : la coiffe des rotateurs et le grand dentelé, qui gardent l'articulation stable quand la barre descend.",
+          "Si ta séance enchaîne plusieurs exercices de poussée lourds, prends plutôt l'échauffement push day, plus complet.",
+        ],
+      },
+      {
+        title: "Avant le développé couché",
+        paragraphs: [
+          "Après la routine, commence à la barre seule pour 8 répétitions, puis monte en 2 à 4 paliers en baissant les répétitions, jusqu'à un dernier palier entre 75 et 90 % de ta charge de travail. Repose-toi 2 à 3 minutes avant la première vraie série.",
+          "Pour un développé incliné ou des écartés en début de séance, même principe : une ou deux séries nettement plus légères avant la charge de travail.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Comment s'échauffer les pecs ?", a: "Pas avec des pompes jusqu'à la fatigue : avec un peu de mobilité, puis les pompes scapulaires et la rotation externe pour stabiliser l'épaule. Le muscle pectoral se prépare ensuite avec les séries d'approche sur ton premier exercice." },
       DUREE,
@@ -229,6 +368,11 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["push", "epaules", "haut-du-corps"],
+    links: [
+      { href: "/echauffement/exercice/developpe-couche", label: "Échauffement avant le développé couché" },
+      { href: "/douleur/epaule-developpe-couche", label: "Mal à l'épaule au développé couché" },
+      { href: "/blog/echauffement-pecs-musculation", label: "Guide : préparer la séance pectoraux" },
+    ],
   },
   dos: {
     slug: "dos",
@@ -411,6 +555,24 @@ const RAW: Record<string, Landing> = {
       { title: "Des hanches qui descendent", body: "La flexion profonde de hanche permet de squatter bas en gardant le dos neutre." },
       { title: "Des genoux bien guidés", body: "Les fessiers gardent le genou dans l'axe du pied, surtout à la remontée." },
     ],
+    guide: [
+      {
+        title: "Ce qui limite le squat, ce n'est pas le muscle",
+        paragraphs: [
+          "Les quadriceps et les fessiers se préparent sur les premières séries légères. Ce qui limite souvent le squat ou la presse, c'est la mobilité : une cheville raide fait décoller les talons ou plonger le buste, une hanche raide empêche de descendre en gardant le dos neutre.",
+          "La routine commence donc par la cheville, la hanche et la charnière, avant d'activer les fessiers et les mollets.",
+        ],
+      },
+      {
+        title: "Selon ton premier exercice",
+        paragraphs: [
+          "Squat : la barre seule, puis 3 à 5 paliers jusqu'à ta charge de travail, en baissant les répétitions.",
+          "Presse à cuisses : une série légère de 12 à 15 répétitions, puis deux paliers intermédiaires.",
+          "Fentes : quelques fentes au poids du corps, en amplitude croissante, avant de prendre les haltères.",
+          "Soulevé de terre roumain : 8 à 10 good mornings au poids du corps, puis la barre seule.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Comment s'échauffer pour le leg day ?", a: "Mobilisation de cheville au mur, squat profond assisté, good morning au poids du corps, puis glute bridge et élévations de mollets. Termine par des séries d'approche sur ton premier exercice, de la barre seule jusqu'à ta charge." },
       { q: "Comment s'échauffer les genoux avant le squat ?", a: "En préparant la cheville et la hanche, qui guident le genou, et en activant les fessiers. Si un genou est sensible, suis la routine « Une douleur ? » de l'accueil (zone « Genou ») et lis le guide douleur au genou au squat." },
@@ -418,6 +580,12 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["bas-du-corps", "fessiers", "full-body"],
+    links: [
+      { href: "/echauffement/exercice/squat", label: "Échauffement avant le squat" },
+      { href: "/echauffement/exercice/souleve-de-terre", label: "Échauffement avant le soulevé de terre" },
+      { href: "/douleur/genou-squat", label: "Douleur au genou pendant le squat" },
+      { href: "/echauffement/protection/genou", label: "Échauffement genou sensible" },
+    ],
   },
   fessiers: {
     slug: "fessiers",
@@ -435,6 +603,21 @@ const RAW: Record<string, Landing> = {
       { title: "Un fessier qui s'active", body: "Sans activation, les ischios et le bas du dos prennent souvent le relais." },
       { title: "Un moyen fessier réveillé", body: "C'est lui qui stabilise le bassin et le genou sur une jambe, aux fentes." },
     ],
+    guide: [
+      {
+        title: "Réveiller le fessier avant la charge",
+        paragraphs: [
+          "Sur le hip thrust, les fentes ou le soulevé de terre roumain, le fessier doit prendre sa part dès la première série. S'il ne s'active pas, ce sont souvent les ischios ou le bas du dos qui compensent. Le glute bridge, avec deux secondes de contraction en haut, sert à sentir le muscle travailler avant la charge.",
+          "Les transitions 90/90 et le good morning donnent l'amplitude de hanche que ces exercices demandent.",
+        ],
+      },
+      {
+        title: "Avant le hip thrust",
+        paragraphs: [
+          "Après la routine, fais une série de hip thrust sans charge ou avec la barre seule, puis monte en 2 ou 3 paliers jusqu'à ta charge de travail. Garde la règle du glute bridge : serre en haut, sans cambrer le bas du dos.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Comment activer ses fessiers avant la séance ?", a: "Avec un glute bridge de 10 répétitions, en serrant les fessiers deux secondes en haut. Il s'agit de réveiller, pas de fatiguer : les séries d'approche du premier exercice font le reste." },
       DUREE,
@@ -442,6 +625,10 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["bas-du-corps", "jambes"],
+    links: [
+      { href: "/echauffement/exercice/souleve-de-terre", label: "Échauffement avant le soulevé de terre" },
+      { href: "/douleur/genou-squat", label: "Douleur au genou pendant le squat" },
+    ],
   },
   core: {
     slug: "core",
@@ -459,6 +646,21 @@ const RAW: Record<string, Landing> = {
       { title: "Des hanches libres", body: "Une hanche raide fait travailler le bas du dos à sa place." },
       { title: "De l'anti-rotation", body: "Résister à la torsion protège le dos dans les mouvements à une main ou une jambe." },
     ],
+    guide: [
+      {
+        title: "Du gainage dynamique, pas de longues planches",
+        paragraphs: [
+          "Le gainage avant un squat ou un soulevé de terre sert à réveiller les muscles qui gardent le dos neutre, pas à les fatiguer. Le bird dog et le dead bug le font en bougeant bras et jambes sans laisser le dos bouger : c'est ce que le tronc doit faire sous la barre.",
+          "Une longue planche tenue jusqu'à la fatigue fait l'inverse : elle entame ces muscles avant la séance.",
+        ],
+      },
+      {
+        title: "Sous la barre",
+        paragraphs: [
+          "Avant chaque série lourde, inspire profondément dans le ventre et serre les abdominaux avant de descendre : c'est ce verrouillage, plus que l'échauffement, qui stabilise le dos sous la charge.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Faut-il faire du gainage avant le squat ?", a: "Un peu, oui : un ou deux exercices de gainage dynamique (dead bug, bird dog) réveillent les muscles profonds sans les fatiguer. Évite les longues planches qui épuisent avant la séance." },
       DUREE,
@@ -466,6 +668,11 @@ const RAW: Record<string, Landing> = {
       ETIREMENTS,
     ],
     related: ["bas-du-corps", "dos", "full-body"],
+    links: [
+      { href: "/echauffement/exercice/squat", label: "Échauffement avant le squat" },
+      { href: "/echauffement/exercice/souleve-de-terre", label: "Échauffement avant le soulevé de terre" },
+      { href: "/echauffement/protection/lombaires", label: "Échauffement avec des lombaires sensibles" },
+    ],
   },
 };
 

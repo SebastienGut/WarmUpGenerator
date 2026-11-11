@@ -29,6 +29,8 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement développé couché complet : coiffe, grand dentelé, pec mineur, thoracique. 6 mouvements en 5 minutes pour DC sain et performant. Gratuit.",
     h1: "Échauffement avant le développé couché",
+    keyAnswer:
+      "L'échauffement avant le développé couché prend environ 5 minutes : mobilisation thoracique et ouverture de poitrine, pompes scapulaires pour le grand dentelé, rotation externe à l'élastique pour la coiffe des rotateurs, quelques pompes inclinées, puis 10 répétitions à la barre vide. Les séries d'approche montent ensuite jusqu'à la charge de travail.",
     updated: "2026-11-11",
     sources: [SOURCES.kolber2010],
     subtitle: "Coiffe, grand dentelé, cage thoracique, 5 minutes",
@@ -115,6 +117,8 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement squat complet : mobilité hanche, dorsiflexion cheville, activation fessière. 6 mouvements en 5 min pour squat lourd et profond. Gratuit.",
     h1: "Échauffement avant le squat",
+    keyAnswer:
+      "L'échauffement avant le squat prend environ 5 minutes : mobilisation de cheville en fente, transitions 90/90 pour la rotation de hanche, pont fessier, squat cosaque, squats au poids du corps avec une pause en bas, puis 10 répétitions à la barre vide. Les séries d'approche montent ensuite jusqu'à la charge de travail.",
     updated: "2026-11-11",
     sources: [SOURCES.hartmann2013],
     subtitle: "Hanche, cheville, fessiers, pattern, 5 minutes",
@@ -201,6 +205,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement soulevé de terre complet : charnière de hanche, mobilité thoracique, gainage anti-extension. 6 mouvements en 5 min pour SDT lourd. Gratuit.",
     h1: "Échauffement avant le soulevé de terre",
+    updated: "2026-11-11",
+    keyAnswer:
+      "L'échauffement avant le soulevé de terre prend environ 5 minutes et vise la charnière de hanche : cat-cow, bird dog, pont fessier, charnière de hanche à vide, puis soulevé de terre roumain et classique à la barre vide. Les séries d'approche commencent ensuite avec des disques sur la barre, la barre seule étant trop basse.",
     subtitle: "Hanches, chaîne postérieure, gainage, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>soulevé de terre</strong> (SDT) est l'exercice qui sollicite le plus de masse musculaire en une seule répétition. C'est aussi celui qui blesse le plus de bas du dos — quand il est fait à froid, sans charnière de hanche maîtrisée, avec un gainage absent. Ce protocole prépare les trois piliers du SDT : <strong class='text-ink'>mobilité de hanche</strong>, <strong class='text-ink'>activation chaîne postérieure</strong>, et <strong class='text-ink'>gainage anti-extension</strong>.",
@@ -285,6 +292,9 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement rowing barre complet : mobilisation thoracique, scapulaires, hip hinge. 6 mouvements en 5 min pour rowing puissant et sûr. Gratuit.",
     h1: "Échauffement avant le rowing barre",
+    updated: "2026-11-11",
+    keyAnswer:
+      "L'échauffement avant le rowing barre prend environ 5 minutes : rotation thoracique et cat-cow pour le haut du dos, band pull-aparts et face pull à l'élastique pour les omoplates, charnière de hanche à vide pour tenir la position penchée, puis 10 répétitions de rowing à la barre vide avant les séries d'approche.",
     subtitle: "Thoracique, scapulaires, hip hinge, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>rowing barre</strong> est probablement l'exercice le plus rentable pour développer un dos épais et puissant. C'est aussi un des plus techniques : il combine un <em>hip hinge</em> tenu (comme un demi-SDT statique), une rétraction scapulaire, et une flexion de coude — le tout sous charge. Ce protocole prépare ces trois éléments en 5 minutes.",
@@ -470,6 +480,8 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement développé militaire complet : coiffe, thoracique, grand dentelé. 6 mouvements en 5 min pour OHP, push press, push jerk. Gratuit.",
     h1: "Échauffement avant le développé militaire",
+    keyAnswer:
+      "L'échauffement avant le développé militaire prend environ 5 minutes : ouverture thoracique en extension, cercles d'épaules, wall slides pour monter les bras sans cambrer, pompes scapulaires, rotation externe à l'élastique, puis 10 répétitions à la barre vide avant les séries d'approche.",
     updated: "2026-11-11",
     subtitle: "OHP, coiffe, thoracique, grand dentelé, 5 minutes",
     intro: [

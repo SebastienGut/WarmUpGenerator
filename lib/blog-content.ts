@@ -27,8 +27,10 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "pourquoi-s-echauffer-musculation",
+    keyAnswer:
+      "S'échauffer avant la musculation sert à arriver sur les séries lourdes avec les articulations mobilisées, les muscles stabilisateurs réveillés et le geste déjà répété avec des charges croissantes. Une revue de 32 études (Fradkin et coll., 2010) montre que l'échauffement améliore la performance dans environ 79 % des mesures. Cinq à huit minutes suffisent.",
+    sources: [SOURCES.fradkin2010, SOURCES.mccrary2015, SOURCES.behm2016],
     updatedDate: "11 novembre 2026",
-    sources: [SOURCES.fradkin2010, SOURCES.behm2016],
     metaTitle: "Pourquoi s'échauffer avant la musculation ? Ce que dit la science",
     metaDescription:
       "Les 3 raisons physiologiques qui rendent l'échauffement obligatoire avant toute séance de musculation — et comment le faire en 5 minutes chrono.",
@@ -41,15 +43,15 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Ce qui se passe dans un muscle à froid",
         content: [
-          "À température de repos (~36°C), les filaments d'actine et de myosine glissent avec friction élevée. Les enzymes qui alimentent la contraction musculaire (ATPase) fonctionnent à 20-30 % en dessous de leur optimum. Dans les articulations, le liquide synovial est épais et peu circulant — les surfaces cartilagineuses ne sont pas lubrifiées.",
-          "Résultat concret : sur ta première série sans échauffement, tu perds <strong class='text-ink'>10 à 15 % de force</strong> par rapport à ton potentiel réel. Tes tendons — moins vascularisés que les muscles, donc plus lents à chauffer — absorbent des contraintes mécaniques pour lesquelles ils ne sont pas prêts. Les micro-traumatismes s'accumulent silencieusement.",
+          "À froid, un muscle se contracte un peu moins vite, et une articulation qui n'a pas bougé depuis des heures n'utilise pas toute son amplitude. Quelques minutes de mouvement changent ça : c'est l'effet le mieux établi de l'échauffement, lié à la hausse de température du muscle.",
+          "Résultat concret : ta première série lourde à froid se fait avec un muscle moins rapide et un geste pas encore répété. Les tendons, moins vascularisés que les muscles, reçoivent la charge sans montée progressive.",
         ],
       },
       {
-        heading: "Les 3 bénéfices prouvés de l'échauffement",
+        heading: "Ce que l'échauffement apporte",
         content: [
-          "<strong class='text-ink'>1. Gain de force disponible.</strong> À 38-39°C, la vélocité de contraction musculaire augmente significativement. Les études mesurent un gain de 4 à 10 % de force sur les séries de travail avec un échauffement bien calibré — sans rien changer au reste du programme.",
-          "<strong class='text-ink'>2. Protection tendineuse.</strong> Les tendons montent en température plus lentement que les muscles (décalage de 2 à 4 minutes). Un échauffement de 5 minutes réduit ce décalage et diminue fortement le risque de tendinites d'insertion : coiffe des rotateurs, tendon rotulien, tendons épicondyliens.",
+          "<strong class='text-ink'>1. Une meilleure performance.</strong> Dans une revue de 32 études (Fradkin et coll., 2010), l'échauffement améliore la performance dans environ 79 % des mesures. Pour le haut du corps, les échauffements à charge élevée, comme les séries d'approche, améliorent la force et la puissance (McCrary et coll., 2015).",
+          "<strong class='text-ink'>2. Des articulations préparées.</strong> La mobilité et l'activation font travailler les articulations du jour dans toute leur amplitude avant qu'elles ne portent une charge. Sur la prévention des blessures en musculation, les études restent rares : c'est un argument de bon sens plus qu'un chiffre.",
           "<strong class='text-ink'>3. Activation neuro-musculaire.</strong> L'échauffement spécifique programme le système nerveux sur le pattern de mouvement de la séance. Meilleur recrutement des unités motrices, meilleure coordination inter-musculaire. C'est pourquoi un athlète de force réalise toujours ses séries de chauffe progressives avant d'attaquer le poids de travail.",
         ],
       },
@@ -93,6 +95,9 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "combien-de-temps-s-echauffer-musculation",
+    keyAnswer:
+      "Un échauffement de musculation dure 5 à 8 minutes : de la mobilité et de l'activation ciblées sur les zones de la séance, puis des séries d'approche sur le premier exercice. Compte 2 à 3 minutes de plus pour une séance de force lourde, une salle froide ou une articulation sensible. Vingt minutes de cardio ne sont pas nécessaires.",
+    updatedDate: "11 novembre 2026",
     metaTitle: "Combien de temps s'échauffer en musculation ? (5 à 8 min)",
     metaDescription:
       "5 à 8 minutes suffisent avant la musculation : un peu plus pour la force, le froid ou une zone sensible, sans cardio. Le détail selon ton objectif.",
@@ -105,7 +110,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "La règle de base : 5 à 8 minutes",
         content: [
-          "Pour 90 % des séances, c'est la plage optimale. En dessous de 5 minutes, la température musculaire n'a pas eu le temps de monter et les articulations sont encore peu lubrifiées. Au-delà de 10 minutes, tu commences à entamer tes réserves glycolytiques — tu arrives aux séries de travail légèrement fatigué, exactement ce que tu voulais éviter.",
+          "C'est la bonne plage pour la plupart des séances. En dessous de 5 minutes, il est difficile de mobiliser et d'activer les zones du jour. Au-delà de 10 à 15 minutes, l'échauffement commence à prendre sur l'énergie de la séance sans rien préparer de plus.",
           "C'est l'erreur classique des pratiquants qui passent 20 minutes sur le tapis avant de squatter : ils arrivent à leur première série de travail déjà entamés.",
         ],
       },
@@ -158,6 +163,8 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "echauffement-dynamique-ou-statique",
+    keyAnswer:
+      "Avant la musculation, l'échauffement dynamique est préférable : des mouvements contrôlés dans toute l'amplitude, puis une activation légère. Les étirements statiques tenus 60 secondes ou plus réduisent la force d'environ 5 % en moyenne ; plus courts, leur effet est faible. Les étirements longs se font après la séance ou les jours de repos.",
     updatedDate: "11 novembre 2026",
     sources: [SOURCES.simic2013, SOURCES.behm2016],
     metaTitle: "Échauffement dynamique ou statique avant la musculation ?",
@@ -173,7 +180,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "Le verdict scientifique sur les étirements statiques",
         content: [
           "Une méta-analyse de 2013 portant sur 104 études (Simic et coll.) trouve que les étirements statiques avant un effort de force réduisent la force maximale d'environ <strong class='text-ink'>5 % en moyenne</strong>. Une revue de 2016 (Behm et coll.) précise que l'effet tient surtout aux étirements de 60 secondes ou plus par muscle ; en dessous, il devient faible.",
-          "Le mécanisme est connu : l'étirement statique réduit la tonicité des fuseaux neuromusculaires et inhibe l'activité des motoneurones alpha. Résultat concret — si tu t'étires les pectoraux 45 secondes avant ton développé couché, ta première série est objectivement moins forte. Ce n'est pas une théorie : c'est mesurable sur une plateforme de force.",
+          "Le mécanisme le plus souvent avancé : l'étirement statique réduit l'activation nerveuse du muscle étiré. Plus l'étirement est long, plus la baisse est nette : au-delà de 60 secondes par muscle, elle devient mesurable sur la première série.",
         ],
       },
       {
@@ -207,7 +214,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Peut-on faire quelques secondes d'étirements statiques avant l'effort ?",
-        a: "Des étirements statiques très courts (10-15 secondes) ont un impact faible sur la force — l'inhibition neuromusculaire est quasi négligeable. Le problème se pose à partir de 30-45 secondes de maintien. En dessous, c'est peu risqué mais peu utile.",
+        a: "Des étirements statiques courts (moins de 60 secondes par muscle) ont un effet faible sur la force ; l'effet devient net au-delà (Behm et coll., 2016). Avant la séance, la mobilité dynamique reste plus utile.",
       },
       {
         q: "L'échauffement dynamique améliore-t-il les performances le jour même ?",
@@ -330,6 +337,8 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "echauffement-debutant-musculation",
+    keyAnswer:
+      "Un débutant en musculation peut s'échauffer en 5 minutes sans matériel : cercles d'épaules, cercles de hanches, rotations des poignets et flexions de genoux, cat-cow, puis 10 pompes contre un mur ou sur les genoux, remplacées par 10 squats lents avant une séance jambes. Ensuite, une série légère sur le premier exercice.",
     updatedDate: "11 novembre 2026",
     sources: [SOURCES.behm2016],
     metaTitle: "Échauffement musculation débutant — par où commencer",
@@ -405,6 +414,10 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "echauffement-pecs-musculation",
+    keyAnswer:
+      "Avant une séance pectoraux, l'échauffement prépare surtout l'épaule, en 5 minutes : rotation thoracique à quatre pattes, ouverture pectorale contre un mur, pompes scapulaires pour le grand dentelé, rotation externe à l'élastique pour la coiffe des rotateurs, puis 10 répétitions à la barre vide avant les séries d'approche du développé couché.",
+    updatedDate: "11 novembre 2026",
+    sources: [SOURCES.kolber2010, SOURCES.mccrary2015],
     metaTitle: "Échauffement pecs musculation — avant développé couché",
     metaDescription:
       "Comment s'échauffer les pectoraux avant une séance de développé couché ? Activation coiffe, mobilité thoracique, grand dentelé — protocole en 5 min.",
@@ -412,7 +425,7 @@ export const BLOG_POSTS: BlogPost[] = [
     publishDate: "28 mai 2026",
     readingTime: "4 min",
     intro:
-      "La douleur d'épaule au développé couché est l'une des blessures les plus communes en salle. Dans 80 % des cas, elle vient d'un manque de préparation : coiffe des rotateurs froide, cage thoracique rigide, grand dentelé inactif. Voici comment préparer correctement les pectoraux — et l'épaule qui va avec — avant chaque séance.",
+      "La douleur d'épaule au développé couché est l'une des gênes les plus fréquentes en salle. Elle vient souvent d'une épaule mal préparée : coiffe des rotateurs pas encore active, haut du dos raide, grand dentelé endormi. Voici comment préparer correctement les pectoraux, et l'épaule qui va avec, avant chaque séance.",
     sections: [
       {
         heading: "Ce qui limite vraiment le développé couché",
@@ -475,6 +488,8 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "erreurs-echauffement-musculation",
+    keyAnswer:
+      "Les cinq erreurs d'échauffement les plus courantes en musculation : s'étirer longuement avant de soulever, remplacer l'échauffement par un long cardio, faire le même échauffement pour toutes les séances, sauter l'échauffement parce qu'on se sent chaud, et confondre l'échauffement général avec les séries d'approche du premier exercice.",
     updatedDate: "11 novembre 2026",
     sources: [SOURCES.simic2013, SOURCES.behm2016],
     metaTitle: "5 erreurs d'échauffement en musculation à corriger",
@@ -490,14 +505,14 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "Erreur 1 — Les étirements statiques avant l'effort",
         content: [
           "C'est l'erreur numéro un. Des millions de pratiquants s'étirent encore statiquement avant de soulever, alors que les études convergent : maintenus 60 secondes ou plus avant un effort de force, les étirements statiques <strong class='text-ink'>réduisent un peu la force maximale</strong>, d'environ 5 % en moyenne.",
-          "Le mécanisme : l'étirement statique inhibe les fuseaux neuromusculaires et réduit l'activité des motoneurones alpha. Résultat concret — si tu t'étires les quadriceps 45 secondes avant ton squat, ta première série est objectivement moins forte.",
+          "Le mécanisme le plus souvent avancé : l'étirement statique réduit l'activation nerveuse du muscle étiré. Concrètement, si tu tiens chaque étirement une minute ou plus avant ton squat, ta première série en pâtit.",
           "<strong class='text-ink'>La correction :</strong> remplace les étirements statiques par de la mobilité dynamique et de l'activation musculaire spécifique. Les étirements statiques ont leur rôle — après la séance ou les jours off.",
         ],
       },
       {
         heading: "Erreur 2 — 15 minutes de cardio en guise d'échauffement",
         content: [
-          "Le tapis roulant élève la température corporelle globale. C'est utile — mais insuffisant et contre-productif quand c'est trop long. Au-delà de 8-10 minutes d'effort cardiovasculaire modéré, <strong class='text-ink'>tu entames tes réserves glycolytiques</strong> et tu crées une pré-fatigue du système nerveux central.",
+          "Le tapis roulant élève la température corporelle globale. C'est utile, mais insuffisant : il ne prépare ni les épaules ni les hanches. Et au-delà de 10 à 15 minutes, il commence à fatiguer sans rien préparer de plus.",
           "Le cardio ne prépare pas les structures spécifiques — la coiffe des rotateurs n'est pas activée, le pattern moteur du squat n'est pas câblé, les articulations ne sont pas mobilisées dans les amplitudes de travail.",
           "<strong class='text-ink'>La correction :</strong> 5 minutes de cardio très léger suffisent si la salle est froide. Remplace le reste par de la mobilité articulaire ciblée et de l'activation musculaire spécifique.",
         ],
@@ -513,7 +528,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "Erreur 4 — Sauter l'échauffement parce qu'on se sent chaud",
         content: [
           "La sensation de chaleur n'est pas un indicateur de préparation musculo-articulaire. Tu peux transpirer et avoir les articulations non lubrifiées, les tendons froids et le système nerveux non activé sur le pattern de travail.",
-          "La température de surface monte vite. La température musculaire profonde et la température tendineuse — les deux qui comptent — mettent 4 à 7 minutes à atteindre leur optimal. <strong class='text-ink'>La sensation ne remplace pas le temps</strong>.",
+          "La sensation de chaleur vient vite, mais elle ne dit rien de la mobilité des articulations du jour ni du geste de ton premier exercice. <strong class='text-ink'>La sensation ne remplace pas la préparation</strong>.",
           "<strong class='text-ink'>La correction :</strong> fais systématiquement l'échauffement, quelles que soient les conditions. Si tu as vraiment chaud, réduis à 3-4 minutes mais ne supprime pas la phase d'activation musculaire spécifique.",
         ],
       },
@@ -532,7 +547,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Peut-on s'étirer statiquement juste 10-15 secondes avant l'effort ?",
-        a: "Des étirements très courts (10-15 secondes) ont un impact minimal sur la force. L'inhibition neuromusculaire devient significative à partir de 30-45 secondes de maintien. En dessous, c'est peu risqué mais aussi peu utile — autant faire de la mobilité dynamique.",
+        a: "Des étirements courts (moins de 60 secondes par muscle) ont un effet faible sur la force ; l'effet devient net au-delà (Behm et coll., 2016). En dessous, c'est peu risqué mais peu utile : autant faire de la mobilité dynamique.",
       },
       {
         q: "Ces erreurs s'appliquent-elles aussi à la musculation à la maison ?",

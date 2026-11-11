@@ -14,7 +14,6 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 const CONTENT_UPDATED = new Date("2026-11-02");
 // Pages réécrites ou sourcées le 11 nov. 2026 (lot 5, d'après Search Console).
 const SEO_UPDATE = new Date("2026-11-11");
-const UPDATED_LANDINGS = new Set(["epaules", "dos", "bras"]);
 const dated = (iso?: string) => (iso ? new Date(iso) : CONTENT_UPDATED);
 
 type Entry = MetadataRoute.Sitemap[number];
@@ -30,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/", 1, "weekly"),
     // Pages d'atterrissage : l'outil prêt à l'emploi sur les recherches réelles
     // (« échauffement haut du corps », « échauffement jambes »…). Priorité haute.
-    ...LANDING_SLUGS.map((slug) => page(`/echauffement/${slug}`, 0.95, "monthly", UPDATED_LANDINGS.has(slug) ? SEO_UPDATE : CONTENT_UPDATED)),
+    ...LANDING_SLUGS.map((slug) => page(`/echauffement/${slug}`, 0.95, "monthly", SEO_UPDATE)),
     page("/series-approche", 0.9),
     page("/echauffement", 0.85),
     ...EXERCICE_SLUGS.map((slug) => page(`/echauffement/exercice/${slug}`, 0.8, "monthly", dated(EXERCICE_PAGES[slug].updated))),

@@ -140,41 +140,84 @@ export function buildRehabPlan(zones: BodyZone[]): SessionPlan {
  * de rééducation. La mobilité rejoint la phase de mobilité, le renforcement l'activation.
  */
 const PREP_EXTRAS: Record<BodyZone, { key: ExKey; dose: string; seconds: number }[]> = {
+  // Par ordre de préférence : les deux premiers qui ne doublent pas la routine sont retenus.
   epaule: [
     { key: "carsEpaule", dose: "3 par sens et par côté", seconds: 50 },
     { key: "reCote", dose: "10 par côté", seconds: 60 },
+    { key: "retraction", dose: "8, tenir 3 s", seconds: 50 },
+    { key: "wallSlides", dose: "8, lents", seconds: 45 },
   ],
   coudes: [
     { key: "flexExtCoude", dose: "10 par côté", seconds: 35 },
     { key: "pronoSupi", dose: "10 par côté", seconds: 40 },
+    { key: "etireExt", dose: "20 s par côté", seconds: 50 },
   ],
   poignets: [
     { key: "rotPoignets", dose: "10 par sens", seconds: 30 },
     { key: "appuiPoignets", dose: "10 bascules", seconds: 40 },
+    { key: "pronoSupi", dose: "10 par côté", seconds: 40 },
   ],
   "bas-du-dos": [
     { key: "genouxPoitrine", dose: "2 × 15 s", seconds: 40 },
     { key: "birdDog", dose: "5 par côté, tenir 3 s", seconds: 60 },
+    { key: "essuieGlace", dose: "6 par côté", seconds: 45 },
   ],
   hanches: [
     { key: "nonante", dose: "6 transitions", seconds: 45 },
     { key: "coquillage", dose: "10 par côté", seconds: 55 },
+    { key: "fenteBasse", dose: "3 respirations par côté", seconds: 50 },
   ],
   genou: [
     { key: "chevilleMur", dose: "8 par côté", seconds: 40 },
     { key: "fenteIso", dose: "2 × 20 s par côté", seconds: 95 },
+    { key: "slr", dose: "8 par côté", seconds: 55 },
   ],
   chevilles: [
     { key: "rotChevilles", dose: "8 par sens et par côté", seconds: 45 },
     { key: "pointes", dose: "12 lentes", seconds: 45 },
+    { key: "etireMollet", dose: "20 s par côté", seconds: 50 },
   ],
 };
 
-export function prepExtras(zone: BodyZone): { phase: "mobility" | "activation"; step: PrepStep }[] {
+/** Exercices de la banque (lib/bank.ts) qui font le même travail qu'un exercice de soin. */
+const SAME_AS: Partial<Record<ExKey, string[]>> = {
+  reCote: ["rotation-externe", "rotation-externe-cote"],
+  carsEpaule: ["cercles-epaule"],
+  wallSlides: ["wall-slides"],
+  ytSol: ["y-t"],
+  pronoSupi: ["pronation-supination"],
+  flexExtCoude: ["flexion-coude"],
+  rotPoignets: ["rotations-poignets"],
+  catCow: ["cat-cow"],
+  essuieGlace: ["essuie-glaces"],
+  birdDog: ["bird-dog"],
+  deadBug: ["dead-bug"],
+  pont: ["glute-bridge"],
+  planchelat: ["planche-laterale"],
+  nonante: ["90-90"],
+  fenteBasse: ["fente-basse"],
+  fireHydrant: ["ouverture-hanche"],
+  chevilleMur: ["cheville-mur"],
+  stepUp: ["montee-marche"],
+  rotChevilles: ["rotations-chevilles"],
+};
+
+/**
+ * Exercices de soin à ajouter pour une zone sensible : les deux premiers de sa liste
+ * qui ne font pas le même travail qu'un exercice déjà présent. `taken` contient les
+ * identifiants (banque et pictogrammes) déjà dans la routine ; il est complété au fur
+ * et à mesure, pour éviter aussi les doublons entre deux zones sensibles.
+ */
+export function prepExtras(zone: BodyZone, taken: Set<string> = new Set()): { phase: "mobility" | "activation"; step: PrepStep }[] {
   const label = REHAB_ZONES.find((z) => z.id === zone)?.label.toLowerCase() ?? zone;
-  return (PREP_EXTRAS[zone] ?? []).map(({ key, dose, seconds }) => {
+  const picked: { phase: "mobility" | "activation"; step: PrepStep }[] = [];
+  for (const { key, dose, seconds } of PREP_EXTRAS[zone] ?? []) {
+    if (picked.length >= 2) break;
     const ex = EX[key];
-    return {
+    const ids = [ex.figure, `soin-${key}`, ...(SAME_AS[key] ?? [])];
+    if (ids.some((id) => taken.has(id))) continue;
+    ids.forEach((id) => taken.add(id));
+    picked.push({
       phase: ex.phase,
       step: {
         kind: "prep",
@@ -185,6 +228,7 @@ export function prepExtras(zone: BodyZone): { phase: "mobility" | "activation"; 
         seconds,
         reason: `Ajouté pour ta zone sensible (${label}) : ${ex.why.charAt(0).toLowerCase()}${ex.why.slice(1)}`,
       },
-    };
-  });
+    });
+  }
+  return picked;
 }

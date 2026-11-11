@@ -20,6 +20,11 @@ function check(label: string, input: SessionInput) {
   const eq = input.equipment ?? "gym";
   if (plan.phases.some((p) => p.key !== "mobility" && p.key !== "activation")) fail(label, "phase hors mobilité/activation");
   if (new Set(ids).size !== ids.length) fail(label, `doublon ${ids.join(", ")}`);
+  // Doublon de fonction : même pictogramme, ou deux exercices de même famille (exercice de soin compris).
+  const figs = steps.map((s) => s.exercise.id);
+  if (new Set(figs).size !== figs.length) fail(label, `même pictogramme deux fois : ${figs.join(", ")}`);
+  for (const fam of [/rotation externe/i, /cat-cow/i, /bird dog/i, /dead bug/i, /pont fessier|glute bridge/i, /90\/90/i, /cheville genou au mur/i, /wall slides/i, /cercles d'épaule/i])
+    if (steps.filter((s) => fam.test(s.exercise.name)).length > 1) fail(label, `deux exercices de même fonction (${fam.source})`);
   const base = steps.filter((st) => !st.exercise.bankId.startsWith("soin-"));
   if (steps.length - base.length > input.pain.length * 2) fail(label, "trop d'ajouts pour la zone sensible");
   if (base.length > (input.short ? SHORT_STEPS : MAX_STEPS)) fail(label, `${steps.length} exercices, trop`);

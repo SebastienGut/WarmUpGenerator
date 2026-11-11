@@ -323,13 +323,10 @@ export function buildSessionPlan(input: SessionInput): SessionPlan {
     });
   }
   const kept = input.short ? steps.slice(0, SHORT_STEPS) : steps;
-  // Zone sensible : un ou deux exercices doux de la routine de soin, sans doublon.
-  for (const zone of input.pain) {
-    for (const extra of prepExtras(zone)) {
-      if (kept.some((k) => k.step.exercise.id === extra.step.exercise.id)) continue;
-      kept.push(extra);
-    }
-  }
+  // Zone sensible : un ou deux exercices doux de la routine de soin, sans doublon de
+  // fonction avec la routine (ni entre deux zones sensibles).
+  const careTaken = new Set(kept.flatMap((k) => [k.step.exercise.bankId, k.step.exercise.id]));
+  for (const zone of input.pain) kept.push(...prepExtras(zone, careTaken));
 
   const phases: PlanPhase[] = [];
   for (const key of ["mobility", "activation"] as const) {

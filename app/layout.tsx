@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s · Warmup",
   },
   description:
-    "Un échauffement musculation en un tap, selon ce que tu travailles : mobilité et activation ciblées, mode guidé. Plus un calculateur de séries d'approche. Gratuit, hors ligne.",
+    "Un échauffement musculation en un tap, selon ce que tu travailles : mobilité, activation, mode guidé. Et un calculateur de séries d'approche. Gratuit.",
   applicationName: "Warmup Generator",
   authors: [{ name: "Warmup Generator" }],
   openGraph: {

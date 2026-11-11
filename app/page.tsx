@@ -8,7 +8,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   title: "Warmup Generator — Échauffement musculation gratuit & personnalisé",
   description:
-    "Push, pull, jambes, haut ou bas du corps : ton échauffement musculation en un tap, mobilité et activation ciblées, mode guidé. Plus un calculateur de séries d'approche. Gratuit.",
+    "Push, pull, jambes, haut du corps : ton échauffement musculation en un tap : mobilité, activation ciblée, mode guidé. Plus les séries d'approche. Gratuit.",
   alternates: { canonical: "/", languages: { "fr-FR": "/" } },
   openGraph: {
     title: "Warmup Generator — Échauffement musculation gratuit & personnalisé",

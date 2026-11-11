@@ -15,12 +15,14 @@ export default function ExerciseVisual({ id, demo, label, className = "", still 
   if (!size) return <ExerciseFigure id={id} label={label} className={className} animate={!still} />;
   const src = (pos: "depart" | "arrivee") => `/demos/${key}-${pos}.webp`;
   return (
-    <span role="img" aria-label={`Mouvement : ${label}`} className={`relative block overflow-hidden ${className}`}>
+    // Le nom est porté par l'attribut alt de chaque image (lisible par les moteurs) ;
+    // la seconde image, superposée, n'est annoncée qu'une fois.
+    <span className={`relative block overflow-hidden ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- images statiques déjà optimisées à l'import */}
-      <img src={src("depart")} alt="" width={size[0]} height={size[1]} loading="lazy" className="absolute inset-0 h-full w-full object-contain" />
+      <img src={src("depart")} alt={`${label} : position de départ`} width={size[0]} height={size[1]} loading="lazy" className="absolute inset-0 h-full w-full object-contain" />
       {!still && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={src("arrivee")} alt="" width={size[0]} height={size[1]} loading="lazy" className="demo-swap absolute inset-0 h-full w-full object-contain" />
+        <img src={src("arrivee")} alt={`${label} : position d'arrivée`} aria-hidden="true" width={size[0]} height={size[1]} loading="lazy" className="demo-swap absolute inset-0 h-full w-full object-contain" />
       )}
     </span>
   );

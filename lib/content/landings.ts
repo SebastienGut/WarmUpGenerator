@@ -49,7 +49,7 @@ const RAW: Record<string, Landing> = {
     cover: "developpe-militaire",
     metaTitle: "Échauffement haut du corps (muscu) : la routine en {min} min",
     metaDescription:
-      "L'échauffement haut du corps prêt à suivre : épaules, haut du dos et omoplates en {min} minutes, avec ou sans élastique. Démonstrations en images et mode guidé, gratuit.",
+      "L'échauffement haut du corps prêt à suivre : épaules, haut du dos et omoplates en {min} minutes, avec ou sans élastique. Démonstrations et mode guidé.",
     h1: "Échauffement haut du corps",
     kicker: "Pecs, dos, épaules, {min} minutes",
     keyAnswer:
@@ -81,7 +81,7 @@ const RAW: Record<string, Landing> = {
     cover: "souleve-de-terre",
     metaTitle: "Échauffement bas du corps (muscu) : la routine en {min} min",
     metaDescription:
-      "L'échauffement bas du corps prêt à suivre : chevilles, hanches, fessiers et gainage en {min} minutes avant squat ou soulevé de terre. Démonstrations en images et mode guidé.",
+      "L'échauffement bas du corps prêt à suivre : chevilles, hanches, fessiers et gainage en {min} minutes avant squat ou soulevé de terre. Mode guidé.",
     h1: "Échauffement bas du corps",
     kicker: "Jambes, fessiers, gainage, {min} minutes",
     keyAnswer:
@@ -137,7 +137,7 @@ const RAW: Record<string, Landing> = {
     cover: "developpe-couche",
     metaTitle: "Échauffement push day : pecs, épaules, triceps en {min} min",
     metaDescription:
-      "L'échauffement push day prêt à suivre avant développé couché et développé militaire : épaules, omoplates, coudes en {min} minutes. Démonstrations en images, mode guidé.",
+      "L'échauffement push day avant développé couché et militaire : épaules, omoplates, coudes en {min} minutes. Démonstrations en images, mode guidé.",
     h1: "Échauffement push day",
     kicker: "Pecs, épaules, triceps, {min} minutes",
     keyAnswer:
@@ -188,7 +188,7 @@ const RAW: Record<string, Landing> = {
     cover: "art-squat-profond-rebond",
     metaTitle: "Échauffement musculation sans matériel : {min} min, tout le corps",
     metaDescription:
-      "Un échauffement musculation sans aucun matériel, au poids du corps : mobilité et activation de tout le corps en {min} minutes. Démonstrations en images, mode guidé, gratuit.",
+      "Un échauffement musculation sans matériel, au poids du corps : mobilité et activation de tout le corps en {min} minutes. Démonstrations, mode guidé.",
     h1: "Échauffement musculation sans matériel",
     kicker: "Poids du corps, tout le corps, {min} minutes",
     keyAnswer:
@@ -287,7 +287,7 @@ const RAW: Record<string, Landing> = {
     equipment: "band",
     metaTitle: "Échauffement épaules (musculation) : la routine en {min} min",
     metaDescription:
-      "L'échauffement épaules en musculation, avec élastique ou sans matériel : mobilité, coiffe des rotateurs et omoplates en {min} minutes. Démonstrations et mode guidé.",
+      "L'échauffement épaules en musculation, avec élastique ou sans : mobilité, coiffe des rotateurs et omoplates en {min} minutes. Démonstrations, mode guidé.",
     h1: "Échauffement épaules",
     kicker: "Avec élastique ou sans matériel",
     keyAnswer:
@@ -348,7 +348,7 @@ const RAW: Record<string, Landing> = {
     cover: "curl-biceps",
     metaTitle: "Échauffement bras (musculation) : biceps, triceps en {min} min",
     metaDescription:
-      "L'échauffement bras en musculation, avant biceps et triceps : coudes, poignets et avant-bras en quelques minutes. Démonstrations en images et mode guidé, gratuit.",
+      "L'échauffement bras en musculation, avant biceps et triceps : coudes, poignets et avant-bras en quelques minutes. Démonstrations et mode guidé.",
     h1: "Échauffement bras",
     kicker: "Biceps, triceps, coudes",
     keyAnswer:

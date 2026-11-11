@@ -8,7 +8,7 @@ const PATH = "/douleur";
 export const metadata: Metadata = {
   title: "Douleurs en musculation : causes par exercice et solutions",
   description:
-    "Mal à l'épaule au développé couché, au genou pendant le squat, au bas du dos au soulevé de terre ? Le diagnostic exercice par exercice et les protocoles pour continuer à t'entraîner.",
+    "Mal à l'épaule au développé couché, au genou au squat, au dos au soulevé de terre ? Le diagnostic par exercice et les protocoles pour continuer.",
   alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
     title: "Douleurs en musculation — Causes et solutions par exercice",

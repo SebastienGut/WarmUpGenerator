@@ -33,7 +33,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     ],
     metaTitle: "Échauffement épaule douloureuse en musculation",
     metaDescription:
-      "Comment s'échauffer avec une épaule douloureuse ou gênante en musculation : 6 mouvements doux pour la coiffe des rotateurs, l'omoplate et le haut du dos. Gratuit.",
+      "Comment s'échauffer avec une épaule douloureuse en musculation : 6 mouvements doux pour la coiffe des rotateurs, l'omoplate et le haut du dos. Gratuit.",
     h1: "Échauffement épaule pour douleur ou gêne",
     subtitle: "Protocole musculation, coiffe des rotateurs, mobilité scapulaire",
     keyAnswer:
@@ -120,7 +120,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     zoneLabel: "genou",
     metaTitle: "Échauffement genou musculation — Squat, fentes, presse en sécurité",
     metaDescription:
-      "Plan d'échauffement genou complet pour les pratiquants avec gêne articulaire. 6 mouvements pour mobiliser hanche, genou et cheville avant squat ou jambes. Gratuit.",
+      "Échauffement genou pour la musculation, avec une gêne articulaire : 6 mouvements pour la hanche, le genou et la cheville avant squat ou séance jambes.",
     h1: "Échauffement genou pour la musculation",
     updated: "2026-11-11",
     sources: [SOURCES.hartmann2013, SOURCES.powers2010],
@@ -209,7 +209,7 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     zoneLabel: "lombaires",
     metaTitle: "Échauffement bas du dos : musculation avec lombaires sensibles",
     metaDescription:
-      "Échauffement complet pour le bas du dos avant musculation. Mobilisation lombaire, gainage, activation fessière. 6 exercices sécurisés. Gratuit, sans inscription.",
+      "Échauffement du bas du dos avant la musculation : mobilisation lombaire, gainage, activation fessière. 6 exercices doux, gratuit, sans inscription.",
     h1: "Échauffement bas du dos / lombaires",
     subtitle: "Protocole musculation, mobilisation rachis, activation fessière",
     keyAnswer:

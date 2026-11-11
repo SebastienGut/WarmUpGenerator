@@ -93,7 +93,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "combien-de-temps-s-echauffer-musculation",
     metaTitle: "Combien de temps s'échauffer en musculation ? (5 à 8 min)",
     metaDescription:
-      "5 à 8 minutes suffisent avant une séance de musculation : un peu plus pour la force, le froid ou une zone sensible, jamais 20 minutes de cardio. Le détail selon ton objectif.",
+      "5 à 8 minutes suffisent avant la musculation : un peu plus pour la force, le froid ou une zone sensible, sans cardio. Le détail selon ton objectif.",
     h1: "Combien de temps s'échauffer en musculation ?",
     publishDate: "19 mai 2026",
     readingTime: "3 min",

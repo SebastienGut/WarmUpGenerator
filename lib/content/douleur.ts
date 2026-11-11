@@ -157,7 +157,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     exerciseLabel: "squat",
     metaTitle: "Douleur au genou pendant le squat : causes et correction",
     metaDescription:
-      "Mal aux genoux au squat ? Les vraies causes (cheville, hanche, valgus) rarement le genou lui-même. Diagnostic, correction technique et échauffement en 6 mouvements.",
+      "Mal aux genoux au squat ? Les vraies causes (cheville, hanche, valgus), rarement le genou lui-même. Diagnostic, corrections, échauffement en 6 mouvements.",
     h1: "Douleur au genou pendant le squat",
     subtitle: "Diagnostic, cheville & hanche, protocole d'échauffement",
     keyAnswer:
@@ -259,7 +259,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     exerciseLabel: "soulevé de terre",
     metaTitle: "Mal au bas du dos après un soulevé de terre : que faire",
     metaDescription:
-      "Douleur lombaire au soulevé de terre : distinguer la courbature normale du signal d'alerte, corriger la charnière de hanche, et le protocole d'échauffement complet.",
+      "Douleur lombaire au soulevé de terre : courbature ou signal d'alerte, correction de la charnière de hanche et protocole d'échauffement complet.",
     h1: "Mal au bas du dos au soulevé de terre",
     subtitle: "Diagnostic, charnière de hanche, protocole d'échauffement",
     keyAnswer:
@@ -565,7 +565,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     exerciseLabel: "curl biceps",
     metaTitle: "Douleur au coude au curl biceps : tendinite et solutions",
     metaDescription:
-      "Mal au coude pendant les curls : distinguer tendinite du biceps et épicondylite, corriger la prise et la charge, et le protocole de préparation en 6 mouvements.",
+      "Mal au coude aux curls : tendinite du biceps ou épicondylite, corriger la prise et la charge, et le protocole de préparation en 6 mouvements.",
     h1: "Douleur au coude au curl biceps",
     subtitle: "Diagnostic, tendinopathie, protocole d'échauffement",
     keyAnswer:

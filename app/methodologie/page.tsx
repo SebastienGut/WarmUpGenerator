@@ -7,7 +7,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.c
 export const metadata: Metadata = {
   title: "Méthodologie et sources : comment ton plan est construit",
   description:
-    "Comment Warmup construit ta préparation : des routines de référence par séance, mobilité puis activation, adaptées à ton matériel. Et comment il calcule les séries d'approche. Principes, sources et limites.",
+    "Comment Warmup construit ta préparation : routines de référence par séance, mobilité puis activation, selon ton matériel. Principes, sources et limites.",
   alternates: { canonical: "/methodologie", languages: { "fr-FR": "/methodologie" } },
   openGraph: {
     title: "Méthodologie & sources — Warmup Generator",

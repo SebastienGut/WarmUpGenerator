@@ -16,7 +16,7 @@ const PATH = "/series-approche";
 export const metadata: Metadata = {
   title: "Calculateur de séries d'approche en musculation",
   description:
-    "Entre ta charge de travail : le calculateur te donne tes séries d'approche (poids, répétitions, disques par côté, repos) pour le squat, le développé couché, le soulevé de terre. Gratuit.",
+    "Entre ta charge de travail : le calculateur donne tes séries d'approche (poids, reps, disques, repos) pour squat, développé couché, soulevé de terre.",
   alternates: { canonical: PATH, languages: { "fr-FR": PATH } },
   openGraph: {
     title: "Calculateur de séries d'approche — Warmup Generator",

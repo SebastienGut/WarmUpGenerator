@@ -19,7 +19,8 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
     inLanguage: "fr-FR",
     url: `${siteUrl}${path}`,
     datePublished: frDateToISO(post.publishDate),
-    dateModified: frDateToISO(post.publishDate),
+    dateModified: frDateToISO(post.updatedDate ?? post.publishDate),
+    ...(post.sources?.length ? { citation: post.sources.map((s) => s.url) } : {}),
     author: {
       "@type": "Person",
       name: "Sébastien Gutierrez",
@@ -82,6 +83,7 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
             <span className="text-faint">·</span>
             <span className="text-[14px] font-semibold text-subtle">
               {post.publishDate}
+              {post.updatedDate && ` · mis à jour le ${post.updatedDate}`}
             </span>
             <span className="text-faint">·</span>
             <span className="text-[14px] font-semibold text-subtle">
@@ -109,6 +111,19 @@ export default function BlogArticle({ post, siteUrl }: BlogArticleProps) {
             </section>
           ))}
         </article>
+
+        {post.sources && post.sources.length > 0 && (
+          <section className="mb-14">
+            <h2 className="mb-4 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold tracking-tight text-ink">Sources</h2>
+            <ol className="flex list-decimal flex-col gap-2 pl-5 text-[13px] leading-relaxed text-muted">
+              {post.sources.map((s) => (
+                <li key={s.url}>
+                  <a href={s.url} target="_blank" rel="noopener" className="underline underline-offset-2 hover:text-ink">{s.label}</a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="mb-14">

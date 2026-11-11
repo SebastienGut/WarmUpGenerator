@@ -6,6 +6,8 @@ import { computeApproachSets, formatKg, type ApproachExercise } from "@/lib/appr
 import type { SEORamp } from "@/components/SEOPage";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
+// Dernière refonte de ces pages, quand aucune mise à jour plus récente n'est notée.
+const CONTENT_REFONTE = "2026-11-02";
 
 // Deep-link vers le moteur par séance : le slug de page est un identifiant
 // d'exercice du catalogue (lib/lifts.ts).
@@ -121,6 +123,8 @@ export default async function ExercicePage({ params }: PageProps) {
       totalDurationLabel="5 min"
       ramp={rampFor(slug, data.exerciseLabel)}
       planHref={PLAN_PARAMS[slug] ? `/plan?${PLAN_PARAMS[slug]}` : undefined}
+      updated={data.updated ?? CONTENT_REFONTE}
+      sources={data.sources}
     />
   );
 }

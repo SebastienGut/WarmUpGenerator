@@ -1,4 +1,5 @@
-import type { SEOExercise, SEOFaq, SEORelatedLink } from "@/components/SEOPage";
+import type { SEOExercise, SEOFaq, SEORelatedLink, SEOSource } from "@/components/SEOPage";
+import { SOURCES } from "@/lib/content/sources";
 
 export interface ProtectionContent {
   slug: string;
@@ -15,12 +16,17 @@ export interface ProtectionContent {
   faqs: SEOFaq[];
   /** Pages à proposer en tête de « Aller plus loin ». */
   guides?: SEORelatedLink[];
+  /** Date ISO de la dernière mise à jour réelle, si plus récente que la refonte du 2 nov. 2026 */
+  updated?: string;
+  sources?: SEOSource[];
 }
 
 export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
   "epaule-douleur": {
     slug: "epaule-douleur",
     zoneLabel: "épaule",
+    updated: "2026-11-11",
+    sources: [SOURCES.kolber2010, SOURCES.kolber2014],
     guides: [
       { href: "/echauffement/epaules", label: "Échauffement épaules, sans douleur" },
       { href: "/routine-douleur", label: "Routine de soin « Une douleur ? »" },
@@ -116,6 +122,8 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     metaDescription:
       "Plan d'échauffement genou complet pour les pratiquants avec gêne articulaire. 6 mouvements pour mobiliser hanche, genou et cheville avant squat ou jambes. Gratuit.",
     h1: "Échauffement genou pour la musculation",
+    updated: "2026-11-11",
+    sources: [SOURCES.hartmann2013, SOURCES.powers2010],
     subtitle: "Protocole bas du corps, hanche, cheville, VMO",
     keyAnswer:
       "Un échauffement du genou efficace ne cible pas le genou : il cible la <strong class='text-ink'>cheville</strong> et la <strong class='text-ink'>hanche</strong>, dont les limitations reportent la contrainte sur l'articulation intermédiaire. Le protocole demande 5 minutes avant toute séance de jambes et travaille la dorsiflexion de cheville, la rotation de hanche, l'activation fessière et le vaste médial, stabilisateur du suivi rotulien.",

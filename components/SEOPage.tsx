@@ -19,6 +19,11 @@ export interface SEORelatedLink {
   label: string;
 }
 
+export interface SEOSource {
+  label: string;
+  url: string;
+}
+
 export interface SEOBreadcrumb {
   label: string;
   href?: string;
@@ -87,6 +92,15 @@ export interface SEOPageProps {
   ramp?: SEORamp;
   /** Deep-link vers /plan préconfiguré : le CTA devient « Lancer ce plan en mode guidé ». */
   planHref?: string;
+  /** Date ISO de la dernière mise à jour réelle du contenu : affichée sous le titre
+   * et reprise dans le schéma Article. */
+  updated?: string;
+  /** Études et recommandations vérifiées sur lesquelles s'appuie la page. */
+  sources?: SEOSource[];
+}
+
+function frDate(iso: string) {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 }
 
 function totalSecondsOf(ex: SEOExercise[]) {
@@ -117,6 +131,8 @@ export default function SEOPage(props: SEOPageProps) {
     path,
     planHref,
     ramp,
+    updated,
+    sources,
   } = props;
 
   const totalSeconds = totalSecondsOf(exercises);
@@ -135,6 +151,27 @@ export default function SEOPage(props: SEOPageProps) {
       item: b.href ? `${siteUrl}${b.href}` : `${siteUrl}${path}`,
     })),
   };
+
+  const articleSchema = updated
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: h1,
+        description: (keyAnswer ?? intro[0] ?? "").replace(/<[^>]+>/g, ""),
+        inLanguage: "fr-FR",
+        url: `${siteUrl}${path}`,
+        mainEntityOfPage: `${siteUrl}${path}`,
+        dateModified: updated,
+        author: {
+          "@type": "Person",
+          name: "Sébastien Gutierrez",
+          url: `${siteUrl}/a-propos`,
+          description: "Pratiquant de musculation de longue date, créateur de Warmup Generator.",
+        },
+        publisher: { "@type": "Organization", name: "Warmup Generator", url: siteUrl },
+        ...(sources && sources.length > 0 ? { citation: sources.map((s) => s.url) } : {}),
+      }
+    : null;
 
   const ctaBlock = (
     <div className="flex flex-col gap-3">
@@ -175,6 +212,9 @@ export default function SEOPage(props: SEOPageProps) {
   return (
     <main className="relative min-h-screen bg-paper">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {articleSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      )}
 
       {/* HEADER */}
       <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
@@ -215,6 +255,11 @@ export default function SEOPage(props: SEOPageProps) {
             {h1}
           </h1>
           {subtitle && <p className="-mt-2 text-[14px] font-semibold text-subtle">{subtitle}</p>}
+          {updated && (
+            <p className="-mt-2 text-[12px] text-subtle">
+              Mis à jour le <time dateTime={updated}>{frDate(updated)}</time>
+            </p>
+          )}
           {keyAnswer && (
             <div className="mt-4 rounded-2xl border border-line bg-ink/[0.035] px-5 py-4">
               <p className="mb-2 text-[14px] font-semibold text-ink">
@@ -327,6 +372,23 @@ export default function SEOPage(props: SEOPageProps) {
                 <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
               ))}
             </div>
+          </section>
+        )}
+
+        {sources && sources.length > 0 && (
+          <section className="mb-14">
+            <h2 className="mb-4 border-b-2 border-ink pb-2 font-display text-[26px] font-extrabold tracking-tight text-ink">
+              Sources
+            </h2>
+            <ol className="flex list-decimal flex-col gap-2 pl-5 text-[13px] leading-relaxed text-muted">
+              {sources.map((s) => (
+                <li key={s.url}>
+                  <a href={s.url} target="_blank" rel="noopener" className="underline underline-offset-2 hover:text-ink">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
           </section>
         )}
 

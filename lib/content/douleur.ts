@@ -1,4 +1,5 @@
-import type { SEOExercise, SEOFaq, SEOSection } from "@/components/SEOPage";
+import type { SEOExercise, SEOFaq, SEOSection, SEOSource } from "@/components/SEOPage";
+import { SOURCES } from "@/lib/content/sources";
 
 /**
  * Cluster « douleur » : pages symptôme × exercice.
@@ -41,6 +42,10 @@ export interface DouleurContent {
   planParams: string;
   /** Page protection correspondante, pour le maillage interne */
   relatedProtection: string;
+  /** Date ISO de la dernière mise à jour réelle du contenu */
+  updated: string;
+  /** Références vérifiées (lib/content/sources.ts) */
+  sources: SEOSource[];
 }
 
 export const DOULEUR_PAGES: Record<string, DouleurContent> = {
@@ -141,6 +146,8 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       },
     ],
     planParams: "s=developpe-couche&p=epaule",
+    updated: "2026-11-11",
+    sources: [SOURCES.kolber2010, SOURCES.kolber2014],
     relatedProtection: "epaule-douleur",
   },
 
@@ -241,6 +248,8 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       },
     ],
     planParams: "s=squat&p=genou",
+    updated: "2026-11-11",
+    sources: [SOURCES.hartmann2013, SOURCES.powers2010, SOURCES.malliaras2015],
     relatedProtection: "genou",
   },
 
@@ -341,6 +350,8 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       },
     ],
     planParams: "s=souleve-de-terre&p=bas-du-dos",
+    updated: "2026-11-11",
+    sources: [SOURCES.nice2016],
     relatedProtection: "lombaires",
   },
 
@@ -348,7 +359,7 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
     slug: "poignet-pompes",
     zoneLabel: "poignets",
     exerciseLabel: "pompes",
-    metaTitle: "Mal aux poignets pendant les pompes : causes et solutions",
+    metaTitle: "Douleur au poignet aux pompes : causes et solutions",
     metaDescription:
       "Douleur au poignet en pompe : pourquoi l'extension à 90° fait mal, les alternatives immédiates (poignées, poings) et le protocole de mobilité en 6 mouvements.",
     h1: "Mal aux poignets pendant les pompes",
@@ -441,6 +452,8 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       },
     ],
     planParams: "s=pompes&p=poignets",
+    updated: "2026-11-11",
+    sources: [SOURCES.ebben2011, SOURCES.suprak2011],
     relatedProtection: "poignets",
   },
 
@@ -541,6 +554,8 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       },
     ],
     planParams: "s=tractions&p=epaule",
+    updated: "2026-11-11",
+    sources: [SOURCES.urbanczyk2020, SOURCES.kolber2010],
     relatedProtection: "epaule-douleur",
   },
 
@@ -641,6 +656,8 @@ export const DOULEUR_PAGES: Record<string, DouleurContent> = {
       },
     ],
     planParams: "s=curl-biceps&p=coudes",
+    updated: "2026-11-11",
+    sources: [SOURCES.coombes2015, SOURCES.cullinane2014],
     relatedProtection: "poignets",
   },
 };

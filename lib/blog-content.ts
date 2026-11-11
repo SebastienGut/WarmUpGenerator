@@ -1,3 +1,5 @@
+import type { SEOSource } from "@/components/SEOPage";
+import { SOURCES } from "@/lib/content/sources";
 export interface BlogSection {
   heading: string;
   content: string[];
@@ -14,11 +16,17 @@ export interface BlogPost {
   sections: BlogSection[];
   faqs: { q: string; a: string }[];
   relatedLinks: { href: string; label: string }[];
+  /** Date (« 11 novembre 2026 ») de la dernière mise à jour réelle du contenu */
+  updatedDate?: string;
+  /** Références vérifiées (lib/content/sources.ts) */
+  sources?: SEOSource[];
 }
 
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "pourquoi-s-echauffer-musculation",
+    updatedDate: "11 novembre 2026",
+    sources: [SOURCES.fradkin2010, SOURCES.behm2016],
     metaTitle: "Pourquoi s'échauffer avant la musculation ? Ce que dit la science",
     metaDescription:
       "Les 3 raisons physiologiques qui rendent l'échauffement obligatoire avant toute séance de musculation — et comment le faire en 5 minutes chrono.",
@@ -54,7 +62,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "L'erreur la plus commune : l'échauffement mal orienté",
         content: [
-          "Quinze minutes de tapis roulant suivies d'étirements statiques. Double problème : le cardio prolongé crée une fatigue métabolique sans préparer les structures musculaires et articulaires spécifiques, et les étirements statiques avant l'effort réduisent la force de 5 à 10 % pendant 30 à 60 minutes (inhibition des fuseaux neuromusculaires). Résultat : tu arrives sur ta première série de squat plus fatigué et moins fort que si tu n'avais rien fait.",
+          "Quinze minutes de tapis roulant suivies d'étirements statiques. Double problème : le cardio prolongé crée une fatigue métabolique sans préparer les structures musculaires et articulaires spécifiques, et les étirements statiques longs avant l'effort réduisent un peu la force (environ 5 % en moyenne, surtout quand chaque étirement dure 60 secondes ou plus). Résultat : tu arrives sur ta première série de squat plus fatigué et moins fort que si tu n'avais rien fait.",
           "Un bon échauffement est <strong class='text-ink'>spécifique, bref et progressif</strong>. Il cible exactement ce que tu vas travailler, dure 5 à 8 minutes, et augmente progressivement l'intensité sans entamer les réserves.",
         ],
       },
@@ -66,7 +74,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "Faut-il s'étirer avant la musculation ?",
-        a: "Non, pas en statique. Les étirements statiques avant l'effort réduisent la force de 5 à 10 %. Privilégie la mobilité dynamique (mouvements en amplitude croissante) et l'activation musculaire. Les étirements statiques ont leur place en fin de séance ou les jours off.",
+        a: "Non, pas en statique long. Tenus 60 secondes ou plus, les étirements statiques réduisent un peu la force, d'environ 5 % en moyenne ; courts, leur effet est faible. Privilégie la mobilité dynamique (mouvements en amplitude croissante) et l'activation musculaire. Les étirements statiques ont leur place en fin de séance ou les jours off.",
       },
       {
         q: "L'échauffement est-il vraiment nécessaire si on fait des séries légères ?",
@@ -83,9 +91,9 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "combien-de-temps-s-echauffer-musculation",
-    metaTitle: "Combien de temps s'échauffer avant la musculation ?",
+    metaTitle: "Combien de temps s'échauffer en musculation ? (5 à 8 min)",
     metaDescription:
-      "3 minutes, 10 minutes, 15 minutes ? La réponse exacte selon ton objectif, tes zones sensibles et la température ambiante.",
+      "5 à 8 minutes suffisent avant une séance de musculation : un peu plus pour la force, le froid ou une zone sensible, jamais 20 minutes de cardio. Le détail selon ton objectif.",
     h1: "Combien de temps s'échauffer en musculation ?",
     publishDate: "19 mai 2026",
     readingTime: "3 min",
@@ -148,9 +156,11 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "echauffement-dynamique-ou-statique",
+    updatedDate: "11 novembre 2026",
+    sources: [SOURCES.simic2013, SOURCES.behm2016],
     metaTitle: "Échauffement dynamique ou statique avant la musculation ?",
     metaDescription:
-      "Les étirements statiques avant l'effort font perdre 5 à 10 % de force. Ce que dit la science et comment s'échauffer correctement pour performer.",
+      "Les étirements statiques longs avant l'effort font perdre un peu de force. Ce que disent les études et comment s'échauffer pour performer.",
     h1: "Échauffement dynamique ou statique — que choisir ?",
     publishDate: "19 mai 2026",
     readingTime: "4 min",
@@ -160,7 +170,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Le verdict scientifique sur les étirements statiques",
         content: [
-          "Une méta-analyse de 2013 portant sur 104 études (Simic et al.) est formelle : les étirements statiques avant un effort de force réduisent la force maximale de <strong class='text-ink'>5,5 % en moyenne</strong>, et jusqu'à 8 à 10 % pour les étirements maintenus plus de 60 secondes.",
+          "Une méta-analyse de 2013 portant sur 104 études (Simic et coll.) trouve que les étirements statiques avant un effort de force réduisent la force maximale d'environ <strong class='text-ink'>5 % en moyenne</strong>. Une revue de 2016 (Behm et coll.) précise que l'effet tient surtout aux étirements de 60 secondes ou plus par muscle ; en dessous, il devient faible.",
           "Le mécanisme est connu : l'étirement statique réduit la tonicité des fuseaux neuromusculaires et inhibe l'activité des motoneurones alpha. Résultat concret — si tu t'étires les pectoraux 45 secondes avant ton développé couché, ta première série est objectivement moins forte. Ce n'est pas une théorie : c'est mesurable sur une plateforme de force.",
         ],
       },
@@ -199,7 +209,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: "L'échauffement dynamique améliore-t-il les performances le jour même ?",
-        a: "Oui — les études montrent un gain de 4 à 10 % de force disponible avec un échauffement bien calibré. La mobilité dynamique + l'activation musculaire spécifique permettent d'arriver à la première série de travail avec un recrutement neuro-musculaire optimal.",
+        a: "Oui : dans une revue de 2010 (Fradkin et coll.), l'échauffement améliore la performance dans environ 79 % des mesures étudiées. La mobilité dynamique + l'activation musculaire spécifique permettent d'arriver à la première série de travail avec un recrutement neuro-musculaire optimal.",
       },
     ],
     relatedLinks: [
@@ -213,7 +223,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "guide-complet-echauffement-musculation",
     metaTitle: "Guide complet de l'échauffement en musculation (2026)",
     metaDescription:
-      "Tout ce qu'il faut savoir sur l'échauffement en musculation : pourquoi, combien de temps, les 3 phases, les erreurs à éviter. Le guide de référence en français.",
+      "Tout ce qu'il faut savoir sur l'échauffement en musculation : pourquoi, combien de temps, les 3 phases, les erreurs à éviter.",
     h1: "Guide complet — L'échauffement en musculation",
     publishDate: "19 mai 2026",
     readingTime: "7 min",
@@ -322,6 +332,8 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "echauffement-debutant-musculation",
+    updatedDate: "11 novembre 2026",
+    sources: [SOURCES.behm2016],
     metaTitle: "Échauffement musculation débutant — par où commencer",
     metaDescription:
       "Tu débutes en musculation et tu ne sais pas comment t'échauffer ? Voici un protocole simple en 5 minutes, sans matériel, adapté aux débutants.",
@@ -361,7 +373,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Les erreurs typiques du débutant",
         content: [
-          "<strong class='text-ink'>Erreur 1 : s'étirer statiquement avant de soulever.</strong> Les étirements statiques (tenir une position en forçant l'amplitude) avant l'effort réduisent la force de 5 à 10 %. Tu ne les sens pas, mais la différence est mesurable dès la première série. Garde les étirements statiques pour après la séance.",
+          "<strong class='text-ink'>Erreur 1 : s'étirer statiquement avant de soulever.</strong> Les étirements statiques (tenir une position en forçant l'amplitude) tenus longtemps avant l'effort réduisent un peu la force, d'environ 5 % en moyenne. Tu ne le sens pas, mais la différence est mesurable. Garde les étirements statiques pour après la séance.",
           "<strong class='text-ink'>Erreur 2 : considérer les premières séries légères comme échauffement.</strong> Faire ses premières séries à charge légère n'est pas la même chose qu'un échauffement articulaire et musculaire. Les deux sont nécessaires — l'un prépare le corps, l'autre programme le geste.",
           "<strong class='text-ink'>Erreur 3 : s'échauffer une fois et ne plus y penser.</strong> L'échauffement se fait à chaque séance, pas seulement quand on se « sent raide ». Le corps ne donne pas toujours de signaux avant une blessure — il donne des signaux après.",
         ],
@@ -465,6 +477,8 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "erreurs-echauffement-musculation",
+    updatedDate: "11 novembre 2026",
+    sources: [SOURCES.simic2013, SOURCES.behm2016],
     metaTitle: "5 erreurs d'échauffement en musculation à corriger",
     metaDescription:
       "Les 5 erreurs d'échauffement les plus communes en salle de musculation et les corrections concrètes. Ne perds plus de force sur ta première série.",
@@ -477,7 +491,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Erreur 1 — Les étirements statiques avant l'effort",
         content: [
-          "C'est l'erreur numéro un. Des millions de pratiquants s'étirent encore statiquement avant de soulever, alors que la science est sans appel depuis plus de 20 ans : les étirements statiques maintenus avant un effort de force <strong class='text-ink'>réduisent la force maximale de 5 à 10 %</strong> pour les 30 à 60 minutes suivantes.",
+          "C'est l'erreur numéro un. Des millions de pratiquants s'étirent encore statiquement avant de soulever, alors que les études convergent : maintenus 60 secondes ou plus avant un effort de force, les étirements statiques <strong class='text-ink'>réduisent un peu la force maximale</strong>, d'environ 5 % en moyenne.",
           "Le mécanisme : l'étirement statique inhibe les fuseaux neuromusculaires et réduit l'activité des motoneurones alpha. Résultat concret — si tu t'étires les quadriceps 45 secondes avant ton squat, ta première série est objectivement moins forte.",
           "<strong class='text-ink'>La correction :</strong> remplace les étirements statiques par de la mobilité dynamique et de l'activation musculaire spécifique. Les étirements statiques ont leur rôle — après la séance ou les jours off.",
         ],

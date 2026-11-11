@@ -87,6 +87,8 @@ export default async function DouleurPage({ params }: PageProps) {
       siteUrl={SITE_URL}
       path={path}
       planHref={`/plan?${data.planParams}`}
+      updated={data.updated}
+      sources={data.sources}
     />
   );
 }

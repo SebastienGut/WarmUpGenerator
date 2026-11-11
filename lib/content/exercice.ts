@@ -1,4 +1,5 @@
-import type { SEOExercise, SEOFaq, SEORelatedLink } from "@/components/SEOPage";
+import type { SEOExercise, SEOFaq, SEORelatedLink, SEOSource } from "@/components/SEOPage";
+import { SOURCES } from "@/lib/content/sources";
 
 export interface ExerciceContent {
   slug: string;
@@ -15,6 +16,9 @@ export interface ExerciceContent {
   faqs: SEOFaq[];
   /** Pages à proposer avant les autres exercices (zone, douleur). */
   guides?: SEORelatedLink[];
+  /** Date ISO de la dernière mise à jour réelle, si plus récente que la refonte du 2 nov. 2026 */
+  updated?: string;
+  sources?: SEOSource[];
 }
 
 export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
@@ -25,10 +29,12 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     metaDescription:
       "Échauffement développé couché complet : coiffe, grand dentelé, pec mineur, thoracique. 6 mouvements en 5 minutes pour DC sain et performant. Gratuit.",
     h1: "Échauffement avant le développé couché",
+    updated: "2026-11-11",
+    sources: [SOURCES.kolber2010],
     subtitle: "Coiffe, grand dentelé, cage thoracique, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>développé couché</strong> est l'exercice le plus pratiqué en salle, et celui qui blesse le plus d'épaules. La cause n'est pas le DC en soi — c'est le DC fait à froid, sans activation préalable de la coiffe des rotateurs et du grand dentelé. Avec ce protocole spécifique, tu prépares les structures qui stabilisent l'épaule sous une charge axiale lourde.",
-      "À pratiquer juste avant tes premières séries de chauffe avec barre. Compte 4 à 5 minutes. Le résultat : omoplates qui se rétractent et glissent librement, cage thoracique mobile (clé d'une bonne arche), coiffe activée, grand dentelé prêt à protéger l'articulation. Tu gagnes en stabilité, donc en puissance disponible — souvent 5 à 10 % sur la première série de travail.",
+      "À pratiquer juste avant tes premières séries de chauffe avec barre. Compte 4 à 5 minutes. Le résultat : omoplates qui se rétractent et glissent librement, cage thoracique mobile (clé d'une bonne arche), coiffe activée, grand dentelé prêt à protéger l'articulation. Une épaule stable laisse les pectoraux pousser au lieu de compenser.",
     ],
     exercises: [
       {
@@ -105,14 +111,16 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   squat: {
     slug: "squat",
     exerciseLabel: "squat",
-    metaTitle: "Échauffement squat — 6 mouvements en 5 min",
+    metaTitle: "Échauffement avant le squat : routine en 5 min",
     metaDescription:
       "Échauffement squat complet : mobilité hanche, dorsiflexion cheville, activation fessière. 6 mouvements en 5 min pour squat lourd et profond. Gratuit.",
     h1: "Échauffement avant le squat",
+    updated: "2026-11-11",
+    sources: [SOURCES.hartmann2013],
     subtitle: "Hanche, cheville, fessiers, pattern, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>squat</strong> est le roi des exercices de jambes mais aussi le plus exigeant en mobilité et en coordination. Trois facteurs déterminent un squat propre et lourd : <strong class='text-ink'>la dorsiflexion de cheville</strong>, <strong class='text-ink'>la rotation et flexion de hanche</strong>, et <strong class='text-ink'>l'activation fessière</strong>. Ce protocole spécifique adresse les trois.",
-      "À pratiquer juste avant tes séries de chauffe à la barre. Compte 5 minutes. Le résultat : amplitude complète accessible (descente sous la parallèle sans compenser), pattern moteur amorcé, fessiers actifs (et pas un \"squat quadriceps\" qui charge le genou), gainage prêt. Tu peux ajouter 5-10 kg sur ta première série de travail rien qu'avec un échauffement bien fait.",
+      "À pratiquer juste avant tes séries de chauffe à la barre. Compte 5 minutes. Le résultat : amplitude complète accessible (descente sous la parallèle sans compenser), pattern moteur amorcé, fessiers actifs (et pas un \"squat quadriceps\" qui charge le genou), gainage prêt.",
     ],
     exercises: [
       {
@@ -189,7 +197,7 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   "souleve-de-terre": {
     slug: "souleve-de-terre",
     exerciseLabel: "soulevé de terre",
-    metaTitle: "Échauffement soulevé de terre — SDT lourd sans blessure",
+    metaTitle: "Échauffement soulevé de terre : routine en 5 min",
     metaDescription:
       "Échauffement soulevé de terre complet : charnière de hanche, mobilité thoracique, gainage anti-extension. 6 mouvements en 5 min pour SDT lourd. Gratuit.",
     h1: "Échauffement avant le soulevé de terre",
@@ -364,6 +372,8 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
     subtitle: "Omoplates, haut du dos, épaules, prise, 5 minutes",
     keyAnswer:
       "L'échauffement avant les tractions prend 4 à 5 minutes : mobilité du haut du dos et des épaules, activation des omoplates à l'élastique, puis suspensions et tractions scapulaires à la barre. Deux courtes séries de tractions partielles terminent la préparation, sans fatigue, avant les séries de travail.",
+    updated: "2026-11-11",
+    sources: [SOURCES.urbanczyk2020],
     guides: [
       { href: "/echauffement/dos", label: "Échauffement dos" },
       { href: "/echauffement/pull", label: "Échauffement pull day" },
@@ -456,14 +466,15 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   "developpe-militaire": {
     slug: "developpe-militaire",
     exerciseLabel: "développé militaire",
-    metaTitle: "Échauffement développé militaire (OHP) — épaules prêtes",
+    metaTitle: "Échauffement développé militaire : routine en 5 min",
     metaDescription:
       "Échauffement développé militaire complet : coiffe, thoracique, grand dentelé. 6 mouvements en 5 min pour OHP, push press, push jerk. Gratuit.",
     h1: "Échauffement avant le développé militaire",
+    updated: "2026-11-11",
     subtitle: "OHP, coiffe, thoracique, grand dentelé, 5 minutes",
     intro: [
       "Le <strong class='text-ink'>développé militaire</strong> (OHP — overhead press) est l'exercice qui exige le plus de mobilité et de stabilité d'épaule. Pour pousser une charge au-dessus de la tête sans douleur, tu as besoin d'une <strong class='text-ink'>flexion gléno-humérale complète</strong>, d'un <strong class='text-ink'>thoracique mobile</strong> en extension, et d'un <strong class='text-ink'>grand dentelé actif</strong> qui fait basculer correctement les omoplates en haut du mouvement.",
-      "À pratiquer juste avant tes séries de chauffe. Compte 5 minutes. Le résultat : l'épaule passe \"librement\" en flexion totale, la cage thoracique reste ouverte, le grand dentelé active la rotation supérieure de l'omoplate (rythme scapulo-huméral). Tu pousses 5-10 kg de plus avec moins de stress articulaire — et surtout, tu protèges ta coiffe contre l'usure répétée du push lourd.",
+      "À pratiquer juste avant tes séries de chauffe. Compte 5 minutes. Le résultat : l'épaule passe \"librement\" en flexion totale, la cage thoracique reste ouverte, le grand dentelé active la rotation supérieure de l'omoplate (rythme scapulo-huméral). Tu pousses dans de meilleures conditions, avec une coiffe déjà active au moment où la charge arrive.",
     ],
     exercises: [
       {

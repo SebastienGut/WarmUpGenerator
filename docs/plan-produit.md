@@ -117,6 +117,13 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 11 nov. 2026 : lot 5, blocs 2 à 4. Pages douleur, protection épaule et genou, exercices squat, développé couché,
+  tractions : sources vérifiées dans PubMed (lib/content/sources.ts, à ne compléter qu'après la même vérification),
+  date de mise à jour visible, schéma Article (auteur, dateModified, citations). Blog : « 5 à 10 % de force perdue »
+  remplacé par les chiffres sourcés (Simic 2013, Behm 2016), sources et date sur 4 articles. Promesses chiffrées sans
+  source retirées des pages exercice. Sitemap : lastmod par page. llms.txt : lien « Une douleur ? » corrigé.
+  Titres retouchés pour le taux de clic (durée de l'échauffement, squat, soulevé de terre, développé militaire,
+  poignet aux pompes). /routine-douleur reste hors sitemap : elle est noindex par choix.
 - 10 nov. 2026 : lot 5, bloc 1 (branche seo/bloc-1-positions-8-12), d'après Search Console sur 90 jours (67 clics, 5 690 impressions,
   position 13,7 ; environ 600 impressions sans clic en position 8 à 12). Épaules, dos et bras : de ~480 à ~800 mots, titres
   alignés sur les requêtes, sections propres à la zone, liens vers exercices et douleurs. Tractions : « En bref », FAQ, promesse

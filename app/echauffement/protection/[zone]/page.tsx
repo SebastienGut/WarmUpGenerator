@@ -5,6 +5,8 @@ import { PROTECTION_PAGES, PROTECTION_SLUGS } from "@/lib/content/protection";
 import { DOULEUR_PAGES, DOULEUR_SLUGS } from "@/lib/content/douleur";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
+// Dernière refonte de ces pages, quand aucune mise à jour plus récente n'est notée.
+const CONTENT_REFONTE = "2026-11-02";
 
 // Deep-link générateur : les zones concernées, avec la douleur déclarée.
 const PLAN_PARAMS: Record<string, string> = {
@@ -93,6 +95,8 @@ export default async function ProtectionPage({ params }: PageProps) {
       howToName={data.h1}
       totalDurationLabel="5 min"
       planHref={PLAN_PARAMS[zone] ? `/plan?${PLAN_PARAMS[zone]}` : undefined}
+      updated={data.updated ?? CONTENT_REFONTE}
+      sources={data.sources}
     />
   );
 }

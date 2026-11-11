@@ -1,4 +1,4 @@
-import type { SEOExercise, SEOFaq } from "@/components/SEOPage";
+import type { SEOExercise, SEOFaq, SEORelatedLink } from "@/components/SEOPage";
 
 export interface ProtectionContent {
   slug: string;
@@ -13,23 +13,29 @@ export interface ProtectionContent {
   exercises: SEOExercise[];
   advice: { title: string; paragraphs: string[] };
   faqs: SEOFaq[];
+  /** Pages à proposer en tête de « Aller plus loin ». */
+  guides?: SEORelatedLink[];
 }
 
 export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
   "epaule-douleur": {
     slug: "epaule-douleur",
     zoneLabel: "épaule",
-    metaTitle: "Échauffement épaule sensible — Plan sécurisé pour la musculation",
+    guides: [
+      { href: "/echauffement/epaules", label: "Échauffement épaules, sans douleur" },
+      { href: "/routine-douleur", label: "Routine de soin « Une douleur ? »" },
+    ],
+    metaTitle: "Échauffement épaule douloureuse en musculation",
     metaDescription:
-      "Plan d'échauffement épaule complet pour les pratiquants avec douleur ou gêne articulaire. 6 mouvements doux ciblés coiffe des rotateurs, omoplate et thoracique. Gratuit.",
+      "Comment s'échauffer avec une épaule douloureuse ou gênante en musculation : 6 mouvements doux pour la coiffe des rotateurs, l'omoplate et le haut du dos. Gratuit.",
     h1: "Échauffement épaule pour douleur ou gêne",
     subtitle: "Protocole musculation, coiffe des rotateurs, mobilité scapulaire",
     keyAnswer:
       "Échauffer une épaule sensible avant la musculation demande 5 à 6 minutes et trois cibles : la <strong class='text-ink'>mobilité thoracique</strong>, car une cage rigide reporte le stress sur l'épaule ; le <strong class='text-ink'>contrôle de l'omoplate</strong>, qui stabilise la base du mouvement ; et l'activation de la <strong class='text-ink'>coiffe des rotateurs</strong>, qui centre la tête humérale sous charge. Aucun matériel nécessaire, un élastique léger est un plus.",
     intro: [
       "L'épaule est l'articulation la plus mobile du corps, et cette mobilité se paie en stabilité : elle tient par ses muscles bien plus que par sa forme osseuse. Quand elle devient capricieuse, deux minutes de moulinets de bras ne changent rien — ce n'est pas de chaleur qu'elle manque, c'est de stabilisateurs réveillés.",
-      "Cet échauffement ne traite pas la cause d'une douleur installée. Si tu ressens une douleur aiguë, persistante ou qui s'aggrave, consulte un kinésithérapeute. En revanche, pour les gênes diffuses, les épaules \"capricieuses\" ou les sensations d'accrochage, ce protocole en 6 mouvements réduit le risque de blessure et améliore le confort articulaire dès la première série.",
-      "À pratiquer avant chaque séance impliquant le haut du corps — pecs, dos, épaules, bras. Compte 5 à 6 minutes. Aucun matériel requis, un élastique léger est un plus pour les exercices d'activation.",
+      "Ce protocole s'adresse aux gênes diffuses, aux épaules \"capricieuses\" et aux sensations d'accrochage : il prépare l'articulation et rend souvent les premières séries plus confortables. Pour une douleur vive ou qui s'aggrave, un kiné ira plus loin. Pour une routine de soin plus longue, passe par <a href='/routine-douleur' class='font-semibold text-ink underline underline-offset-2'>Une douleur ?</a>",
+      "À pratiquer avant chaque séance impliquant le haut du corps : pecs, dos, épaules, bras. Si ton épaule va bien, prends plutôt <a href='/echauffement/epaules' class='font-semibold text-ink underline underline-offset-2'>l'échauffement épaules classique</a>, plus court.",
     ],
     exercises: [
       {
@@ -78,9 +84,9 @@ export const PROTECTION_PAGES: Record<string, ProtectionContent> = {
     advice: {
       title: "Erreurs fréquentes à éviter",
       paragraphs: [
-        "<strong class='text-ink'>Sauter directement aux séries de chauffe sur l'exercice principal</strong> est la première cause d'aggravation des douleurs d'épaule. La coiffe des rotateurs a besoin d'un signal d'activation spécifique avant de stabiliser des charges lourdes en développé couché ou militaire.",
+        "<strong class='text-ink'>Sauter directement aux séries de chauffe sur l'exercice principal</strong> laisse peu de temps à une épaule sensible pour se mettre en route. Quelques minutes de mobilité et d'activation légère de la coiffe des rotateurs la préparent avant les charges lourdes en développé couché ou militaire.",
         "<strong class='text-ink'>Forcer l'amplitude</strong> en pensant \"si je tire plus fort, j'irai mieux\" est une autre erreur. La règle est simple : zéro douleur pendant l'échauffement. Une légère tension est normale, une douleur — même modérée — signale qu'il faut réduire l'amplitude ou arrêter.",
-        "<strong class='text-ink'>Négliger la mobilité thoracique</strong> est un classique. Une cage thoracique rigide reporte tout le stress sur l'épaule. Les deux exercices de rotation thoracique du protocole sont non négociables.",
+        "<strong class='text-ink'>Négliger la mobilité thoracique</strong> est un classique. Un haut du dos raide reporte une partie du travail sur l'épaule : ne saute pas la mobilisation thoracique du protocole.",
       ],
     },
     faqs: [

@@ -20,8 +20,12 @@ export interface Landing {
   /** Les trois choses que la zone exige, en clair. */
   needs: { title: string; body: string }[];
   section?: { title: string; paragraphs: string[] };
+  /** Sections de fond, propres à la zone, sous la section principale. */
+  guide?: { title: string; paragraphs: string[] }[];
   faqs: { q: string; a: string }[];
   related: string[];
+  /** Pages hors échauffements par zone : exercice précis, douleur. */
+  links?: { href: string; label: string }[];
   /** Séance type dont la page affiche la routine de référence ; sinon, composition des zones. */
   template?: string;
   /** Matériel imposé par la page (« sans matériel », « épaules » avec élastique) ; sinon, celui de l'appareil. */
@@ -232,32 +236,58 @@ const RAW: Record<string, Landing> = {
     cover: "rowing-barre",
     metaTitle: "Échauffement dos (musculation) : la routine en {min} min",
     metaDescription:
-      "L'échauffement dos prêt à suivre avant tractions, rowing et tirages : omoplates, haut du dos, charnière de hanche en {min} minutes. Démonstrations en images et mode guidé.",
+      "L'échauffement dos en musculation, avant tractions, rowing et tirages : omoplates, haut du dos et épaules en {min} minutes. Démonstrations en images et mode guidé.",
     h1: "Échauffement dos",
     kicker: "Avant tractions, rowing, tirages",
     keyAnswer:
-      "Avant une séance dos en musculation, l'échauffement prépare les omoplates et le haut du dos : wall slides, cat-cow et rotation thoracique à quatre pattes pour la mobilité, puis face pull pour l'arrière de l'épaule. Pour le rowing penché ou le soulevé de terre, ajoute la zone Jambes : le good morning prépare la charnière de hanche.",
+      "Avant une séance dos en musculation, l'échauffement prépare les omoplates et le haut du dos : wall slides, cat-cow et rotation thoracique à quatre pattes pour la mobilité, puis face pull pour l'arrière de l'épaule. Pour le rowing penché ou le soulevé de terre, ajoute un good morning au poids du corps : il prépare la charnière de hanche.",
     needs: [
       { title: "Des omoplates qui bougent bien", body: "Tous les tirages commencent par elles ; un dos qui tire « avec les bras » travaille mal." },
       { title: "Un haut du dos mobile", body: "La rotation et l'extension thoracique libèrent l'épaule pour les tirages verticaux." },
       { title: "Une charnière de hanche maîtrisée", body: "Le rowing penché se fait buste incliné, dos plat : il demande des ischios et un bas du dos prêts." },
     ],
+    guide: [
+      {
+        title: "Échauffer les dorsaux, ou ce qui les fait travailler",
+        paragraphs: [
+          "Le grand dorsal n'a pas besoin d'un exercice à part : il se prépare très bien sur les premières séries légères de ton tirage. Ce qui demande de l'attention avant, ce sont les omoplates, le haut du dos et les épaules. Si l'omoplate ne bouge pas, le mouvement part des bras et le dos travaille moins.",
+          "C'est pour ça que la routine ne contient pas de tirage lourd : trois exercices de mobilité pour donner de l'amplitude, puis un face pull pour réveiller l'arrière de l'épaule sans entamer ta force.",
+        ],
+      },
+      {
+        title: "Selon le premier exercice de ta séance dos",
+        paragraphs: [
+          "Tractions ou tirage vertical : les bras passent au-dessus de la tête, donc les wall slides comptent le plus. Ajoute une suspension à la barre et quelques tractions scapulaires avant ta première vraie série.",
+          "Rowing barre : tu tiens le buste penché pendant toute la série. Ajoute 8 à 10 good mornings au poids du corps pour trouver la position, puis commence à la barre seule.",
+          "Rowing assis, tirage à la poulie : la routine suffit. Monte ensuite progressivement sur l'exercice lui-même, en gardant les premières répétitions lentes pour sentir les omoplates se rapprocher.",
+          "Soulevé de terre : il mérite sa propre préparation, centrée sur les hanches et le gainage plus que sur le haut du dos.",
+        ],
+      },
+    ],
     faqs: [
       { q: "Comment s'échauffer le dos avant la musculation ?", a: "Avec des wall slides, un cat-cow et une rotation thoracique pour la mobilité, puis un face pull pour l'activation. Si ta séance contient du rowing penché ou du soulevé de terre, ajoute un good morning au poids du corps." },
+      { q: "Quel échauffement pour une séance dos à la salle ?", a: "La routine ci-dessus en version Salle : le face pull se fait à la corde, sur une poulie haute. Enchaîne avec des séries légères de ton premier exercice, en augmentant la charge à chaque série jusqu'à ta charge de travail." },
+      { q: "Faut-il échauffer les dorsaux séparément ?", a: "Non. Les premières séries légères de tractions ou de tirage préparent le grand dorsal. L'échauffement sert surtout à libérer le haut du dos et à réveiller les muscles qui placent les omoplates." },
       { q: "Comment s'échauffer avec un mal de dos ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Bas du dos ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide lombaires. Une douleur qui irradie dans la jambe ou qui persiste demande un avis médical." },
       DUREE,
       ETIREMENTS,
     ],
     related: ["pull", "haut-du-corps", "bras"],
+    links: [
+      { href: "/echauffement/exercice/tractions", label: "Échauffement avant les tractions" },
+      { href: "/echauffement/exercice/rowing-barre", label: "Échauffement avant le rowing barre" },
+      { href: "/echauffement/exercice/souleve-de-terre", label: "Échauffement avant le soulevé de terre" },
+      { href: "/echauffement/protection/lombaires", label: "Échauffement avec des lombaires sensibles" },
+    ],
   },
   epaules: {
     slug: "epaules",
     zones: ["epaules"],
     cover: "developpe-militaire",
     equipment: "band",
-    metaTitle: "Échauffement épaules (élastique ou sans) : routine {min} min",
+    metaTitle: "Échauffement épaules (musculation) : la routine en {min} min",
     metaDescription:
-      "L'échauffement épaules prêt à suivre, avec élastique ou sans matériel : mobilité, coiffe des rotateurs et omoplates en {min} minutes. Démonstrations en images et mode guidé.",
+      "L'échauffement épaules en musculation, avec élastique ou sans matériel : mobilité, coiffe des rotateurs et omoplates en {min} minutes. Démonstrations et mode guidé.",
     h1: "Échauffement épaules",
     kicker: "Avec élastique ou sans matériel",
     keyAnswer:
@@ -273,21 +303,52 @@ const RAW: Record<string, Landing> = {
         "La routine ci-dessus est réglée avec élastique : rotation externe et face pull, avec une résistance très légère. Choisis « Sans matériel » ou « Salle » pour voir les variantes correspondantes.",
       ],
     },
+    guide: [
+      {
+        title: "Pourquoi les moulinets ne suffisent pas",
+        paragraphs: [
+          "Les grands cercles de bras font bouger l'articulation, mais sans résistance ni contrôle : ils ne demandent presque rien à la coiffe des rotateurs ni aux muscles qui guident l'omoplate. Or ce sont eux qui gardent l'épaule centrée quand la charge arrive.",
+          "Garde quelques cercles si ça te fait du bien, puis passe à ce qui prépare vraiment : monter les bras en contrôlant le dos, tourner l'épaule contre une résistance légère, tirer vers le visage avec les coudes hauts.",
+        ],
+      },
+      {
+        title: "Selon ce qui t'attend",
+        paragraphs: [
+          "Développé militaire, élévations latérales : les bras passent au-dessus de la tête ou à l'horizontale. Prends ton temps sur les wall slides, puis commence ton premier exercice très léger.",
+          "Développé couché, dips : l'épaule doit rester stable, omoplates serrées. Ajoute des pompes scapulaires, ou suis directement l'échauffement pectoraux ou push day.",
+          "Tractions, tirage vertical : l'épaule travaille bras tendus au-dessus de la tête. Termine par une suspension à la barre et quelques tractions scapulaires.",
+        ],
+      },
+      {
+        title: "Bien doser",
+        paragraphs: [
+          "Ces exercices doivent rester faciles : ils réveillent, ils ne fatiguent pas. Si le trapèze monte vers l'oreille ou si le mouvement devient saccadé, la résistance est trop forte. Une sensation de chaleur dans l'arrière de l'épaule est normale, une brûlure en fin de série veut dire que tu en fais trop.",
+        ],
+      },
+    ],
     faqs: [
+      { q: "Comment échauffer ses épaules avant le développé militaire ?", a: "Wall slides pour l'amplitude, rotation externe et face pull pour la stabilité, puis des séries légères sur le développé lui-même, en commençant à la barre seule." },
+      { q: "Les moulinets de bras suffisent-ils à échauffer les épaules ?", a: "Non. Ils mobilisent l'articulation mais sollicitent très peu la coiffe des rotateurs et les omoplates. Ajoute au moins une rotation externe légère et un face pull, ou un W allongé sans matériel." },
       { q: "Quel élastique pour s'échauffer les épaules ?", a: "Le plus léger possible : l'échauffement de la coiffe des rotateurs se fait avec une faible résistance et beaucoup de contrôle, sur 12 à 15 répétitions. Un élastique trop dur fait compenser le trapèze." },
       { q: "Comment s'échauffer les épaules sans matériel ?", a: "Wall slides, rotation externe allongé sur le côté et W allongé sur le ventre : ils couvrent la mobilité et l'activation sans élastique. Choisis « Sans matériel » au-dessus de la routine pour les voir." },
       { q: "Et si j'ai mal à l'épaule ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Épaule ») : mobilité douce et renforcement léger, plus long qu'un échauffement. Lis aussi le guide épaule. Une douleur la nuit ou une perte de force brutale demandent un avis médical." },
       DUREE,
     ],
     related: ["haut-du-corps", "push", "pecs"],
+    links: [
+      { href: "/echauffement/exercice/developpe-militaire", label: "Échauffement avant le développé militaire" },
+      { href: "/echauffement/protection/epaule-douleur", label: "Échauffement épaule douloureuse" },
+      { href: "/douleur/epaule-developpe-couche", label: "Mal à l'épaule au développé couché" },
+      { href: "/douleur/epaule-tractions", label: "Mal à l'épaule aux tractions" },
+    ],
   },
   bras: {
     slug: "bras",
     zones: ["bras"],
     cover: "curl-biceps",
-    metaTitle: "Échauffement bras : biceps, triceps, coudes en {min} min",
+    metaTitle: "Échauffement bras (musculation) : biceps, triceps en {min} min",
     metaDescription:
-      "L'échauffement bras prêt à suivre avant biceps et triceps : coudes, poignets et épaules en quelques minutes. Démonstrations en images et mode guidé, gratuit.",
+      "L'échauffement bras en musculation, avant biceps et triceps : coudes, poignets et avant-bras en quelques minutes. Démonstrations en images et mode guidé, gratuit.",
     h1: "Échauffement bras",
     kicker: "Biceps, triceps, coudes",
     keyAnswer:
@@ -297,13 +358,41 @@ const RAW: Record<string, Landing> = {
       { title: "Des poignets mobiles", body: "La prise sur la barre ou les haltères met les poignets en tension, surtout en supination." },
       { title: "Une épaule stable", body: "Elle tient le bras en place ; une épaule qui bouge fait tricher sur les curls." },
     ],
+    guide: [
+      {
+        title: "Le coude d'abord, le muscle ensuite",
+        paragraphs: [
+          "Le biceps et le triceps sont des muscles petits : ils montent vite en température dès qu'ils travaillent. Ce qui demande plus de temps, ce sont les tendons du coude, qui encaissent chaque curl et chaque extension. D'où une préparation courte, mais qui passe bien par le coude et l'avant-bras.",
+          "La rotation des avant-bras, paume vers le haut puis vers le bas, prépare le coude et le poignet au changement de prise. Le curl marteau et l'extension très légers font ensuite passer un peu de charge dans les tendons, sans entamer ta force.",
+        ],
+      },
+      {
+        title: "Séance bras, ou bras en fin de séance",
+        paragraphs: [
+          "Pour une séance consacrée aux bras, fais la routine complète, puis une série légère de 12 à 15 répétitions sur ton premier exercice de biceps et sur ton premier exercice de triceps.",
+          "Si les bras arrivent après les pecs ou le dos, ils ont déjà beaucoup travaillé pendant les développés ou les tirages. Pas besoin de refaire la routine : une série légère sur le premier exercice de bras suffit.",
+        ],
+      },
+      {
+        title: "Sans matériel",
+        paragraphs: [
+          "Sans haltère ni élastique, la routine devient plus longue et prépare tout ce qui porte le bras : cercles d'épaule, rotation des avant-bras et des poignets, rotation externe allongé sur le côté, flexions du coude poing serré et pompes scapulaires contre un mur. Choisis « Sans matériel » au-dessus de la routine.",
+        ],
+      },
+    ],
     faqs: [
+      { q: "Les rotations de bras servent-elles à s'échauffer ?", a: "Les rotations des avant-bras oui, avant les curls et les extensions : elles préparent le coude et le poignet. Les grands moulinets des épaules aident peu pour une séance bras, sauf en complément." },
+      { q: "Faut-il échauffer biceps et triceps séparément ?", a: "La routine prépare les deux, avec un curl marteau et une extension très légers. Ensuite, fais une série légère sur le premier exercice de chaque muscle avant de charger." },
       { q: "Faut-il s'échauffer avant de faire les bras ?", a: "Oui, surtout pour les coudes : quelques minutes de mobilité des avant-bras et des coudes, puis une série légère de 12 à 15 répétitions avant la première série de travail de chaque exercice." },
       { q: "Et si j'ai mal au coude au curl ?", a: "Sous 3 sur 10, suis la routine « Une douleur ? » de l'accueil (zone « Coude ») et consulte le guide douleur au coude au curl biceps. Une douleur persistante au coude demande d'adapter la charge et la prise." },
       DUREE,
       ETIREMENTS,
     ],
     related: ["pull", "push", "haut-du-corps"],
+    links: [
+      { href: "/douleur/coude-curl-biceps", label: "Mal au coude au curl biceps" },
+      { href: "/echauffement/protection/poignets", label: "Échauffement des poignets" },
+    ],
   },
   jambes: {
     slug: "jambes",

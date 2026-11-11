@@ -99,17 +99,21 @@ export default async function ExercicePage({ params }: PageProps) {
         { label: "Exercices", href: "/echauffement/exercice" },
         { label: data.exerciseLabel.charAt(0).toUpperCase() + data.exerciseLabel.slice(1) },
       ]}
+      keyAnswer={data.keyAnswer}
       intro={data.intro}
       exerciseSectionTitle={`Protocole en ${data.exercises.length} mouvements`}
       exercises={data.exercises}
       advice={data.advice}
       faqs={data.faqs}
       related={{
-        title: "Autres échauffements par exercice",
-        links: EXERCICE_SLUGS.filter((s) => s !== slug).map((s) => ({
-          href: `/echauffement/exercice/${s}`,
-          label: EXERCICE_PAGES[s].h1,
-        })),
+        title: "Aller plus loin",
+        links: [
+          ...(data.guides ?? []),
+          ...EXERCICE_SLUGS.filter((s) => s !== slug).map((s) => ({
+            href: `/echauffement/exercice/${s}`,
+            label: EXERCICE_PAGES[s].h1,
+          })),
+        ],
       }}
       siteUrl={SITE_URL}
       path={path}

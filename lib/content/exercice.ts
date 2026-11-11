@@ -1,4 +1,4 @@
-import type { SEOExercise, SEOFaq } from "@/components/SEOPage";
+import type { SEOExercise, SEOFaq, SEORelatedLink } from "@/components/SEOPage";
 
 export interface ExerciceContent {
   slug: string;
@@ -7,10 +7,14 @@ export interface ExerciceContent {
   metaDescription: string;
   h1: string;
   subtitle: string;
+  /** Réponse autoportante de 40-60 mots, citable hors contexte (voir SEOPage) */
+  keyAnswer?: string;
   intro: string[];
   exercises: SEOExercise[];
   advice: { title: string; paragraphs: string[] };
   faqs: SEOFaq[];
+  /** Pages à proposer avant les autres exercices (zone, douleur). */
+  guides?: SEORelatedLink[];
 }
 
 export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
@@ -353,14 +357,21 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
   tractions: {
     slug: "tractions",
     exerciseLabel: "tractions",
-    metaTitle: "Échauffement tractions — dos, épaules et grip en 5 min",
+    metaTitle: "Échauffement avant les tractions : routine en 5 min",
     metaDescription:
-      "Échauffement tractions complet : scapulaires, mobilité thoracique, grip. 6 mouvements en 5 min pour tractions strictes ou lestées. Gratuit.",
+      "Comment s'échauffer avant les tractions : omoplates, haut du dos, épaules et prise. 6 mouvements en 5 minutes, pour tractions strictes ou lestées. Gratuit.",
     h1: "Échauffement avant les tractions",
-    subtitle: "Pull-ups, scapulae, thoracique, grip, 5 minutes",
+    subtitle: "Omoplates, haut du dos, épaules, prise, 5 minutes",
+    keyAnswer:
+      "L'échauffement avant les tractions prend 4 à 5 minutes : mobilité du haut du dos et des épaules, activation des omoplates à l'élastique, puis suspensions et tractions scapulaires à la barre. Deux courtes séries de tractions partielles terminent la préparation, sans fatigue, avant les séries de travail.",
+    guides: [
+      { href: "/echauffement/dos", label: "Échauffement dos" },
+      { href: "/echauffement/pull", label: "Échauffement pull day" },
+      { href: "/douleur/epaule-tractions", label: "Mal à l'épaule aux tractions" },
+    ],
     intro: [
       "Les <strong class='text-ink'>tractions</strong> (pull-ups) sont l'exercice de tirage de référence — et l'un des plus exigeants pour les épaules quand elles sont mal préparées. Sous une charge égale à ton poids du corps (et plus si tu lestes), la coiffe des rotateurs et les fixateurs scapulaires doivent être <em>déjà actifs</em> avant la première répétition. Ce protocole les active spécifiquement.",
-      "À pratiquer juste avant tes premières tractions de la séance. Compte 4 à 5 minutes. Le résultat : omoplates qui glissent et se rétractent librement (la base d'une traction propre), grip prêt, coiffe activée, mobilité thoracique disponible pour amener la poitrine vers la barre. Tu enchaîneras 1 à 2 répétitions de plus dès la première série juste grâce à un échauffement bien fait.",
+      "Garde-le pour le début de séance, juste avant ta première vraie traction. Tu abordes alors la première série avec les omoplates déjà en place et la prise déjà sollicitée, au lieu de les chercher pendant la série. Sans barre sous la main avant de commencer, fais la mobilité et l'élastique ailleurs, puis termine à la barre.",
     ],
     exercises: [
       {
@@ -415,6 +426,14 @@ export const EXERCICE_PAGES: Record<string, ExerciceContent> = {
       ],
     },
     faqs: [
+      {
+        q: "Combien de séries d'échauffement avant les tractions ?",
+        a: "Au poids du corps, une ou deux séries courtes suffisent, en restant loin de l'échec : tractions partielles ou 3 à 5 répétitions faciles. Pour des tractions lestées, fais d'abord une série au poids du corps, puis un ou deux paliers avec un lest intermédiaire.",
+      },
+      {
+        q: "Comment s'échauffer avant les tractions sans élastique ?",
+        a: "Remplace les band pull-aparts par des W allongés sur le ventre, qui sollicitent aussi le haut du dos et l'arrière de l'épaule. Le reste du protocole se fait au poids du corps et à la barre.",
+      },
       {
         q: "Pronation, supination ou prise neutre ?",
         a: "Pronation (paumes vers l'avant) = traction classique, recrute plus le haut du dos et le grand dorsal. Supination (paumes vers toi, chin-up) = plus de biceps et plus facile pour la plupart. Prise neutre = la plus confortable pour les coudes et l'épaule. Toutes les trois valent le coup — alterne sur le mois.",

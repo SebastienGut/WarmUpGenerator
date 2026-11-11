@@ -75,6 +75,7 @@ export default async function ProtectionPage({ params }: PageProps) {
       related={{
         title: "Aller plus loin",
         links: [
+          ...(data.guides ?? []),
           // Pages douleur de la même zone en tête : elles répondent à la requête
           // symptôme, c'est la suite de lecture la plus probable depuis ici.
           ...DOULEUR_SLUGS.filter((s) => DOULEUR_PAGES[s].relatedProtection === zone).map((s) => ({

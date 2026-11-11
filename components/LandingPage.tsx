@@ -91,7 +91,10 @@ export default function LandingPage({ landing }: { landing: Landing }) {
           <section className="order-1 lg:col-start-1 lg:row-start-1">
             <ExerciseVisual id={landing.cover} label={landing.h1} className="hidden h-48 w-full max-w-[320px] rounded-2xl lg:block" />
           </section>
-          <p className="order-3 mt-6 self-start lg:mt-4 text-[16px] leading-relaxed text-muted lg:col-start-1 lg:row-start-2">{landing.keyAnswer}</p>
+          <div className="order-3 mt-6 self-start lg:col-start-1 lg:row-start-2 lg:mt-4">
+            <p className="mb-1.5 text-[14px] font-semibold text-ink">En bref</p>
+            <p className="text-[16px] leading-relaxed text-muted">{landing.keyAnswer}</p>
+          </div>
           <div className="order-2 mt-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
             <InlinePlan zones={landing.zones} template={landing.template} fixedEquipment={landing.equipment} />
           </div>
@@ -120,6 +123,17 @@ export default function LandingPage({ landing }: { landing: Landing }) {
           </section>
         )}
 
+        {landing.guide?.map((s) => (
+          <section key={s.title} className="mt-12 max-w-[68ch]">
+            <h2 className={h2}>{s.title}</h2>
+            <div className="flex flex-col gap-3 text-[15px] leading-relaxed text-muted">
+              {s.paragraphs.map((p) => (
+                <p key={p.slice(0, 24)}>{p}</p>
+              ))}
+            </div>
+          </section>
+        ))}
+
         <Link
           href="/series-approche"
           className="mt-12 flex items-center justify-between gap-4 rounded-2xl bg-ink px-6 py-5 text-paper transition-transform active:scale-[0.99]"
@@ -144,6 +158,23 @@ export default function LandingPage({ landing }: { landing: Landing }) {
             ))}
           </div>
         </section>
+
+        {landing.links && (
+          <section className="mt-12">
+            <p className="mb-3 text-[14px] font-semibold text-subtle">À lire aussi</p>
+            <div className="flex flex-wrap gap-2">
+              {landing.links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="rounded-full border border-line-strong bg-card px-4 py-2 text-[14px] font-semibold text-ink hover:border-ink"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mt-12">
           <p className="mb-3 text-[14px] font-semibold text-subtle">Autres échauffements</p>

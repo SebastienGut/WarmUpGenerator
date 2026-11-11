@@ -117,6 +117,12 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 10 nov. 2026 : lot 5, bloc 1 (branche seo/bloc-1-positions-8-12), d'après Search Console sur 90 jours (67 clics, 5 690 impressions,
+  position 13,7 ; environ 600 impressions sans clic en position 8 à 12). Épaules, dos et bras : de ~480 à ~800 mots, titres
+  alignés sur les requêtes, sections propres à la zone, liens vers exercices et douleurs. Tractions : « En bref », FAQ, promesse
+  chiffrée retirée. Épaule douloureuse : titre recentré sur la douleur, liens croisés avec l'échauffement épaules. « En bref »
+  affiché sur les 13 landings. À mesurer dans 4 semaines. Suite : pages douleur (sources, dates, Article), corrections sitemap et llms.txt,
+  taux de clic.
 - 3 nov. 2026 : retours de Seb sur téléphone. Accueil : six cartes visibles sans défiler (bandeau et cartes
   resserrés, séances récentes sous les cartes), « Routine de soin » retiré, carte Séries d'approche refaite
   (escalier de paliers, sans disques). Routines à 6 min (durée réelle par dose, activation en 2 séries ;

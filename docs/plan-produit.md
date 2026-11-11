@@ -117,6 +117,14 @@ Objectif : qu'un sportif regarde la routine et se dise « oui, c'est exactement 
 - Reste : validation des routines (docs/decisions-a-prendre.md). Complément lombaire abandonné (Seb, 3 nov. 2026).
 
 ## Journal
+- 11 nov. 2026 (suite) : objectif de Seb, que les IA recommandent Warmup Generator sur les questions d'échauffement.
+  Relevé GEO de référence (docs/seo/geo-releve-2026-11-11.md : Google IA 5/11, Perplexity 5/11, ChatGPT 1/11).
+  Bing Webmaster Tools ouvert (site, sitemap, réindexation de /echauffement/pecs que Bing croyait une redirection).
+  Descriptions ramenées sous 160 caractères, alt des démonstrations. Guide « Comment s'échauffer avant la musculation »
+  réécrit (sources PubMed). « En bref » sur les 13 landings, 7 articles, 6 pages exercice ; chiffres sans source retirés
+  du blog. 10 landings enrichies (premier exercice, ordre de la routine, liens). llms.txt : réponses « En bref » et
+  pages exercice. Accueil : sameAs GitHub et Hugging Face. Relevé de suivi programmé le 9 déc. 2026.
+  Reste côté Seb : mentions externes (Reddit, forums, AlternativeTo), le levier le plus fort pour les recommandations.
 - 11 nov. 2026 : lot 5, blocs 2 à 4. Pages douleur, protection épaule et genou, exercices squat, développé couché,
   tractions : sources vérifiées dans PubMed (lib/content/sources.ts, à ne compléter qu'après la même vérification),
   date de mise à jour visible, schéma Article (auteur, dateModified, citations). Blog : « 5 à 10 % de force perdue »

@@ -2,6 +2,10 @@ import { DOULEUR_PAGES, DOULEUR_SLUGS } from "@/lib/content/douleur";
 import { PROTECTION_PAGES, PROTECTION_SLUGS } from "@/lib/content/protection";
 import { LANDINGS, LANDING_SLUGS } from "@/lib/content/landings";
 import { BLOG_POSTS } from "@/lib/blog-content";
+import { EXERCICE_PAGES, EXERCICE_SLUGS } from "@/lib/content/exercice";
+
+// Réponse « En bref » sans balises : le passage que les moteurs génératifs peuvent citer tel quel.
+const plain = (html: string) => html.replace(/<[^>]+>/g, "");
 import { exercises } from "@/lib/warmup-data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://warmup-generator.com";
@@ -50,7 +54,7 @@ export function GET() {
     "Chaque page contient l'échauffement complet (exercices, répétitions, durées), modifiable sur place.",
     "",
     ...LANDING_SLUGS.map(
-      (s) => `- [${LANDINGS[s].h1}](${SITE_URL}/echauffement/${s}) : ${LANDINGS[s].metaDescription}`
+      (s) => `- [${LANDINGS[s].h1}](${SITE_URL}/echauffement/${s}) : ${plain(LANDINGS[s].keyAnswer)}`
     ),
     "",
     "## Douleurs par exercice",
@@ -58,14 +62,21 @@ export function GET() {
     "Diagnostic du mécanisme, corrections techniques, alternatives et protocole.",
     "",
     ...DOULEUR_SLUGS.map(
-      (s) => `- [${DOULEUR_PAGES[s].h1}](${SITE_URL}/douleur/${s}) : ${DOULEUR_PAGES[s].metaDescription}`
+      (s) => `- [${DOULEUR_PAGES[s].h1}](${SITE_URL}/douleur/${s}) : ${plain(DOULEUR_PAGES[s].keyAnswer)}`
+    ),
+    "",
+    "## Échauffements avant un exercice",
+    "",
+    ...EXERCICE_SLUGS.map(
+      (s) =>
+        `- [${EXERCICE_PAGES[s].h1}](${SITE_URL}/echauffement/exercice/${s}) : ${plain(EXERCICE_PAGES[s].keyAnswer ?? EXERCICE_PAGES[s].metaDescription)}`
     ),
     "",
     "## Protocoles par zone sensible",
     "",
     ...PROTECTION_SLUGS.map(
       (s) =>
-        `- [${PROTECTION_PAGES[s].h1}](${SITE_URL}/echauffement/protection/${s}) : ${PROTECTION_PAGES[s].metaDescription}`
+        `- [${PROTECTION_PAGES[s].h1}](${SITE_URL}/echauffement/protection/${s}) : ${plain(PROTECTION_PAGES[s].keyAnswer)}`
     ),
     "",
     "## Outils",
@@ -79,7 +90,7 @@ export function GET() {
     "",
     "## Guides",
     "",
-    ...BLOG_POSTS.map((p) => `- [${p.h1}](${SITE_URL}/blog/${p.slug}) : ${p.metaDescription}`),
+    ...BLOG_POSTS.map((p) => `- [${p.h1}](${SITE_URL}/blog/${p.slug}) : ${p.keyAnswer ?? p.metaDescription}`),
     "",
     "## Données ouvertes",
     "",

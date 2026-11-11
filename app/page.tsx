@@ -50,6 +50,7 @@ export default function Home() {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       name: "Warmup Generator",
+      url: SITE_URL,
       applicationCategory: "HealthApplication",
       operatingSystem: "Web",
       description:
@@ -73,6 +74,11 @@ export default function Home() {
       name: "Warmup Generator",
       url: SITE_URL,
       logo: `${SITE_URL}/logo.png`,
+      // Profils publics du projet : aident les moteurs à relier le site à une même entité.
+      sameAs: [
+        "https://github.com/SebastienGut/WarmUpGenerator",
+        "https://huggingface.co/datasets/fabdigstudio/warmup-exercises-fr",
+      ],
     },
   ];
 

@@ -19,6 +19,8 @@
       (exercices à ajouter à la banque, démonstrations IA à produire) ; (c) garder les deux, en les présentant
       comme « protocole détaillé » et « routine rapide de l'outil ». Ma recommandation : (a).
       En attendant : le bouton ne promet plus « ce plan », il ouvre « la routine de l'outil ».
+      **Reporté (Seb, 11 nov. 2026)** : à reprendre seulement après la validation des routines de l'outil
+      (voir « Routines par groupe musculaire »), pour ne pas recopier sur les pages des routines pas encore validées.
 
 ## Traitées
 - [x] **Doublon de rotation externe avec une épaule sensible** : corrigé le 11 nov. 2026 (4 000 routines
